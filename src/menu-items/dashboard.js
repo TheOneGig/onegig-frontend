@@ -25,6 +25,13 @@ const dashboard = {
       icon: icons.DashboardOutlined
     },
     {
+      id: 'gigs',
+      title: <FormattedMessage id="Gigs" />,
+      type: 'item',
+      url: '/gigs',
+      icon: icons.DashboardOutlined
+    },
+    {
       id: 'components',
       title: <FormattedMessage id="components" />,
       type: 'item',

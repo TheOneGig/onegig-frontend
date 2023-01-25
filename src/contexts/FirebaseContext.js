@@ -12,6 +12,7 @@ import authReducer from 'store/reducers/auth';
 // project import
 import Loader from 'components/Loader';
 import { FIREBASE_API } from 'config';
+import { getUser } from 'hooks/users';
 
 // firebase initialize
 if (!firebase.apps.length) {
@@ -34,14 +35,16 @@ export const FirebaseProvider = ({ children }) => {
 
   useEffect(
     () =>
-      firebase.auth().onAuthStateChanged((user) => {
+      firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
+          const dbUser = await getUser({ userFBId: user.uid });
           dispatch({
             type: LOGIN,
             payload: {
               isLoggedIn: true,
               user: {
-                id: user.uid,
+                id: dbUser.userId,
+                fbIf: user.uid,
                 email: user.email,
                 name: user.displayName || user.email,
                 role: 'UI/UX Designer'

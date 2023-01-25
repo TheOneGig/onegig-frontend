@@ -9,6 +9,9 @@ import AuthGuard from 'utils/route-guard/AuthGuard';
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 
+//gigs
+const Gigs = Loadable(lazy(() => import('pages/gigs')));
+
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
 const WidgetData = Loadable(lazy(() => import('pages/widget/data')));
@@ -121,6 +124,10 @@ const MainRoutes = {
         {
           path: 'dashboard',
           element: <DashboardDefault />
+        },
+        {
+          path: 'gigs',
+          element: <Gigs />
         },
         {
           path: 'widget',

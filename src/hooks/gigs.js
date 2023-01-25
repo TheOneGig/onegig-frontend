@@ -1,0 +1,6 @@
+import axios from 'axios';
+
+export const getGigs = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/gigs/user', data);
+  return response;
+};
