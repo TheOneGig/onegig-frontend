@@ -3,7 +3,7 @@ import HoverSocialCard from 'components/cards/statistics/HoverSocialCard';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Grid } from '@mui/material';
-import { RiseOutlined, UnorderedListOutlined, YoutubeOutlined } from '@ant-design/icons';
+import { RiseOutlined } from '@ant-design/icons';
 
 import useAuth from 'hooks/useAuth';
 import { getGigs } from 'hooks/gigs';
@@ -18,16 +18,13 @@ const Gigs = () => {
   console.log('data: ', data);
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
-      {/* row 1 */}
-      <Grid item xs={12} lg={4} sm={6}>
-        <HoverSocialCard primary="Monthly Profits" secondary="$3165" iconPrimary={RiseOutlined} color={theme.palette.primary.main} />
-      </Grid>
-      <Grid item xs={12} lg={4} sm={6}>
-        <HoverSocialCard primary="Pending Tasks" secondary="780 +" iconPrimary={UnorderedListOutlined} color={theme.palette.info.main} />
-      </Grid>
-      <Grid item xs={12} lg={4} sm={6}>
-        <HoverSocialCard primary="Active Projects" secondary="650 +" iconPrimary={YoutubeOutlined} color={theme.palette.error.main} />
-      </Grid>
+      {data.map((gig) => {
+        return (
+          <Grid item xs={12} lg={4} sm={6} key={gig.id}>
+            <HoverSocialCard primary={gig.price} secondary={gig.name} iconPrimary={RiseOutlined} color={theme.palette.primary.main} />
+          </Grid>
+        );
+      })}
     </Grid>
   );
 };
