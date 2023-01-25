@@ -13,7 +13,6 @@ import { getGigs } from 'hooks/gigs';
 const Gigs = () => {
   const theme = useTheme();
   const { user } = useAuth();
-  console.log('user', user);
   const { data } = useQuery(['gigs'], () => getGigs({ userId: user.id }));
   console.log('data: ', data);
   return (
