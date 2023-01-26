@@ -37,7 +37,7 @@ export const FirebaseProvider = ({ children }) => {
     () =>
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
-          const dbUser = await getUser({ userFBId: user.uid });
+          const dbUser = await getUser({ email: user.email });
           dispatch({
             type: LOGIN,
             payload: {

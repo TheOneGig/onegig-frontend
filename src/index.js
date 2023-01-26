@@ -14,6 +14,7 @@ import 'slick-carousel/slick/slick-theme.css';
 // apex-chart
 import 'assets/third-party/apex-chart.css';
 import 'assets/third-party/react-table.css';
+import 'global.css';
 
 // load mock apis
 import '_api';
