@@ -32,18 +32,11 @@ const dashboard = {
       icon: icons.DashboardOutlined
     },
     {
-      id: 'components',
-      title: <FormattedMessage id="components" />,
+      id: 'projects',
+      title: <FormattedMessage id="Projects" />,
       type: 'item',
-      url: '/components-overview/buttons',
-      icon: icons.GoldOutlined,
-      target: true,
-      chip: {
-        label: 'new',
-        color: 'primary',
-        size: 'small',
-        variant: 'combined'
-      }
+      url: '/projects',
+      icon: icons.DashboardOutlined
     }
   ]
 };
