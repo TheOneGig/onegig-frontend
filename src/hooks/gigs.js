@@ -9,3 +9,8 @@ export const createGig = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/gigs/create', data.variables);
   return response;
 };
+
+export const updatePublishGig = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/gigs/updatePublish', data.variables);
+  return response;
+};

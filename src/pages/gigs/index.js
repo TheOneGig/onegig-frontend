@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 // material-ui
-import { Grid } from '@mui/material';
-import { Flex, Card, Image, Text, Badge, Button, Group } from '@mantine/core';
+import { Flex, Card, Image, Text, Badge, Button, Group, Grid } from '@mantine/core';
 
 import useAuth from 'hooks/useAuth';
-import { getGigs } from 'hooks/gigs';
+import { getGigs, updatePublishGig } from 'hooks/gigs';
 import GigCreate from './drawerCreate';
 
 import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
@@ -17,10 +16,21 @@ const Gigs = () => {
   const [opened, setOpened] = useState(false);
   const { user } = useAuth();
   const userId = user.id;
+  const { mutate, isLoading: loadingPublish } = useMutation(['publishGig'], (variables) => updatePublishGig(variables), {
+    onSuccess: () => {
+      refetch();
+    }
+  });
   const { data: gigs, isLoading, refetch } = useQuery(['gigs'], () => getGigs({ userId }));
   if (isLoading) {
     return <div>Loading Gigs...</div>;
   }
+
+  function handlePublish(gigId, published) {
+    const variables = { gigId, published };
+    return mutate({ variables });
+  }
+
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
@@ -28,11 +38,11 @@ const Gigs = () => {
           Create Gig
         </Button>
       </Flex>
-      <Grid container rowSpacing={4.5} columnSpacing={2.75}>
+      <Grid>
         {gigs &&
           gigs.map((gig) => {
             return (
-              <Grid key={gig.id} item xs={12} lg={4} sm={6}>
+              <Grid.Col key={gig.gigId} xs={12} lg={4} sm={6}>
                 <Card shadow="sm" p="lg" radius="md" withBorder>
                   <Card.Section>
                     <Image src={OneGigLogo} alt="Gig" className="gig-card-image" />
@@ -48,12 +58,28 @@ const Gigs = () => {
                   <Text size="sm" color="dimmed">
                     {gig.description}
                   </Text>
-
-                  <Button variant="light" color="blue" fullWidth mt="md" radius="md">
-                    Edit
-                  </Button>
+                  <Grid>
+                    <Grid.Col span={6}>
+                      <Button variant="light" color="blue" mt="md" radius="md" fullWidth>
+                        Edit
+                      </Button>
+                    </Grid.Col>
+                    <Grid.Col span={6}>
+                      <Button
+                        variant="light"
+                        color={gig.published ? 'red' : 'green'}
+                        mt="md"
+                        radius="md"
+                        fullWidth
+                        loading={loadingPublish}
+                        onClick={() => handlePublish(gig.gigId, !gig.published)}
+                      >
+                        {gig.published ? 'Unpublish' : 'Publish'}
+                      </Button>
+                    </Grid.Col>
+                  </Grid>
                 </Card>
-              </Grid>
+              </Grid.Col>
             );
           })}
       </Grid>
