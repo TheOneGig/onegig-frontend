@@ -94,9 +94,6 @@ const Header = ({ handleDrawerOpen, layout = 'landing', ...others }) => {
               }}
               spacing={2}
             >
-              <Link className="header-link" color="white" component={RouterLink} to="/login" target="_blank" underline="none">
-                Dashboard
-              </Link>
               <Link
                 className="header-link"
                 color={handleDrawerOpen ? 'primary' : 'white'}
@@ -111,14 +108,8 @@ const Header = ({ handleDrawerOpen, layout = 'landing', ...others }) => {
               </Link>
               <Box sx={{ display: 'inline-block' }}>
                 <AnimateButton>
-                  <Button
-                    component={Link}
-                    href="https://mui.com/store/items/mantis-react-admin-dashboard-template/"
-                    disableElevation
-                    color="primary"
-                    variant="contained"
-                  >
-                    Purchase Now
+                  <Button component={Link} href="/login" disableElevation color="primary" variant="contained">
+                    Dashboard
                   </Button>
                 </AnimateButton>
               </Box>
