@@ -32,6 +32,7 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId }) => {
     const variables = { name: values.name, description: values.description, price, userId };
     return mutate({ variables });
   }
+
   return (
     <Drawer opened={opened} onClose={() => setOpened(false)} title="Register" padding="xl" size="xl" position="right">
       <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))}>

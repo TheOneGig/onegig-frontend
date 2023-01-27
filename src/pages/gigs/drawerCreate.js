@@ -1,10 +1,18 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { Box, Button, Drawer, Group, NumberInput, Text, Textarea, TextInput, Title } from '@mantine/core';
+import { Box, Button, Drawer, Group, Image, NumberInput, Text, Textarea, TextInput, Title } from '@mantine/core';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useForm, hasLength, isInRange } from '@mantine/form';
 import { createGig } from 'hooks/gigs';
+import { uploadFile } from 'react-s3';
 import PropTypes from 'prop-types';
+
+const config = {
+  bucketName: 'onegig-uploads',
+  region: 'us-east-1',
+  accessKeyId: process.env.REACT_APP_AWS_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_AWS_S3_SECRET_ACCESS_KEY
+};
 
 // ==============================|| GIGS ||============================== //
 
@@ -30,9 +38,15 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
     }
   });
 
+  const handleUpload = async (file) => {
+    uploadFile(file[0], config)
+      .then((data) => setFile(data.location))
+      .catch((err) => console.error(err));
+  };
+
   function handleSubmit(values) {
     const price = parseInt(values.price * 100);
-    const variables = { name: values.name, description: values.description, price, userId, file: file[0] };
+    const variables = { name: values.name, description: values.description, price, userId, fileUrl: file };
     return mutate({ variables });
   }
 
@@ -58,20 +72,24 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
           {...form.getInputProps('price')}
         />
 
-        <Dropzone
-          onDrop={(files) => setFile(files)}
-          onReject={() => alert('File rejected')}
-          maxSize={3 * 1024 ** 2}
-          accept={IMAGE_MIME_TYPE}
-        >
-          <Group position="center" spacing="lg" style={{ minHeight: 100, pointerEvents: 'none' }}>
-            <div>
-              <Text size="xl" inline>
-                Drag image here or click to select file
-              </Text>
-            </div>
-          </Group>
-        </Dropzone>
+        {file ? (
+          <Image src={file} alt="featured" />
+        ) : (
+          <Dropzone
+            onDrop={(files) => handleUpload(files)}
+            onReject={() => alert('File rejected')}
+            maxSize={3 * 1024 ** 2}
+            accept={IMAGE_MIME_TYPE}
+          >
+            <Group position="center" spacing="lg" style={{ minHeight: 100, pointerEvents: 'none' }}>
+              <div>
+                <Text size="xl" inline>
+                  Drag image here or click to select file
+                </Text>
+              </div>
+            </Group>
+          </Dropzone>
+        )}
 
         <Group position="right" mt="md">
           <Button color="gray" onClick={() => setOpened(false)} loading={isLoading}>
