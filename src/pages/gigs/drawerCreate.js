@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { Box, Button, Drawer, Group, Image, NumberInput, Text, Textarea, TextInput, Title } from '@mantine/core';
+import { ActionIcon, Box, Button, Drawer, Group, Image, NumberInput, Text, Textarea, TextInput, Title } from '@mantine/core';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useForm, hasLength, isInRange } from '@mantine/form';
 import { createGig } from 'hooks/gigs';
 import { uploadFile } from 'react-s3';
 import PropTypes from 'prop-types';
+import { IconEdit } from '@tabler/icons-react';
 
 const config = {
   bucketName: 'onegig-uploads',
@@ -73,7 +74,12 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
         />
 
         {file ? (
-          <Image src={file} alt="featured" />
+          <div className="actions-area">
+            <ActionIcon onClick={() => setFile()} className="actions-icon">
+              <IconEdit color="white" />
+            </ActionIcon>
+            <Image src={file} alt="featured" />
+          </div>
         ) : (
           <Dropzone
             onDrop={(files) => handleUpload(files)}

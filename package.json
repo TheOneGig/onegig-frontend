@@ -30,7 +30,7 @@
     "@mui/x-date-pickers": "^5.0.4",
     "@reduxjs/toolkit": "^1.8.6",
     "@svgr/webpack": "^6.4.0",
-    "@tabler/icons": "^2.1.2",
+    "@tabler/icons-react": "^2.1.2",
     "amazon-cognito-identity-js": "^5.2.10",
     "apexcharts": "^3.36.0",
     "axios": "^1.1.2",

@@ -8,3 +8,14 @@
   overflow: hidden;
   background-color: #000;
 }
+
+.actions-area {
+  position: relative;
+}
+
+.actions-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 999;
+}
