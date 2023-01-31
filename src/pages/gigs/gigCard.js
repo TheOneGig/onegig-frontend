@@ -6,7 +6,7 @@ import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
 import { formatUSD } from 'hooks/formatUSD';
 import { updatePublishGig, deleteGig } from 'hooks/gigs';
 
-const GigCard = ({ gig, refetch }) => {
+const GigCard = ({ gig, refetch, handleEdit }) => {
   const [openedDelete, setOpenedDelete] = useState(false);
   const { mutate: gigDelete, isLoading: loadingDelete } = useMutation(['publishGig'], (variables) => deleteGig(variables), {
     onSuccess: () => {
@@ -61,7 +61,7 @@ const GigCard = ({ gig, refetch }) => {
               </Button>
             </Grid.Col>
             <Grid.Col span={4}>
-              <Button variant="light" color="blue" mt="md" radius="md" fullWidth>
+              <Button variant="light" color="blue" mt="md" radius="md" fullWidth onClick={() => handleEdit(gig)}>
                 Edit
               </Button>
             </Grid.Col>
@@ -113,7 +113,8 @@ const GigCard = ({ gig, refetch }) => {
 
 GigCard.propTypes = {
   gig: PropTypes.object,
-  refetch: PropTypes.func
+  refetch: PropTypes.func,
+  handleEdit: PropTypes.func
 };
 
 export default GigCard;

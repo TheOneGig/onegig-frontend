@@ -8,11 +8,14 @@ import { getGigs } from 'hooks/gigs';
 import GigCreate from './drawerCreate';
 
 import GigCard from './gigCard';
+import GigEdit from './drawerEdit';
 
 // ==============================|| GIGS ||============================== //
 
 const Gigs = () => {
   const [opened, setOpened] = useState(false);
+  const [openedEdit, setOpenedEdit] = useState(false);
+  const [selectedGig, setSelectedGig] = useState();
   const { user } = useAuth();
   const userId = user.id;
   const { data: gigs, isLoading, refetch } = useQuery(['gigs'], () => getGigs({ userId }));
@@ -22,6 +25,11 @@ const Gigs = () => {
 
   const publishedGigs = gigs.filter((gig) => gig.published);
   const unpublishedGigs = gigs.filter((gig) => !gig.published);
+
+  function handleEdit(gig) {
+    setSelectedGig(gig);
+    setOpenedEdit(true);
+  }
 
   return (
     <>
@@ -33,18 +41,19 @@ const Gigs = () => {
       <Title>Published Gigs</Title>
       <Grid>
         {publishedGigs.map((gig) => {
-          return <GigCard key={gig.gigId} gig={gig} refetch={refetch} />;
+          return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} />;
         })}
       </Grid>
 
       <Title>Unpublished Gigs</Title>
       <Grid>
         {unpublishedGigs.map((gig) => {
-          return <GigCard key={gig.gigId} gig={gig} refetch={refetch} />;
+          return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} />;
         })}
       </Grid>
 
       <GigCreate opened={opened} setOpened={setOpened} refetch={refetch} userId={userId} />
+      {selectedGig && <GigEdit opened={openedEdit} setOpened={setOpenedEdit} refetch={refetch} gig={selectedGig} />}
     </>
   );
 };
