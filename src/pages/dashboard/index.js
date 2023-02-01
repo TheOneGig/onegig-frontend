@@ -1,5 +1,4 @@
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
 import HoverSocialCard from 'components/cards/statistics/HoverSocialCard';
 // material-ui
 import { useTheme } from '@mui/material/styles';
