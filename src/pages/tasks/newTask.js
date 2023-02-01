@@ -34,7 +34,12 @@ const NewTask = ({ taskTableId, refetch, setNewTaskTableId }) => {
     <>
       <div className="new-task-card">
         <form onSubmit={form.onSubmit((values) => handleCreate(values.title))}>
-          <TextInput placeholder="Task title..." {...form.getInputProps('title')} rightSection={isLoading && <Loader size="xs" />} />
+          <TextInput
+            classNames={{ input: 'task-text-input' }}
+            placeholder="Task title..."
+            {...form.getInputProps('title')}
+            rightSection={isLoading && <Loader size="xs" />}
+          />
         </form>
       </div>
     </>

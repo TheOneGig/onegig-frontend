@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 // material-ui
-import { Button, Flex, Title } from '@mantine/core';
+import { Button, Title } from '@mantine/core';
 import { getTasks } from 'hooks/tasks';
 import NewTable from './newTable';
 import { IconPlus } from '@tabler/icons-react';
@@ -24,11 +24,11 @@ const Tasks = () => {
   return (
     <>
       <Title>Tasks</Title>
-      <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
+      <div className="task-tables-container">
         {tables.map((table) => {
           return (
             <div key={table.taskTableId} className="task-table-column">
-              <h3>{table.name}</h3>
+              <h3 className="task-table-title">{table.name}</h3>
               {table.tasks?.map((task) => (
                 <TaskCard key={task.taskId} task={task} refetch={refetch} />
               ))}
@@ -42,7 +42,7 @@ const Tasks = () => {
           );
         })}
         <NewTable projectId={projectId} refetch={refetch} />
-      </Flex>
+      </div>
     </>
   );
 };

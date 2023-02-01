@@ -20,7 +20,21 @@
   z-index: 999;
 }
 
+.task-tables-container {
+  overflow-x: scroll;
+  white-space: nowrap;
+  scrollbar-base-color: #fff;
+  min-height: 80vh;
+}
+
+.task-tables-container::-webkit-scrollbar {
+  height: 6px;
+  background-color: #fff;
+}
+
 .task-table-column {
+  display: inline-block;
+  vertical-align: text-top;
   background-color: transparent;
   margin: 10px;
   padding: 0px 15px 15px 15px;
@@ -28,17 +42,34 @@
   min-height: 100%;
 }
 
+.task-new-table-column {
+  margin-top: 30px;
+}
+
+.task-table-title {
+  font-size: 20px;
+}
+
 .task-card {
+  position: relative;
   display: flex;
   background-color: #424244;
   padding: 10px;
   margin: 10px 0px;
   border: 1px solid #c3c3c3;
   border-radius: 7px;
+  min-height: 100px;
+  cursor: pointer;
 }
 
 .task-title {
   margin-left: 15px;
+}
+
+.task-dueDate {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
 }
 
 .new-task-card {
@@ -47,4 +78,9 @@
   margin: 10px 0px;
   border: 1px solid #c3c3c3;
   border-radius: 7px;
+}
+
+.task-text-input {
+  background-color: transparent;
+  color: #fff;
 }

@@ -34,19 +34,22 @@ const NewTable = ({ projectId, refetch }) => {
   });
 
   return (
-    <>
-      <div className="task-table-column">
-        {newTable ? (
-          <form onSubmit={form.onSubmit((values) => handleCreate(values.name))}>
-            <TextInput placeholder="Column Name" {...form.getInputProps('name')} rightSection={isLoading && <Loader size="xs" />} />
-          </form>
-        ) : (
-          <Button leftIcon={<IconPlus />} onClick={() => setNewTable(true)} variant="outline" color="gray">
-            Add Column
-          </Button>
-        )}
-      </div>
-    </>
+    <div className="task-table-column task-new-table-column">
+      {newTable ? (
+        <form onSubmit={form.onSubmit((values) => handleCreate(values.name))}>
+          <TextInput
+            classNames={{ input: 'task-text-input' }}
+            placeholder="Column Name"
+            {...form.getInputProps('name')}
+            rightSection={isLoading && <Loader size="xs" />}
+          />
+        </form>
+      ) : (
+        <Button leftIcon={<IconPlus />} onClick={() => setNewTable(true)} variant="outline" color="gray" fullWidth>
+          Add Column
+        </Button>
+      )}
+    </div>
   );
 };
 
