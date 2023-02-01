@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
-// material-ui
 import { Button, Title } from '@mantine/core';
-import { getTasks } from 'hooks/tasks';
-import NewTable from './newTable';
 import { IconPlus } from '@tabler/icons-react';
+import NewTable from './newTable';
 import NewTask from './newTask';
 import TaskCard from './taskCard';
+import { getTasks } from 'hooks/tasks';
+import { getProject } from 'hooks/projects';
 
 // ==============================|| GIGS ||============================== //
 
 const Tasks = () => {
   const [newTaskTableId, setNewTaskTableId] = useState('');
   const { projectId } = useParams();
+  const { data: project, isLoading: loadingProject } = useQuery(['project'], () => getProject({ projectId }));
   const { data: taskTables, isLoading, refetch } = useQuery(['taskTables'], () => getTasks({ projectId }));
-  if (isLoading) {
+  if (isLoading || loadingProject) {
     return <div>Loading Tasks...</div>;
   }
 
@@ -23,7 +24,7 @@ const Tasks = () => {
 
   return (
     <>
-      <Title>Tasks</Title>
+      <Title>Tasks for {project.name}</Title>
       <div className="task-tables-container">
         {tables.map((table) => {
           return (
