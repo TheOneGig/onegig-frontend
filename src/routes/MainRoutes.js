@@ -6,17 +6,12 @@ import CommonLayout from 'layout/CommonLayout';
 import Loadable from 'components/Loadable';
 import AuthGuard from 'utils/route-guard/AuthGuard';
 
-// render - dashboard
+// render - Real Pages
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
-
-//gigs
 const Gigs = Loadable(lazy(() => import('pages/gigs')));
-
-//gigs
 const Projects = Loadable(lazy(() => import('pages/projects')));
-
-//tasks
 const Tasks = Loadable(lazy(() => import('pages/tasks')));
+const Chat = Loadable(lazy(() => import('pages/chat')));
 
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
@@ -70,30 +65,9 @@ const FormsPluginsRecaptcha = Loadable(lazy(() => import('pages/forms/plugins/re
 const FormsPluginsEditor = Loadable(lazy(() => import('pages/forms/plugins/editor')));
 const FormsPluginsDropzone = Loadable(lazy(() => import('pages/forms/plugins/dropzone')));
 
-const ReactTableBasic = Loadable(lazy(() => import('pages/tables/react-table/basic')));
-const ReactTableSorting = Loadable(lazy(() => import('pages/tables/react-table/sorting')));
-const ReactTableFiltering = Loadable(lazy(() => import('pages/tables/react-table/filtering')));
-const ReactTableGrouping = Loadable(lazy(() => import('pages/tables/react-table/grouping')));
-const ReactTablePagination = Loadable(lazy(() => import('pages/tables/react-table/pagination')));
-const ReactTableRowSelection = Loadable(lazy(() => import('pages/tables/react-table/row-selection')));
-const ReactTableExpanding = Loadable(lazy(() => import('pages/tables/react-table/expanding')));
-const ReactTableEditable = Loadable(lazy(() => import('pages/tables/react-table/editable')));
-const ReactTableDragDrop = Loadable(lazy(() => import('pages/tables/react-table/drag-drop')));
-const ReactTableColumnHiding = Loadable(lazy(() => import('pages/tables/react-table/column-hiding')));
-const ReactTableUmbrella = Loadable(lazy(() => import('pages/tables/react-table/umbrella')));
-
 // render - charts & map
 const ChartApexchart = Loadable(lazy(() => import('pages/charts/apexchart')));
 const ChartOrganization = Loadable(lazy(() => import('pages/charts/org-chart')));
-
-// table routing
-const MuiTableBasic = Loadable(lazy(() => import('pages/tables/mui-table/basic')));
-const MuiTableDense = Loadable(lazy(() => import('pages/tables/mui-table/dense')));
-const MuiTableEnhanced = Loadable(lazy(() => import('pages/tables/mui-table/enhanced')));
-const MuiTableDatatable = Loadable(lazy(() => import('pages/tables/mui-table/datatable')));
-const MuiTableCustom = Loadable(lazy(() => import('pages/tables/mui-table/custom')));
-const MuiTableFixedHeader = Loadable(lazy(() => import('pages/tables/mui-table/fixed-header')));
-const MuiTableCollapse = Loadable(lazy(() => import('pages/tables/mui-table/collapse')));
 
 // pages routing
 const AuthLogin = Loadable(lazy(() => import('pages/auth/login')));
@@ -111,7 +85,6 @@ const MaintenanceComingSoon = Loadable(lazy(() => import('pages/maintenance/comi
 const AppContactUS = Loadable(lazy(() => import('pages/contact-us')));
 
 // render - sample page
-const SamplePage = Loadable(lazy(() => import('pages/extra-pages/sample-page')));
 const PricingPage = Loadable(lazy(() => import('pages/extra-pages/pricing')));
 
 // ==============================|| MAIN ROUTING ||============================== //
@@ -142,6 +115,10 @@ const MainRoutes = {
         {
           path: 'tasks/:projectId',
           element: <Tasks />
+        },
+        {
+          path: 'chat/:projectId',
+          element: <Chat />
         },
         {
           path: 'widget',
@@ -346,93 +323,6 @@ const MainRoutes = {
           ]
         },
         {
-          path: 'tables',
-          children: [
-            {
-              path: 'react-table',
-              children: [
-                {
-                  path: 'basic',
-                  element: <ReactTableBasic />
-                },
-                {
-                  path: 'sorting',
-                  element: <ReactTableSorting />
-                },
-                {
-                  path: 'filtering',
-                  element: <ReactTableFiltering />
-                },
-                {
-                  path: 'grouping',
-                  element: <ReactTableGrouping />
-                },
-                {
-                  path: 'pagination',
-                  element: <ReactTablePagination />
-                },
-                {
-                  path: 'row-selection',
-                  element: <ReactTableRowSelection />
-                },
-                {
-                  path: 'expanding',
-                  element: <ReactTableExpanding />
-                },
-                {
-                  path: 'editable',
-                  element: <ReactTableEditable />
-                },
-                {
-                  path: 'drag-drop',
-                  element: <ReactTableDragDrop />
-                },
-                {
-                  path: 'column-hiding',
-                  element: <ReactTableColumnHiding />
-                },
-                {
-                  path: 'umbrella',
-                  element: <ReactTableUmbrella />
-                }
-              ]
-            },
-            {
-              path: 'mui-table',
-              children: [
-                {
-                  path: 'basic',
-                  element: <MuiTableBasic />
-                },
-                {
-                  path: 'dense',
-                  element: <MuiTableDense />
-                },
-                {
-                  path: 'enhanced',
-                  element: <MuiTableEnhanced />
-                },
-                {
-                  path: 'datatable',
-                  element: <MuiTableDatatable />
-                },
-                {
-                  path: 'custom',
-                  element: <MuiTableCustom />
-                },
-                {
-                  path: 'fixed-header',
-                  element: <MuiTableFixedHeader />
-                },
-                {
-                  path: 'collapse',
-                  element: <MuiTableCollapse />
-                }
-              ]
-            }
-          ]
-        },
-        {
           path: 'charts',
           children: [
             {
@@ -444,10 +334,6 @@ const MainRoutes = {
               element: <ChartOrganization />
             }
           ]
-        },
-        {
-          path: 'sample-page',
-          element: <SamplePage />
         },
         {
           path: 'pricing',

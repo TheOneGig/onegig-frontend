@@ -41,7 +41,7 @@ const ProjectCard = ({ project, refetch }) => {
           <Grid>
             <Grid.Col span={4}>
               <Button variant="light" color="green" mt="md" radius="md" fullWidth onClick={() => history(`/tasks/${project.projectId}`)}>
-                View
+                Tasks
               </Button>
             </Grid.Col>
             <Grid.Col span={4}>
