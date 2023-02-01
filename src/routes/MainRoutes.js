@@ -12,6 +12,12 @@ const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 //gigs
 const Gigs = Loadable(lazy(() => import('pages/gigs')));
 
+//gigs
+const Projects = Loadable(lazy(() => import('pages/projects')));
+
+//tasks
+const Tasks = Loadable(lazy(() => import('pages/tasks')));
+
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
 const WidgetData = Loadable(lazy(() => import('pages/widget/data')));
@@ -128,6 +134,14 @@ const MainRoutes = {
         {
           path: 'gigs',
           element: <Gigs />
+        },
+        {
+          path: 'projects',
+          element: <Projects />
+        },
+        {
+          path: 'tasks/:projectId',
+          element: <Tasks />
         },
         {
           path: 'widget',

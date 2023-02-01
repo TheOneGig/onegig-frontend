@@ -19,3 +19,32 @@
   right: 10px;
   z-index: 999;
 }
+
+.task-table-column {
+  background-color: transparent;
+  margin: 10px;
+  padding: 0px 15px 15px 15px;
+  width: 20%;
+  min-height: 100%;
+}
+
+.task-card {
+  display: flex;
+  background-color: #424244;
+  padding: 10px;
+  margin: 10px 0px;
+  border: 1px solid #c3c3c3;
+  border-radius: 7px;
+}
+
+.task-title {
+  margin-left: 15px;
+}
+
+.new-task-card {
+  background-color: #424244;
+  padding: 10px;
+  margin: 10px 0px;
+  border: 1px solid #c3c3c3;
+  border-radius: 7px;
+}

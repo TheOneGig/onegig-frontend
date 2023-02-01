@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import PropTypes from 'prop-types';
 
 // material-ui
@@ -5,7 +6,8 @@ import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 
 // ===========================|| HOVER SOCIAL CARD ||=========================== //
 
-const HoverSocialCard = ({ primary, secondary, iconPrimary, color }) => {
+const HoverSocialCard = ({ primary, secondary, iconPrimary, color, pushUrl }) => {
+  const history = useNavigate();
   const IconPrimary = iconPrimary;
   const primaryIcon = iconPrimary ? <IconPrimary /> : null;
 
@@ -13,6 +15,7 @@ const HoverSocialCard = ({ primary, secondary, iconPrimary, color }) => {
     <Card
       elevation={0}
       sx={{
+        cursor: 'pointer',
         background: color,
         position: 'relative',
         color: '#fff',
@@ -21,6 +24,7 @@ const HoverSocialCard = ({ primary, secondary, iconPrimary, color }) => {
           transform: 'scale(1.1)'
         }
       }}
+      onClick={() => history(`${pushUrl}`)}
     >
       <CardContent>
         <Box
@@ -60,7 +64,8 @@ HoverSocialCard.propTypes = {
   primary: PropTypes.string,
   secondary: PropTypes.string,
   iconPrimary: PropTypes.object,
-  color: PropTypes.string
+  color: PropTypes.string,
+  pushUrl: PropTypes.string
 };
 
 export default HoverSocialCard;

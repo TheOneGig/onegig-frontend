@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 // material-ui
-import { Flex, Button, Grid, Title } from '@mantine/core';
+import { Flex, Button, Grid } from '@mantine/core';
 
 import useAuth from 'hooks/useAuth';
 import ProjectCreate from './drawerCreate';
@@ -20,10 +20,6 @@ const Projects = () => {
     return <div>Loading Projects...</div>;
   }
 
-  const leadProjects = projects.filter((project) => project.status === 'LEAD');
-  const activeProjects = projects.filter((project) => project.status === 'ACTIVE');
-  const completedProjects = projects.filter((project) => project.status === 'COMPLETED');
-
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
@@ -31,25 +27,9 @@ const Projects = () => {
           Create Project
         </Button>
       </Flex>
-
-      <Title>Leads</Title>
       <Grid>
-        {leadProjects.map((project) => {
+        {projects.map((project) => {
           return <ProjectCard key={project.projectId} project={project} refetch={refetch} />;
-        })}
-      </Grid>
-
-      <Title>Active Projects</Title>
-      <Grid>
-        {activeProjects.map((project) => {
-          return <ProjectCard key={project.projectId} project={project} refetch={refetch} />;
-        })}
-      </Grid>
-
-      <Title>Completed Projects</Title>
-      <Grid>
-        {completedProjects.map((project) => {
-          return <ProjectCard key={project.project} project={project} refetch={refetch} />;
         })}
       </Grid>
 
