@@ -39,17 +39,22 @@ const ProjectCard = ({ project, refetch }) => {
             {project.description}
           </Text>
           <Grid>
-            <Grid.Col span={4}>
+            <Grid.Col span={6}>
               <Button variant="light" color="green" mt="md" radius="md" fullWidth onClick={() => history(`/tasks/${project.projectId}`)}>
                 Tasks
               </Button>
             </Grid.Col>
-            <Grid.Col span={4}>
+            <Grid.Col span={6}>
+              <Button variant="light" color="green" mt="md" radius="md" fullWidth onClick={() => history(`/chat/${project.projectId}`)}>
+                Chat
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={6}>
               <Button variant="light" color="blue" mt="md" radius="md" fullWidth>
                 Edit
               </Button>
             </Grid.Col>
-            <Grid.Col span={4}>
+            <Grid.Col span={6}>
               <Button variant="light" color="red" mt="md" radius="md" fullWidth onClick={() => setOpenedDelete(true)}>
                 Delete
               </Button>

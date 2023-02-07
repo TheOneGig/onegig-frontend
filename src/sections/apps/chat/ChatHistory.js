@@ -6,11 +6,7 @@ import { Card, CardContent, Grid, Stack, Typography } from '@mui/material';
 
 // project imports
 import UserAvatar from './UserAvatar';
-import ChatMessageAction from './ChatMessageAction';
-import IconButton from 'components/@extended/IconButton';
-
-// assets
-import { EditOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
 
 // ==============================|| CHAT MESSAGE HISTORY ||============================== //
 
@@ -30,17 +26,13 @@ const ChatHistory = ({ data, theme, user }) => {
     <Grid container spacing={2.5} ref={wrapper}>
       {data.map((history, index) => (
         <Grid item xs={12} key={index}>
-          {history.from !== user.name ? (
+          {history.from.userId === user.id ? (
             <Stack spacing={1.25} direction="row">
               <Grid container spacing={1} justifyContent="flex-end">
                 <Grid item xs={2} md={3} xl={4} />
 
                 <Grid item xs={10} md={9} xl={8}>
                   <Stack direction="row" justifyContent="flex-end" alignItems="flex-start">
-                    <ChatMessageAction index={index} />
-                    <IconButton size="small" color="secondary">
-                      <EditOutlined />
-                    </IconButton>
                     <Card
                       sx={{
                         display: 'inline-block',
@@ -53,8 +45,8 @@ const ChatHistory = ({ data, theme, user }) => {
                       <CardContent sx={{ p: 1, pb: '8px !important', width: 'fit-content', ml: 'auto' }}>
                         <Grid container spacing={1}>
                           <Grid item xs={12}>
-                            <Typography variant="h6" color={theme.palette.grey[0]}>
-                              {history.text}
+                            <Typography variant="h6" color="#fff">
+                              {history.message}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -64,15 +56,15 @@ const ChatHistory = ({ data, theme, user }) => {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography align="right" variant="subtitle2" color="textSecondary">
-                    {history.time}
+                    {dayjs(history.createdAt).format('MM/DD hh:mm a')}
                   </Typography>
                 </Grid>
               </Grid>
-              <UserAvatar user={{ online_status: 'available', avatar: 'avatar-1.png', name: 'User 1' }} />
+              <UserAvatar user={history.from} />
             </Stack>
           ) : (
             <Stack direction="row" spacing={1.25} alignItems="flext-start">
-              <UserAvatar user={{ online_status: user.online_status, avatar: user.avatar, name: user.name }} />
+              <UserAvatar user={history.from} />
 
               <Grid container>
                 <Grid item xs={12} sm={7}>
@@ -88,7 +80,7 @@ const ChatHistory = ({ data, theme, user }) => {
                       <Grid container spacing={1}>
                         <Grid item xs={12}>
                           <Typography variant="h6" color="textPrimary">
-                            {history.text}
+                            {history.message}
                           </Typography>
                         </Grid>
                       </Grid>
@@ -97,7 +89,7 @@ const ChatHistory = ({ data, theme, user }) => {
                 </Grid>
                 <Grid item xs={12} sx={{ mt: 1 }}>
                   <Typography align="left" variant="subtitle2" color="textSecondary">
-                    {history.time}
+                    {dayjs(history.createdAt).format('MM/DD hh:mm a')}
                   </Typography>
                 </Grid>
               </Grid>

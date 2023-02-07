@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { useParams } from 'react-router';
+import { useQuery, useMutation } from 'react-query';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
@@ -9,10 +11,8 @@ import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
 
 // project import
 import ChatHistory from 'sections/apps/chat/ChatHistory';
-import UserAvatar from 'sections/apps/chat/UserAvatar';
-import { dispatch, useSelector } from 'store';
-import { getUser, getUserChats, insertChat } from 'store/reducers/chat';
-import { openDrawer } from 'store/reducers/menu';
+import { dispatch } from 'store';
+import { insertChat } from 'store/reducers/chat';
 import MainCard from 'components/MainCard';
 import IconButton from 'components/@extended/IconButton';
 import SimpleBar from 'components/third-party/SimpleBar';
@@ -20,15 +20,26 @@ import { openSnackbar } from 'store/reducers/snackbar';
 
 // assets
 import { PaperClipOutlined, PictureOutlined, SendOutlined, SmileOutlined, SoundOutlined } from '@ant-design/icons';
+import { getMessages, createMessage } from 'hooks/projects';
+import useAuth from 'hooks/useAuth';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(() => ({ flexGrow: 1 }));
 const Chat = () => {
   const theme = useTheme();
+  const { user } = useAuth();
+  const userId = user.id;
+  const { projectId } = useParams();
+  const { data: project, isLoading: loadingProject, refetch } = useQuery(['project'], () => getMessages({ projectId }));
+  const { mutate } = useMutation(['newMessage'], (variables) => createMessage(variables), {
+    onSuccess: () => {
+      refetch();
+    }
+  });
 
-  const [user, setUser] = useState({});
-
-  const [data, setData] = useState([]);
-  const chatState = useSelector((state) => state.chat);
+  function handleSubmit(message) {
+    const variables = { projectId, userId, message };
+    return mutate({ variables });
+  }
 
   const [anchorElEmoji, setAnchorElEmoji] = useState();
 
@@ -61,6 +72,7 @@ const Chat = () => {
         text: message,
         time: d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
+      handleSubmit(message);
       setData((prevState) => [...prevState, newMessage]);
       dispatch(insertChat(newMessage));
     }
@@ -86,25 +98,9 @@ const Chat = () => {
     setAnchorElEmoji(null);
   };
 
-  useEffect(() => {
-    setUser(chatState.user);
-  }, [chatState.user]);
-
-  useEffect(() => {
-    setData(chatState.chats);
-  }, [chatState.chats]);
-
-  useEffect(() => {
-    // hide left drawer when email app opens
-    dispatch(openDrawer(false));
-    dispatch(getUser(1));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    dispatch(getUserChats(user.name));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  if (loadingProject) {
+    return <div>Loading project chat...</div>;
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -134,18 +130,8 @@ const Chat = () => {
                   <Grid container justifyContent="space-between">
                     <Grid item>
                       <Stack direction="row" alignItems="center" spacing={1}>
-                        <UserAvatar
-                          user={{
-                            online_status: user.online_status,
-                            avatar: user.avatar,
-                            name: user.name
-                          }}
-                        />
                         <Stack>
-                          <Typography variant="subtitle1">{user.name}</Typography>
-                          <Typography variant="caption" color="textSecondary">
-                            Active {user.lastMessage} ago
-                          </Typography>
+                          <Typography variant="subtitle1">{project.name}</Typography>
                         </Stack>
                       </Stack>
                     </Grid>
@@ -160,7 +146,7 @@ const Chat = () => {
                     }}
                   >
                     <Box sx={{ pl: 1, pr: 3 }}>
-                      <ChatHistory theme={theme} user={user} data={data} />
+                      <ChatHistory theme={theme} user={user} data={project.messages} />
                     </Box>
                   </SimpleBar>
                 </Grid>
