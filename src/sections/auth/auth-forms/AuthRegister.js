@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
 import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
@@ -31,10 +32,14 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { createUser } from 'hooks/users';
 
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const AuthRegister = () => {
+  const { mutate } = useMutation(['signup'], (variables) => createUser(variables), {
+    onSuccess: () => {}
+  });
   const { firebaseRegister } = useAuth();
   const scriptedRef = useScriptRef();
 
@@ -61,27 +66,30 @@ const AuthRegister = () => {
     <>
       <Formik
         initialValues={{
-          firstname: '',
-          lastname: '',
+          fname: '',
+          lname: '',
           email: '',
-          company: '',
           password: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          firstname: Yup.string().max(255).required('First Name is required'),
-          lastname: Yup.string().max(255).required('Last Name is required'),
+          fname: Yup.string().max(255).required('First Name is required'),
+          lname: Yup.string().max(255).required('Last Name is required'),
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           password: Yup.string().max(255).required('Password is required')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             await firebaseRegister(values.email, values.password).then(
-              () => {
-                // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
-                // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
-                // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-                // github issue: https://github.com/formium/formik/issues/2430
+              (result) => {
+                const variables = {
+                  fname: values.fname,
+                  lname: values.lname,
+                  email: values.email,
+                  password: values.password,
+                  userFBId: result.user._delegate.uid
+                };
+                mutate({ variables });
               },
               (err) => {
                 setStatus({ success: false });
@@ -107,18 +115,18 @@ const AuthRegister = () => {
                   <InputLabel htmlFor="firstname-signup">First Name*</InputLabel>
                   <OutlinedInput
                     id="firstname-login"
-                    type="firstname"
-                    value={values.firstname}
-                    name="firstname"
+                    type="fname"
+                    value={values.fname}
+                    name="fname"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     placeholder="John"
                     fullWidth
-                    error={Boolean(touched.firstname && errors.firstname)}
+                    error={Boolean(touched.fname && errors.fname)}
                   />
-                  {touched.firstname && errors.firstname && (
+                  {touched.fname && errors.fname && (
                     <FormHelperText error id="helper-text-firstname-signup">
-                      {errors.firstname}
+                      {errors.fname}
                     </FormHelperText>
                   )}
                 </Stack>
@@ -128,40 +136,19 @@ const AuthRegister = () => {
                   <InputLabel htmlFor="lastname-signup">Last Name*</InputLabel>
                   <OutlinedInput
                     fullWidth
-                    error={Boolean(touched.lastname && errors.lastname)}
+                    error={Boolean(touched.lname && errors.lname)}
                     id="lastname-signup"
-                    type="lastname"
-                    value={values.lastname}
-                    name="lastname"
+                    type="lname"
+                    value={values.lname}
+                    name="lname"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     placeholder="Doe"
                     inputProps={{}}
                   />
-                  {touched.lastname && errors.lastname && (
+                  {touched.lname && errors.lname && (
                     <FormHelperText error id="helper-text-lastname-signup">
-                      {errors.lastname}
-                    </FormHelperText>
-                  )}
-                </Stack>
-              </Grid>
-              <Grid item xs={12}>
-                <Stack spacing={1}>
-                  <InputLabel htmlFor="company-signup">Company</InputLabel>
-                  <OutlinedInput
-                    fullWidth
-                    error={Boolean(touched.company && errors.company)}
-                    id="company-signup"
-                    value={values.company}
-                    name="company"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    placeholder="Demo Inc."
-                    inputProps={{}}
-                  />
-                  {touched.company && errors.company && (
-                    <FormHelperText error id="helper-text-company-signup">
-                      {errors.company}
+                      {errors.lname}
                     </FormHelperText>
                   )}
                 </Stack>

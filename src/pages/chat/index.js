@@ -9,7 +9,6 @@ import { Box, Grid, Stack, TextField, Typography } from '@mui/material';
 // project import
 import ChatHistory from 'sections/apps/chat/ChatHistory';
 import { dispatch } from 'store';
-import { insertChat } from 'store/reducers/chat';
 import MainCard from 'components/MainCard';
 import IconButton from 'components/@extended/IconButton';
 import SimpleBar from 'components/third-party/SimpleBar';
@@ -56,16 +55,7 @@ const Chat = () => {
         })
       );
     } else {
-      const d = new Date();
-      const newMessage = {
-        from: 'User1',
-        to: user.name,
-        text: message,
-        time: d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
       handleSubmit(message);
-      setData((prevState) => [...prevState, newMessage]);
-      dispatch(insertChat(newMessage));
     }
     setMessage('');
   };

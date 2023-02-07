@@ -5,12 +5,12 @@ export const facebookColor = '#3b5998';
 export const linkedInColor = '#0e76a8';
 
 export const FIREBASE_API = {
-  apiKey: 'AIzaSyC74w_JCigORyepa_esLkPt-B3HgtI_X3o',
-  authDomain: 'mantis-4040b.firebaseapp.com',
-  projectId: 'mantis-4040b',
-  storageBucket: 'mantis-4040b.appspot.com',
-  messagingSenderId: '1073498457348',
-  appId: '1:1073498457348:web:268210e18c8f2cab30fc51',
+  apiKey: process.env.REACT_APP_FB_API_KEY,
+  authDomain: process.env.REACT_APP_FB_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FB_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FB_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FB_MESSAGING_ID,
+  appId: process.env.REACT_APP_FB_APP_ID,
   measurementId: 'G-7SP8EXFS48'
 };
 
