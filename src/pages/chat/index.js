@@ -4,10 +4,7 @@ import { useQuery, useMutation } from 'react-query';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
-import { Box, ClickAwayListener, Grid, Popper, Stack, TextField, Typography } from '@mui/material';
-
-// third party
-import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
+import { Box, Grid, Stack, TextField, Typography } from '@mui/material';
 
 // project import
 import ChatHistory from 'sections/apps/chat/ChatHistory';
@@ -19,7 +16,7 @@ import SimpleBar from 'components/third-party/SimpleBar';
 import { openSnackbar } from 'store/reducers/snackbar';
 
 // assets
-import { PaperClipOutlined, PictureOutlined, SendOutlined, SmileOutlined, SoundOutlined } from '@ant-design/icons';
+import { SendOutlined } from '@ant-design/icons';
 import { getMessages, createMessage } from 'hooks/projects';
 import useAuth from 'hooks/useAuth';
 
@@ -40,12 +37,6 @@ const Chat = () => {
     const variables = { projectId, userId, message };
     return mutate({ variables });
   }
-
-  const [anchorElEmoji, setAnchorElEmoji] = useState();
-
-  const handleOnEmojiButtonClick = (event) => {
-    setAnchorElEmoji(anchorElEmoji ? null : event?.currentTarget);
-  };
 
   // handle new message form
   const [message, setMessage] = useState('');
@@ -84,18 +75,6 @@ const Chat = () => {
       return;
     }
     handleOnSend();
-  };
-
-  // handle emoji
-  const onEmojiClick = (event, emojiObject) => {
-    setMessage(message + emojiObject.emoji);
-  };
-
-  const emojiOpen = Boolean(anchorElEmoji);
-  const emojiId = emojiOpen ? 'simple-popper' : undefined;
-
-  const handleCloseEmoji = () => {
-    setAnchorElEmoji(null);
   };
 
   if (loadingProject) {
@@ -169,7 +148,7 @@ const Chat = () => {
                     />
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                       <Stack direction="row" sx={{ py: 2, ml: -1 }}>
-                        <IconButton sx={{ opacity: 0.5 }} size="medium" color="secondary">
+                        {/* <IconButton sx={{ opacity: 0.5 }} size="medium" color="secondary">
                           <PaperClipOutlined />
                         </IconButton>
                         <IconButton sx={{ opacity: 0.5 }} size="medium" color="secondary">
@@ -215,7 +194,7 @@ const Chat = () => {
                         </Grid>
                         <IconButton sx={{ opacity: 0.5 }} size="medium" color="secondary">
                           <SoundOutlined />
-                        </IconButton>
+                        </IconButton> */}
                       </Stack>
                       <IconButton color="primary" onClick={handleOnSend} size="large" sx={{ mr: 1.5 }}>
                         <SendOutlined />
