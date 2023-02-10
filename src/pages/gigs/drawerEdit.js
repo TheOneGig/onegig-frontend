@@ -45,7 +45,7 @@ const GigEdit = ({ opened, setOpened, refetch, gig }) => {
     form.setValues({
       name: gig.name,
       description: gig.description,
-      price: gig.price
+      price: gig.price / 100
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gig]);

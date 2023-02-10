@@ -15,6 +15,11 @@ export const createProject = async (data) => {
   return response;
 };
 
+export const updateProject = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/update', data.variables);
+  return response;
+};
+
 export const getMessages = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/messages', data);
   return response;

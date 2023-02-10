@@ -7,7 +7,7 @@ import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
 import { formatUSD } from 'hooks/formatUSD';
 import { deleteGig } from 'hooks/gigs';
 
-const ProjectCard = ({ project, refetch }) => {
+const ProjectCard = ({ project, refetch, handleEdit }) => {
   const history = useNavigate();
   const [openedDelete, setOpenedDelete] = useState(false);
   const { mutate: gigDelete, isLoading: loadingDelete } = useMutation(['publishGig'], (variables) => deleteGig(variables), {
@@ -50,7 +50,7 @@ const ProjectCard = ({ project, refetch }) => {
               </Button>
             </Grid.Col>
             <Grid.Col span={6}>
-              <Button variant="light" color="blue" mt="md" radius="md" fullWidth>
+              <Button variant="light" color="blue" mt="md" radius="md" fullWidth onClick={() => handleEdit(project)}>
                 Edit
               </Button>
             </Grid.Col>
@@ -102,7 +102,8 @@ const ProjectCard = ({ project, refetch }) => {
 
 ProjectCard.propTypes = {
   project: PropTypes.object,
-  refetch: PropTypes.func
+  refetch: PropTypes.func,
+  handleEdit: PropTypes.func
 };
 
 export default ProjectCard;
