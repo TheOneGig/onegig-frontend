@@ -8,6 +8,7 @@ import ProjectCreate from './drawerCreate';
 
 import ProjectCard from './projectCard';
 import { getProjects } from 'hooks/projects';
+import { getGigs } from 'hooks/gigs';
 
 // ==============================|| GIGS ||============================== //
 
@@ -16,7 +17,8 @@ const Projects = () => {
   const { user } = useAuth();
   const userId = user.id;
   const { data: projects, isLoading, refetch } = useQuery(['projects'], () => getProjects({ userId }));
-  if (isLoading) {
+  const { data: gigs, isLoading: loadingGigs } = useQuery(['gigs'], () => getGigs({ userId }));
+  if (isLoading || loadingGigs) {
     return <div>Loading Projects...</div>;
   }
 
@@ -33,7 +35,7 @@ const Projects = () => {
         })}
       </Grid>
 
-      <ProjectCreate opened={opened} setOpened={setOpened} refetch={refetch} userId={userId} />
+      <ProjectCreate opened={opened} setOpened={setOpened} refetch={refetch} userId={userId} gigs={gigs} />
     </>
   );
 };

@@ -1,12 +1,14 @@
-import { Box, Button, Drawer, Group, NumberInput, Textarea, TextInput, Title } from '@mantine/core';
+import { Box, Button, Drawer, Group, NumberInput, Select, Textarea, TextInput, Title } from '@mantine/core';
 import { useForm, hasLength, isInRange } from '@mantine/form';
 import { createProject } from 'hooks/projects';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 
 // ==============================|| GIGS ||============================== //
 
-const ProjectCreate = ({ opened, setOpened, refetch, userId }) => {
+const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
+  const [gigId, setGigId] = useState('');
   const { mutate, isLoading } = useMutation(['createProject'], (variables) => createProject(variables), {
     onSuccess: () => {
       refetch();
@@ -29,18 +31,33 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId }) => {
 
   function handleSubmit(values) {
     const price = parseInt(values.price * 100);
-    const variables = { name: values.name, description: values.description, price, userId };
+    const variables = { name: values.name, description: values.description, price, userId, gigId: gigId && gigId };
     return mutate({ variables });
+  }
+
+  const gigsOptions = gigs.map((gig) => {
+    return { label: gig.name, value: gig.gigId };
+  });
+
+  function selectGig(id) {
+    const gig = gigs.find((gig) => id === gig.gigId);
+    setGigId(gig.gigId);
+    form.setValues({
+      name: gig.name,
+      description: gig.description,
+      price: gig.price
+    });
   }
 
   return (
     <Drawer opened={opened} onClose={() => setOpened(false)} title="Register" padding="xl" size="xl" position="right">
       <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-        <Title order={1}>New Gig</Title>
+        <Title order={1}>New Project</Title>
+        <Select label="Gig" placeholder="Pick a gig" data={gigsOptions} value={gigId} onChange={selectGig} />
         <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
         <Textarea
           label="Description"
-          placeholder="Brief description of this gig..."
+          placeholder="Brief description of this project..."
           withAsterisk
           mt="md"
           {...form.getInputProps('description')}
@@ -68,7 +85,8 @@ ProjectCreate.propTypes = {
   userId: PropTypes.string,
   opened: PropTypes.bool,
   setOpened: PropTypes.func,
-  refetch: PropTypes.func
+  refetch: PropTypes.func,
+  gigs: PropTypes.array
 };
 
 export default ProjectCreate;
