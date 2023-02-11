@@ -12,6 +12,7 @@ const Gigs = Loadable(lazy(() => import('pages/gigs')));
 const Projects = Loadable(lazy(() => import('pages/projects')));
 const Tasks = Loadable(lazy(() => import('pages/tasks')));
 const Chat = Loadable(lazy(() => import('pages/chat')));
+const Tiers = Loadable(lazy(() => import('pages/tiers')));
 
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
@@ -119,6 +120,10 @@ const MainRoutes = {
         {
           path: 'chat/:projectId',
           element: <Chat />
+        },
+        {
+          path: 'tiers',
+          element: <Tiers />
         },
         {
           path: 'widget',
