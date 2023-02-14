@@ -13,6 +13,7 @@ const Projects = Loadable(lazy(() => import('pages/projects')));
 const Tasks = Loadable(lazy(() => import('pages/tasks')));
 const Chat = Loadable(lazy(() => import('pages/chat')));
 const Tiers = Loadable(lazy(() => import('pages/tiers')));
+const Transaction = Loadable(lazy(() => import('pages/transaction')));
 
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
@@ -124,6 +125,10 @@ const MainRoutes = {
         {
           path: 'tiers',
           element: <Tiers />
+        },
+        {
+          path: 'transaction/:paymentId',
+          element: <Transaction />
         },
         {
           path: 'widget',

@@ -27,8 +27,10 @@ const plans = [
       'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
     monthly: 5,
     monthlyId: 'price_1MZlr8EyxV4PorzikcsJua21',
+    tierMonthly: 'BASIC',
     yearly: 50,
     yearlyId: 'price_1MZlr8EyxV4Porzip2CDukTd',
+    tierYearly: 'BASICYEARLY',
     permission: [0, 1]
   },
   {
@@ -39,8 +41,10 @@ const plans = [
       'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
     monthly: 25,
     monthlyId: 'price_1MaANmEyxV4PorziCfkDUCDO',
+    tierMonthly: 'ADVANCED',
     yearly: 250,
     yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
+    tierYearly: 'ADVANCEDYEARLY',
     permission: [0, 1, 2, 3]
   },
   {
@@ -51,8 +55,10 @@ const plans = [
       'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
     monthly: 40,
     monthlyId: 'price_1MaAOpEyxV4PorziAcvZ5hqW',
+    tierMonthly: 'PREMIUM',
     yearly: 400,
     yearlyId: 'price_1MaAOpEyxV4PorzitKAmMaM3',
+    tierYearly: 'PREMIUMYEARLY',
     permission: [0, 1, 2, 3, 5]
   }
 ];
@@ -89,7 +95,8 @@ const Pricing = () => {
 
   function handleOrder(plan) {
     const priceId = timePeriod ? plan.monthlyId : plan.yearlyId;
-    const variables = { userId, priceId, email: user.email, debug: true };
+    const tier = timePeriod ? plan.tierMonthly : plan.tierYearly;
+    const variables = { userId, priceId, email: user.email, debug: true, tier };
     return mutate({ variables });
   }
 

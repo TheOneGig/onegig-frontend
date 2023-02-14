@@ -84,3 +84,15 @@
   background-color: transparent;
   color: #fff;
 }
+
+.text-center {
+  text-align: center;
+}
+
+.text-green {
+  color: green;
+}
+
+.text-yellow {
+  color: yellow;
+}
