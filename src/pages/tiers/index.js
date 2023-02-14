@@ -1,4 +1,5 @@
 import { useState, Fragment } from 'react';
+import { useMutation, useQuery } from 'react-query';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -13,9 +14,10 @@ import StandardLogo from 'assets/images/price/Standard';
 import StandardPlusLogo from 'assets/images/price/StandardPlus';
 import Logo from 'components/logo';
 import { createPayment } from 'hooks/stripe';
-import { useMutation } from 'react-query';
 import useAuth from 'hooks/useAuth';
 import { ActionIcon, Text } from '@mantine/core';
+import { getUser } from 'hooks/users';
+import dayjs from 'dayjs';
 
 // plan list
 const plans = [
@@ -78,6 +80,7 @@ const Pricing = () => {
   const theme = useTheme();
   const { user } = useAuth();
   const userId = user.id;
+  const { data: userInfo, isLoading: loadingUser } = useQuery(['getUser'], () => getUser({ userId }));
   const [timePeriod, setTimePeriod] = useState(true);
   const { mutate, isLoading } = useMutation(['createPayment'], (variables) => createPayment(variables), {
     onSuccess: (session) => {
@@ -86,6 +89,9 @@ const Pricing = () => {
     onError: (e) => console.log(e)
   });
 
+  if (loadingUser) {
+    return <div>Loading user subscription...</div>;
+  }
   const priceListDisable = {
     opacity: 0.4,
     '& >div> svg': {
@@ -100,92 +106,115 @@ const Pricing = () => {
     return mutate({ variables });
   }
 
+  let tier = userInfo.tier;
+  if (tier === 'BASICYEARLY') {
+    tier = 'BASIC';
+  } else if (tier === 'ADVANCEDYEARLY') {
+    tier = 'ADVANCED';
+  } else if (tier === 'PREMIUMYEARLY') {
+    tier = 'PREMIUM';
+  }
+
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12}>
-        <MainCard>
-          <Grid container item xs={12} md={9} lg={7}>
-            <Stack spacing={2}>
-              <Stack direction="row" spacing={1.5} alignItems="center" textAlign="center">
-                <Typography variant="subtitle1" color={timePeriod ? 'textSecondary' : 'textPrimary'}>
-                  Billed Yearly
-                </Typography>
-                <Switch checked={timePeriod} onChange={() => setTimePeriod(!timePeriod)} inputProps={{ 'aria-label': 'container' }} />
-                <Typography variant="subtitle1" color={timePeriod ? 'textPrimary' : 'textSecondary'}>
-                  Billed Monthly
-                </Typography>
-              </Stack>
-            </Stack>
+    <>
+      {dayjs(userInfo.paidUntil) > dayjs() ? (
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <MainCard className="text-center">
+              <h1>TIER {tier}</h1>
+              <h4>Renews Automatically: {dayjs(userInfo?.paidUntil).format('MMMM DD, YYYY')}</h4>
+              <h4>If you would like to change your subscription, please contact support.</h4>
+            </MainCard>
           </Grid>
-        </MainCard>
-      </Grid>
-      <Grid item container spacing={3} xs={12}>
-        {plans.map((plan, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <MainCard sx={{ pt: 1.75 }}>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <Stack direction="row" spacing={2} textAlign="center">
-                    {plan.icon}
-                    <Typography variant="h4">{plan.title}</Typography>
-                  </Stack>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography>{plan.description}</Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Stack direction="row" spacing={1} alignItems="flex-end">
-                    {timePeriod && <Typography variant="h2">${plan.monthly}</Typography>}
-                    {!timePeriod && <Typography variant="h2">${plan.yearly}</Typography>}
-                    <Typography variant="h6" color="textSecondary">
-                      {timePeriod ? '/ Month' : ' / Year'}
+        </Grid>
+      ) : (
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <MainCard>
+              <Grid container item xs={12} md={9} lg={7}>
+                <Stack spacing={2}>
+                  <Stack direction="row" spacing={1.5} alignItems="center" textAlign="center">
+                    <Typography variant="subtitle1" color={timePeriod ? 'textSecondary' : 'textPrimary'}>
+                      Billed Yearly
+                    </Typography>
+                    <Switch checked={timePeriod} onChange={() => setTimePeriod(!timePeriod)} inputProps={{ 'aria-label': 'container' }} />
+                    <Typography variant="subtitle1" color={timePeriod ? 'textPrimary' : 'textSecondary'}>
+                      Billed Monthly
                     </Typography>
                   </Stack>
-                </Grid>
-                <Grid item xs={12}>
-                  <ActionIcon
-                    onClick={() => handleOrder(plan)}
-                    loading={isLoading}
-                    sx={{ width: '100%' }}
-                    color="green"
-                    variant={plan.active ? 'contained' : 'outlined'}
-                  >
-                    <Text>Order Now</Text>
-                  </ActionIcon>
-                </Grid>
-                <Grid item xs={12}>
-                  <List
-                    sx={{
-                      m: 0,
-                      p: 0,
-                      '&> li': {
-                        px: 0,
-                        py: 0.625,
-                        '& svg': {
-                          fill: theme.palette.success.dark
-                        }
-                      }
-                    }}
-                    component="ul"
-                  >
-                    {planList.map((list, i) => (
-                      <Fragment key={i}>
-                        <ListItem sx={!plan.permission.includes(i) ? priceListDisable : {}} divider>
-                          <ListItemIcon>
-                            <CheckOutlined />
-                          </ListItemIcon>
-                          <ListItemText primary={list} />
-                        </ListItem>
-                      </Fragment>
-                    ))}
-                  </List>
-                </Grid>
+                </Stack>
               </Grid>
             </MainCard>
           </Grid>
-        ))}
-      </Grid>
-    </Grid>
+          <Grid item container spacing={3} xs={12}>
+            {plans.map((plan, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <MainCard sx={{ pt: 1.75 }}>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                      <Stack direction="row" spacing={2} textAlign="center">
+                        {plan.icon}
+                        <Typography variant="h4">{plan.title}</Typography>
+                      </Stack>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography>{plan.description}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Stack direction="row" spacing={1} alignItems="flex-end">
+                        {timePeriod && <Typography variant="h2">${plan.monthly}</Typography>}
+                        {!timePeriod && <Typography variant="h2">${plan.yearly}</Typography>}
+                        <Typography variant="h6" color="textSecondary">
+                          {timePeriod ? '/ Month' : ' / Year'}
+                        </Typography>
+                      </Stack>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <ActionIcon
+                        onClick={() => handleOrder(plan)}
+                        loading={isLoading}
+                        sx={{ width: '100%' }}
+                        color="green"
+                        variant={plan.active ? 'contained' : 'outlined'}
+                      >
+                        <Text>Order Now</Text>
+                      </ActionIcon>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <List
+                        sx={{
+                          m: 0,
+                          p: 0,
+                          '&> li': {
+                            px: 0,
+                            py: 0.625,
+                            '& svg': {
+                              fill: theme.palette.success.dark
+                            }
+                          }
+                        }}
+                        component="ul"
+                      >
+                        {planList.map((list, i) => (
+                          <Fragment key={i}>
+                            <ListItem sx={!plan.permission.includes(i) ? priceListDisable : {}} divider>
+                              <ListItemIcon>
+                                <CheckOutlined />
+                              </ListItemIcon>
+                              <ListItemText primary={list} />
+                            </ListItem>
+                          </Fragment>
+                        ))}
+                      </List>
+                    </Grid>
+                  </Grid>
+                </MainCard>
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+      )}
+    </>
   );
 };
 

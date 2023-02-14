@@ -12,7 +12,7 @@ import authReducer from 'store/reducers/auth';
 // project import
 import Loader from 'components/Loader';
 import { FIREBASE_API } from 'config';
-import { getUser } from 'hooks/users';
+import { loginUser } from 'hooks/users';
 
 // firebase initialize
 if (!firebase.apps.length) {
@@ -37,7 +37,7 @@ export const FirebaseProvider = ({ children }) => {
     () =>
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
-          const dbUser = await getUser({ email: user.email });
+          const dbUser = await loginUser({ email: user.email });
           dispatch({
             type: LOGIN,
             payload: {

@@ -27,7 +27,7 @@ const Transaction = () => {
         <MainCard className="text-center">
           <h1>TIER {tier}</h1>
           <h2 className={payment.status === 'PAID' ? 'text-green' : 'text-yellow'}>{payment.status}</h2>
-          {payment.status === 'PAID' && <h4>Paid Until: {dayjs(payment.user?.paidUntil).format('MMMM DD, YYYY')}</h4>}
+          {payment.status === 'PAID' && <h4>Renews Automatically: {dayjs(payment.user?.paidUntil).format('MMMM DD, YYYY')}</h4>}
         </MainCard>
       </Grid>
     </Grid>
