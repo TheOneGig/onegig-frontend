@@ -6,14 +6,18 @@ import { Grid } from '@mui/material';
 import { RiseOutlined, UnorderedListOutlined, YoutubeOutlined } from '@ant-design/icons';
 
 import useAuth from 'hooks/useAuth';
-import { getProjects } from 'hooks/projects';
+import { getUser } from 'hooks/users';
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
   const theme = useTheme();
   const { user } = useAuth();
-  const { data } = useQuery(['projects'], () => getProjects({ userId: user.id }));
+  const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId: user.id }));
+  if (isLoading) {
+    return <div>Loading dashboard...</div>;
+  }
+  const { ownedProjects } = userInfo;
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 1 */}
@@ -27,7 +31,7 @@ const DashboardDefault = () => {
         <HoverSocialCard
           pushUrl={'/projects'}
           primary="Active Projects"
-          secondary={`${data?.length}`}
+          secondary={`${ownedProjects?.length}`}
           iconPrimary={YoutubeOutlined}
           color={theme.palette.error.main}
         />
