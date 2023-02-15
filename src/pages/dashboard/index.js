@@ -7,6 +7,7 @@ import { RiseOutlined, UnorderedListOutlined, YoutubeOutlined } from '@ant-desig
 
 import useAuth from 'hooks/useAuth';
 import { getUser } from 'hooks/users';
+import { formatUSD } from 'hooks/formatUSD';
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
@@ -18,14 +19,38 @@ const DashboardDefault = () => {
     return <div>Loading dashboard...</div>;
   }
   const { ownedProjects } = userInfo;
+  let openProfits = 0;
+  let pendingTasks = [];
+  ownedProjects.map((project) => {
+    if (project.status === 'ACTIVE') {
+      openProfits = openProfits + project.price;
+    }
+    project.taskTables?.map((taskTable) => {
+      taskTable.tasks?.map((task) => {
+        if (!task.done) {
+          pendingTasks.push(task);
+        }
+      });
+    });
+  });
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 1 */}
       <Grid item xs={12} lg={4} sm={6}>
-        <HoverSocialCard primary="Monthly Profits" secondary="$3165" iconPrimary={RiseOutlined} color={theme.palette.primary.main} />
+        <HoverSocialCard
+          primary="Open Profits"
+          secondary={`${formatUSD(openProfits)}`}
+          iconPrimary={RiseOutlined}
+          color={theme.palette.primary.main}
+        />
       </Grid>
       <Grid item xs={12} lg={4} sm={6}>
-        <HoverSocialCard primary="Pending Tasks" secondary="780 +" iconPrimary={UnorderedListOutlined} color={theme.palette.info.main} />
+        <HoverSocialCard
+          primary="Pending Tasks"
+          secondary={`${pendingTasks?.length}`}
+          iconPrimary={UnorderedListOutlined}
+          color={theme.palette.info.main}
+        />
       </Grid>
       <Grid item xs={12} lg={4} sm={6}>
         <HoverSocialCard
