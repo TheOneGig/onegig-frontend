@@ -113,12 +113,12 @@ const TabPersonal = () => {
     <MainCard content={false} title="Personal Information" sx={{ '& .MuiInputLabel-root': { fontSize: '0.875rem' } }}>
       <Formik
         initialValues={{
-          fname,
-          lname,
-          email,
+          fname: fname ? fname : '',
+          lname: lname ? lname : '',
+          email: email ? email : '',
           countryCode: '+1',
-          phone,
-          title,
+          phone: phone ? phone : '',
+          title: title ? title : '',
           skill: [
             'Adobe XD',
             'Angular',
@@ -136,8 +136,8 @@ const TabPersonal = () => {
             'Reduxjs & tooltit',
             'SASS'
           ],
-          description,
-          nickname,
+          description: description ? description : '',
+          nickname: nickname ? nickname : '',
           submit: null
         }}
         validationSchema={Yup.object().shape({

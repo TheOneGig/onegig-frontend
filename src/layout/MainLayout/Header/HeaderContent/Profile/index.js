@@ -67,7 +67,8 @@ const Profile = () => {
   if (isLoading) {
     return <div>Loading user info...</div>;
   }
-  const { fname, lname, nickname, title } = userInfo;
+  const { fname, lname, nickname, email, title } = userInfo;
+  const fullName = nickname ? nickname : fname ? `${fname} ${lname}` : email;
 
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
@@ -90,7 +91,7 @@ const Profile = () => {
       >
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
           <Avatar alt="profile user" src={avatar1} size="xs" />
-          <Typography variant="subtitle1">{nickname ? nickname : `${fname} ${lname}`}</Typography>
+          <Typography variant="subtitle1">{fullName}</Typography>
         </Stack>
       </ButtonBase>
       <Popper
@@ -133,7 +134,7 @@ const Profile = () => {
                           <Stack direction="row" spacing={1.25} alignItems="center">
                             <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                             <Stack>
-                              <Typography variant="h6">{nickname ? nickname : `${fname} ${lname}`}</Typography>
+                              <Typography variant="h6">{fullName}</Typography>
                               <Typography variant="body2" color="textSecondary">
                                 {title}
                               </Typography>
