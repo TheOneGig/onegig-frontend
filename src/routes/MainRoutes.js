@@ -15,6 +15,11 @@ const Chat = Loadable(lazy(() => import('pages/chat')));
 const Tiers = Loadable(lazy(() => import('pages/tiers')));
 const Transaction = Loadable(lazy(() => import('pages/transaction')));
 
+const Profile = Loadable(lazy(() => import('pages/profile')));
+const UserTabPersonal = Loadable(lazy(() => import('pages/profile/TabPersonal')));
+const UserTabPayment = Loadable(lazy(() => import('pages/profile/TabPayment')));
+const UserTabPassword = Loadable(lazy(() => import('pages/profile/TabPassword')));
+const UserTabSettings = Loadable(lazy(() => import('pages/profile/TabSettings')));
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
 const WidgetData = Loadable(lazy(() => import('pages/widget/data')));
@@ -30,11 +35,7 @@ const AppKanbanBacklogs = Loadable(lazy(() => import('sections/apps/kanban/Backl
 const AppKanbanBoard = Loadable(lazy(() => import('sections/apps/kanban/Board')));
 
 const UserProfile = Loadable(lazy(() => import('pages/apps/profiles/user')));
-const UserTabPersonal = Loadable(lazy(() => import('sections/apps/profiles/user/TabPersonal')));
-const UserTabPayment = Loadable(lazy(() => import('sections/apps/profiles/user/TabPayment')));
-const UserTabPassword = Loadable(lazy(() => import('sections/apps/profiles/user/TabPassword')));
 const AccountTabRole = Loadable(lazy(() => import('sections/apps/profiles/account/TabRole')));
-const UserTabSettings = Loadable(lazy(() => import('sections/apps/profiles/user/TabSettings')));
 
 const AccountProfile = Loadable(lazy(() => import('pages/apps/profiles/account')));
 const AccountTabProfile = Loadable(lazy(() => import('sections/apps/profiles/account/TabProfile')));
@@ -109,6 +110,28 @@ const MainRoutes = {
         {
           path: 'gigs',
           element: <Gigs />
+        },
+        {
+          path: 'profile',
+          element: <Profile />,
+          children: [
+            {
+              path: 'personal',
+              element: <UserTabPersonal />
+            },
+            // {
+            //   path: 'payment',
+            //   element: <UserTabPayment />
+            // },
+            {
+              path: 'password',
+              element: <UserTabPassword />
+            },
+            {
+              path: 'settings',
+              element: <UserTabSettings />
+            }
+          ]
         },
         {
           path: 'projects',
