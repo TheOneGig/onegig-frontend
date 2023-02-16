@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, ButtonBase, CardContent, ClickAwayListener, Grid, Paper, Popper, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import { Box, ButtonBase, CardContent, ClickAwayListener, Grid, Paper, Popper, Stack, Tooltip, Typography } from '@mui/material';
 
 // project import
 import Avatar from 'components/@extended/Avatar';
@@ -13,11 +13,10 @@ import Transitions from 'components/@extended/Transitions';
 import IconButton from 'components/@extended/IconButton';
 import useAuth from 'hooks/useAuth';
 import ProfileTab from './ProfileTab';
-import SettingTab from './SettingTab';
 
 // assets
 import avatar1 from 'assets/images/users/avatar-1.png';
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined } from '@ant-design/icons';
 import { getUser } from 'hooks/users';
 
 // tab panel wrapper
@@ -34,13 +33,6 @@ TabPanel.propTypes = {
   index: PropTypes.any.isRequired,
   value: PropTypes.any.isRequired
 };
-
-function a11yProps(index) {
-  return {
-    id: `profile-tab-${index}`,
-    'aria-controls': `profile-tabpanel-${index}`
-  };
-}
 
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
@@ -70,13 +62,6 @@ const Profile = () => {
     }
     setOpen(false);
   };
-
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   const iconBackColorOpen = theme.palette.mode === 'dark' ? 'grey.200' : 'grey.300';
 
   if (isLoading) {

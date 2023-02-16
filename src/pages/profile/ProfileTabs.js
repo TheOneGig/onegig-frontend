@@ -24,7 +24,7 @@ const ProfileTabs = () => {
   const theme = useTheme();
   const { user } = useAuth();
   const userId = user.id;
-  const { data: userInfo, isLoading, refetch } = useQuery(['user'], () => getUser({ userId }));
+  const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId }));
   const [selectedImage, setSelectedImage] = useState(undefined);
   const [avatar, setAvatar] = useState(avatarImage(`./default.png`));
 
