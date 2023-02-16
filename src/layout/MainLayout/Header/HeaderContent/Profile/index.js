@@ -136,7 +136,7 @@ const Profile = () => {
                             <Stack>
                               <Typography variant="h6">{fullName}</Typography>
                               <Typography variant="body2" color="textSecondary">
-                                {title}
+                                {title ? title : ''}
                               </Typography>
                             </Stack>
                           </Stack>
@@ -152,7 +152,7 @@ const Profile = () => {
                     </CardContent>
                     {open && (
                       <>
-                        <TabPanel value={value} index={0} dir={theme.direction}>
+                        <TabPanel value={0} index={0} dir={theme.direction}>
                           <ProfileTab handleLogout={handleLogout} />
                         </TabPanel>
                       </>
