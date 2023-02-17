@@ -35,7 +35,8 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
     validate: {
       name: hasLength({ min: 2, max: 20 }, 'Name must be 2-20 characters long'),
       description: hasLength({ min: 5, max: 140 }, 'Name must be 5-140 characters long'),
-      price: isInRange({ min: 10 }, 'Price  minimum is $10')
+      price: isInRange({ min: 10 }, 'Price  minimum is $10'),
+      delivery: isInRange({ min: 1 }, 'Delivery minimum is 1')
     }
   });
 
@@ -47,7 +48,7 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
 
   function handleSubmit(values) {
     const price = parseInt(values.price * 100);
-    const variables = { name: values.name, description: values.description, price, userId, fileUrl: file };
+    const variables = { name: values.name, description: values.description, delivery: values.delivery, price, userId, fileUrl: file };
     return mutate({ variables });
   }
 
@@ -71,6 +72,12 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
           formatter={(value) => (!Number.isNaN(parseFloat(value)) ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '$ ')}
           {...form.getInputProps('price')}
+        />
+
+        <NumberInput
+          label="Average Delivery in Days"
+          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+          {...form.getInputProps('delivery')}
         />
 
         {file ? (
