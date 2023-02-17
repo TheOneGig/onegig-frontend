@@ -51,6 +51,8 @@ const ProjectLead = ({ opened, setOpened, gig }) => {
       <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))} sx={{ paddingTop: '40px' }}>
         <Title order={1}>{`I'm Interested`}</Title>
 
+        <p>This is in no way a commitment. We will contact you as soon as possible so we can start a conversation about what you need.</p>
+
         <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
 
         <TextInput label="Email" placeholder="Email" withAsterisk {...form.getInputProps('email')} />
@@ -62,7 +64,7 @@ const ProjectLead = ({ opened, setOpened, gig }) => {
           mt="md"
           {...form.getInputProps('message')}
         />
-
+        <p>Do you have a budget in mind? This is just to give us an idea.</p>
         <NumberInput
           label="Budget"
           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
