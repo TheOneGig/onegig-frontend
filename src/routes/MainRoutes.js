@@ -20,6 +20,7 @@ const UserTabPersonal = Loadable(lazy(() => import('pages/profile/TabPersonal'))
 const UserTabPayment = Loadable(lazy(() => import('pages/profile/TabPayment')));
 const UserTabPassword = Loadable(lazy(() => import('pages/profile/TabPassword')));
 const UserTabSettings = Loadable(lazy(() => import('pages/profile/TabSettings')));
+
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
 const WidgetData = Loadable(lazy(() => import('pages/widget/data')));
@@ -153,6 +154,7 @@ const MainRoutes = {
           path: 'transaction/:paymentId',
           element: <Transaction />
         },
+
         {
           path: 'widget',
           children: [

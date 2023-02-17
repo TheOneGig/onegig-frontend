@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import PropTypes from 'prop-types';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Box, CardMedia, Grid, Stack, useMediaQuery } from '@mui/material';
@@ -8,68 +8,25 @@ import { Box, CardMedia, Grid, Stack, useMediaQuery } from '@mui/material';
 import MainCard from 'components/MainCard';
 import Avatar from 'components/@extended/Avatar';
 import IconButton from 'components/@extended/IconButton';
-import { useDispatch, useSelector } from 'store';
-import { openSnackbar } from 'store/reducers/snackbar';
 
 // third-party
 import Slider from 'react-slick';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 // assets
-import {
-  ZoomInOutlined,
-  ZoomOutOutlined,
-  RedoOutlined,
-  HeartFilled,
-  HeartOutlined,
-  DownOutlined,
-  UpOutlined,
-  RightOutlined,
-  LeftOutlined
-} from '@ant-design/icons';
-import prod1 from 'assets/images/e-commerce/prod-11.png';
-import prod2 from 'assets/images/e-commerce/prod-22.png';
-import prod3 from 'assets/images/e-commerce/prod-33.png';
-import prod4 from 'assets/images/e-commerce/prod-44.png';
-import prod5 from 'assets/images/e-commerce/prod-55.png';
-import prod6 from 'assets/images/e-commerce/prod-66.png';
-import prod7 from 'assets/images/e-commerce/prod-77.png';
-import prod8 from 'assets/images/e-commerce/prod-88.png';
-
-const prodImage = require.context('assets/images/e-commerce', true);
+import { ZoomInOutlined, ZoomOutOutlined, RedoOutlined, DownOutlined, UpOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons';
 
 // ==============================|| PRODUCT DETAILS - IMAGES ||============================== //
 
-const ProductImages = () => {
-  const { product } = useSelector((state) => state.product);
-
+const ProductImages = ({ images }) => {
   const theme = useTheme();
-  const products = [prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8];
 
   const matchDownLG = useMediaQuery(theme.breakpoints.up('lg'));
   const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
-  const initialImage = product?.image ? prodImage(`./${product.image}`) : '';
+  const initialImage = images[0]?.fileUrl ? images[0].fileUrl : '';
 
   const [selected, setSelected] = useState(initialImage);
   const [modal, setModal] = useState(false);
-
-  const dispatch = useDispatch();
-
-  const [wishlisted, setWishlisted] = useState(false);
-  const addToFavourite = () => {
-    setWishlisted(!wishlisted);
-    dispatch(
-      openSnackbar({
-        open: true,
-        message: 'Added to favourites',
-        variant: 'alert',
-        alert: {
-          color: 'success'
-        },
-        close: false
-      })
-    );
-  };
 
   const lgNo = matchDownLG ? 5 : 4;
 
@@ -132,7 +89,7 @@ const ProductImages = () => {
     swipeToSlide: true,
     focusOnSelect: true,
     centerPadding: '0px',
-    slidesToShow: products.length > 3 ? lgNo : products.length,
+    slidesToShow: images.length > 3 ? lgNo : images.length,
     prevArrow: <ArrowUp />,
     nextArrow: <ArrowDown />
   };
@@ -149,11 +106,12 @@ const ProductImages = () => {
             sx={{
               m: '0 auto',
               height: '100%',
+              maxHeight: '500px',
               display: 'flex',
               alignItems: 'center',
               bgcolor: theme.palette.mode === 'dark' ? 'grey.50' : 'secondary.lighter',
-              '& .react-transform-wrapper': { cursor: 'crosshair', height: '100%' },
-              '& .react-transform-component': { height: '100%' }
+              '& .react-transform-wrapper': { cursor: 'crosshair', height: '100%', maxHeight: '500px' },
+              '& .react-transform-component': { height: '100%', maxHeight: '500px' }
             }}
           >
             <TransformWrapper initialScale={1}>
@@ -182,17 +140,6 @@ const ProductImages = () => {
                 </>
               )}
             </TransformWrapper>
-            <IconButton
-              color="secondary"
-              sx={{ ml: 'auto', position: 'absolute', top: 5, right: 5, '&:hover': { background: 'transparent' } }}
-              onClick={addToFavourite}
-            >
-              {wishlisted ? (
-                <HeartFilled style={{ fontSize: '1.15rem', color: theme.palette.error.main }} />
-              ) : (
-                <HeartOutlined style={{ fontSize: '1.15rem' }} />
-              )}
-            </IconButton>
           </MainCard>
         </Grid>
         <Grid item xs={12} md={2} lg={3} sx={{ height: '100%' }}>
@@ -229,11 +176,11 @@ const ProductImages = () => {
             }}
           >
             <Slider {...settings}>
-              {[11, 22, 33, 44, 55, 66, 77, 88].map((item, index) => (
-                <Box key={index} onClick={() => setSelected(prodImage(`./prod-${item}.png`))} sx={{ p: 1 }}>
+              {images.map((item, index) => (
+                <Box key={index} onClick={() => setSelected(item.fileUrl)} sx={{ p: 1 }}>
                   <Avatar
                     size={matchDownLG ? 'xl' : 'md'}
-                    src={prodImage(`./thumbs/prod-${item}.png`)}
+                    src={item.fileUrl}
                     variant="rounded"
                     sx={{
                       m: '0 auto',
@@ -250,6 +197,10 @@ const ProductImages = () => {
       </Grid>
     </>
   );
+};
+
+ProductImages.propTypes = {
+  images: PropTypes.array
 };
 
 export default ProductImages;

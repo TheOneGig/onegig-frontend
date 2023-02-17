@@ -10,6 +10,8 @@ import MainRoutes from './MainRoutes';
 
 // render - landing page
 const PagesLanding = Loadable(lazy(() => import('pages/landing')));
+const BrowseProducts = Loadable(lazy(() => import('pages/browse')));
+const BrowseDetails = Loadable(lazy(() => import('pages/browse/product-details')));
 
 // ==============================|| ROUTING RENDER ||============================== //
 
@@ -22,6 +24,19 @@ export default function ThemeRoutes() {
         {
           path: '/',
           element: <PagesLanding />
+        }
+      ]
+    },
+    {
+      path: 'browse',
+      children: [
+        {
+          path: 'all',
+          element: <BrowseProducts />
+        },
+        {
+          path: 'gig/:id',
+          element: <BrowseDetails />
         }
       ]
     },

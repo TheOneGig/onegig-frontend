@@ -98,10 +98,10 @@ const Header = ({ handleDrawerOpen, layout = 'landing', ...others }) => {
                 className="header-link"
                 color={handleDrawerOpen ? 'primary' : 'white'}
                 component={RouterLink}
-                to="/components-overview/buttons"
+                to="/browse/all"
                 underline="none"
               >
-                Components
+                Gigs
               </Link>
               <Link className="header-link" color="white" href="https://codedthemes.gitbook.io/mantis/" target="_blank" underline="none">
                 Documentation
