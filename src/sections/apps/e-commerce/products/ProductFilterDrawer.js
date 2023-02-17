@@ -35,13 +35,6 @@ function ProductFilterDrawer({ filter, initialState, handleDrawerOpen, openFilte
   const handelFilter = (type, params, rating) => {
     setLoading(true);
     switch (type) {
-      case 'gender':
-        if (filter.gender.some((item) => item === params)) {
-          setFilter({ ...filter, gender: filter.gender.filter((item) => item !== params) });
-        } else {
-          setFilter({ ...filter, gender: [...filter.gender, params] });
-        }
-        break;
       case 'categories':
         if (filter.categories.some((item) => item === params)) {
           setFilter({ ...filter, categories: filter.categories.filter((item) => item !== params) });
@@ -51,13 +44,6 @@ function ProductFilterDrawer({ filter, initialState, handleDrawerOpen, openFilte
           setFilter({ ...filter, categories: [...filter.categories, params] });
         }
 
-        break;
-      case 'colors':
-        if (filter.colors.some((item) => item === params)) {
-          setFilter({ ...filter, colors: filter.colors.filter((item) => item !== params) });
-        } else {
-          setFilter({ ...filter, colors: [...filter.colors, params] });
-        }
         break;
       case 'price':
         setFilter({ ...filter, price: params });

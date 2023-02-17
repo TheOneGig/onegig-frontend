@@ -59,7 +59,7 @@ const ProductsHeader = ({ filter, handleDrawerOpen, setFilter }) => {
             startIcon={<FilterOutlined style={{ color: 'secondary.200' }} />}
           >
             <Typography variant="h6" color="textPrimary">
-              Filter
+              Filters
             </Typography>
           </Button>
 
@@ -73,7 +73,7 @@ const ProductsHeader = ({ filter, handleDrawerOpen, setFilter }) => {
               )
             }}
             value={filter.search}
-            placeholder="Search Product"
+            placeholder="Search Gigs"
             size="medium"
             onChange={handleSearch}
           />

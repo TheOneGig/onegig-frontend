@@ -7,7 +7,7 @@ import { Box, Button, Grid } from '@mui/material';
 
 // project imports
 import ProductImages from 'sections/apps/e-commerce/product-details/ProductImages';
-import ProductInfo from 'sections/apps/e-commerce/product-details/ProductInfo';
+import ProductInfo from './ProductInfo';
 import MainCard from 'components/MainCard';
 import { getGig } from 'hooks/gigs';
 
@@ -45,7 +45,7 @@ const ProductDetails = () => {
   return (
     <>
       {gig && (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ marginTop: '70px', padding: '15px' }}>
           <Grid item xs={12}>
             <MainCard>
               <Button

@@ -5,64 +5,6 @@ import { useEffect, useState } from 'react';
 // material-ui
 import { Box, Checkbox, FormControlLabel, Grid, Rating, Skeleton, Slider, Stack, TextField, Typography } from '@mui/material';
 
-// project imports
-import Colors from './Colors';
-
-// ==============================|| PRODUCT GRID GENDER FILTER ||============================== //
-
-const Gender = ({ gender, handelFilter }) => {
-  const [isGenderLoading, setGenderLoading] = useState(true);
-  useEffect(() => {
-    setGenderLoading(false);
-  }, []);
-
-  return (
-    <Stack>
-      {isGenderLoading ? (
-        <Skeleton variant="rectangular" width="100%" height={42} />
-      ) : (
-        <>
-          <Typography variant="h5">Gender</Typography>
-          <Box sx={{ pl: 0.5 }}>
-            <Stack>
-              <FormControlLabel
-                control={<Checkbox checked={gender.some((item) => item === 'male')} />}
-                onChange={() => handelFilter('gender', 'male')}
-                label="Male"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={gender.some((item) => item === 'female')}
-                    onChange={() => handelFilter('gender', 'female')}
-                    color="secondary"
-                  />
-                }
-                label="Female"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={gender.some((item) => item === 'kids')}
-                    onChange={() => handelFilter('gender', 'kids')}
-                    color="error"
-                  />
-                }
-                label="Kids"
-              />
-            </Stack>
-          </Box>
-        </>
-      )}
-    </Stack>
-  );
-};
-
-Gender.propTypes = {
-  gender: PropTypes.array,
-  handelFilter: PropTypes.func
-};
-
 // ==============================|| PRODUCT GRID - CATEGORIES FILTER ||============================== //
 
 const Categories = ({ categories, handelFilter }) => {
@@ -222,13 +164,7 @@ RatingSection.propTypes = {
 const ProductFilter = ({ filter, handelFilter }) => (
   <Grid container direction="column" rowSpacing={3}>
     <Grid item>
-      <Gender gender={filter.gender} handelFilter={handelFilter} />
-    </Grid>
-    <Grid item>
       <Categories categories={filter.categories} handelFilter={handelFilter} />
-    </Grid>
-    <Grid item>
-      <Colors colors={filter.colors} handelFilter={handelFilter} />
     </Grid>
     <Grid item>
       <Price price={filter.price} handelFilter={handelFilter} />

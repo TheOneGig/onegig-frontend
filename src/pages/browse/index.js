@@ -102,7 +102,7 @@ const ProductsPage = () => {
   }
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', marginTop: '85px', padding: '15px' }}>
       <ProductFilterDrawer
         filter={filter}
         setFilter={setFilter}

@@ -54,7 +54,7 @@ const CommonLayout = ({ layout = 'blank' }) => {
         <Suspense fallback={<Loader />}>
           <Header layout={layout} />
           <Outlet />
-          <FooterBlock isFull={layout === 'landing'} />
+          {layout !== 'simple' && <FooterBlock isFull={layout === 'landing'} />}
         </Suspense>
       )}
       {layout === 'component' && (

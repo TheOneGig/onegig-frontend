@@ -29,6 +29,7 @@ export default function ThemeRoutes() {
     },
     {
       path: 'browse',
+      element: <CommonLayout layout="simple" />,
       children: [
         {
           path: 'all',

@@ -34,3 +34,8 @@ export const deleteGig = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/gigs/delete', data.variables);
   return response;
 };
+
+export const createLead = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/gigs/lead', data.variables);
+  return response;
+};
