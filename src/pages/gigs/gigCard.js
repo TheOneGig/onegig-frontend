@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { Card, Image, Text, Badge, Button, Group, Grid, Modal } from '@mantine/core';
+import { Card, Image, Text, Badge, Button, Group, Grid, Modal, CopyButton } from '@mantine/core';
 import PropTypes from 'prop-types';
 import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
 import { formatUSD } from 'hooks/formatUSD';
 import { updatePublishGig, deleteGig } from 'hooks/gigs';
+import { useNavigate } from 'react-router';
 
 const GigCard = ({ gig, refetch, handleEdit }) => {
+  const history = useNavigate();
   const [openedDelete, setOpenedDelete] = useState(false);
   const { mutate: gigDelete, isLoading: loadingDelete } = useMutation(['publishGig'], (variables) => deleteGig(variables), {
     onSuccess: () => {
@@ -47,6 +49,28 @@ const GigCard = ({ gig, refetch, handleEdit }) => {
             {gig.description}
           </Text>
           <Grid>
+            <Grid.Col span={6}>
+              <Button
+                variant="light"
+                color={'green'}
+                mt="md"
+                radius="md"
+                fullWidth
+                loading={loadingPublish}
+                onClick={() => history(`/browse/gig/${gig.gigId}`)}
+              >
+                View
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <CopyButton value={`${window.location.origin}/browse/gig/${gig.gigId}`}>
+                {({ copied, copy }) => (
+                  <Button color={copied ? 'teal' : 'blue'} variant="light" mt="md" radius="md" fullWidth onClick={copy}>
+                    {copied ? 'Copied URL' : 'Share URL'}
+                  </Button>
+                )}
+              </CopyButton>
+            </Grid.Col>
             <Grid.Col span={4}>
               <Button
                 variant="light"

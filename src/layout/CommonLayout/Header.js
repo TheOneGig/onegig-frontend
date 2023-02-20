@@ -94,7 +94,7 @@ const Header = ({ handleDrawerOpen, layout = 'landing', ...others }) => {
               }}
               spacing={2}
             >
-              <Link
+              {/* <Link
                 className="header-link"
                 color={handleDrawerOpen ? 'primary' : 'white'}
                 component={RouterLink}
@@ -102,10 +102,10 @@ const Header = ({ handleDrawerOpen, layout = 'landing', ...others }) => {
                 underline="none"
               >
                 Gigs
-              </Link>
-              <Link className="header-link" color="white" href="https://codedthemes.gitbook.io/mantis/" target="_blank" underline="none">
+              </Link> */}
+              {/* <Link className="header-link" color="white" href="https://codedthemes.gitbook.io/mantis/" target="_blank" underline="none">
                 Documentation
-              </Link>
+              </Link> */}
               <Box sx={{ display: 'inline-block' }}>
                 <AnimateButton>
                   <Button component={Link} href="/login" disableElevation color="primary" variant="contained">
