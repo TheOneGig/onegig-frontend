@@ -45,7 +45,7 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
     form.setValues({
       name: gig.name,
       description: gig.description,
-      price: gig.price
+      price: gig.price / 100
     });
   }
 
