@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -13,10 +13,16 @@ import ProfileTab from './ProfileTab';
 
 // assets
 import { CameraOutlined } from '@ant-design/icons';
+import { uploadFile } from 'react-s3';
 import useAuth from 'hooks/useAuth';
-import { getUser } from 'hooks/users';
+import { avatarUser, getUser } from 'hooks/users';
 
-const avatarImage = require.context('assets/images/users', true);
+const config = {
+  bucketName: 'onegig-uploads',
+  region: 'us-east-1',
+  accessKeyId: process.env.REACT_APP_AWS_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_AWS_S3_SECRET_ACCESS_KEY
+};
 
 // ==============================|| USER PROFILE - TAB CONTENT ||============================== //
 
@@ -24,20 +30,28 @@ const ProfileTabs = () => {
   const theme = useTheme();
   const { user } = useAuth();
   const userId = user.id;
-  const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId }));
-  const [selectedImage, setSelectedImage] = useState(undefined);
-  const [avatar, setAvatar] = useState(avatarImage(`./default.png`));
-
-  useEffect(() => {
-    if (selectedImage) {
-      setAvatar(URL.createObjectURL(selectedImage));
+  const { data: userInfo, isLoading, refetch } = useQuery(['user'], () => getUser({ userId }));
+  const { mutate } = useMutation(['avatarUser'], (variables) => avatarUser(variables), {
+    onSuccess: () => {
+      refetch();
     }
-  }, [selectedImage]);
+  });
+
+  function submitAvatar(fileUrl) {
+    const variables = { userId, fileUrl };
+    return mutate({ variables });
+  }
+
+  const handleUpload = async (file) => {
+    uploadFile(file, config)
+      .then((data) => submitAvatar(data.location))
+      .catch((err) => console.error(err));
+  };
 
   if (isLoading) {
-    return <div>Loading dashboard...</div>;
+    return <div>Loading profile...</div>;
   }
-  const { fname, lname, email, nickname, phone, title, gigs, ownedProjects } = userInfo;
+  const { fname, lname, email, nickname, phone, title, gigs, ownedProjects, avatar } = userInfo;
 
   return (
     <MainCard>
@@ -54,7 +68,7 @@ const ProfileTabs = () => {
                 cursor: 'pointer'
               }}
             >
-              <Avatar alt="Avatar 1" src={avatar} sx={{ width: 124, height: 124, border: '1px dashed' }} />
+              <Avatar alt="Avatar 1" src={avatar.fileUrl} sx={{ width: 124, height: 124, border: '1px dashed' }} />
               <Box
                 sx={{
                   position: 'absolute',
@@ -81,7 +95,7 @@ const ProfileTabs = () => {
               label="Outlined"
               variant="outlined"
               sx={{ display: 'none' }}
-              onChange={(e) => setSelectedImage(e.target.files?.[0])}
+              onChange={(e) => handleUpload(e.target.files?.[0])}
             />
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">
