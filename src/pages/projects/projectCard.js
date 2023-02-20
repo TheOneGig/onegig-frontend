@@ -45,7 +45,15 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
               </Button>
             </Grid.Col>
             <Grid.Col span={6}>
-              <Button variant="light" color="green" mt="md" radius="md" fullWidth onClick={() => history(`/chat/${project.projectId}`)}>
+              <Button
+                variant="light"
+                color="green"
+                mt="md"
+                radius="md"
+                fullWidth
+                onClick={() => history(`/chat/${project.projectId}`)}
+                disabled
+              >
                 Chat
               </Button>
             </Grid.Col>
