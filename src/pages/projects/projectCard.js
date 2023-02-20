@@ -5,20 +5,20 @@ import { Card, Image, Text, Badge, Button, Group, Grid, Modal } from '@mantine/c
 import PropTypes from 'prop-types';
 import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
 import { formatUSD } from 'hooks/formatUSD';
-import { deleteGig } from 'hooks/gigs';
+import { archiveProject } from 'hooks/projects';
 
 const ProjectCard = ({ project, refetch, handleEdit }) => {
   const history = useNavigate();
   const [openedDelete, setOpenedDelete] = useState(false);
-  const { mutate: gigDelete, isLoading: loadingDelete } = useMutation(['publishGig'], (variables) => deleteGig(variables), {
+  const { mutate, isLoading: loadingDelete } = useMutation(['archiveProject'], (variables) => archiveProject(variables), {
     onSuccess: () => {
       refetch();
     }
   });
 
-  function handleDelete(gigId) {
-    const variables = { gigId };
-    return gigDelete({ variables });
+  function handleDelete(projectId) {
+    const variables = { projectId, archived: true };
+    return mutate({ variables });
   }
   return (
     <>
@@ -64,7 +64,7 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
             </Grid.Col>
             <Grid.Col span={6}>
               <Button variant="light" color="red" mt="md" radius="md" fullWidth onClick={() => setOpenedDelete(true)}>
-                Delete
+                Archive
               </Button>
             </Grid.Col>
           </Grid>
@@ -73,7 +73,10 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
 
       <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete gig?">
         <div>
-          <p>Are you sure you want to delete this gig? This is unreversible!</p>
+          <p>
+            Are you sure you want to archive this project? It will be moved to the archive and it will not be part of any of the other
+            features such as financials and tasks.
+          </p>
           <Grid>
             <Grid.Col span={6}>
               <Button
@@ -95,7 +98,7 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
                 mt="md"
                 radius="md"
                 fullWidth
-                onClick={() => handleDelete(gig.gigId)}
+                onClick={() => handleDelete(project.projectId)}
                 loading={loadingDelete}
               >
                 Yes, I am sure!

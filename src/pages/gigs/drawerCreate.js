@@ -34,7 +34,7 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
 
     validate: {
       name: hasLength({ min: 2, max: 20 }, 'Name must be 2-20 characters long'),
-      description: hasLength({ min: 5, max: 140 }, 'Name must be 5-140 characters long'),
+      description: hasLength({ min: 5, max: 600 }, 'Name must be 5-600 characters long'),
       price: isInRange({ min: 10 }, 'Price  minimum is $10'),
       delivery: isInRange({ min: 1 }, 'Delivery minimum is 1')
     }

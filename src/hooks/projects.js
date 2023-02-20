@@ -20,6 +20,11 @@ export const updateProject = async (data) => {
   return response;
 };
 
+export const archiveProject = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/archive', data.variables);
+  return response;
+};
+
 export const getMessages = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/messages', data);
   return response;
