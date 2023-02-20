@@ -64,6 +64,7 @@ const NavItem = ({ item, level }) => {
       {...listItemProps}
       disabled={item.disabled}
       selected={isSelected}
+      onClick={() => dispatch(activeItem({ openItem: [item.id] }))}
       sx={{
         zIndex: 1201,
         pl: drawerOpen ? `${level * 28}px` : 1.5,

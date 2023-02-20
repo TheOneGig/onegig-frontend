@@ -2,14 +2,7 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { DashboardOutlined, GoldOutlined, HomeOutlined } from '@ant-design/icons';
-
-// icons
-const icons = {
-  DashboardOutlined,
-  GoldOutlined,
-  HomeOutlined
-};
+import { DashboardOutlined, FolderOpenOutlined, FolderViewOutlined } from '@ant-design/icons';
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
@@ -22,21 +15,21 @@ const dashboard = {
       title: <FormattedMessage id="dashboard" />,
       type: 'item',
       url: '/dashboard',
-      icon: icons.DashboardOutlined
+      icon: DashboardOutlined
     },
     {
-      id: 'gigs',
+      id: 'Gigs',
       title: <FormattedMessage id="Gigs" />,
       type: 'item',
       url: '/gigs',
-      icon: icons.DashboardOutlined
+      icon: FolderViewOutlined
     },
     {
-      id: 'projects',
+      id: 'Projects',
       title: <FormattedMessage id="Projects" />,
       type: 'item',
       url: '/projects',
-      icon: icons.DashboardOutlined
+      icon: FolderOpenOutlined
     }
   ]
 };

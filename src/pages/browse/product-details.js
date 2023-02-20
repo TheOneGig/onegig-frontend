@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 // material-ui
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 // project imports
 import ProductImages from 'sections/apps/e-commerce/product-details/ProductImages';
@@ -34,7 +34,6 @@ TabPanel.propTypes = {
 // ==============================|| PRODUCT DETAILS - MAIN ||============================== //
 
 const ProductDetails = () => {
-  const history = useNavigate();
   const { id } = useParams();
   const { data: gig, isLoading } = useQuery(['gig'], () => getGig({ gigId: id }));
 
@@ -48,15 +47,6 @@ const ProductDetails = () => {
         <Grid container spacing={2} sx={{ marginTop: '70px', padding: '15px' }}>
           <Grid item xs={12}>
             <MainCard>
-              <Button
-                color="secondary"
-                variant="outlined"
-                size="large"
-                sx={{ marginBottom: '20px' }}
-                onClick={() => history('/browse/all')}
-              >
-                {`< All Gigs`}
-              </Button>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
                   <ProductImages images={gig.files} />
