@@ -1,4 +1,4 @@
-import logo from 'assets/images/brand/OneGig-Logo-Gradient.png';
+import logo from 'assets/images/brand/OneGig-Logo-White-Gradient.png';
 
 // ==============================|| LOGO SVG ||============================== //
 

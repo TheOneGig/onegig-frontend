@@ -1,4 +1,4 @@
-import logoIcon from 'assets/images/brand/OneGig-Icon-Gradient.png';
+import logoIcon from 'assets/images/brand/OneGig-Icon-White-Gradient.png';
 
 // ==============================|| LOGO ICON ||============================== //
 
