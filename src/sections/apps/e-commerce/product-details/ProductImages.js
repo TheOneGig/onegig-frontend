@@ -106,12 +106,13 @@ const ProductImages = ({ images }) => {
             sx={{
               m: '0 auto',
               height: '100%',
-              maxHeight: '500px',
+              maxHeight: '400px',
+              width: '100%',
               display: 'flex',
               alignItems: 'center',
               bgcolor: theme.palette.mode === 'dark' ? 'grey.50' : 'secondary.lighter',
-              '& .react-transform-wrapper': { cursor: 'crosshair', height: '100%', maxHeight: '500px' },
-              '& .react-transform-component': { height: '100%', maxHeight: '500px' }
+              '& .react-transform-wrapper': { cursor: 'crosshair', height: '100%', maxHeight: '400px', width: '100%' },
+              '& .react-transform-component': { height: '100%', maxHeight: '400px', width: '100%' }
             }}
           >
             <TransformWrapper initialScale={1}>

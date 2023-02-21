@@ -14,7 +14,7 @@ const ProductInfo = ({ gig }) => {
   return (
     <Stack spacing={1}>
       <Typography variant="h3">{gig.name}</Typography>
-      <Typography color="textSecondary">{gig.description}</Typography>
+      <Typography>{gig.description}</Typography>
       <Stack spacing={2.5}>
         <Stack direction="row" alignItems="center" spacing={1}>
           <Typography variant="h3">{formatUSD(gig.price)}</Typography>
