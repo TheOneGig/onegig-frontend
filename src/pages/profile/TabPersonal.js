@@ -306,7 +306,6 @@ const TabPersonal = () => {
                       {...getTagProps({ index })}
                       variant="combined"
                       label={option}
-                      // onDelete={() => handleRemoveSkill(option)}
                       deleteIcon={<CloseOutlined style={{ fontSize: '0.75rem' }} />}
                       sx={{ color: 'text.primary' }}
                     />

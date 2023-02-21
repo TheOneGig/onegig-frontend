@@ -41,7 +41,7 @@ const ProductDetails = () => {
   if (isLoading) {
     return <div>Loading gig...</div>;
   }
-  console.log(gig);
+
   return (
     <Grid container spacing={3} sx={{ padding: '15px' }}>
       <Grid item xs={12} md={3}>
