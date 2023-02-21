@@ -1,67 +1,21 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 
 // material-ui
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-import { Grid, Button } from '@mantine/core';
-
-// third-party
-import { useTable } from 'react-table';
+import { Grid, Button, Modal, useMantineTheme } from '@mantine/core';
 
 // project import
 import MainCard from 'components/MainCard';
 import ScrollX from 'components/ScrollX';
 import { getAllSkills } from 'hooks/skills';
-
-// ==============================|| REACT TABLE ||============================== //
-
-function ReactTable({ columns, data, striped }) {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
-    columns,
-    data
-  });
-
-  return (
-    <Table {...getTableProps()}>
-      <TableHead>
-        {headerGroups.map((headerGroup, i) => (
-          <TableRow key={i} {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column, index) => (
-              <TableCell key={index} {...column.getHeaderProps([{ className: column.className }])}>
-                {column.render('Header')}
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
-      </TableHead>
-      <TableBody {...getTableBodyProps()} {...(striped && { className: 'striped' })}>
-        {rows.map((row, i) => {
-          prepareRow(row);
-          return (
-            <TableRow {...row.getRowProps()} key={i}>
-              {row.cells.map((cell, i) => (
-                <TableCell key={i} {...cell.getCellProps([{ className: cell.column.className }])}>
-                  {cell.render('Cell')}
-                </TableCell>
-              ))}
-            </TableRow>
-          );
-        })}
-      </TableBody>
-    </Table>
-  );
-}
-
-ReactTable.propTypes = {
-  columns: PropTypes.array,
-  data: PropTypes.array,
-  striped: PropTypes.bool
-};
+import ReactTable from './table';
 
 // ==============================|| REACT TABLE - BASIC ||============================== //
 
 const SkillsTable = ({ striped, title }) => {
+  const theme = useMantineTheme();
+  const [openedDelete, setOpenedDelete] = useState(false);
   const { data: allSkills, isLoading: loadingSkills } = useQuery(['allSkills'], () => getAllSkills());
   const columns = useMemo(
     () => [
@@ -72,12 +26,11 @@ const SkillsTable = ({ striped, title }) => {
       {
         Header: 'Actions',
         accessor: 'skillId',
-        // eslint-disable-next-line
-        Cell: ({ value }) => {
+        Cell: ({ row }) => {
           return (
             <Grid>
               <Grid.Col span={4}>
-                <Button variant="light" color="blue" mt="md" radius="md" fullWidth onClick={() => handleEdit(gig)}>
+                <Button variant="light" color="blue" mt="md" radius="md" fullWidth onClick={() => handleEdit(row.original)}>
                   Edit
                 </Button>
               </Grid.Col>
@@ -102,6 +55,17 @@ const SkillsTable = ({ striped, title }) => {
       <ScrollX>
         <ReactTable columns={columns} data={allSkills} striped={striped} />
       </ScrollX>
+
+      <Modal
+        opened={openedDelete}
+        onClose={() => setOpenedDelete(false)}
+        title="Delete"
+        overlayColor={theme.colors.dark[9]}
+        overlayOpacity={0.55}
+        overlayBlur={3}
+      >
+        {/* Modal content */}
+      </Modal>
     </MainCard>
   );
 };
@@ -109,7 +73,8 @@ const SkillsTable = ({ striped, title }) => {
 SkillsTable.propTypes = {
   data: PropTypes.any,
   striped: PropTypes.bool,
-  title: PropTypes.string
+  title: PropTypes.string,
+  row: PropTypes.object
 };
 
 export default SkillsTable;

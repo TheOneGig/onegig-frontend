@@ -15,6 +15,7 @@ import { CameraOutlined } from '@ant-design/icons';
 import { uploadFile } from 'react-s3';
 import useAuth from 'hooks/useAuth';
 import { avatarUser, getUser } from 'hooks/users';
+import avatar1 from 'assets/images/users/avatar-1.png';
 
 const config = {
   bucketName: 'onegig-uploads',
@@ -67,7 +68,7 @@ const ProfileTabs = () => {
                 cursor: 'pointer'
               }}
             >
-              <Avatar alt="Avatar 1" src={avatar.fileUrl} sx={{ width: 124, height: 124, border: '1px dashed' }} />
+              <Avatar alt="Avatar 1" src={avatar ? avatar.fileUrl : avatar1} sx={{ width: 124, height: 124, border: '1px dashed' }} />
               <Box
                 sx={{
                   position: 'absolute',
