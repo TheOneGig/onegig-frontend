@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
-import { Container, Toolbar } from '@mui/material';
+import { Box, Container, Toolbar } from '@mui/material';
 
 // project import
 import ComponentLayout from './ComponentLayout';
@@ -13,6 +13,7 @@ import { openComponentDrawer } from 'store/reducers/menu';
 // material-ui
 import { styled } from '@mui/material/styles';
 import LinearProgress from '@mui/material/LinearProgress';
+import Footer from 'layout/MainLayout/Footer';
 
 const Header = lazy(() => import('./Header'));
 const FooterBlock = lazy(() => import('./FooterBlock'));
@@ -67,6 +68,14 @@ const CommonLayout = ({ layout = 'blank' }) => {
         </Suspense>
       )}
       {layout === 'blank' && <Outlet />}
+      {layout === 'footer' && (
+        <Box
+          sx={{ position: 'relative', minHeight: 'calc(100vh - 110px)', display: 'flex', flexDirection: 'column', paddingBottom: '15px' }}
+        >
+          <Outlet />
+          <Footer />
+        </Box>
+      )}
     </>
   );
 };
