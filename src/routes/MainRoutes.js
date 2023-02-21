@@ -21,6 +21,8 @@ const UserTabPayment = Loadable(lazy(() => import('pages/profile/TabPayment')));
 const UserTabPassword = Loadable(lazy(() => import('pages/profile/TabPassword')));
 const UserTabSettings = Loadable(lazy(() => import('pages/profile/TabSettings')));
 
+const Skills = Loadable(lazy(() => import('pages/skills')));
+
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
 const WidgetData = Loadable(lazy(() => import('pages/widget/data')));
@@ -88,9 +90,6 @@ const MaintenanceComingSoon = Loadable(lazy(() => import('pages/maintenance/comi
 
 const AppContactUS = Loadable(lazy(() => import('pages/contact-us')));
 
-// render - sample page
-const PricingPage = Loadable(lazy(() => import('pages/extra-pages/pricing')));
-
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -153,6 +152,10 @@ const MainRoutes = {
         {
           path: 'transaction/:paymentId',
           element: <Transaction />
+        },
+        {
+          path: 'skills',
+          element: <Skills />
         },
 
         {
@@ -369,10 +372,6 @@ const MainRoutes = {
               element: <ChartOrganization />
             }
           ]
-        },
-        {
-          path: 'pricing',
-          element: <PricingPage />
         }
       ]
     },
