@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 // material-ui
 import { Grid, Button, Modal, useMantineTheme } from '@mantine/core';
@@ -8,15 +8,28 @@ import { Grid, Button, Modal, useMantineTheme } from '@mantine/core';
 // project import
 import MainCard from 'components/MainCard';
 import ScrollX from 'components/ScrollX';
-import { getAllSkills } from 'hooks/skills';
+import { deleteSkill, getAllSkills } from 'hooks/skills';
 import ReactTable from './table';
 
 // ==============================|| REACT TABLE - BASIC ||============================== //
 
 const SkillsTable = ({ striped, title }) => {
   const theme = useMantineTheme();
+  const [skill, setSkill] = useState();
   const [openedDelete, setOpenedDelete] = useState(false);
-  const { data: allSkills, isLoading: loadingSkills } = useQuery(['allSkills'], () => getAllSkills());
+  const { data: allSkills, isLoading: loadingSkills, refetch } = useQuery(['allSkills'], () => getAllSkills());
+  const { mutate: skillDelete, isLoading: loadingDelete } = useMutation(['deleteSkill'], (variables) => deleteSkill(variables), {
+    onSuccess: () => {
+      refetch();
+      setOpenedDelete(false);
+    }
+  });
+
+  function handleDelete(skillId) {
+    const variables = { skillId };
+    return skillDelete({ variables });
+  }
+
   const columns = useMemo(
     () => [
       {
@@ -35,7 +48,17 @@ const SkillsTable = ({ striped, title }) => {
                 </Button>
               </Grid.Col>
               <Grid.Col span={4}>
-                <Button variant="light" color="red" mt="md" radius="md" fullWidth onClick={() => setOpenedDelete(true)}>
+                <Button
+                  variant="light"
+                  color="red"
+                  mt="md"
+                  radius="md"
+                  fullWidth
+                  onClick={() => {
+                    setSkill(row.original);
+                    setOpenedDelete(true);
+                  }}
+                >
                   Delete
                 </Button>
               </Grid.Col>
@@ -46,6 +69,7 @@ const SkillsTable = ({ striped, title }) => {
     ],
     []
   );
+
   if (loadingSkills) {
     return <div>Loading skills...</div>;
   }
@@ -59,12 +83,42 @@ const SkillsTable = ({ striped, title }) => {
       <Modal
         opened={openedDelete}
         onClose={() => setOpenedDelete(false)}
-        title="Delete"
+        title="Delete skill?"
         overlayColor={theme.colors.dark[9]}
         overlayOpacity={0.55}
         overlayBlur={3}
       >
-        {/* Modal content */}
+        <div>
+          <p>Are you sure you want to delete this skill? This is irreversible!</p>
+          <Grid>
+            <Grid.Col span={6}>
+              <Button
+                variant="light"
+                color="default"
+                mt="md"
+                radius="md"
+                fullWidth
+                onClick={() => setOpenedDelete(false)}
+                loading={loadingDelete}
+              >
+                Cancel
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Button
+                variant="light"
+                color="red"
+                mt="md"
+                radius="md"
+                fullWidth
+                onClick={() => handleDelete(skill.skillId)}
+                loading={loadingDelete}
+              >
+                Yes, I am sure!
+              </Button>
+            </Grid.Col>
+          </Grid>
+        </div>
       </Modal>
     </MainCard>
   );

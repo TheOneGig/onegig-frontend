@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router';
 const GigCard = ({ gig, refetch, handleEdit }) => {
   const history = useNavigate();
   const [openedDelete, setOpenedDelete] = useState(false);
-  const { mutate: gigDelete, isLoading: loadingDelete } = useMutation(['publishGig'], (variables) => deleteGig(variables), {
+  const { mutate: gigDelete, isLoading: loadingDelete } = useMutation(['deleteGig'], (variables) => deleteGig(variables), {
     onSuccess: () => {
       refetch();
     }
@@ -100,7 +100,7 @@ const GigCard = ({ gig, refetch, handleEdit }) => {
 
       <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete gig?">
         <div>
-          <p>Are you sure you want to delete this gig? This is unreversible!</p>
+          <p>Are you sure you want to delete this gig? This is irreversible!</p>
           <Grid>
             <Grid.Col span={6}>
               <Button
