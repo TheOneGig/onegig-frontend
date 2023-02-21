@@ -8,9 +8,6 @@ const Footer = () => (
     <Typography variant="caption">&copy; All rights reserved</Typography>
     <Stack spacing={1.5} direction="row" justifyContent="space-between" alignItems="center">
       <Link component={RouterLink} to="#" target="_blank" variant="caption" color="textPrimary">
-        About us
-      </Link>
-      <Link component={RouterLink} to="#" target="_blank" variant="caption" color="textPrimary">
         Privacy
       </Link>
       <Link component={RouterLink} to="#" target="_blank" variant="caption" color="textPrimary">
