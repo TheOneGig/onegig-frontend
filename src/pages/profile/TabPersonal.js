@@ -33,48 +33,7 @@ import MainCard from 'components/MainCard';
 import { CloseOutlined } from '@ant-design/icons';
 import { getUser, updateUser } from 'hooks/users';
 import useAuth from 'hooks/useAuth';
-
-const skills = [
-  'Adobe XD',
-  'After Effect',
-  'Angular',
-  'Animation',
-  'ASP.Net',
-  'Bootstrap',
-  'C#',
-  'CC',
-  'Corel Draw',
-  'CSS',
-  'DIV',
-  'Dreamweaver',
-  'Figma',
-  'Graphics',
-  'HTML',
-  'Illustrator',
-  'J2Ee',
-  'Java',
-  'Javascript',
-  'JQuery',
-  'Logo Design',
-  'Material UI',
-  'Motion',
-  'MVC',
-  'MySQL',
-  'NodeJS',
-  'npm',
-  'Photoshop',
-  'PHP',
-  'React',
-  'Redux',
-  'Reduxjs & tooltit',
-  'SASS',
-  'SCSS',
-  'SQL Server',
-  'SVG',
-  'UI/UX',
-  'User Interface Designing',
-  'Wordpress'
-];
+import { getAllSkills, addSkill, removeSkill } from 'hooks/skills';
 
 function useInputRef() {
   return useOutletContext();
@@ -92,21 +51,57 @@ const TabPersonal = () => {
   const { user } = useAuth();
   const userId = user.id;
   const { data: userInfo, isLoading, refetch } = useQuery(['user'], () => getUser({ userId }));
+  const { data: allSkills, isLoading: loadingSkills } = useQuery(['allSkills'], () => getAllSkills());
   const { mutate } = useMutation(['updateUser'], (variables) => updateUser(variables), {
     onSuccess: () => {
       refetch();
       return true;
     }
   });
-  if (isLoading) {
+
+  const { mutate: skillAdd } = useMutation(['addSkill'], (variables) => addSkill(variables), {
+    onSuccess: () => {
+      refetch();
+      return true;
+    }
+  });
+
+  const { mutate: skillRemove } = useMutation(['removeSkill'], (variables) => removeSkill(variables), {
+    onSuccess: () => {
+      refetch();
+      return true;
+    }
+  });
+  if (isLoading || loadingSkills) {
     return <div>Loading dashboard...</div>;
   }
-  const { fname, lname, email, nickname, phone, title, description } = userInfo;
+  const { fname, lname, email, nickname, phone, title, description, skills } = userInfo;
+  const userSkills = skills.map((skill) => skill.skill);
+  const skillsList = allSkills.map((skill) => skill.skill);
 
   function handleSubmit(values) {
     const { fname, lname, nickname, title, phone, dob, description } = values;
     const variables = { userId, fname, lname, nickname, title, phone, dob, description };
     return mutate({ variables });
+  }
+
+  function handleAddSkill(skill, newValue) {
+    if (skill) {
+      const newSkill = allSkills.find((s) => s.skill === skill);
+      const variables = { userId, skillId: newSkill.skillId };
+      return skillAdd({ variables });
+    } else {
+      const newArray = userSkills.filter(function (x) {
+        return !newValue.includes(x);
+      });
+      handleRemoveSkill(newArray[0]);
+    }
+  }
+
+  function handleRemoveSkill(skill) {
+    const theSkill = allSkills.find((s) => s.skill === skill);
+    const variables = { userId, skillId: theSkill.skillId };
+    return skillRemove({ variables });
   }
 
   return (
@@ -119,23 +114,7 @@ const TabPersonal = () => {
           countryCode: '+1',
           phone: phone ? phone : '',
           title: title ? title : '',
-          skill: [
-            'Adobe XD',
-            'Angular',
-            'Corel Draw',
-            'Figma',
-            'HTML',
-            'Illustrator',
-            'Javascript',
-            'Logo Design',
-            'Material UI',
-            'NodeJS',
-            'npm',
-            'Photoshop',
-            'React',
-            'Reduxjs & tooltit',
-            'SASS'
-          ],
+          skill: userSkills,
           description: description ? description : '',
           nickname: nickname ? nickname : '',
           submit: null
@@ -311,12 +290,13 @@ const TabPersonal = () => {
                 multiple
                 fullWidth
                 id="tags-outlined"
-                options={skills}
+                options={skillsList}
                 value={values.skill}
                 onBlur={handleBlur}
                 getOptionLabel={(label) => label}
                 onChange={(event, newValue) => {
                   setFieldValue('skill', newValue);
+                  handleAddSkill(event.target.innerText, newValue);
                 }}
                 renderInput={(params) => <TextField {...params} name="skill" placeholder="Add Skills" />}
                 renderTags={(value, getTagProps) =>
@@ -326,6 +306,7 @@ const TabPersonal = () => {
                       {...getTagProps({ index })}
                       variant="combined"
                       label={option}
+                      // onDelete={() => handleRemoveSkill(option)}
                       deleteIcon={<CloseOutlined style={{ fontSize: '0.75rem' }} />}
                       sx={{ color: 'text.primary' }}
                     />

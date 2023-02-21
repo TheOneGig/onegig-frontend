@@ -21,7 +21,7 @@ const DashboardDefault = () => {
   const { ownedProjects } = userInfo;
   let openProfits = 0;
   let pendingTasks = [];
-  ownedProjects.map((project) => {
+  ownedProjects?.map((project) => {
     if (project.status === 'ACTIVE') {
       openProfits = openProfits + project.price;
     }

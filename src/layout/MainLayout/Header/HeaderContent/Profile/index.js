@@ -67,7 +67,7 @@ const Profile = () => {
   if (isLoading) {
     return <div>Loading user info...</div>;
   }
-  const { fname, lname, nickname, email, title } = userInfo;
+  const { fname, lname, nickname, email, title, avatar } = userInfo;
   const fullName = nickname ? nickname : fname ? `${fname} ${lname}` : email;
 
   return (
@@ -90,7 +90,7 @@ const Profile = () => {
         onClick={handleToggle}
       >
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
-          <Avatar alt="profile user" src={avatar1} size="xs" />
+          <Avatar alt="profile user" src={avatar ? avatar.fileUrl : avatar1} size="xs" />
           <Typography variant="subtitle1">{fullName}</Typography>
         </Stack>
       </ButtonBase>
