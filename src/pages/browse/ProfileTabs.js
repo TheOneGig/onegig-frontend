@@ -12,6 +12,7 @@ import avatar1 from 'assets/images/users/avatar-1.png';
 
 const ProfileTabs = ({ user }) => {
   const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
+  const activeProjects = ownedProjects.map((project) => project.status === 'ACTIVE');
 
   return (
     <MainCard>
@@ -46,8 +47,8 @@ const ProfileTabs = ({ user }) => {
             </Stack>
             <Divider orientation="vertical" flexItem />
             <Stack spacing={0.5} alignItems="center">
-              <Typography variant="h5">{ownedProjects.length}</Typography>
-              <Typography color="secondary">Projects</Typography>
+              <Typography variant="h5">{activeProjects.length}</Typography>
+              <Typography color="secondary">Active Projects</Typography>
             </Stack>
           </Stack>
         </Grid>
