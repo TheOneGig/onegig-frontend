@@ -1,6 +1,3 @@
-import { Link as RouterLink } from 'react-router-dom';
-
-// material-ui
 import { Link, Stack, Typography } from '@mui/material';
 
 const Footer = () => (
@@ -15,7 +12,12 @@ const Footer = () => (
       >
         Privacy
       </Link>
-      <Link component={RouterLink} to="#" target="_blank" variant="caption" color="textPrimary">
+      <Link
+        href="https://app.termly.io/document/terms-and-conditions/32bb3d85-701d-4f50-9c6c-4c13695cb658"
+        target="_blank"
+        variant="caption"
+        color="textPrimary"
+      >
         Terms
       </Link>
     </Stack>
