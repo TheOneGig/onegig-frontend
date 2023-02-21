@@ -53,7 +53,9 @@ const ProfileTabs = ({ user }) => {
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          <Typography color="secondary">{description}</Typography>
+          <Typography color="secondary" sx={{ textAlign: 'justify' }}>
+            {description}
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <CardHeader title="Skills" />
