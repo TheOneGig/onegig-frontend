@@ -29,7 +29,7 @@ export default function ThemeRoutes() {
     },
     {
       path: 'browse',
-      element: <CommonLayout layout="simple" />,
+      element: <CommonLayout layout="blank" />,
       children: [
         {
           path: 'all',

@@ -64,7 +64,7 @@ const SkillsTable = ({ striped, title }) => {
     },
 
     validate: {
-      name: hasLength({ min: 2, max: 20 }, 'Name must be 2-20 characters long')
+      name: hasLength({ min: 1, max: 40 }, 'Name must be 1-40 characters long')
     }
   });
 

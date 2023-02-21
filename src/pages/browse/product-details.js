@@ -10,6 +10,7 @@ import ProductImages from 'sections/apps/e-commerce/product-details/ProductImage
 import ProductInfo from './ProductInfo';
 import MainCard from 'components/MainCard';
 import { getGig } from 'hooks/gigs';
+import ProfileTabs from './ProfileTabs';
 
 function TabPanel({ children, value, index, ...other }) {
   return (
@@ -40,26 +41,31 @@ const ProductDetails = () => {
   if (isLoading) {
     return <div>Loading gig...</div>;
   }
-
+  console.log(gig);
   return (
-    <>
-      {gig && (
-        <Grid container spacing={2} sx={{ marginTop: '70px', padding: '15px' }}>
-          <Grid item xs={12}>
-            <MainCard>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                  <ProductImages images={gig.files} />
+    <Grid container spacing={3} sx={{ padding: '15px' }}>
+      <Grid item xs={12} md={3}>
+        <ProfileTabs user={gig?.user} />
+      </Grid>
+      <Grid item xs={12} md={9}>
+        {gig && (
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <MainCard>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} sm={6}>
+                    <ProductImages images={gig.files} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <ProductInfo gig={gig} />
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <ProductInfo gig={gig} />
-                </Grid>
-              </Grid>
-            </MainCard>
+              </MainCard>
+            </Grid>
           </Grid>
-        </Grid>
-      )}
-    </>
+        )}
+      </Grid>
+    </Grid>
   );
 };
 
