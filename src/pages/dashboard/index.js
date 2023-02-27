@@ -7,7 +7,7 @@ import { RiseOutlined, UnorderedListOutlined, YoutubeOutlined } from '@ant-desig
 
 import useAuth from 'hooks/useAuth';
 import { getUser } from 'hooks/users';
-import { formatUSD } from 'hooks/formatUSD';
+import { formatUSD } from 'utils/formatUSD';
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 

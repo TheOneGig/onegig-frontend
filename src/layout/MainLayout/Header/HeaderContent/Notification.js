@@ -1,16 +1,15 @@
-import { useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
+import { useQuery } from 'react-query';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
-  Avatar,
   Badge,
   Box,
   ClickAwayListener,
   Divider,
   List,
   ListItemButton,
-  ListItemAvatar,
   ListItemText,
   ListItemSecondaryAction,
   Paper,
@@ -26,7 +25,10 @@ import IconButton from 'components/@extended/IconButton';
 import Transitions from 'components/@extended/Transitions';
 
 // assets
-import { BellOutlined, CheckCircleOutlined, GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
+import { BellOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { getNotifications } from 'hooks/notifications';
+import useAuth from 'hooks/useAuth';
+import dayjs from 'dayjs';
 
 // sx styles
 const avatarSX = {
@@ -50,6 +52,9 @@ const actionSX = {
 const Notification = () => {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
+  const { user } = useAuth();
+  const userId = user.id;
+  const { data: notifications, isLoading: loadingNotifications } = useQuery(['notifications'], () => getNotifications({ userId }));
 
   const anchorRef = useRef(null);
   const [read, setRead] = useState(2);
@@ -68,6 +73,12 @@ const Notification = () => {
   const iconBackColorOpen = theme.palette.mode === 'dark' ? 'grey.200' : 'grey.300';
   const iconBackColor = theme.palette.mode === 'dark' ? 'background.default' : 'grey.100';
 
+  if (loadingNotifications) {
+    return <></>;
+  }
+
+  const unread = notifications.filter((notification) => !notification.read);
+
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
       <IconButton
@@ -80,7 +91,7 @@ const Notification = () => {
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        <Badge badgeContent={read} color="primary">
+        <Badge badgeContent={unread.length} color="primary">
           <BellOutlined />
         </Badge>
       </IconButton>
@@ -145,135 +156,21 @@ const Notification = () => {
                       }
                     }}
                   >
-                    <ListItemButton selected={read > 0}>
-                      <ListItemAvatar>
-                        <Avatar
-                          sx={{
-                            color: 'success.main',
-                            bgcolor: 'success.lighter'
-                          }}
-                        >
-                          <GiftOutlined />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6">
-                            It&apos;s{' '}
-                            <Typography component="span" variant="subtitle1">
-                              Cristina danny&apos;s
-                            </Typography>{' '}
-                            birthday today.
-                          </Typography>
-                        }
-                        secondary="2 min ago"
-                      />
-                      <ListItemSecondaryAction>
-                        <Typography variant="caption" noWrap>
-                          3:00 AM
-                        </Typography>
-                      </ListItemSecondaryAction>
-                    </ListItemButton>
-                    <Divider />
-                    <ListItemButton selected={read > 0}>
-                      <ListItemAvatar>
-                        <Avatar
-                          sx={{
-                            color: 'primary.main',
-                            bgcolor: 'primary.lighter'
-                          }}
-                        >
-                          <MessageOutlined />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6">
-                            <Typography component="span" variant="subtitle1">
-                              Aida Burg
-                            </Typography>{' '}
-                            commented your post.
-                          </Typography>
-                        }
-                        secondary="5 August"
-                      />
-                      <ListItemSecondaryAction>
-                        <Typography variant="caption" noWrap>
-                          6:00 PM
-                        </Typography>
-                      </ListItemSecondaryAction>
-                    </ListItemButton>
-                    <Divider />
-                    <ListItemButton>
-                      <ListItemAvatar>
-                        <Avatar
-                          sx={{
-                            color: 'error.main',
-                            bgcolor: 'error.lighter'
-                          }}
-                        >
-                          <SettingOutlined />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6">
-                            Your Profile is Complete &nbsp;
-                            <Typography component="span" variant="subtitle1">
-                              60%
-                            </Typography>{' '}
-                          </Typography>
-                        }
-                        secondary="7 hours ago"
-                      />
-                      <ListItemSecondaryAction>
-                        <Typography variant="caption" noWrap>
-                          2:45 PM
-                        </Typography>
-                      </ListItemSecondaryAction>
-                    </ListItemButton>
-                    <Divider />
-                    <ListItemButton>
-                      <ListItemAvatar>
-                        <Avatar
-                          sx={{
-                            color: 'primary.main',
-                            bgcolor: 'primary.lighter'
-                          }}
-                        >
-                          C
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6">
-                            <Typography component="span" variant="subtitle1">
-                              Cristina Danny
-                            </Typography>{' '}
-                            invited to join{' '}
-                            <Typography component="span" variant="subtitle1">
-                              Meeting.
-                            </Typography>
-                          </Typography>
-                        }
-                        secondary="Daily scrum meeting time"
-                      />
-                      <ListItemSecondaryAction>
-                        <Typography variant="caption" noWrap>
-                          9:10 PM
-                        </Typography>
-                      </ListItemSecondaryAction>
-                    </ListItemButton>
-                    <Divider />
-                    <ListItemButton sx={{ textAlign: 'center', py: `${12}px !important` }}>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6" color="primary">
-                            View All
-                          </Typography>
-                        }
-                      />
-                    </ListItemButton>
+                    {notifications?.map((notification) => {
+                      return (
+                        <Fragment key={notification.notificationId}>
+                          <ListItemButton selected={read > 0}>
+                            <ListItemText primary={<Typography variant="h6">{notification.message}</Typography>} />
+                            <ListItemSecondaryAction>
+                              <Typography variant="caption" noWrap>
+                                {dayjs(notification.createdAt).format('MM/DD hh:mm a')}
+                              </Typography>
+                            </ListItemSecondaryAction>
+                          </ListItemButton>
+                          <Divider />
+                        </Fragment>
+                      );
+                    })}
                   </List>
                 </MainCard>
               </ClickAwayListener>

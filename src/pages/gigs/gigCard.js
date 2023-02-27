@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 import { Card, Image, Text, Badge, Button, Group, Grid, Modal, CopyButton, Anchor } from '@mantine/core';
 import PropTypes from 'prop-types';
 import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
-import { formatUSD } from 'hooks/formatUSD';
+import { formatUSD } from 'utils/formatUSD';
 import { updatePublishGig, deleteGig } from 'hooks/gigs';
 
 const GigCard = ({ gig, refetch, handleEdit }) => {

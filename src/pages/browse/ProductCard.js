@@ -7,7 +7,7 @@ import { Box, Button, CardContent, CardMedia, Divider, Grid, Rating, Stack, Typo
 // project import
 import MainCard from 'components/MainCard';
 import SkeletonProductPlaceholder from 'components/cards/skeleton/ProductPlaceholder';
-import { formatUSD } from 'hooks/formatUSD';
+import { formatUSD } from 'utils/formatUSD';
 
 // ==============================|| PRODUCT CARD ||============================== //
 

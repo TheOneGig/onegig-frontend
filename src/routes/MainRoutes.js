@@ -22,6 +22,7 @@ const UserTabPassword = Loadable(lazy(() => import('pages/profile/TabPassword'))
 const UserTabSettings = Loadable(lazy(() => import('pages/profile/TabSettings')));
 
 const Skills = Loadable(lazy(() => import('pages/skills')));
+const Finances = Loadable(lazy(() => import('pages/finances')));
 
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
@@ -152,6 +153,10 @@ const MainRoutes = {
         {
           path: 'transaction/:paymentId',
           element: <Transaction />
+        },
+        {
+          path: 'finances',
+          element: <Finances />
         },
         {
           path: 'skills',

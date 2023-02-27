@@ -4,7 +4,7 @@ import { Button, Rating, Stack, Typography } from '@mui/material';
 
 // assets
 import { StarFilled, StarOutlined } from '@ant-design/icons';
-import { formatUSD } from 'hooks/formatUSD';
+import { formatUSD } from 'utils/formatUSD';
 
 // ==============================|| PRODUCT DETAILS - INFORMATION ||============================== //
 

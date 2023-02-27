@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 // assets
 import { DashboardOutlined, FolderOpenOutlined, FolderViewOutlined, UserAddOutlined } from '@ant-design/icons';
+import { IconGraph } from '@tabler/icons-react';
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
@@ -30,6 +31,13 @@ const dashboard = {
       type: 'item',
       url: '/projects',
       icon: FolderOpenOutlined
+    },
+    {
+      id: 'Finances',
+      title: <FormattedMessage id="Finances" />,
+      type: 'item',
+      url: '/finances',
+      icon: IconGraph
     },
     {
       id: 'Skills',

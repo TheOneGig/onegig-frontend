@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Stack, Typography } from '@mui/material';
 
 // assets
-import { formatUSD } from 'hooks/formatUSD';
+import { formatUSD } from 'utils/formatUSD';
 import ProjectLead from './drawerInterested';
 
 // ==============================|| PRODUCT DETAILS - INFORMATION ||============================== //
