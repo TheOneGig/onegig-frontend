@@ -2,7 +2,14 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { DashboardOutlined, FolderOpenOutlined, FolderViewOutlined, FundOutlined, UserAddOutlined } from '@ant-design/icons';
+import {
+  DashboardOutlined,
+  FolderOpenOutlined,
+  FolderViewOutlined,
+  FundOutlined,
+  UnorderedListOutlined,
+  UserAddOutlined
+} from '@ant-design/icons';
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
@@ -37,6 +44,13 @@ const dashboard = {
       type: 'item',
       url: '/finances',
       icon: FundOutlined
+    },
+    {
+      id: 'To-Do',
+      title: <FormattedMessage id="To-Do" />,
+      type: 'item',
+      url: '/todo',
+      icon: UnorderedListOutlined
     },
     {
       id: 'Skills',

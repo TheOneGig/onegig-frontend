@@ -52,6 +52,7 @@ const ProfileTabs = () => {
     return <div>Loading profile...</div>;
   }
   const { fname, lname, email, nickname, phone, title, gigs, ownedProjects, avatar } = userInfo;
+  const activeProjects = ownedProjects.filter((p) => p.status !== 'ARCHIVED');
 
   return (
     <MainCard>
@@ -116,7 +117,7 @@ const ProfileTabs = () => {
             </Stack>
             <Divider orientation="vertical" flexItem />
             <Stack spacing={0.5} alignItems="center">
-              <Typography variant="h5">{ownedProjects.length}</Typography>
+              <Typography variant="h5">{activeProjects.length}</Typography>
               <Typography color="secondary">Projects</Typography>
             </Stack>
           </Stack>
