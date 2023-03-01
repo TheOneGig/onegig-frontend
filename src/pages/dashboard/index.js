@@ -56,7 +56,7 @@ const DashboardDefault = () => {
       totalExpenses = totalExpenses + transaction.amount;
     }
   });
-  const profit = parseFloat(totalRevenue / 100 - totalExpenses / 100).toFixed(2);
+  const profit = parseFloat(totalRevenue - totalExpenses).toFixed(2);
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 1 */}

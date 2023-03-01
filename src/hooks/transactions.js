@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const getAllTransactions = async (data) => {
-  console.log('data:', data);
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/transactions/all', data);
   return response;
 };
