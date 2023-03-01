@@ -45,7 +45,7 @@ const Gigs = () => {
         })}
       </Grid>
 
-      <Title sx={{ marginBottom: '15px' }}>Unpublished Gigs</Title>
+      <Title sx={{ marginBottom: '15px', marginTop: '15px' }}>Unpublished Gigs</Title>
       <Grid>
         {unpublishedGigs.map((gig) => {
           return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} share={false} />;
