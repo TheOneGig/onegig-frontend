@@ -3,7 +3,7 @@ import HoverSocialCard from 'components/cards/statistics/HoverSocialCard';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Grid } from '@mui/material';
-import { RiseOutlined, UnorderedListOutlined, YoutubeOutlined } from '@ant-design/icons';
+import { ContainerOutlined, RiseOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import AreaChart from './AreaChart';
 
 import useAuth from 'hooks/useAuth';
@@ -36,6 +36,8 @@ const DashboardDefault = () => {
       });
     });
   });
+
+  const activeProjects = ownedProjects?.filter((p) => p.status !== 'ARCHIVED');
 
   let dates = [];
   let revenues = [];
@@ -76,8 +78,8 @@ const DashboardDefault = () => {
         <HoverSocialCard
           pushUrl={'/projects'}
           primary="Active Projects"
-          secondary={`${ownedProjects?.length}`}
-          iconPrimary={YoutubeOutlined}
+          secondary={`${activeProjects?.length}`}
+          iconPrimary={ContainerOutlined}
           color="#c8c8c8"
         />
       </Grid>
