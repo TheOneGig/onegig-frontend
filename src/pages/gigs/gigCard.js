@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { Card, Image, Text, Badge, Button, Group, Grid, Modal, CopyButton, Anchor } from '@mantine/core';
+import { Card, Image, Text, Badge, Button, Group, Grid, Modal, CopyButton, Anchor, Tooltip } from '@mantine/core';
 import PropTypes from 'prop-types';
 import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
 import { formatUSD } from 'utils/formatUSD';
 import { updatePublishGig, deleteGig } from 'hooks/gigs';
 
-const GigCard = ({ gig, refetch, handleEdit }) => {
+const GigCard = ({ gig, refetch, handleEdit, share }) => {
   const [openedDelete, setOpenedDelete] = useState(false);
   const { mutate: gigDelete, isLoading: loadingDelete } = useMutation(['deleteGig'], (variables) => deleteGig(variables), {
     onSuccess: () => {
@@ -48,20 +48,36 @@ const GigCard = ({ gig, refetch, handleEdit }) => {
           </Text>
           <Grid>
             <Grid.Col span={6}>
-              <Anchor href={`/browse/gig/${gig.gigId}`} target="_blank">
-                <Button variant="light" color={'green'} mt="md" radius="md" fullWidth loading={loadingPublish}>
-                  View
-                </Button>
-              </Anchor>
+              {share ? (
+                <Anchor href={`/browse/gig/${gig.gigId}`} target="_blank" underline="none">
+                  <Button variant="light" color={'green'} mt="md" radius="md" fullWidth loading={loadingPublish}>
+                    View
+                  </Button>
+                </Anchor>
+              ) : (
+                <Tooltip label="In order to view, the gig needs to be published" color="red" position="top-end" withArrow>
+                  <Button color={'gray'} variant="light" mt="md" radius="md" fullWidth>
+                    View
+                  </Button>
+                </Tooltip>
+              )}
             </Grid.Col>
             <Grid.Col span={6}>
-              <CopyButton value={`${window.location.origin}/browse/gig/${gig.gigId}`}>
-                {({ copied, copy }) => (
-                  <Button color={copied ? 'teal' : 'blue'} variant="light" mt="md" radius="md" fullWidth onClick={copy}>
-                    {copied ? 'Copied URL' : 'Share URL'}
+              {share ? (
+                <CopyButton value={`${window.location.origin}/browse/gig/${gig.gigId}`}>
+                  {({ copied, copy }) => (
+                    <Button color={copied ? 'teal' : 'blue'} variant="light" mt="md" radius="md" fullWidth onClick={copy}>
+                      {copied ? 'Copied URL' : 'Share URL'}
+                    </Button>
+                  )}
+                </CopyButton>
+              ) : (
+                <Tooltip label="In order to share, the gig needs to be published" color="red" position="top-end" withArrow>
+                  <Button color={'gray'} variant="light" mt="md" radius="md" fullWidth>
+                    Share URL
                   </Button>
-                )}
-              </CopyButton>
+                </Tooltip>
+              )}
             </Grid.Col>
             <Grid.Col span={4}>
               <Button
@@ -130,7 +146,8 @@ const GigCard = ({ gig, refetch, handleEdit }) => {
 GigCard.propTypes = {
   gig: PropTypes.object,
   refetch: PropTypes.func,
-  handleEdit: PropTypes.func
+  handleEdit: PropTypes.func,
+  share: PropTypes.bool
 };
 
 export default GigCard;

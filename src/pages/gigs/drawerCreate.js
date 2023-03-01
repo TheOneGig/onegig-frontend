@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { ActionIcon, Box, Button, Drawer, Group, Image, NumberInput, Text, Textarea, TextInput, Title } from '@mantine/core';
+import { ActionIcon, Box, Button, Drawer, Group, Image, Input, NumberInput, Text, Textarea, TextInput, Title } from '@mantine/core';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useForm, hasLength, isInRange } from '@mantine/form';
 import { createGig } from 'hooks/gigs';
@@ -80,29 +80,32 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
           {...form.getInputProps('delivery')}
         />
 
-        {file ? (
-          <div className="actions-area">
-            <ActionIcon onClick={() => setFile()} className="actions-icon">
-              <IconEdit color="white" />
-            </ActionIcon>
-            <Image src={file} alt="featured" />
-          </div>
-        ) : (
-          <Dropzone
-            onDrop={(files) => handleUpload(files)}
-            onReject={() => alert('File rejected')}
-            maxSize={3 * 1024 ** 2}
-            accept={IMAGE_MIME_TYPE}
-          >
-            <Group position="center" spacing="lg" style={{ minHeight: 100, pointerEvents: 'none' }}>
-              <div>
-                <Text size="xl" inline>
-                  Drag image here or click to select file
-                </Text>
-              </div>
-            </Group>
-          </Dropzone>
-        )}
+        <div style={{ marginTop: '16px' }}>
+          <Input.Wrapper label="Featured Image" />
+          {file ? (
+            <div className="actions-area">
+              <ActionIcon onClick={() => setFile()} className="actions-icon">
+                <IconEdit color="white" />
+              </ActionIcon>
+              <Image src={file} alt="featured" />
+            </div>
+          ) : (
+            <Dropzone
+              onDrop={(files) => handleUpload(files)}
+              onReject={() => alert('File rejected')}
+              maxSize={3 * 1024 ** 2}
+              accept={IMAGE_MIME_TYPE}
+            >
+              <Group position="center" spacing="lg" style={{ minHeight: 100, pointerEvents: 'none' }}>
+                <div>
+                  <Text size="xl" inline>
+                    Drag image here or click to select file
+                  </Text>
+                </div>
+              </Group>
+            </Dropzone>
+          )}
+        </div>
 
         <Group position="right" mt="md">
           <Button color="gray" onClick={() => setOpened(false)} loading={isLoading}>

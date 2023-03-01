@@ -11,6 +11,8 @@
 
 .actions-area {
   position: relative;
+  border: 1px solid rgb(48, 51, 56);
+  border-radius: 10px;
 }
 
 .actions-icon {
@@ -99,4 +101,12 @@
 
 .text-red {
   color: red;
+}
+
+form .mantine-InputWrapper-root {
+  margin-top: 16px;
+}
+
+form .mantine-InputWrapper-label {
+  margin-bottom: 2px;
 }

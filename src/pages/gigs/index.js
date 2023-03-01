@@ -41,14 +41,14 @@ const Gigs = () => {
       <Title>Published Gigs</Title>
       <Grid>
         {publishedGigs.map((gig) => {
-          return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} />;
+          return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} share />;
         })}
       </Grid>
 
       <Title>Unpublished Gigs</Title>
       <Grid>
         {unpublishedGigs.map((gig) => {
-          return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} />;
+          return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} share={false} />;
         })}
       </Grid>
 
