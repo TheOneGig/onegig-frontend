@@ -74,12 +74,10 @@ const NavItem = ({ item, level }) => {
             bgcolor: theme.palette.mode === 'dark' ? 'divider' : 'primary.lighter'
           },
           '&.Mui-selected': {
-            bgcolor: theme.palette.mode === 'dark' ? 'divider' : 'primary.lighter',
             borderRight: `2px solid ${theme.palette.primary.main}`,
             color: iconSelectedColor,
             '&:hover': {
-              color: iconSelectedColor,
-              bgcolor: theme.palette.mode === 'dark' ? 'divider' : 'primary.lighter'
+              color: iconSelectedColor
             }
           }
         }),
@@ -111,13 +109,9 @@ const NavItem = ({ item, level }) => {
                 bgcolor: theme.palette.mode === 'dark' ? 'secondary.light' : 'secondary.lighter'
               }
             }),
-            ...(!drawerOpen &&
-              isSelected && {
-                bgcolor: theme.palette.mode === 'dark' ? 'primary.900' : 'primary.lighter',
-                '&:hover': {
-                  bgcolor: theme.palette.mode === 'dark' ? 'primary.darker' : 'primary.lighter'
-                }
-              })
+            ...(drawerOpen && {
+              marginLeft: '12px'
+            })
           }}
         >
           {itemIcon}
