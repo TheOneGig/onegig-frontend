@@ -62,6 +62,7 @@ const DashboardDefault = () => {
       {/* row 1 */}
       <Grid item xs={12} lg={4} sm={6}>
         <HoverSocialCard
+          pushUrl={'/finances'}
           primary="Profits"
           secondary={`${formatUSD(profit)}`}
           iconPrimary={RiseOutlined}
