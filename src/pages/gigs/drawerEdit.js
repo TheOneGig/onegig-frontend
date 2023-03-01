@@ -19,6 +19,7 @@ const config = {
 
 const GigEdit = ({ opened, setOpened, refetch, gig }) => {
   const [file, setFile] = useState();
+  const [fileError, setFileError] = useState(false);
   const { mutate, isLoading } = useMutation(['updateGig'], (variables) => updateGig(variables), {
     onSuccess: () => {
       refetch();
@@ -60,16 +61,21 @@ const GigEdit = ({ opened, setOpened, refetch, gig }) => {
   };
 
   function handleSubmit(values) {
-    const price = parseInt(values.price * 100);
-    const variables = {
-      name: values.name,
-      description: values.description,
-      price,
-      delivery: values.delivery,
-      gigId: gig.gigId,
-      fileUrl: file
-    };
-    return mutate({ variables });
+    if (file) {
+      setFileError(false);
+      const price = parseInt(values.price * 100);
+      const variables = {
+        name: values.name,
+        description: values.description,
+        price,
+        delivery: values.delivery,
+        gigId: gig.gigId,
+        fileUrl: file
+      };
+      return mutate({ variables });
+    } else {
+      setFileError(true);
+    }
   }
 
   return (
@@ -101,7 +107,7 @@ const GigEdit = ({ opened, setOpened, refetch, gig }) => {
         />
 
         <div style={{ marginTop: '16px' }}>
-          <Input.Wrapper label="Featured Image" />
+          <Input.Wrapper label="Featured Image" withAsterisk />
           {file ? (
             <div className="actions-area">
               <ActionIcon onClick={() => setFile()} className="actions-icon">
@@ -125,6 +131,7 @@ const GigEdit = ({ opened, setOpened, refetch, gig }) => {
               </Group>
             </Dropzone>
           )}
+          {fileError && <p style={{ color: 'red' }}>Featured file is required.</p>}
         </div>
 
         <Group position="right" mt="md">

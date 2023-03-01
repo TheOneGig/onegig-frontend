@@ -110,3 +110,9 @@ form .mantine-InputWrapper-root {
 form .mantine-InputWrapper-label {
   margin-bottom: 2px;
 }
+
+button,
+[type='reset'],
+[type='submit'] {
+  background-color: #0eba9b;
+}

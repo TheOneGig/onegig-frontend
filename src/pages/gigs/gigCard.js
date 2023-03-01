@@ -55,7 +55,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
                   </Button>
                 </Anchor>
               ) : (
-                <Tooltip label="In order to view, the gig needs to be published" color="red" position="top-end" withArrow>
+                <Tooltip label="In order to view, the gig needs to be published" color="red" position="top-start" withArrow>
                   <Button color={'gray'} variant="light" mt="md" radius="md" fullWidth>
                     View
                   </Button>

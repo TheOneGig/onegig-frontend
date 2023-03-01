@@ -38,14 +38,14 @@ const Gigs = () => {
           New Gig
         </Button>
       </Flex>
-      <Title>Published Gigs</Title>
+      <Title sx={{ marginBottom: '15px' }}>Published Gigs</Title>
       <Grid>
         {publishedGigs.map((gig) => {
           return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} share />;
         })}
       </Grid>
 
-      <Title>Unpublished Gigs</Title>
+      <Title sx={{ marginBottom: '15px' }}>Unpublished Gigs</Title>
       <Grid>
         {unpublishedGigs.map((gig) => {
           return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} share={false} />;
