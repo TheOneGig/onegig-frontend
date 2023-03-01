@@ -24,18 +24,20 @@ const DashboardDefault = () => {
   let openProfits = 0;
   let pendingTasks = [];
 
-  ownedProjects?.map((project) => {
-    if (project.status === 'ACTIVE') {
-      openProfits = openProfits + project.price;
-    }
-    project.taskTables?.map((taskTable) => {
-      taskTable.tasks?.map((task) => {
-        if (!task.done) {
-          pendingTasks.push(task);
-        }
+  ownedProjects
+    ?.filter((p) => p.status !== 'ARCHIVED')
+    .map((project) => {
+      if (project.status === 'ACTIVE') {
+        openProfits = openProfits + project.price;
+      }
+      project.taskTables?.map((taskTable) => {
+        taskTable.tasks?.map((task) => {
+          if (!task.done) {
+            pendingTasks.push(task);
+          }
+        });
       });
     });
-  });
 
   const activeProjects = ownedProjects?.filter((p) => p.status !== 'ARCHIVED');
 
