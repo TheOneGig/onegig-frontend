@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
 import { formatUSD } from 'utils/formatUSD';
 import { updatePublishGig, deleteGig } from 'hooks/gigs';
+import { truncate } from 'utils/truncate';
 
 const GigCard = ({ gig, refetch, handleEdit, share }) => {
   const [openedDelete, setOpenedDelete] = useState(false);
@@ -38,14 +39,16 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
 
           <Group position="apart" mt="md" mb="xs">
             <Text weight={500}>{gig.name}</Text>
-            <Badge color="pink" variant="light">
+            <Badge color="#1dbeea" variant="light">
               {formatUSD(gig.price)}
             </Badge>
           </Group>
 
-          <Text size="sm" color="dimmed">
-            {gig.description}
-          </Text>
+          <div style={{ height: '112px' }}>
+            <Text size="sm" color="dimmed" align="justify">
+              {truncate(gig.description, 250)}
+            </Text>
+          </div>
           <Grid>
             <Grid.Col span={6}>
               {share ? (

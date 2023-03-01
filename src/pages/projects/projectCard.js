@@ -30,7 +30,7 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
 
           <Group position="apart" mt="md" mb="xs">
             <Text weight={500}>{project.name}</Text>
-            <Badge color="pink" variant="light">
+            <Badge color="#1dbeea" variant="light">
               {formatUSD(project.price)}
             </Badge>
           </Group>
