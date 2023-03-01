@@ -14,3 +14,8 @@ export const createInvoice = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/stripe/createInvoice', data.variables);
   return response;
 };
+
+export const createGigPayment = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/stripe/payment', data.variables);
+  return response;
+};

@@ -33,7 +33,7 @@ const Theme7 = (colors, mode) => {
     primaryColors = ['#1a2721', '#173728', '#15472e', '#115c36', '#0b7841', '#05934c', '#1da65d', '#3cba73', '#61ca8b', '#8ad7a6'];
     errorColors = ['#321d1d', '#7d2e28', '#d13c31', '#e66859', '#f8baaf'];
     warningColors = ['#342c1a', '#836611', '#dda705', '#e9bf28', '#f8e577'];
-    infoColors = ['#1a2628', '#11595f', '#058e98', '#1ea6aa', '#64cfcb'];
+    infoColors = ['#1a2628', '#11595f', '#1dbeea', '#1ea6aa', '#64cfcb'];
     successColors = ['#1a2721', '#115c36', '#05934c', '#1da65d', '#61ca8b'];
   }
 

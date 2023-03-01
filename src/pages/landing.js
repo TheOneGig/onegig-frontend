@@ -64,7 +64,7 @@ const Landing = () => {
     },
     {
       id: 'theme3',
-      primary: mode === 'dark' ? '#0a7d3e' : '#068e44'
+      primary: mode === 'dark' ? '#0eba9b' : '#068e44'
     },
     {
       id: 'theme4',

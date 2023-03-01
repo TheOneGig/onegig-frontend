@@ -116,6 +116,7 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
     </Drawer>
   );
 };
+
 GigCreate.propTypes = {
   userId: PropTypes.string,
   opened: PropTypes.bool,

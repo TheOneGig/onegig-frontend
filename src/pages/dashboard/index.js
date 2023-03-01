@@ -4,6 +4,7 @@ import HoverSocialCard from 'components/cards/statistics/HoverSocialCard';
 import { useTheme } from '@mui/material/styles';
 import { Grid } from '@mui/material';
 import { RiseOutlined, UnorderedListOutlined, YoutubeOutlined } from '@ant-design/icons';
+import AreaChart from './AreaChart';
 
 import useAuth from 'hooks/useAuth';
 import { getUser } from 'hooks/users';
@@ -18,9 +19,11 @@ const DashboardDefault = () => {
   if (isLoading) {
     return <div>Loading dashboard...</div>;
   }
-  const { ownedProjects } = userInfo;
+
+  const { ownedProjects, transactions } = userInfo;
   let openProfits = 0;
   let pendingTasks = [];
+
   ownedProjects?.map((project) => {
     if (project.status === 'ACTIVE') {
       openProfits = openProfits + project.price;
@@ -33,13 +36,30 @@ const DashboardDefault = () => {
       });
     });
   });
+
+  let dates = [];
+  let revenues = [];
+  let totalRevenue = 0;
+  let expenses = [];
+  let totalExpenses = 0;
+  transactions.map((transaction) => {
+    dates.push(transaction.createdAt);
+    if (transaction.type === 'REVENUE') {
+      revenues.push(transaction.amount / 100);
+      totalRevenue = totalRevenue + transaction.amount;
+    } else {
+      expenses.push(transaction.amount / 100);
+      totalExpenses = totalExpenses + transaction.amount;
+    }
+  });
+  const profit = parseFloat(totalRevenue / 100 - totalExpenses / 100).toFixed(2);
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 1 */}
       <Grid item xs={12} lg={4} sm={6}>
         <HoverSocialCard
-          primary="Open Profits"
-          secondary={`${formatUSD(openProfits)}`}
+          primary="Profits"
+          secondary={`${formatUSD(profit)}`}
           iconPrimary={RiseOutlined}
           color={theme.palette.primary.main}
         />
@@ -58,8 +78,11 @@ const DashboardDefault = () => {
           primary="Active Projects"
           secondary={`${ownedProjects?.length}`}
           iconPrimary={YoutubeOutlined}
-          color={theme.palette.error.main}
+          color="#c8c8c8"
         />
+      </Grid>
+      <Grid item xs={12} lg={12} sm={12}>
+        <AreaChart dates={dates} expenses={expenses} revenues={revenues} />
       </Grid>
     </Grid>
   );

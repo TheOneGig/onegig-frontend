@@ -45,10 +45,10 @@ const ColorScheme = () => {
     },
     {
       id: 'theme3',
-      primary: mode === 'dark' ? '#0a7d3e' : '#068e44',
+      primary: mode === 'dark' ? '#0eba9b' : '#068e44',
       lighter: mode === 'dark' ? '#1a231f' : '#E6F3EC',
       label: 'Theme 3',
-      shadow: `0 0 0 2px ${alpha(mode === 'dark' ? '#0a7d3e' : '#068e44', 0.2)}`
+      shadow: `0 0 0 2px ${alpha(mode === 'dark' ? '#0eba9b' : '#068e44', 0.2)}`
     },
     {
       id: 'theme4',
