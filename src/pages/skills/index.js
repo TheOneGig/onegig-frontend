@@ -155,6 +155,7 @@ const SkillsTable = ({ striped, title }) => {
           overlayColor={theme.colors.dark[9]}
           overlayOpacity={0.55}
           overlayBlur={3}
+          centered
         >
           <div>
             <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleEdit(values))}>
@@ -194,6 +195,7 @@ const SkillsTable = ({ striped, title }) => {
           overlayColor={theme.colors.dark[9]}
           overlayOpacity={0.55}
           overlayBlur={3}
+          centered
         >
           <div>
             <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleNew(values))}>
@@ -233,6 +235,7 @@ const SkillsTable = ({ striped, title }) => {
           overlayColor={theme.colors.dark[9]}
           overlayOpacity={0.55}
           overlayBlur={3}
+          centered
         >
           <div>
             <p>Are you sure you want to delete this skill? This is irreversible!</p>

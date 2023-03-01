@@ -71,7 +71,7 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
         </Card>
       </Grid.Col>
 
-      <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete gig?">
+      <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete gig?" centered>
         <div>
           <p>
             Are you sure you want to archive this project? It will be moved to the archive and it will not be part of any of the other

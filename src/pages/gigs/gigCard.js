@@ -109,7 +109,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
         </Card>
       </Grid.Col>
 
-      <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete gig?">
+      <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete gig?" centered>
         <div>
           <p>Are you sure you want to delete this gig? This is irreversible!</p>
           <Grid>
