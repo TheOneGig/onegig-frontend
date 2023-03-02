@@ -1,116 +1,43 @@
-import { useEffect, useState } from 'react';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend } from 'chart.js';
+import { Line } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 
-// material-ui
-import { useTheme } from '@mui/material/styles';
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend);
 
-// third-party
-import ReactApexChart from 'react-apexcharts';
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top'
+    }
+  }
+};
 
-// project imports
-import useConfig from 'hooks/useConfig';
-
-// chart options
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 // ==============================|| APEXCHART - AREA ||============================== //
 
-const AreaChart = ({ dates, expenses, revenues }) => {
-  const theme = useTheme();
-
-  const areaChartOptions = {
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: ['#0eba9b', 'red'],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      type: 'datetime',
-      categories: dates
-    },
-    tooltip: {
-      x: {
-        format: 'dd/MM/yy'
-      }
-    },
-    legend: {
-      show: true,
-      fontFamily: `'Roboto', sans-serif`,
-      position: 'bottom',
-      offsetX: 10,
-      offsetY: 10,
-      labels: {
-        useSeriesColors: false
+const AreaChart = ({ expenses, revenues }) => {
+  const data = {
+    labels,
+    datasets: [
+      {
+        fill: true,
+        label: 'Expenses',
+        data: expenses,
+        borderColor: 'rgb(200, 200, 200)',
+        backgroundColor: 'rgba(200, 200, 200, 0.5)'
       },
-      markers: {
-        width: 16,
-        height: 16,
-        radius: 5
-      },
-      itemMargin: {
-        horizontal: 15,
-        vertical: 8
+      {
+        fill: true,
+        label: 'Revenues',
+        data: revenues,
+        borderColor: 'rgba(84, 183, 156, 1)',
+        backgroundColor: 'rgba(84, 183, 156, 0.5)'
       }
-    }
+    ]
   };
-  const { mode } = useConfig();
-  const line = theme.palette.divider;
-  const { primary, secondary } = theme.palette.text;
-
-  const [series] = useState([
-    {
-      name: 'Income',
-      data: revenues
-    },
-    {
-      name: 'Expenses',
-      data: expenses
-    }
-  ]);
-
-  const [options, setOptions] = useState(areaChartOptions);
-  useEffect(() => {
-    setOptions((prevState) => ({
-      ...prevState,
-      colors: ['#0eba9b', 'red'],
-      xaxis: {
-        labels: {
-          style: {
-            colors: [primary, primary, primary, primary, primary, primary, primary]
-          }
-        }
-      },
-      yaxis: {
-        labels: {
-          style: {
-            colors: [primary]
-          }
-        }
-      },
-      grid: {
-        borderColor: line
-      },
-      tooltip: {
-        theme: mode === 'dark' ? 'dark' : 'light'
-      },
-      legend: {
-        labels: {
-          colors: 'grey.500'
-        }
-      }
-    }));
-  }, [mode, primary, secondary, line, theme]);
-
-  return (
-    <div id="chart">
-      <ReactApexChart options={options} series={series} type="area" height={350} />
-    </div>
-  );
+  return <Line options={options} data={data} />;
 };
 
 AreaChart.propTypes = {

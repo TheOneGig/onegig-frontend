@@ -87,7 +87,7 @@ const DashboardDefault = () => {
         />
       </Grid>
       <Grid item xs={12} lg={12} sm={12}>
-        <AreaChart dates={dates} expenses={expenses} revenues={revenues} />
+        <AreaChart expenses={expenses} revenues={revenues} />
       </Grid>
     </Grid>
   );
