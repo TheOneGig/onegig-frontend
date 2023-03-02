@@ -47,7 +47,7 @@ const ProjectLead = ({ opened, setOpened, gig }) => {
   }
 
   return (
-    <Drawer opened={opened} onClose={() => setOpened(false)} title="Register" padding="xl" size="xl" position="right">
+    <Drawer opened={opened} onClose={() => setOpened(false)} padding="xl" size="xl" position="right">
       <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))} sx={{ paddingTop: '40px' }}>
         <Title order={1}>{`I'm Interested`}</Title>
 

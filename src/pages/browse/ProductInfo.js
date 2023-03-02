@@ -59,7 +59,7 @@ const ProductInfo = ({ gig }) => {
 
       <ProjectLead opened={opened} setOpened={setOpened} gig={gig} />
 
-      <Drawer opened={emailOpened} onClose={() => setOpened(false)} title="Register" padding="xl" size="xl" position="right">
+      <Drawer opened={emailOpened} onClose={() => setEmailOpened(false)} padding="xl" size="xl" position="right">
         <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleBuy(values))} sx={{ paddingTop: '40px' }}>
           <Title order={1}>Your information</Title>
 
