@@ -30,7 +30,17 @@ export const updateDoneTask = async (data) => {
   return response;
 };
 
-export const deleteGig = async (data) => {
+export const deleteTask = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/tasks/delete', data.variables);
+  return response;
+};
+
+export const getToDo = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/tasks/getToDo', data);
+  return response;
+};
+
+export const createToDo = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/tasks/createToDo', data.variables);
   return response;
 };

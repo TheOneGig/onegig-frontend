@@ -9,6 +9,7 @@ import AreaChart from './AreaChart';
 import useAuth from 'hooks/useAuth';
 import { getUser } from 'hooks/users';
 import { formatUSD } from 'utils/formatUSD';
+import ToDoList from 'components/ToDoList';
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
@@ -86,8 +87,11 @@ const DashboardDefault = () => {
           color="#c8c8c8"
         />
       </Grid>
-      <Grid item xs={12} lg={12} sm={12}>
+      <Grid item xs={8} lg={8} sm={8}>
         <AreaChart expenses={expenses} revenues={revenues} />
+      </Grid>
+      <Grid item xs={4} lg={4} sm={4}>
+        <ToDoList userId={user.id} />
       </Grid>
     </Grid>
   );

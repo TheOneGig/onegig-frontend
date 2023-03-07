@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 // material-ui
-import { Flex, Button, Grid } from '@mantine/core';
+import { Flex, Button, Grid, Title } from '@mantine/core';
 
 import useAuth from 'hooks/useAuth';
 import ProjectCreate from './drawerCreate';
@@ -10,6 +10,7 @@ import ProjectCard from './projectCard';
 import ProjectEdit from './drawerEdit';
 import { getProjects } from 'hooks/projects';
 import { getGigs } from 'hooks/gigs';
+import LeadCard from './leadCard';
 
 // ==============================|| GIGS ||============================== //
 
@@ -30,6 +31,9 @@ const Projects = () => {
     setOpenedEdit(true);
   }
 
+  let leads = [];
+  gigs.map((gig) => gig.leads.map((lead) => leads.push(lead)));
+
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
@@ -37,9 +41,16 @@ const Projects = () => {
           New Project
         </Button>
       </Flex>
+      <Title sx={{ marginBottom: '15px' }}>Active Projects</Title>
       <Grid>
         {projects.map((project) => {
           return <ProjectCard key={project.projectId} project={project} refetch={refetch} handleEdit={handleEdit} />;
+        })}
+      </Grid>
+      <Title sx={{ marginBottom: '15px' }}>Leads</Title>
+      <Grid>
+        {leads?.map((lead) => {
+          return <LeadCard key={lead.leadId} lead={lead} />;
         })}
       </Grid>
 

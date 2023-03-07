@@ -14,6 +14,7 @@ const Tasks = Loadable(lazy(() => import('pages/tasks')));
 const Chat = Loadable(lazy(() => import('pages/chat')));
 const Tiers = Loadable(lazy(() => import('pages/tiers')));
 const Transaction = Loadable(lazy(() => import('pages/transaction')));
+const ToDo = Loadable(lazy(() => import('pages/todo')));
 
 const Profile = Loadable(lazy(() => import('pages/profile')));
 const UserTabPersonal = Loadable(lazy(() => import('pages/profile/TabPersonal')));
@@ -153,6 +154,10 @@ const MainRoutes = {
         {
           path: 'transaction/:paymentId',
           element: <Transaction />
+        },
+        {
+          path: 'todo',
+          element: <ToDo />
         },
         {
           path: 'finances',
