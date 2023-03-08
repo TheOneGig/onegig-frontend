@@ -4,7 +4,6 @@ import { useRoutes } from 'react-router-dom';
 // project import
 import CommonLayout from 'layout/CommonLayout';
 import Loadable from 'components/Loadable';
-import ComponentsRoutes from './ComponentsRoutes';
 import LoginRoutes from './LoginRoutes';
 import MainRoutes from './MainRoutes';
 
@@ -42,7 +41,6 @@ export default function ThemeRoutes() {
       ]
     },
     LoginRoutes,
-    ComponentsRoutes,
     MainRoutes
   ]);
 }
