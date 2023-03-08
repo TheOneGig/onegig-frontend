@@ -24,7 +24,7 @@
     "@mantine/dropzone": "^5.10.2",
     "@mantine/form": "^5.10.2",
     "@mantine/hooks": "^5.10.2",
-    "@mui/base": "^5.0.0-alpha.101",
+    "@mui/base": "^5.0.0-alpha.120",
     "@mui/lab": "^5.0.0-alpha.103",
     "@mui/material": "^5.10.9",
     "@mui/system": "^5.10.9",
