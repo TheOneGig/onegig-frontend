@@ -8,7 +8,7 @@ import { CardContent, Checkbox, FormControlLabel, Grid, Tooltip } from '@mui/mat
 import MainCard from 'components/MainCard';
 
 // assets
-import { PlusCircleOutlined, SendOutlined } from '@ant-design/icons';
+import { EyeOutlined, PlusCircleOutlined, SendOutlined } from '@ant-design/icons';
 import IconButton from 'components/@extended/IconButton';
 import { hasLength, useForm } from '@mantine/form';
 import { Box, Button, TextInput } from '@mantine/core';
@@ -18,6 +18,7 @@ import { createToDo, getToDo, updateDoneTask } from 'hooks/tasks';
 
 const ToDoList = ({ userId }) => {
   const [opened, setOpened] = useState(false);
+  const [viewDone, setViewDone] = useState(false);
   const { data: toDos, isLoading, refetch } = useQuery(['todo'], () => getToDo({ userId }));
   const { mutate } = useMutation(['createToDo'], (variables) => createToDo(variables), {
     onSuccess: () => {
@@ -49,8 +50,6 @@ const ToDoList = ({ userId }) => {
     return <div>Loading to do list...</div>;
   }
 
-  console.log('toDos:', toDos);
-
   const handleChangeState = (event) => {
     const variables = { taskId: event.target.name, done: event.target.checked };
     return done({ variables });
@@ -61,22 +60,41 @@ const ToDoList = ({ userId }) => {
     return mutate({ variables });
   };
 
+  const filteredTodos = viewDone ? toDos : toDos.filter((t) => !t.done);
+
   return (
     <MainCard
       title="To Do List"
       content={false}
       secondary={
-        <Tooltip title="Add Task">
-          <IconButton onClick={() => setOpened(true)}>
-            <PlusCircleOutlined />
-          </IconButton>
-        </Tooltip>
+        <>
+          <Tooltip title="View Done">
+            <IconButton onClick={() => setViewDone(!viewDone)}>
+              <EyeOutlined />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Add Task">
+            <IconButton onClick={() => setOpened(!opened)}>
+              <PlusCircleOutlined />
+            </IconButton>
+          </Tooltip>
+        </>
       }
-      sx={{ '& .MuiCardHeader-root': { p: 1.75 } }}
+      sx={{ height: '430px', '& .MuiCardHeader-root': { p: 1.75 } }}
     >
       <CardContent>
-        <Grid container spacing={0} sx={{ '& .Mui-checked + span': { textDecoration: 'line-through' } }}>
-          {toDos?.map((todo) => {
+        <Grid
+          container
+          spacing={0}
+          sx={{
+            height: opened ? '280px' : '320px',
+            paddingLeft: '10px',
+            overflowY: 'scroll',
+            display: 'block',
+            '& .Mui-checked + span': { textDecoration: 'line-through' }
+          }}
+        >
+          {filteredTodos?.map((todo) => {
             return (
               <Grid item xs={12} key={todo.taskId}>
                 <FormControlLabel
@@ -86,7 +104,9 @@ const ToDoList = ({ userId }) => {
               </Grid>
             );
           })}
-          {opened && (
+        </Grid>
+        {opened && (
+          <Grid container spacing={0} sx={{ width: '100%' }}>
             <Grid item xs={12}>
               <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
                 <TextInput
@@ -100,8 +120,8 @@ const ToDoList = ({ userId }) => {
                 />
               </Box>
             </Grid>
-          )}
-        </Grid>
+          </Grid>
+        )}
       </CardContent>
     </MainCard>
   );
