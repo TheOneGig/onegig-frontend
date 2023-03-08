@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
-import { Card, Image, Text, Badge, Button, Group, Grid, Modal } from '@mantine/core';
+import { Card, Text, Badge, Button, Group, Grid, Modal } from '@mantine/core';
 import PropTypes from 'prop-types';
-import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
 import { formatUSD } from 'utils/formatUSD';
 import { archiveProject } from 'hooks/projects';
 
