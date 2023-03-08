@@ -116,3 +116,10 @@ button,
 [type='submit'] {
   background-color: #0eba9b;
 }
+
+[type='reset']:hover,
+[type='submit']:hover {
+  background-color: transparent;
+  border: 1px solid #0eba9b;
+  border-radius: 5px;
+}
