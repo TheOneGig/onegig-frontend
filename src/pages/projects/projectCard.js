@@ -24,10 +24,6 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
     <>
       <Grid.Col key={project.projectId} xs={12} lg={4} sm={6}>
         <Card shadow="sm" p="lg" radius="md" withBorder>
-          <Card.Section>
-            <Image src={OneGigLogo} alt="Gig" className="gig-card-image" />
-          </Card.Section>
-
           <Group position="apart" mt="md" mb="xs">
             <Text weight={500}>{project.name}</Text>
             <Badge color="#1dbeea" variant="light">
