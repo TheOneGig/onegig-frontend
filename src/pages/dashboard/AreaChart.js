@@ -28,17 +28,17 @@ const AreaChart = ({ expenses, revenues }) => {
     datasets: [
       {
         fill: true,
-        label: 'Revenues',
-        data: revenues,
-        borderColor: 'rgba(84, 183, 156, 1)',
-        backgroundColor: 'rgba(84, 183, 156, 0.5)'
-      },
-      {
-        fill: true,
         label: 'Expenses',
         data: expenses,
         borderColor: 'rgb(231, 97, 97)',
         backgroundColor: 'rgba(231, 97, 97, 0.5)'
+      },
+      {
+        fill: true,
+        label: 'Revenues',
+        data: revenues,
+        borderColor: 'rgba(84, 183, 156, 1)',
+        backgroundColor: 'rgba(84, 183, 156, 0.5)'
       }
     ]
   };
