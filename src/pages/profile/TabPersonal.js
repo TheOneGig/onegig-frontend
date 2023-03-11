@@ -1,6 +1,6 @@
 // material-ui
 import { useMutation, useQuery } from 'react-query';
-import { useOutletContext } from 'react-router';
+import { useLocation, useNavigate, useOutletContext } from 'react-router';
 
 import { useDispatch } from 'react-redux';
 
@@ -42,6 +42,8 @@ function useInputRef() {
 // ==============================|| TAB - PERSONAL ||============================== //
 
 const TabPersonal = () => {
+  const location = useLocation();
+  const history = useNavigate();
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
 
@@ -55,6 +57,9 @@ const TabPersonal = () => {
   const { mutate } = useMutation(['updateUser'], (variables) => updateUser(variables), {
     onSuccess: () => {
       refetch();
+      if (location.pathname === '/new/profile/personal') {
+        history('/gigs');
+      }
       return true;
     }
   });

@@ -12,6 +12,9 @@ const PagesLanding = Loadable(lazy(() => import('pages/landing')));
 const BrowseProducts = Loadable(lazy(() => import('pages/browse')));
 const BrowseDetails = Loadable(lazy(() => import('pages/browse/product-details')));
 
+const Profile = Loadable(lazy(() => import('pages/profile')));
+const UserTabPersonal = Loadable(lazy(() => import('pages/profile/TabPersonal')));
+
 // ==============================|| ROUTING RENDER ||============================== //
 
 export default function ThemeRoutes() {
@@ -40,6 +43,23 @@ export default function ThemeRoutes() {
         }
       ]
     },
+    {
+      path: 'new',
+      element: <CommonLayout layout="footer" />,
+      children: [
+        {
+          path: 'profile',
+          element: <Profile />,
+          children: [
+            {
+              path: 'personal',
+              element: <UserTabPersonal />
+            }
+          ]
+        }
+      ]
+    },
+
     LoginRoutes,
     MainRoutes
   ]);

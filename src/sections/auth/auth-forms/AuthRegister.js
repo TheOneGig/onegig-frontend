@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 // material-ui
 import {
@@ -37,8 +37,11 @@ import { createUser } from 'hooks/users';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const AuthRegister = () => {
+  const history = useNavigate();
   const { mutate } = useMutation(['signup'], (variables) => createUser(variables), {
-    onSuccess: () => {}
+    onSuccess: () => {
+      history('/new/profile/personal');
+    }
   });
   const { firebaseRegister } = useAuth();
   const scriptedRef = useScriptRef();

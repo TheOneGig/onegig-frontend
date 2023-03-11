@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import { useMutation, useQuery } from 'react-query';
+import { useLocation } from 'react-router';
+import PropTypes from 'prop-types';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -28,6 +29,7 @@ const config = {
 
 const ProfileTabs = () => {
   const theme = useTheme();
+  const location = useLocation();
   const { user } = useAuth();
   const userId = user.id;
   const { data: userInfo, isLoading, refetch } = useQuery(['user'], () => getUser({ userId }));
@@ -122,9 +124,11 @@ const ProfileTabs = () => {
             </Stack>
           </Stack>
         </Grid>
-        <Grid item xs={12}>
-          <ProfileTab />
-        </Grid>
+        {location.pathname !== '/new/profile/personal' && (
+          <Grid item xs={12}>
+            <ProfileTab />
+          </Grid>
+        )}
       </Grid>
     </MainCard>
   );

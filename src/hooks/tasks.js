@@ -30,6 +30,11 @@ export const updateDoneTask = async (data) => {
   return response;
 };
 
+export const deleteTaskTable = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/tasks/deleteTable', data.variables);
+  return response;
+};
+
 export const deleteTask = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/tasks/delete', data.variables);
   return response;
