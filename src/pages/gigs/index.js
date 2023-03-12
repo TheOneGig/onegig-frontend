@@ -27,7 +27,7 @@ const Gigs = () => {
   const unpublishedGigs = gigs.filter((gig) => !gig.published);
 
   function handleEdit(gig) {
-    setSelectedGig(gig);
+    setSelectedGig(gig.gigId);
     setOpenedEdit(true);
   }
 
@@ -53,7 +53,7 @@ const Gigs = () => {
       </Grid>
 
       <GigCreate opened={opened} setOpened={setOpened} refetch={refetch} userId={userId} />
-      {selectedGig && <GigEdit opened={openedEdit} setOpened={setOpenedEdit} refetch={refetch} gig={selectedGig} />}
+      {selectedGig && <GigEdit opened={openedEdit} setOpened={setOpenedEdit} refetch={refetch} gigId={selectedGig} gigs={gigs} />}
     </>
   );
 };

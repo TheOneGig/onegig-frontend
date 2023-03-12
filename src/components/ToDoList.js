@@ -8,7 +8,7 @@ import { CardContent, Checkbox, FormControlLabel, Grid, Tooltip } from '@mui/mat
 import MainCard from 'components/MainCard';
 
 // assets
-import { EyeOutlined, PlusCircleOutlined, SendOutlined } from '@ant-design/icons';
+import { EyeOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import IconButton from 'components/@extended/IconButton';
 import { hasLength, useForm } from '@mantine/form';
 import { Box, Button, TextInput } from '@mantine/core';
@@ -113,8 +113,8 @@ const ToDoList = ({ userId }) => {
                   placeholder="To Do"
                   {...form.getInputProps('title')}
                   rightSection={
-                    <Button type="submit">
-                      <SendOutlined />
+                    <Button type="submit" variant="light" color="teal" className="right-section-btn">
+                      <PlusOutlined />
                     </Button>
                   }
                 />

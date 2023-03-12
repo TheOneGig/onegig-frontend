@@ -85,7 +85,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
             <Grid.Col span={4}>
               <Button
                 variant="light"
-                color={gig.published ? 'yellow' : 'green'}
+                color={gig.published ? 'red' : 'green'}
                 mt="md"
                 radius="md"
                 fullWidth
