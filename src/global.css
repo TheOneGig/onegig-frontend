@@ -6,6 +6,56 @@ h1 {
   margin-bottom: 15px;
 }
 
+.green-btn {
+  color: #0eba9b;
+  background-color: #06483c;
+}
+
+.green-btn:hover {
+  background-color: #095c4d;
+}
+
+.blue-btn {
+  color: #1dbeea;
+  background-color: #083642;
+}
+
+.blue-btn:hover {
+  background-color: #09303a;
+}
+
+.red-btn {
+  color: #e76161;
+  background-color: #441d1d;
+}
+
+.red-btn:hover {
+  background-color: #f03e3e40;
+}
+
+.edit-btn {
+  color: #424244;
+}
+
+.edit-btn:hover {
+  color: #0eba9b;
+  background-color: #04342c;
+}
+
+.delete-btn {
+  color: #424244;
+}
+
+.delete-btn:hover {
+  color: #e76161;
+  background-color: #4c1f1f;
+}
+
+.grid-area {
+  border: 1px solid #c8c8c8;
+  border-radius: 10px;
+}
+
 .gig-card-image {
   width: 100%;
   height: 150px;
@@ -29,13 +79,12 @@ h1 {
 .task-tables-container {
   overflow-x: scroll;
   white-space: nowrap;
-  scrollbar-base-color: #fff;
+  scrollbar-base-color: transparent;
   min-height: 80vh;
-}
-
-.task-tables-container::-webkit-scrollbar {
-  height: 6px;
-  background-color: #fff;
+  border: 1px solid #c8c8c8;
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: #1e1e1e;
 }
 
 .task-table-column {
@@ -43,14 +92,13 @@ h1 {
   display: inline-block;
   vertical-align: text-top;
   background-color: transparent;
-  margin: 10px;
   padding: 0px 15px 15px 15px;
   width: 20%;
   min-height: 100%;
 }
 
 .task-new-table-column {
-  margin-top: 30px;
+  margin-top: 70px;
 }
 
 .task-table-title {
@@ -97,7 +145,7 @@ h1 {
 }
 
 .text-green {
-  color: green;
+  color: #0eba9b;
 }
 
 .text-yellow {
@@ -105,7 +153,12 @@ h1 {
 }
 
 .text-red {
-  color: red;
+  color: #e76161;
+}
+
+.card-design {
+  background-color: #1e1e1e;
+  border: none;
 }
 
 form .mantine-InputWrapper-root {
@@ -118,4 +171,20 @@ form .mantine-InputWrapper-label {
 
 .right-section-btn {
   margin-left: -13px;
+  background-color: transparent;
+  color: #0eba9b;
+}
+
+.right-section-btn:hover {
+  background-color: transparent;
+  color: #055043;
+}
+
+input {
+  background-color: #000 !important;
+}
+
+input:focus,
+input:focus-within {
+  border-color: #1dbeea !important;
 }

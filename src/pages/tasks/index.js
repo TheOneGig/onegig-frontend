@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useParams } from 'react-router';
-import { Box, Button, Grid, Loader, Modal, TextInput, Title, useMantineTheme } from '@mantine/core';
+import { Box, Button, Grid, Loader, Modal, TextInput, Title, useMantineTheme, Tooltip } from '@mantine/core';
 import IconButton from 'components/@extended/IconButton';
 import { CloseOutlined, DeleteOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
 import { IconPlus } from '@tabler/icons-react';
@@ -10,7 +10,6 @@ import NewTask from './newTask';
 import TaskCard from './taskCard';
 import { deleteTaskTable, getTasks, updateTaskTable } from 'hooks/tasks';
 import { getProject } from 'hooks/projects';
-import { Tooltip } from '@mui/material';
 
 // ==============================|| GIGS ||============================== //
 
@@ -73,14 +72,14 @@ const Tasks = () => {
                       <Loader size="xs" />
                     ) : (
                       <>
-                        <Tooltip title="Edit">
+                        <Tooltip label="Edit">
                           <IconButton onClick={() => handleEdit()}>
                             <SaveOutlined />
                           </IconButton>
                         </Tooltip>
-                        <Tooltip title="Cancel">
+                        <Tooltip label="Cancel">
                           <IconButton
-                            sx={{ color: '#FF0000' }}
+                            className="red-btn"
                             onClick={() => {
                               setEditId('');
                               setEditName('');
@@ -103,8 +102,9 @@ const Tasks = () => {
                       top: 20
                     }}
                   >
-                    <Tooltip title="Edit">
+                    <Tooltip label="Edit">
                       <IconButton
+                        className="edit-btn"
                         onClick={() => {
                           setEditId(table.taskTableId);
                           setEditName(table.name);
@@ -113,9 +113,9 @@ const Tasks = () => {
                         <EditOutlined />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete">
+                    <Tooltip label="Delete">
                       <IconButton
-                        sx={{ color: '#FF0000' }}
+                        className="delete-btn"
                         onClick={() => {
                           setDeleteId(table.taskTableId);
                           setOpenedDelete(true);
@@ -169,7 +169,7 @@ const Tasks = () => {
               </Button>
             </Grid.Col>
             <Grid.Col span={6}>
-              <Button variant="light" color="red" mt="md" radius="md" fullWidth onClick={() => handleDelete()} loading={loadingDelete}>
+              <Button className="red-btn" mt="md" radius="md" fullWidth onClick={() => handleDelete()} loading={loadingDelete}>
                 Yes, I am sure!
               </Button>
             </Grid.Col>

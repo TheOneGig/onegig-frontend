@@ -84,8 +84,8 @@ function getColorStyle({ variant, theme, color }) {
     default:
       return {
         '&:hover': {
-          color: dark,
-          backgroundColor: lighter
+          color: '#0eba9b',
+          backgroundColor: '#055043'
         },
         ...commonShadow
       };

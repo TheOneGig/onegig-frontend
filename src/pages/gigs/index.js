@@ -34,19 +34,19 @@ const Gigs = () => {
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
-        <Button onClick={() => setOpened(true)} className="create-btn" variant="light">
+        <Button onClick={() => setOpened(true)} className="create-btn blue-btn" variant="light">
           New Gig
         </Button>
       </Flex>
       <Title sx={{ marginBottom: '15px' }}>Published Gigs</Title>
-      <Grid>
+      <Grid className="grid-area">
         {publishedGigs.map((gig) => {
           return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} share />;
         })}
       </Grid>
 
       <Title sx={{ marginBottom: '15px', marginTop: '15px' }}>Unpublished Gigs</Title>
-      <Grid>
+      <Grid className="grid-area">
         {unpublishedGigs.map((gig) => {
           return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} share={false} />;
         })}

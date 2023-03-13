@@ -55,36 +55,12 @@ const Landing = () => {
   const { blue } = colors;
   const colorOptions = [
     {
-      id: 'theme1',
-      primary: mode === 'dark' ? '#305bdd' : '#3366FF'
-    },
-    {
-      id: 'theme2',
-      primary: mode === 'dark' ? '#655ac8' : '#7265E6'
-    },
-    {
       id: 'theme3',
       primary: mode === 'dark' ? '#0eba9b' : '#068e44'
     },
     {
-      id: 'theme4',
-      primary: mode === 'dark' ? '#5d7dcb' : '#3c64d0'
-    },
-    {
       id: 'default',
       primary: blue[5]
-    },
-    {
-      id: 'theme5',
-      primary: mode === 'dark' ? '#d26415' : '#f27013'
-    },
-    {
-      id: 'theme6',
-      primary: mode === 'dark' ? '#288d99' : '#2aa1af'
-    },
-    {
-      id: 'theme7',
-      primary: mode === 'dark' ? '#05934c' : '#00a854'
     },
     {
       id: 'theme8',

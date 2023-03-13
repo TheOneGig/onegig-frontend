@@ -72,6 +72,7 @@ const DashboardDefault = () => {
       </Grid>
       <Grid item xs={12} lg={4} sm={6}>
         <HoverSocialCard
+          pushUrl={'/todo'}
           primary="Pending Tasks"
           secondary={`${pendingTasks?.length}`}
           iconPrimary={UnorderedListOutlined}

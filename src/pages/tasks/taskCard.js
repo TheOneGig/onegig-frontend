@@ -102,7 +102,7 @@ const TaskCard = ({ task, taskTable, refetch, tables }) => {
         >
           <Tooltip title="Delete">
             <IconButton
-              sx={{ color: '#FF0000' }}
+              className="delete-btn"
               onClick={(e) => {
                 e.stopPropagation();
                 setDeleteId(task.taskId);

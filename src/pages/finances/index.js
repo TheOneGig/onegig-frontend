@@ -137,8 +137,7 @@ const TransactionsTable = ({ striped, title }) => {
             <Grid>
               <Grid.Col span={4}>
                 <Button
-                  variant="light"
-                  color="blue"
+                  className="blue-btn"
                   mt="md"
                   radius="md"
                   fullWidth
@@ -152,8 +151,7 @@ const TransactionsTable = ({ striped, title }) => {
               </Grid.Col>
               <Grid.Col span={4}>
                 <Button
-                  variant="light"
-                  color="red"
+                  className="red-btn"
                   mt="md"
                   radius="md"
                   fullWidth
@@ -185,7 +183,7 @@ const TransactionsTable = ({ striped, title }) => {
             setTransaction();
             setOpenedNew(true);
           }}
-          className="create-btn"
+          className="create-btn blue-btn"
           variant="light"
         >
           New Transaction

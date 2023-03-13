@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import PropTypes from 'prop-types';
 // material-ui
-import { CardContent, Checkbox, FormControlLabel, Grid, Tooltip } from '@mui/material';
+import { CardContent, Checkbox, FormControlLabel, Grid } from '@mui/material';
 
 // project imports
 import MainCard from 'components/MainCard';
@@ -11,7 +11,7 @@ import MainCard from 'components/MainCard';
 import { EyeOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import IconButton from 'components/@extended/IconButton';
 import { hasLength, useForm } from '@mantine/form';
-import { Box, Button, TextInput } from '@mantine/core';
+import { Box, Button, TextInput, Tooltip } from '@mantine/core';
 import { createToDo, getToDo, updateDoneTask } from 'hooks/tasks';
 
 // ===========================|| DATA WIDGET - TODO LIST ||=========================== //
@@ -68,12 +68,12 @@ const ToDoList = ({ userId }) => {
       content={false}
       secondary={
         <>
-          <Tooltip title="View Done">
+          <Tooltip label="View Done" color="#1dbeea">
             <IconButton onClick={() => setViewDone(!viewDone)}>
               <EyeOutlined />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Add Task">
+          <Tooltip label="Add Task" color="#1dbeea">
             <IconButton onClick={() => setOpened(!opened)}>
               <PlusCircleOutlined />
             </IconButton>
@@ -113,7 +113,7 @@ const ToDoList = ({ userId }) => {
                   placeholder="To Do"
                   {...form.getInputProps('title')}
                   rightSection={
-                    <Button type="submit" variant="light" color="teal" className="right-section-btn">
+                    <Button type="submit" className="right-section-btn">
                       <PlusOutlined />
                     </Button>
                   }

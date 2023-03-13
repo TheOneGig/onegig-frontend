@@ -32,14 +32,14 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
   return (
     <>
       <Grid.Col key={gig.gigId} xs={12} lg={4} sm={6}>
-        <Card shadow="sm" p="lg" radius="md" withBorder>
+        <Card className="card-design" shadow="sm" p="lg" radius="md" withBorder>
           <Card.Section>
             <Image src={gig.files?.length > 0 ? gig.files[0].fileUrl : OneGigLogo} alt="Gig" className="gig-card-image" />
           </Card.Section>
 
           <Group position="apart" mt="md" mb="xs">
             <Text weight={500}>{gig.name}</Text>
-            <Badge color="#1dbeea" variant="light">
+            <Badge className="blue-btn" variant="light">
               {formatUSD(gig.price)}
             </Badge>
           </Group>
@@ -52,14 +52,14 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
           <Grid>
             <Grid.Col span={6}>
               {share ? (
-                <Anchor href={`/browse/gig/${gig.gigId}`} target="_blank" underline="none">
-                  <Button variant="light" color={'green'} mt="md" radius="md" fullWidth loading={loadingPublish}>
+                <Anchor href={`/browse/gig/${gig.gigId}`} target="_blank" underline={false}>
+                  <Button className="green-btn" mt="md" radius="md" fullWidth loading={loadingPublish}>
                     View
                   </Button>
                 </Anchor>
               ) : (
                 <Tooltip label="In order to view, the gig needs to be published" color="red" position="top-start" withArrow>
-                  <Button color={'gray'} variant="light" mt="md" radius="md" fullWidth>
+                  <Button className="green-btn" mt="md" radius="md" fullWidth>
                     View
                   </Button>
                 </Tooltip>
@@ -69,7 +69,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
               {share ? (
                 <CopyButton value={`${window.location.origin}/browse/gig/${gig.gigId}`}>
                   {({ copied, copy }) => (
-                    <Button color={copied ? 'teal' : 'blue'} variant="light" mt="md" radius="md" fullWidth onClick={copy}>
+                    <Button className="blue-btn" variant="light" mt="md" radius="md" fullWidth onClick={copy}>
                       {copied ? 'Copied URL' : 'Share URL'}
                     </Button>
                   )}
@@ -84,8 +84,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
             </Grid.Col>
             <Grid.Col span={4}>
               <Button
-                variant="light"
-                color={gig.published ? 'red' : 'green'}
+                className="red-btn"
                 mt="md"
                 radius="md"
                 fullWidth
@@ -96,12 +95,12 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
               </Button>
             </Grid.Col>
             <Grid.Col span={4}>
-              <Button variant="light" color="blue" mt="md" radius="md" fullWidth onClick={() => handleEdit(gig)}>
+              <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleEdit(gig)}>
                 Edit
               </Button>
             </Grid.Col>
             <Grid.Col span={4}>
-              <Button variant="light" color="red" mt="md" radius="md" fullWidth onClick={() => setOpenedDelete(true)}>
+              <Button className="red-btn" mt="md" radius="md" fullWidth onClick={() => setOpenedDelete(true)}>
                 Delete
               </Button>
             </Grid.Col>
@@ -127,15 +126,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
               </Button>
             </Grid.Col>
             <Grid.Col span={6}>
-              <Button
-                variant="light"
-                color="red"
-                mt="md"
-                radius="md"
-                fullWidth
-                onClick={() => handleDelete(gig.gigId)}
-                loading={loadingDelete}
-              >
+              <Button className="red-btn" mt="md" radius="md" fullWidth onClick={() => handleDelete(gig.gigId)} loading={loadingDelete}>
                 Yes, I am sure!
               </Button>
             </Grid.Col>

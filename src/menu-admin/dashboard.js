@@ -4,9 +4,9 @@ import { FormattedMessage } from 'react-intl';
 // assets
 import {
   DashboardOutlined,
-  FolderOpenOutlined,
   FolderViewOutlined,
   FundOutlined,
+  PicLeftOutlined,
   UnorderedListOutlined,
   UserAddOutlined
 } from '@ant-design/icons';
@@ -36,7 +36,7 @@ const dashboard = {
       title: <FormattedMessage id="Projects" />,
       type: 'item',
       url: '/projects',
-      icon: FolderOpenOutlined
+      icon: PicLeftOutlined
     },
     {
       id: 'Finances',

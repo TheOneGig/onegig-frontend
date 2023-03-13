@@ -16,6 +16,8 @@ const Tiers = Loadable(lazy(() => import('pages/tiers')));
 const Transaction = Loadable(lazy(() => import('pages/transaction')));
 const ToDo = Loadable(lazy(() => import('pages/todo')));
 
+const Requirements = Loadable(lazy(() => import('pages/requirements')));
+
 const Profile = Loadable(lazy(() => import('pages/profile')));
 const UserTabPersonal = Loadable(lazy(() => import('pages/profile/TabPersonal')));
 const UserTabPayment = Loadable(lazy(() => import('pages/profile/TabPayment')));
@@ -138,6 +140,10 @@ const MainRoutes = {
         {
           path: 'projects',
           element: <Projects />
+        },
+        {
+          path: 'requirements/:projectId',
+          element: <Requirements />
         },
         {
           path: 'tasks/:projectId',

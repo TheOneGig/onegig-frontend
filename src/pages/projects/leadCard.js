@@ -20,8 +20,7 @@ const LeadCard = ({ lead }) => {
           <Grid>
             <Grid.Col span={12}>
               <Button
-                variant="light"
-                color="green"
+                className="green-btn"
                 mt="md"
                 radius="md"
                 fullWidth

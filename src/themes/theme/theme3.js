@@ -1,6 +1,6 @@
 // ==============================|| PRESET THEME - Dark Green ||============================== //
 
-const Theme4 = (colors, mode) => {
+const Theme3 = (colors, mode) => {
   const { grey } = colors;
   const greyColors = {
     0: grey[0],
@@ -34,7 +34,7 @@ const Theme4 = (colors, mode) => {
     errorColors = ['#321d1d', '#7d2e28', '#d13c31', '#e66859', '#f8baaf'];
     warningColors = ['#342c1a', '#836611', '#dda705', '#e9bf28', '#f8e577'];
     infoColors = ['#1a2628', '#11595f', '#1dbeea', '#1ea6aa', '#64cfcb'];
-    successColors = ['#1a2721', '#115c36', '#05934c', '#1da65d', '#61ca8b'];
+    successColors = ['#1a2721', '#115c36', '#0eba9b', '#1da65d', '#61ca8b'];
   }
 
   return {
@@ -103,4 +103,4 @@ const Theme4 = (colors, mode) => {
   };
 };
 
-export default Theme4;
+export default Theme3;

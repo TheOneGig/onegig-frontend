@@ -35,30 +35,31 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
           </Text>
           <Grid>
             <Grid.Col span={6}>
-              <Button variant="light" color="green" mt="md" radius="md" fullWidth onClick={() => history(`/tasks/${project.projectId}`)}>
+              <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => history(`/tasks/${project.projectId}`)}>
                 Tasks
               </Button>
             </Grid.Col>
             <Grid.Col span={6}>
               <Button
-                variant="light"
-                color="green"
+                className="green-btn"
                 mt="md"
                 radius="md"
                 fullWidth
-                onClick={() => history(`/chat/${project.projectId}`)}
-                disabled
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`mailto:${project.clientEmail}`}
               >
-                Chat
+                Email
               </Button>
             </Grid.Col>
             <Grid.Col span={6}>
-              <Button variant="light" color="blue" mt="md" radius="md" fullWidth onClick={() => handleEdit(project)}>
+              <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleEdit(project)}>
                 Edit
               </Button>
             </Grid.Col>
             <Grid.Col span={6}>
-              <Button variant="light" color="red" mt="md" radius="md" fullWidth onClick={() => setOpenedDelete(true)}>
+              <Button className="red-btn" mt="md" radius="md" fullWidth onClick={() => setOpenedDelete(true)}>
                 Archive
               </Button>
             </Grid.Col>
@@ -66,7 +67,7 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
         </Card>
       </Grid.Col>
 
-      <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete gig?" centered>
+      <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete project?" centered>
         <div>
           <p>
             Are you sure you want to archive this project? It will be moved to the archive and it will not be part of any of the other
@@ -88,8 +89,7 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
             </Grid.Col>
             <Grid.Col span={6}>
               <Button
-                variant="light"
-                color="red"
+                className="red-btn"
                 mt="md"
                 radius="md"
                 fullWidth
