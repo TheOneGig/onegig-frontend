@@ -255,8 +255,9 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
               return (
                 <Box key={requirement.requirementId}>
                   <p>
-                    <Tooltip title="Edit">
+                    <Tooltip label="Edit">
                       <IconButton
+                        className="edit-btn"
                         onClick={() => {
                           setEditId(requirement.requirementId);
                           setEditName(requirement.requirement);
@@ -265,9 +266,9 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
                         <EditOutlined />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete">
+                    <Tooltip label="Delete">
                       <IconButton
-                        sx={{ color: '#FF0000' }}
+                        className="delete-btn"
                         onClick={() => {
                           setDeleteId(requirement.requirementId);
                           setOpenedDelete(true);

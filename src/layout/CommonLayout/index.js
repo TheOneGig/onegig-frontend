@@ -69,9 +69,7 @@ const CommonLayout = ({ layout = 'blank' }) => {
       )}
       {layout === 'blank' && <Outlet />}
       {layout === 'footer' && (
-        <Box
-          sx={{ position: 'relative', minHeight: 'calc(100vh - 110px)', display: 'flex', flexDirection: 'column', paddingBottom: '15px' }}
-        >
+        <Box sx={{ position: 'relative', minHeight: 'calc(100vh - 10px)', display: 'flex', flexDirection: 'column', padding: '15px' }}>
           <Outlet />
           <Footer />
         </Box>
