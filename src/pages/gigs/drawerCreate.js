@@ -1,12 +1,30 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { ActionIcon, Box, Button, Drawer, Group, Image, Input, NumberInput, Text, Textarea, TextInput, Title } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Drawer,
+  Grid,
+  Group,
+  Image,
+  Input,
+  NumberInput,
+  Select,
+  Text,
+  Textarea,
+  TextInput,
+  Title,
+  Tooltip
+} from '@mantine/core';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useForm, hasLength, isInRange } from '@mantine/form';
 import { createGig } from 'hooks/gigs';
 import { uploadFile } from 'react-s3';
 import PropTypes from 'prop-types';
 import { IconEdit } from '@tabler/icons-react';
+import IconButton from 'components/@extended/IconButton';
+import { CheckCircleOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 const config = {
   bucketName: 'onegig-uploads',
@@ -18,6 +36,10 @@ const config = {
 // ==============================|| GIGS ||============================== //
 
 const GigCreate = ({ opened, setOpened, refetch, userId }) => {
+  const [category, setCategory] = useState(null);
+  const [deliverables, setDeliverables] = useState([]);
+  const [newDeliverable, setNewDeliverable] = useState('');
+  const [openNewDeliverable, setOpenNewDeliverable] = useState(false);
   const [file, setFile] = useState();
   const [fileError, setFileError] = useState(false);
   const { mutate, isLoading } = useMutation(['createGig'], (variables) => createGig(variables), {
@@ -51,75 +73,148 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
     if (file) {
       setFileError(false);
       const price = parseInt(values.price * 100);
-      const variables = { name: values.name, description: values.description, delivery: values.delivery, price, userId, fileUrl: file };
+      const variables = {
+        name: values.name,
+        description: values.description,
+        delivery: values.delivery,
+        price,
+        category,
+        deliverables: deliverables.join(),
+        userId,
+        fileUrl: file
+      };
       return mutate({ variables });
     } else {
       setFileError(true);
     }
   }
 
+  function handleNewDeliverable() {
+    const newDeliverables = deliverables;
+    newDeliverables.push(newDeliverable);
+    setDeliverables(newDeliverables);
+    setNewDeliverable('');
+    setOpenNewDeliverable(false);
+  }
+
   return (
-    <Drawer opened={opened} onClose={() => setOpened(false)} title="Register" padding="xl" size="xl" position="right">
-      <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+    <Drawer opened={opened} onClose={() => setOpened(false)} padding="xl" size="100%" position="right" sx={{ zIndex: 9999 }}>
+      <Box component="form" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Title order={1}>New Gig</Title>
 
-        <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
+        <Grid>
+          <Grid.Col span={6}>
+            <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
 
-        <Textarea
-          label="Description"
-          placeholder="Brief description of this gig..."
-          withAsterisk
-          mt="md"
-          {...form.getInputProps('description')}
-        />
+            <Textarea
+              label="Description"
+              placeholder="Brief description of this gig..."
+              withAsterisk
+              mt="md"
+              {...form.getInputProps('description')}
+            />
 
-        <NumberInput
-          label="Price"
-          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-          formatter={(value) => (!Number.isNaN(parseFloat(value)) ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '$ ')}
-          {...form.getInputProps('price')}
-        />
+            <Grid>
+              <Grid.Col span={6}>
+                <NumberInput
+                  label="Price"
+                  parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                  formatter={(value) => (!Number.isNaN(parseFloat(value)) ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '$ ')}
+                  {...form.getInputProps('price')}
+                />
+              </Grid.Col>
+              <Grid.Col span={6}>
+                <NumberInput
+                  label="Average Delivery in Days"
+                  parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                  {...form.getInputProps('delivery')}
+                />
+              </Grid.Col>
+            </Grid>
 
-        <NumberInput
-          label="Average Delivery in Days"
-          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-          {...form.getInputProps('delivery')}
-        />
+            <Select
+              label="Category"
+              placeholder="Pick a category"
+              value={category}
+              onChange={setCategory}
+              data={[
+                { value: 'GRAPHICSDESIGN', label: 'Graphics & Design' },
+                { value: 'DIGITALMARKETING', label: 'Digital & Marketing' },
+                { value: 'WRITINGTRANSLATION', label: 'Writing & Translation' },
+                { value: 'VIDEOANIMATION', label: 'Video & Animation' },
+                { value: 'MUSICAUDIO', label: 'Music & Audio' },
+                { value: 'PROGRAMMINGTECH', label: 'Programming & Tech' },
+                { value: 'BUSINESS', label: 'Business' },
+                { value: 'LIFESTYLE', label: 'Lifestyle' },
+                { value: 'PHOTOEDITING', label: 'Photo & Editing' }
+              ]}
+            />
 
-        <div style={{ marginTop: '16px' }}>
-          <Input.Wrapper label="Featured Image" withAsterisk />
-          {file ? (
-            <div className="actions-area">
-              <ActionIcon onClick={() => setFile()} className="actions-icon">
-                <IconEdit color="white" />
-              </ActionIcon>
-              <Image src={file} alt="featured" />
-            </div>
-          ) : (
-            <Dropzone
-              onDrop={(files) => handleUpload(files)}
-              onReject={() => alert('File rejected')}
-              maxSize={3 * 1024 ** 2}
-              accept={IMAGE_MIME_TYPE}
-            >
-              <Group position="center" spacing="lg" style={{ minHeight: 100, pointerEvents: 'none' }}>
-                <div>
-                  <Text size="xl" inline>
-                    Drag image here or click to select file
-                  </Text>
+            <Title sx={{ fontSize: '14px !important', fontWeight: '500', marginTop: '10px' }}>
+              Deliverables{' '}
+              <Tooltip label="New Deliverable">
+                <IconButton onClick={() => setOpenNewDeliverable(!openNewDeliverable)}>
+                  <PlusCircleOutlined />
+                </IconButton>
+              </Tooltip>
+            </Title>
+            {deliverables.map((deliverable, index) => (
+              <div key={index}>
+                <CheckCircleOutlined /> {deliverable}
+              </div>
+            ))}
+            {openNewDeliverable && (
+              <Box>
+                <TextInput
+                  placeholder="Deliverable"
+                  value={newDeliverable}
+                  onChange={(e) => setNewDeliverable(e.target.value)}
+                  rightSection={
+                    <Button onClick={() => handleNewDeliverable()} variant="light" color="teal" className="right-section-btn">
+                      <PlusOutlined />
+                    </Button>
+                  }
+                />
+              </Box>
+            )}
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <div style={{ marginTop: '16px' }}>
+              <Input.Wrapper label="Featured Image" withAsterisk />
+              {file ? (
+                <div className="actions-area">
+                  <ActionIcon onClick={() => setFile()} className="actions-icon">
+                    <IconEdit color="white" />
+                  </ActionIcon>
+                  <Image src={file} alt="featured" />
                 </div>
-              </Group>
-            </Dropzone>
-          )}
-          {fileError && <p style={{ color: 'red' }}>Featured file is required.</p>}
-        </div>
+              ) : (
+                <Dropzone
+                  onDrop={(files) => handleUpload(files)}
+                  onReject={() => alert('File rejected')}
+                  maxSize={3 * 1024 ** 2}
+                  accept={IMAGE_MIME_TYPE}
+                >
+                  <Group position="center" spacing="lg" style={{ minHeight: 100, pointerEvents: 'none' }}>
+                    <div>
+                      <Text size="xl" inline>
+                        Drag image here or click to select file
+                      </Text>
+                    </div>
+                  </Group>
+                </Dropzone>
+              )}
+              {fileError && <p style={{ color: 'red' }}>Featured file is required.</p>}
+            </div>
+          </Grid.Col>
+        </Grid>
 
         <Group position="right" mt="md">
           <Button color="gray" onClick={() => setOpened(false)} loading={isLoading}>
             Cancel
           </Button>
           <Button type="submit" loading={isLoading}>
-            Submit
+            Create
           </Button>
         </Group>
       </Box>

@@ -1,3 +1,7 @@
+body {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
 h1 {
   font-size: 20px !important;
 }
@@ -54,6 +58,8 @@ h1 {
 .grid-area {
   border: 1px solid #c8c8c8;
   border-radius: 10px;
+  margin: 0px;
+  background-color: #1e1e1e;
 }
 
 .gig-card-image {
@@ -157,7 +163,7 @@ h1 {
 }
 
 .card-design {
-  background-color: #1e1e1e;
+  background-color: #121212;
   border: none;
 }
 
@@ -180,11 +186,14 @@ form .mantine-InputWrapper-label {
   color: #055043;
 }
 
-input {
+input,
+textarea {
   background-color: #000 !important;
 }
 
 input:focus,
-input:focus-within {
+input:focus-within,
+textarea:focus,
+textarea:focus-within {
   border-color: #1dbeea !important;
 }
