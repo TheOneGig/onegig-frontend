@@ -91,6 +91,12 @@ h1 {
   border-radius: 10px;
   margin-top: 10px;
   background-color: #1e1e1e;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.task-tables-container::-webkit-scrollbar {
+  display: none;
 }
 
 .task-table-column {
