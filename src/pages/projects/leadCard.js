@@ -1,8 +1,24 @@
-import { Card, Text, Badge, Button, Group, Grid } from '@mantine/core';
+import { useState } from 'react';
+import { useMutation } from 'react-query';
+import { Card, Text, Badge, Button, Group, Grid, Modal } from '@mantine/core';
 import PropTypes from 'prop-types';
 import { formatUSD } from 'utils/formatUSD';
+import { deleteLead } from 'hooks/gigs';
 
-const LeadCard = ({ lead }) => {
+const LeadCard = ({ lead, refetch }) => {
+  const [openedDelete, setOpenedDelete] = useState(false);
+  const { mutate, isLoading: loadingDelete } = useMutation(['deleteLead'], (variables) => deleteLead(variables), {
+    onSuccess: () => {
+      refetch();
+      setOpenedDelete(false);
+    }
+  });
+
+  function handleDelete(leadId) {
+    const variables = { leadId };
+    return mutate({ variables });
+  }
+
   return (
     <>
       <Grid.Col key={lead.leadId} xs={12} lg={4} sm={6}>
@@ -18,7 +34,7 @@ const LeadCard = ({ lead }) => {
             {lead.message}
           </Text>
           <Grid>
-            <Grid.Col span={12}>
+            <Grid.Col span={6}>
               <Button
                 className="green-btn"
                 mt="md"
@@ -32,17 +48,47 @@ const LeadCard = ({ lead }) => {
                 Email Lead
               </Button>
             </Grid.Col>
+            <Grid.Col span={6}>
+              <Button className="red-btn" mt="md" radius="md" fullWidth onClick={() => setOpenedDelete(true)}>
+                Delete Lead
+              </Button>
+            </Grid.Col>
           </Grid>
         </Card>
       </Grid.Col>
+
+      <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete lead?" centered>
+        <div>
+          <p>Are you sure you want to delete this lead? This is irreversible.</p>
+          <Grid>
+            <Grid.Col span={6}>
+              <Button
+                variant="light"
+                color="default"
+                mt="md"
+                radius="md"
+                fullWidth
+                onClick={() => setOpenedDelete(false)}
+                loading={loadingDelete}
+              >
+                Cancel
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Button className="red-btn" mt="md" radius="md" fullWidth onClick={() => handleDelete(lead.leadId)} loading={loadingDelete}>
+                Yes, I am sure!
+              </Button>
+            </Grid.Col>
+          </Grid>
+        </div>
+      </Modal>
     </>
   );
 };
 
 LeadCard.propTypes = {
   lead: PropTypes.object,
-  refetch: PropTypes.func,
-  handleEdit: PropTypes.func
+  refetch: PropTypes.func
 };
 
 export default LeadCard;

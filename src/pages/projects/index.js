@@ -21,7 +21,7 @@ const Projects = () => {
   const { user } = useAuth();
   const userId = user.id;
   const { data: projects, isLoading, refetch } = useQuery(['projects'], () => getProjects({ userId }));
-  const { data: gigs, isLoading: loadingGigs } = useQuery(['gigs'], () => getGigs({ userId }));
+  const { data: gigs, isLoading: loadingGigs, refetch: refetchGigs } = useQuery(['gigs'], () => getGigs({ userId }));
   if (isLoading || loadingGigs) {
     return <div>Loading Projects...</div>;
   }
@@ -47,10 +47,10 @@ const Projects = () => {
           return <ProjectCard key={project.projectId} project={project} refetch={refetch} handleEdit={handleEdit} />;
         })}
       </Grid>
-      <Title sx={{ marginBottom: '15px' }}>Leads</Title>
+      <Title sx={{ marginBottom: '15px', marginTop: '15px' }}>Leads</Title>
       <Grid>
         {leads?.map((lead) => {
-          return <LeadCard key={lead.leadId} lead={lead} />;
+          return <LeadCard key={lead.leadId} lead={lead} refetch={refetchGigs} />;
         })}
       </Grid>
 
