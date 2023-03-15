@@ -5,9 +5,11 @@ import { Card, Text, Badge, Button, Group, Grid, Modal } from '@mantine/core';
 import PropTypes from 'prop-types';
 import { formatUSD } from 'utils/formatUSD';
 import { archiveProject } from 'hooks/projects';
+import DrawerRequirements from './drawerRequirements';
 
 const ProjectCard = ({ project, refetch, handleEdit }) => {
   const history = useNavigate();
+  const [opened, setOpened] = useState(false);
   const [openedDelete, setOpenedDelete] = useState(false);
   const { mutate, isLoading: loadingDelete } = useMutation(['archiveProject'], (variables) => archiveProject(variables), {
     onSuccess: () => {
@@ -19,6 +21,7 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
     const variables = { projectId, archived: true };
     return mutate({ variables });
   }
+
   return (
     <>
       <Grid.Col key={project.projectId} xs={12} lg={4} sm={6}>
@@ -34,12 +37,12 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
             {project.description}
           </Text>
           <Grid>
-            <Grid.Col span={6}>
+            <Grid.Col span={4}>
               <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => history(`/tasks/${project.projectId}`)}>
                 Tasks
               </Button>
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={4}>
               <Button
                 className="green-btn"
                 mt="md"
@@ -51,6 +54,11 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
                 href={`mailto:${project.clientEmail}`}
               >
                 Email
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={4}>
+              <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => setOpened(true)}>
+                Requirements
               </Button>
             </Grid.Col>
             <Grid.Col span={6}>
@@ -66,6 +74,8 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
           </Grid>
         </Card>
       </Grid.Col>
+
+      <DrawerRequirements project={project} opened={opened} setOpened={setOpened} />
 
       <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete project?" centered>
         <div>
