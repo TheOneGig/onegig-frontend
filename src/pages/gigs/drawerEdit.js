@@ -48,6 +48,7 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
   const [file, setFile] = useState();
   const [fileError, setFileError] = useState(false);
   const [openedNewReq, setOpenNewReq] = useState(false);
+  const [newReq, setNewReq] = useState('');
   const [openedDelete, setOpenedDelete] = useState(false);
   const [deleteId, setDeleteId] = useState('');
   const [editId, setEditId] = useState('');
@@ -63,9 +64,7 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
     onSuccess: () => {
       refetch();
       setOpenNewReq(false);
-      formReq.setValues({
-        requirement: ''
-      });
+      setNewReq('');
     }
   });
 
@@ -102,7 +101,6 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
   });
 
   useEffect(() => {
-    console.log(gig);
     setFile(gig.files[0]?.fileUrl);
     setCategory(gig.category && gig.category);
     setDeliverables(gig.deliverables ? gig.deliverables?.split(',') : []);
@@ -114,16 +112,6 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gig]);
-
-  const formReq = useForm({
-    initialValues: {
-      requirement: ''
-    },
-
-    validate: {
-      requirement: hasLength({ min: 2, max: 150 }, 'Name must be 2-150 characters long')
-    }
-  });
 
   const handleUpload = async (file) => {
     uploadFile(file[0], config)
@@ -151,8 +139,8 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
     }
   }
 
-  function handleNewRequirement(values) {
-    const variables = { gigId: gig.gigId, requirement: values.requirement, type: 'OPEN' };
+  function handleNewRequirement() {
+    const variables = { gigId: gig.gigId, requirement: newReq, type: 'OPEN' };
     return newRequirement({ variables });
   }
 
@@ -354,12 +342,13 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
               }
             })}
             {openedNewReq && (
-              <Box component="form" onSubmit={formReq.onSubmit((values) => handleNewRequirement(values))}>
+              <Box>
                 <TextInput
                   placeholder="Requirement"
-                  {...formReq.getInputProps('requirement')}
+                  value={newReq}
+                  onChange={(e) => setNewReq(e.target.value)}
                   rightSection={
-                    <Button type="submit" variant="light" color="teal" className="right-section-btn">
+                    <Button onClick={(e) => handleNewRequirement(e)} variant="light" color="teal" className="right-section-btn">
                       <PlusOutlined />
                     </Button>
                   }
