@@ -102,7 +102,7 @@ const Pricing = () => {
   function handleOrder(plan) {
     const priceId = timePeriod ? plan.monthlyId : plan.yearlyId;
     const tier = timePeriod ? plan.tierMonthly : plan.tierYearly;
-    const variables = { userId, priceId, email: user.email, debug: true, tier };
+    const variables = { userId, priceId, email: user.email, debug: true, tier, returnBaseUrl: window.location.origin };
     return mutate({ variables });
   }
 

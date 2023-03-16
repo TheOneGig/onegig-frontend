@@ -25,17 +25,28 @@ const ProductInfo = ({ gig }) => {
   const form = useForm({
     initialValues: {
       name: '',
-      email: ''
+      email: '',
+      phone: ''
     },
 
     validate: {
       name: hasLength({ min: 2, max: 20 }, 'Name must be 2-20 characters long'),
-      email: isEmail('Invalid email')
+      email: isEmail('Invalid email'),
+      phone: hasLength({ min: 10, max: 10 }, 'Phone must be exactly 10 characters long')
     }
   });
 
   function handleBuy(values) {
-    const variables = { gigId: gig.gigId, name: gig.name, amount: gig.price, email: values.email, fullName: values.name, debug: true };
+    const variables = {
+      gigId: gig.gigId,
+      name: gig.name,
+      amount: gig.price,
+      email: values.email,
+      fullName: values.name,
+      phone: values.phone,
+      debug: true,
+      returnBaseUrl: window.location.origin
+    };
     return mutate({ variables });
   }
 
@@ -69,12 +80,14 @@ const ProductInfo = ({ gig }) => {
 
           <TextInput label="Email" placeholder="Email" withAsterisk {...form.getInputProps('email')} />
 
+          <TextInput label="Phone" placeholder="Phone" withAsterisk {...form.getInputProps('phone')} />
+
           <Group position="right" mt="md">
             <Button color="secondary" variant="outlined" size="large" disabled={isLoading} onClick={() => setEmailOpened(false)}>
               Cancel
             </Button>
             <Button color="secondary" variant="outlined" size="large" disabled={isLoading} type="submit">
-              Submit
+              Checkout
             </Button>
           </Group>
         </Box>
