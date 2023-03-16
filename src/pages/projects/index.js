@@ -34,6 +34,18 @@ const Projects = () => {
   let leads = [];
   gigs.map((gig) => gig.leads.map((lead) => leads.push(lead)));
 
+  const filteredProjects = projects.map((project) => {
+    if (project.payments?.length > 0) {
+      if (project.payments[0].status === 'PAID') {
+        return project;
+      } else {
+        return null;
+      }
+    } else {
+      return project;
+    }
+  });
+
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
@@ -43,9 +55,11 @@ const Projects = () => {
       </Flex>
       <Title sx={{ marginBottom: '15px' }}>Active Projects</Title>
       <Grid>
-        {projects.map((project) => {
-          return <ProjectCard key={project.projectId} project={project} refetch={refetch} handleEdit={handleEdit} />;
-        })}
+        {filteredProjects
+          .filter((n) => n)
+          .map((project) => {
+            return <ProjectCard key={project.projectId} project={project} refetch={refetch} handleEdit={handleEdit} />;
+          })}
       </Grid>
       <Title sx={{ marginBottom: '15px', marginTop: '15px' }}>Leads</Title>
       <Grid>
