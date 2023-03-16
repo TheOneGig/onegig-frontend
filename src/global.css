@@ -82,6 +82,11 @@ h1 {
   z-index: 999;
 }
 
+.deliverable-icon {
+  display: inline-block;
+  height: 10px;
+}
+
 .task-tables-container {
   overflow-x: scroll;
   white-space: nowrap;

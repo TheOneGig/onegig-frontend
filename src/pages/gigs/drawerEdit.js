@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import { useMutation } from 'react-query';
 import {
   ActionIcon,
@@ -25,7 +25,7 @@ import { updateGig } from 'hooks/gigs';
 import { uploadFile } from 'react-s3';
 import PropTypes from 'prop-types';
 import { IconEdit } from '@tabler/icons-react';
-import { CheckCircleOutlined, DeleteOutlined, EditOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import IconButton from 'components/@extended/IconButton';
 import { createRequirement, deleteRequirement, updateRequirement } from 'hooks/requirements';
 
@@ -41,6 +41,7 @@ const config = {
 const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
   const theme = useMantineTheme();
   const gig = gigs.find((gig) => gig.gigId === gigId);
+  const [_, forceUpdate] = useReducer((x) => x + 1, 0);
   const [category, setCategory] = useState(null);
   const [deliverables, setDeliverables] = useState([]);
   const [newDeliverable, setNewDeliverable] = useState('');
@@ -162,16 +163,17 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
     setOpenNewDeliverable(false);
   }
 
+  function handleDeleteDeliverable(index) {
+    const newDeliverables = deliverables;
+    newDeliverables.splice(index, 1);
+    setDeliverables(newDeliverables);
+    forceUpdate();
+  }
+
+  console.log('_:', _);
+
   return (
-    <Drawer
-      opened={opened}
-      onClose={() => setOpened(false)}
-      title="Edit Gig"
-      padding="xl"
-      size="100%"
-      position="right"
-      sx={{ zIndex: 9999 }}
-    >
+    <Drawer opened={opened} onClose={() => setOpened(false)} padding="xl" size="100%" position="right" sx={{ zIndex: 9999 }}>
       <Box component="form" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Title order={1}>Edit Gig</Title>
 
@@ -233,7 +235,10 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
             </Title>
             {deliverables.map((deliverable, index) => (
               <div key={index}>
-                <CheckCircleOutlined /> {deliverable}
+                <IconButton className="delete-btn" onClick={() => handleDeleteDeliverable(index)}>
+                  <DeleteOutlined />
+                </IconButton>{' '}
+                {deliverable}
               </div>
             ))}
             {openNewDeliverable && (
