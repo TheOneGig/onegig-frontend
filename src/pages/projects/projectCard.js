@@ -50,16 +50,16 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
         <Card shadow="sm" p="lg" radius="md" withBorder>
           <Group position="apart" mt="md" mb="xs">
             <Group>
-              <Text weight={500}>Service:</Text>
-              <Text>{project.gig?.name}</Text>
+              <Text weight={500}>Status:</Text>
+              <Text weight={300}>{statusRender(project.status)}</Text>
             </Group>
             <Badge color="#1dbeea" variant="light">
               {formatUSD(project.price)}
             </Badge>
           </Group>
           <Group>
-            <Text weight={500}>Status:</Text>
-            <Text weight={300}>{statusRender(project.status)}</Text>
+            <Text weight={500}>Service:</Text>
+            <Text>{project.gig?.name}</Text>
           </Group>
           <Group>
             <Text weight={500}>Client:</Text>
