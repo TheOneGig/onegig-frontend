@@ -73,7 +73,11 @@ const ProjectEdit = ({ opened, setOpened, refetch, project }) => {
           placeholder="Pick project status"
           data={[
             { value: 'LEAD', label: 'Lead' },
-            { value: 'ACTIVE', label: 'Active' },
+            { value: 'CLIENTWAITING', label: 'Client Waiting for Response' },
+            { value: 'REQUIREMENTS', label: 'Waiting for Client Requirements' },
+            { value: 'ACTIVE', label: 'In Progress' },
+            { value: 'INREVIEW', label: 'Under Review' },
+            { value: 'REVISION', label: 'Revision Requested' },
             { value: 'COMPLETED', label: 'Completed' }
           ]}
           {...form.getInputProps('status')}

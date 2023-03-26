@@ -7,7 +7,29 @@ import { formatUSD } from 'utils/formatUSD';
 import { archiveProject } from 'hooks/projects';
 import DrawerRequirements from './drawerRequirements';
 
+const statusRender = (status) => {
+  switch (status) {
+    case 'LEAD':
+      return 'Lead';
+    case 'CLIENTWAITING':
+      return 'Client Waiting for Response';
+    case 'REQUIREMENTS':
+      return 'Waiting for Client Requirements';
+    case 'ACTIVE':
+      return 'In Progress';
+    case 'INREVIEW':
+      return 'Under Review';
+    case 'REVISION':
+      return 'Revision Requested';
+    case 'COMPLETED':
+      return 'Completed';
+    default:
+      return 'In Progress';
+  }
+};
+
 const ProjectCard = ({ project, refetch, handleEdit }) => {
+  console.log('project:', project);
   const history = useNavigate();
   const [opened, setOpened] = useState(false);
   const [openedDelete, setOpenedDelete] = useState(false);
@@ -27,12 +49,31 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
       <Grid.Col key={project.projectId} xs={12} lg={4} sm={6}>
         <Card shadow="sm" p="lg" radius="md" withBorder>
           <Group position="apart" mt="md" mb="xs">
-            <Text weight={500}>{project.name}</Text>
+            <Group>
+              <Text weight={500}>Service:</Text>
+              <Text>{project.gig?.name}</Text>
+            </Group>
             <Badge color="#1dbeea" variant="light">
               {formatUSD(project.price)}
             </Badge>
           </Group>
-
+          <Group>
+            <Text weight={500}>Status:</Text>
+            <Text weight={300}>{statusRender(project.status)}</Text>
+          </Group>
+          <Group>
+            <Text weight={500}>Client:</Text>
+            <Text weight={300}>{project.clientName}</Text>
+          </Group>
+          <Group>
+            <Text weight={500}>Email:</Text>
+            <Text weight={300}>{project.clientEmail}</Text>
+          </Group>
+          <Group>
+            <Text weight={500}>Phone:</Text>
+            <Text weight={300}>{project.clientPhone}</Text>
+          </Group>
+          <Text weight={500}>Description:</Text>
           <Text size="sm" color="dimmed">
             {project.description}
           </Text>
