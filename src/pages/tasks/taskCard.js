@@ -23,7 +23,7 @@ import dayjs from 'dayjs';
 import { Tooltip } from '@mui/material';
 import IconButton from 'components/@extended/IconButton';
 import { DeleteOutlined } from '@ant-design/icons';
-import { deleteTask, updateDoneTask, updateTask } from 'hooks/tasks';
+import { deleteTask, updateDoneTask, updateTask, updateTaskPriority } from 'hooks/tasks';
 
 const TaskCard = ({ task, taskTable, refetch, tables }) => {
   const theme = useMantineTheme();
@@ -52,6 +52,12 @@ const TaskCard = ({ task, taskTable, refetch, tables }) => {
     }
   });
 
+  const { mutate: taskPriority } = useMutation(['updatePriority'], (variables) => updateTaskPriority(variables), {
+    onSuccess: () => {
+      refetch();
+    }
+  });
+
   function handleDone(e) {
     e.stopPropagation();
     const variables = { taskId: task.taskId, done: !task.done };
@@ -67,6 +73,11 @@ const TaskCard = ({ task, taskTable, refetch, tables }) => {
   function handleDelete() {
     const variables = { taskId: deleteId };
     return taskDelete({ variables });
+  }
+
+  function handlePriority(task, priority) {
+    const variables = { taskId: task.taskId, priority };
+    return taskPriority({ variables });
   }
 
   const form = useForm({
@@ -102,7 +113,7 @@ const TaskCard = ({ task, taskTable, refetch, tables }) => {
         >
           <Tooltip title="Delete">
             <IconButton
-              className="delete-btn"
+              className="delete-btn-alt"
               onClick={(e) => {
                 e.stopPropagation();
                 setDeleteId(task.taskId);
@@ -119,6 +130,18 @@ const TaskCard = ({ task, taskTable, refetch, tables }) => {
         <Text weight={500} className="task-title">
           {task.title}
         </Text>
+        <Box className="task-priority">
+          <Select
+            onClick={(e) => e.stopPropagation()}
+            value={task.priority}
+            onChange={(value) => handlePriority(task, value)}
+            data={[
+              { value: 'LOW', label: 'Low' },
+              { value: 'MEDIUM', label: 'Medium' },
+              { value: 'HIGH', label: 'High' }
+            ]}
+          />
+        </Box>
         {task.dueDate && <Text className="task-dueDate">{dayjs(task.dueDate).format('MMM-DD')}</Text>}
       </Box>
 

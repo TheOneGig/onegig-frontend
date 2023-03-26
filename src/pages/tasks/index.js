@@ -58,6 +58,9 @@ const Tasks = () => {
       <Title>Tasks for {project.name}</Title>
       <div className="task-tables-container">
         {tables.map((table) => {
+          const sortedTasks = table.tasks?.sort(function (a, b) {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+          });
           return (
             <div key={table.taskTableId} className="task-table-column">
               {editId === table.taskTableId ? (
@@ -128,7 +131,7 @@ const Tasks = () => {
                 </>
               )}
 
-              {table.tasks?.map((task) => (
+              {sortedTasks?.map((task) => (
                 <TaskCard key={task.taskId} taskTable={table} task={task} refetch={refetch} tables={tables} />
               ))}
               {newTaskTableId === table.taskTableId && (
