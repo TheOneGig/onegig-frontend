@@ -24,3 +24,8 @@ export const avatarUser = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/users/avatar', data.variables);
   return response;
 };
+
+export const payoutUser = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/users/payoutInfo', data.variables);
+  return response;
+};

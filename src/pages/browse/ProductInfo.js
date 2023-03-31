@@ -50,6 +50,9 @@ const ProductInfo = ({ gig }) => {
     return mutate({ variables });
   }
 
+  const deliverables = gig.deliverables.split(',');
+  console.log('deliverables:', deliverables);
+
   return (
     <Stack spacing={1}>
       <Typography variant="h3">{gig.name}</Typography>
@@ -59,6 +62,12 @@ const ProductInfo = ({ gig }) => {
           <Typography variant="h3">{formatUSD(gig.price)}</Typography>
         </Stack>
       </Stack>
+      <Typography variant="h4">Deliverables:</Typography>
+      <ul>
+        {deliverables.map((deliverable, index) => (
+          <li key={index}>{deliverable}</li>
+        ))}
+      </ul>
       <Stack direction="row" alignItems="center" spacing={2} sx={{ mt: 4 }}>
         <Button fullWidth color="secondary" variant="outlined" size="large" disabled={isLoading} onClick={() => setOpened(true)}>
           {`Contact Seller`}
