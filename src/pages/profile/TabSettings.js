@@ -50,7 +50,11 @@ const TabSettings = () => {
         <Grid.Col span={12}>
           <TextInput label="Cal URL" defaultValue={calUrl} onChange={(e) => setCalUrl(e.target.value)} />
           <p>
-            Register <a href="https://cal.com/">here</a> for a calendar and input the url here.
+            Register{' '}
+            <a href="https://cal.com/" target="_blank" rel="noreferrer">
+              here
+            </a>{' '}
+            for a calendar and input the url here.
           </p>
         </Grid.Col>
       </Grid>
