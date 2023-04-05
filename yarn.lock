@@ -1634,6 +1634,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@calcom/embed-core@npm:*":
+  version: 1.1.3
+  resolution: "@calcom/embed-core@npm:1.1.3"
+  checksum: e60b2ebdc5c8c7c9c67d5c686e56585231e6d92a9f9797e11be011aeaf2d27de29d1b7f8cba67942cdc1d8634d1083b23a8555763b146b744a3f1bed73eeb70a
+  languageName: node
+  linkType: hard
+
+"@calcom/embed-react@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "@calcom/embed-react@npm:1.0.10"
+  dependencies:
+    "@calcom/embed-core": "*"
+    "@calcom/embed-snippet": "*"
+  peerDependencies:
+    react: ^18.2.0
+    react-dom: ^18.2.0
+  checksum: a542915eae3ad8c8cb2148e8edd70534404288981f01c9d86c67d41258351eb4628d1aff848db734d4a764759f93fe9f58989ba0120650295bd9bba4bcbe5f4f
+  languageName: node
+  linkType: hard
+
+"@calcom/embed-snippet@npm:*":
+  version: 1.0.5
+  resolution: "@calcom/embed-snippet@npm:1.0.5"
+  dependencies:
+    "@calcom/embed-core": "*"
+  checksum: 825f8f410eea89e7f6055dfa1773d78aa17aca142346d23ffe398cfd7a486cbbd3f527ef1bae933eed42e9ea41c85b5f9d3686caf26e94c45dfd63162ebd173c
+  languageName: node
+  linkType: hard
+
 "@csstools/normalize.css@npm:*":
   version: 12.0.0
   resolution: "@csstools/normalize.css@npm:12.0.0"
@@ -12619,6 +12648,7 @@ __metadata:
     "@auth0/auth0-spa-js": ^1.22.4
     "@babel/core": ^7.19.3
     "@babel/eslint-parser": ^7.19.1
+    "@calcom/embed-react": ^1.0.10
     "@date-io/date-fns": ^2.16.0
     "@date-io/dayjs": ^2.16.0
     "@date-io/luxon": ^2.16.0

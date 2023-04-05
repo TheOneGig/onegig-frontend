@@ -1,7 +1,9 @@
+import Cal from 'components/Cal';
 import MainCard from 'components/MainCard';
 import PropTypes from 'prop-types';
 
 const DoneCard = ({ project }) => {
+  console.log('owner:', project.owner);
   return (
     <MainCard className="text-center">
       <h2>
@@ -15,6 +17,12 @@ const DoneCard = ({ project }) => {
         If you need to contact {project.owner?.fname}, you can do so by email at{' '}
         <a href={`mailto:${project.owner?.email}`}>{project.owner?.email}</a>
       </h4>
+      {project.owner?.calUrl && (
+        <>
+          <h4>You can also setup a meeting right now!</h4>
+          <Cal calUrl={project.owner.calUrl} />
+        </>
+      )}
     </MainCard>
   );
 };
