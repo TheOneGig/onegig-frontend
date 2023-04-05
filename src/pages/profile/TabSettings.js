@@ -17,6 +17,9 @@ const TabSettings = () => {
   const { data: userInfo, isLoading, refetch } = useQuery(['user'], () => getUser({ userId }));
   const { mutate } = useMutation(['updateSettings'], (variables) => updateSettings(variables), {
     onSuccess: () => {
+      setNewPayoutAccount();
+      setNewPayoutRoute();
+      setCalUrl();
       refetch();
     }
   });
@@ -30,7 +33,7 @@ const TabSettings = () => {
   function handleSubmit() {
     const thepayoutAccount = newPayoutAccount ? newPayoutAccount.toString() : payoutAccount;
     const thepayoutRoute = newPayoutRoute ? newPayoutRoute.toString() : payoutRoute;
-    const thecalUrl = newCalUrl ? newCalUrl : calUrl;
+    const thecalUrl = newCalUrl ? (newCalUrl?.startsWith('https://cal.com/') ? newCalUrl.slice(16) : newCalUrl) : calUrl;
     const variables = { userId, payoutAccount: thepayoutAccount, payoutRoute: thepayoutRoute, calUrl: thecalUrl };
     return mutate({ variables });
   }
