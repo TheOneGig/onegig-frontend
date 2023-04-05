@@ -54,7 +54,7 @@ const ProfileTabs = () => {
     return <div>Loading profile...</div>;
   }
   const { fname, lname, email, nickname, phone, title, gigs, ownedProjects, avatar } = userInfo;
-  const activeProjects = ownedProjects.filter((p) => p.status !== 'ARCHIVED');
+  const activeProjects = ownedProjects?.filter((p) => p.status !== 'ARCHIVED');
 
   return (
     <MainCard>
