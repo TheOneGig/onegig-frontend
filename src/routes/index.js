@@ -14,6 +14,7 @@ const BrowseDetails = Loadable(lazy(() => import('pages/browse/product-details')
 
 const Profile = Loadable(lazy(() => import('pages/profile')));
 const UserTabPersonal = Loadable(lazy(() => import('pages/profile/TabPersonal')));
+const Tiers = Loadable(lazy(() => import('pages/tiers')));
 
 const Requirements = Loadable(lazy(() => import('pages/requirements')));
 
@@ -58,6 +59,10 @@ export default function ThemeRoutes() {
               element: <UserTabPersonal />
             }
           ]
+        },
+        {
+          path: 'subscription',
+          element: <Tiers />
         }
       ]
     },

@@ -32,7 +32,7 @@ export const AUTH0_API = {
 // ==============================|| THEME CONFIG  ||============================== //
 
 const config = {
-  defaultPath: '/dashboard',
+  defaultPath: '/new/subscription',
   fontFamily: `'Montserrat', sans-serif`,
   i18n: 'en',
   miniDrawer: false,

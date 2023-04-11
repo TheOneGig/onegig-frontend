@@ -10,31 +10,30 @@ import MainCard from 'components/MainCard';
 
 // assets
 import { CheckOutlined } from '@ant-design/icons';
-import StandardLogo from 'assets/images/price/Standard';
 import StandardPlusLogo from 'assets/images/price/StandardPlus';
-import Logo from 'components/logo';
 import { createPayment } from 'hooks/stripe';
 import useAuth from 'hooks/useAuth';
-import { ActionIcon, Text } from '@mantine/core';
+import { ActionIcon, Button, Text } from '@mantine/core';
 import { getUser } from 'hooks/users';
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router';
 
 // plan list
 const plans = [
-  {
-    active: false,
-    icon: <StandardLogo />,
-    title: 'Basic',
-    description:
-      'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
-    monthly: 5,
-    monthlyId: 'price_1MZlr8EyxV4PorzikcsJua21',
-    tierMonthly: 'BASIC',
-    yearly: 50,
-    yearlyId: 'price_1MZlr8EyxV4Porzip2CDukTd',
-    tierYearly: 'BASICYEARLY',
-    permission: [0, 1]
-  },
+  // {
+  //   active: false,
+  //   icon: <StandardLogo />,
+  //   title: 'Basic',
+  //   description:
+  //     'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
+  //   monthly: 5,
+  //   monthlyId: 'price_1MZlr8EyxV4PorzikcsJua21',
+  //   tierMonthly: 'BASIC',
+  //   yearly: 50,
+  //   yearlyId: 'price_1MZlr8EyxV4Porzip2CDukTd',
+  //   tierYearly: 'BASICYEARLY',
+  //   permission: [0, 1]
+  // },
   {
     active: true,
     icon: <StandardPlusLogo />,
@@ -47,41 +46,41 @@ const plans = [
     yearly: 250,
     yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
     tierYearly: 'ADVANCEDYEARLY',
-    permission: [0, 1, 2, 3]
-  },
-  {
-    active: false,
-    icon: <Logo isIcon sx={{ width: 36, height: 36 }} />,
-    title: 'Premium',
-    description:
-      'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
-    monthly: 40,
-    monthlyId: 'price_1MaAOpEyxV4PorziAcvZ5hqW',
-    tierMonthly: 'PREMIUM',
-    yearly: 400,
-    yearlyId: 'price_1MaAOpEyxV4PorzitKAmMaM3',
-    tierYearly: 'PREMIUMYEARLY',
-    permission: [0, 1, 2, 3, 5]
+    permission: [0, 1, 2, 3, 4, 5, 6]
   }
+  // {
+  //   active: false,
+  //   icon: <Logo isIcon sx={{ width: 36, height: 36 }} />,
+  //   title: 'Premium',
+  //   description:
+  //     'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
+  //   monthly: 40,
+  //   monthlyId: 'price_1MaAOpEyxV4PorziAcvZ5hqW',
+  //   tierMonthly: 'PREMIUM',
+  //   yearly: 400,
+  //   yearlyId: 'price_1MaAOpEyxV4PorzitKAmMaM3',
+  //   tierYearly: 'PREMIUMYEARLY',
+  //   permission: [0, 1, 2, 3, 5]
+  // }
 ];
 
 const planList = [
-  'One End Product', // 0
-  'No attribution required', // 1
-  'TypeScript', // 2
-  'Figma Design Resources', // 3
-  'Create Multiple Products', // 4
-  'Create a SaaS Project', // 5
-  'Resale Product', // 6
-  'Separate sale of our UI Elements?' // 7
+  'Unlimited Gigs', // 0
+  'Unlimited Projects', // 1
+  'Gig Sales Page', // 2
+  'Task Manager', // 3
+  'Requirements Management', // 4
+  'Handle Payments', // 5
+  'Meetings Manager' //6
 ];
 
 const Pricing = () => {
   const theme = useTheme();
+  const history = useNavigate();
   const { user } = useAuth();
   const userId = user.id;
   const { data: userInfo, isLoading: loadingUser } = useQuery(['getUser'], () => getUser({ userId }));
-  const [timePeriod, setTimePeriod] = useState(true);
+  const [timePeriod, setTimePeriod] = useState(false);
   const { mutate, isLoading } = useMutation(['createPayment'], (variables) => createPayment(variables), {
     onSuccess: (session) => {
       window.open(session.url, '_blank');
@@ -115,15 +114,22 @@ const Pricing = () => {
     tier = 'PREMIUM';
   }
 
+  if (dayjs(userInfo?.paidUntil).isAfter(dayjs())) {
+    history('/dashboard');
+  }
+
   return (
     <>
-      {dayjs(userInfo.paidUntil) > dayjs() ? (
+      {dayjs(userInfo?.paidUntil).isAfter(dayjs()) ? (
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <MainCard className="text-center">
-              <h1>TIER {tier}</h1>
+              <h1>SUBSCRIPTION</h1>
               <h4>Renews Automatically: {dayjs(userInfo?.paidUntil).format('MMMM DD, YYYY')}</h4>
               <h4>If you would like to change your subscription, please contact support.</h4>
+              <Button disabled={dayjs(userInfo?.paidUntil).isAfter(dayjs())} onClick={() => history('/gigs')} variant="contained">
+                Dashboard
+              </Button>
             </MainCard>
           </Grid>
         </Grid>
@@ -177,7 +183,7 @@ const Pricing = () => {
                         color="green"
                         variant={plan.active ? 'contained' : 'outlined'}
                       >
-                        <Text>Order Now</Text>
+                        <Text>Subscribe Now</Text>
                       </ActionIcon>
                     </Grid>
                     <Grid item xs={12}>

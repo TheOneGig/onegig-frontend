@@ -58,7 +58,7 @@ const TabPersonal = () => {
     onSuccess: () => {
       refetch();
       if (location.pathname === '/new/profile/personal') {
-        history('/gigs');
+        history('/new/subscription');
       }
       return true;
     }
