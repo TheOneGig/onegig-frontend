@@ -40,7 +40,7 @@ const DashboardDefault = () => {
       });
     });
 
-  const activeProjects = ownedProjects?.filter((p) => p.status !== 'ARCHIVED');
+  const activeProjects = ownedProjects?.filter((p) => p.status !== 'ARCHIVED' && p.status !== 'LEAD');
 
   let dates = [];
   let revenues = [];
