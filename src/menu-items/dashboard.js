@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 // assets
 import { DashboardOutlined, FolderViewOutlined, FundOutlined, PicLeftOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { Tooltip } from '@mantine/core';
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
@@ -44,6 +45,17 @@ const dashboard = {
       type: 'item',
       url: '/todo',
       icon: UnorderedListOutlined
+    },
+    {
+      id: 'Contracts',
+      title: (
+        <Tooltip label="Coming Soon" color="#1dbeea">
+          <FormattedMessage id="contracts" />
+        </Tooltip>
+      ),
+      type: 'item',
+      url: '#',
+      icon: EditOutlined
     }
   ]
 };
