@@ -12,7 +12,7 @@ import avatar1 from 'assets/images/users/avatar-1.png';
 
 const ProfileTabs = ({ user }) => {
   const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
-  const activeProjects = ownedProjects.filter((project) => project.status !== 'ARCHIVED');
+  const activeProjects = ownedProjects.filter((project) => project.status !== 'ARCHIVED' && project.status !== 'LEAD');
 
   return (
     <MainCard>
