@@ -12,7 +12,6 @@ import { Box } from '@mui/material';
 // import useConfig from 'hooks/useConfig';
 import Hero from 'sections/landing/Header';
 
-
 // assets
 // import { CheckOutlined } from '@ant-design/icons';
 // const dashImage = require.context('assets/images/landing', true);
@@ -59,11 +58,10 @@ const Landing = () => {
 
 export default Landing;
 
-
 // old landing page
 
- // hooks
-//  
+// hooks
+//
 
 //  const { mode, presetColor, onChangePresetColor } = useConfig();
 
@@ -106,7 +104,8 @@ export default Landing;
 //    onChangePresetColor(event.target.value);
 //  };
 
-  {/* <FeatureBlock />
+{
+  /* <FeatureBlock />
       <DemoBlock />
       <CallToAction />
       <NumberBlock />
@@ -178,4 +177,5 @@ export default Landing;
             </Stack>
           </RadioGroup>
         </MainCard>
-      </Slide> */}
+      </Slide> */
+}

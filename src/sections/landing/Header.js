@@ -23,20 +23,26 @@ const HeaderPage = () => {
   const theme = useTheme();
 
   return (
-    <Container sx={{ height: '100vh', display: 'flex', alignItems: 'center'}}> 
-      <Grid container alignItems="center" flexDirection="column" justifyContent="center" spacing={1} sx={{ pt: { md: 0, xs: 8 }, pb: { md: 0, xs: 5 } }}>
+    <Container sx={{ height: '100vh', display: 'flex', alignItems: 'center' }}>
+      <Grid
+        container
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="center"
+        spacing={1}
+        sx={{ pt: { md: 0, xs: 8 }, pb: { md: 0, xs: 5 } }}
+      >
         <CardMedia
-            component="img"
-            image={logo}
-              
-            sx={{
-                width: { md: '78%', lg: '70%', xl: '60%' },
-                right: { md: '-14%', lg: '-4%', xl: '-2%' },
-                top: { md: '16%', lg: '12%', xl: '20%' },
-            }}
+          component="img"
+          image={logo}
+          sx={{
+            width: { md: '78%', lg: '70%', xl: '60%' },
+            right: { md: '-14%', lg: '-4%', xl: '-2%' },
+            top: { md: '16%', lg: '12%', xl: '20%' }
+          }}
         />
         <Grid item xs={12} lg={6} md={6}>
-          <Grid container spacing={2} sx={{textAlign: 'center',  [theme.breakpoints.down('md')]: { pr: 0, textAlign: 'center' } }}>
+          <Grid container spacing={2} sx={{ textAlign: 'center', [theme.breakpoints.down('md')]: { pr: 0, textAlign: 'center' } }}>
             <Grid item xs={12}>
               <motion.div
                 initial={{ opacity: 0, translateY: 550 }}
@@ -58,9 +64,9 @@ const HeaderPage = () => {
                 >
                   <span>The </span>
                   <Box component="span" sx={{ color: theme.palette.primary.main }}>
-                   <span> ONE </span>
-                   </Box>
-                   <span> app for all your  </span>
+                    <span> ONE </span>
+                  </Box>
+                  <span> app for all your </span>
                   <Box component="span" sx={{ color: theme.palette.primary.main }}>
                     <span>Freelancing GIGs </span>
                   </Box>
@@ -107,17 +113,17 @@ const HeaderPage = () => {
                 <Grid container spacing={1} sx={{ justifyContent: { xs: 'center', md: 'center' } }}>
                   <Grid item>
                     <AnimateButton>
-                      <Button component={RouterLink} 
+                      <Button
+                        component={RouterLink}
                         to="/login"
-                        size="large" 
-                        color="primary" 
+                        size="large"
+                        color="primary"
                         variant="outlined"
-                        
                         sx={{
                           '&:hover': {
                             backgroundColor: theme.palette.primary.main,
                             color: theme.palette.primary.contrastText,
-                            transition: '0.3s',
+                            transition: '0.3s'
                           }
                         }}
                       >
@@ -130,8 +136,7 @@ const HeaderPage = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} lg={7} md={6} sx={{ display: { xs: 'none', md: 'flex' } }}>
-        </Grid>
+        <Grid item xs={12} lg={7} md={6} sx={{ display: { xs: 'none', md: 'flex' } }}></Grid>
       </Grid>
     </Container>
   );
@@ -139,10 +144,9 @@ const HeaderPage = () => {
 
 export default HeaderPage;
 
-
-
 // buttons
- {/* <Grid item>
+{
+  /* <Grid item>
                     <AnimateButton>
                       <Button
                         component={Link}
@@ -157,11 +161,11 @@ export default HeaderPage;
                       </Button>
                     </AnimateButton>
                   </Grid> */
-  }
-
+}
 
 // icons
-  {/* <Grid item xs={12}>
+{
+  /* <Grid item xs={12}>
               <motion.div
                 initial={{ opacity: 0, translateY: 550 }}
                 animate={{ opacity: 1, translateY: 0 }}
@@ -175,9 +179,10 @@ export default HeaderPage;
                 <img src={headertechimg} alt="Mantis" />
               </motion.div>
             </Grid> */
-  }
+}
 
- {/* <Box sx={{ position: 'relative', mt: 8.75 }}>
+{
+  /* <Box sx={{ position: 'relative', mt: 8.75 }}>
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -260,4 +265,5 @@ export default HeaderPage;
                                 </Grid>
                             </Grid>
                         </Grid>
-                    </Box> */}
+                    </Box> */
+}
