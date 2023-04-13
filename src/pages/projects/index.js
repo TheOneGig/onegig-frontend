@@ -36,7 +36,7 @@ const Projects = () => {
 
   const filteredProjects = projects.map((project) => {
     if (project.payments?.length > 0) {
-      if (project.payments[0].status === 'PAID') {
+      if (project.status !== 'ARCHIVED' && project.status !== 'LEAD') {
         return project;
       } else {
         return null;
