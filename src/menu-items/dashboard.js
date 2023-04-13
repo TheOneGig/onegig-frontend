@@ -2,7 +2,14 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { DashboardOutlined, FolderViewOutlined, FundOutlined, PicLeftOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import {
+  DashboardOutlined,
+  EditOutlined,
+  FolderViewOutlined,
+  FundOutlined,
+  PicLeftOutlined,
+  UnorderedListOutlined
+} from '@ant-design/icons';
 import { Tooltip } from '@mantine/core';
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
