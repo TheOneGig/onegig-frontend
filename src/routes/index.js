@@ -24,7 +24,7 @@ export default function ThemeRoutes() {
   return useRoutes([
     {
       path: '/',
-      element: <CommonLayout layout="landing" />,
+      // element: <CommonLayout layout="landing" />,
       children: [
         {
           path: '/',

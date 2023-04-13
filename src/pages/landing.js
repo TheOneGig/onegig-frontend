@@ -1,76 +1,26 @@
-import { useEffect, useState } from 'react';
+//import { useEffect, useState } from 'react';
 
 // material-ui
-import { alpha, useTheme } from '@mui/material/styles';
-import { Box, CardMedia, FormControlLabel, Radio, RadioGroup, Slide, Stack } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Box } from '@mui/material';
 
 // third-party
-import { presetDarkPalettes, presetPalettes } from '@ant-design/colors';
+//import { presetDarkPalettes, presetPalettes } from '@ant-design/colors';
 
 // project import
-import MainCard from 'components/MainCard';
-import IconButton from 'components/@extended/IconButton';
-import useConfig from 'hooks/useConfig';
+
+// import useConfig from 'hooks/useConfig';
 import Hero from 'sections/landing/Header';
-import NumberBlock from 'sections/landing/NumberBlock';
-import BrowserBlock from 'sections/landing/BrowserBlock';
-import CallToAction from 'sections/landing/CallToAction';
-import FeatureBlock from 'sections/landing/FeatureBlock';
-import DemoBlock from 'sections/landing/DemoBlock';
-import TestimonialBlock from 'sections/landing/TestimonialBlock';
-import ElementBlock from 'sections/landing/ElementBlock';
-import PartnerBlock from 'sections/landing/PartnerBlock';
+
 
 // assets
-import { CheckOutlined } from '@ant-design/icons';
-
-const dashImage = require.context('assets/images/landing', true);
+// import { CheckOutlined } from '@ant-design/icons';
+// const dashImage = require.context('assets/images/landing', true);
 
 // ==============================|| LANDING PAGE ||============================== //
 
 const Landing = () => {
   const theme = useTheme();
-
-  const { mode, presetColor, onChangePresetColor } = useConfig();
-
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const listenToScroll = () => {
-      let heightToHideFrom = 250;
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-
-      if (winScroll > heightToHideFrom) {
-        setVisible(true);
-      } else {
-        visible && setVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', listenToScroll);
-    return () => window.removeEventListener('scroll', listenToScroll);
-  }, [visible]);
-
-  const colors = mode === 'dark' ? presetDarkPalettes : presetPalettes;
-  const { blue } = colors;
-  const colorOptions = [
-    {
-      id: 'theme3',
-      primary: mode === 'dark' ? '#0eba9b' : '#068e44'
-    },
-    {
-      id: 'default',
-      primary: blue[5]
-    },
-    {
-      id: 'theme8',
-      primary: mode === 'dark' ? '#058478' : '#009688'
-    }
-  ];
-
-  const handlePresetColorChange = (event) => {
-    onChangePresetColor(event.target.value);
-  };
 
   return (
     <>
@@ -80,6 +30,11 @@ const Landing = () => {
           bgcolor: theme.palette.mode === 'dark' ? 'grey.0' : 'grey.800',
           overflow: 'hidden',
           minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center ',
+          justifyContent: 'center',
+
           '&>*': {
             position: 'relative',
             zIndex: 5
@@ -96,21 +51,62 @@ const Landing = () => {
           }
         }}
       >
-        <CardMedia
-          component="img"
-          image={dashImage(`./bg-mockup-${presetColor}.png`)}
-          sx={{
-            position: 'absolute',
-            width: { md: '78%', lg: '70%', xl: '65%' },
-            right: { md: '-14%', lg: '-4%', xl: '-2%' },
-            top: { md: '16%', lg: '12%', xl: '8%' },
-            zIndex: 1,
-            display: { xs: 'none', md: 'block' }
-          }}
-        />
         <Hero />
       </Box>
-      <FeatureBlock />
+    </>
+  );
+};
+
+export default Landing;
+
+
+// old landing page
+
+ // hooks
+//  
+
+//  const { mode, presetColor, onChangePresetColor } = useConfig();
+
+//  const [visible, setVisible] = useState(false);
+
+//  useEffect(() => {
+//    const listenToScroll = () => {
+//      let heightToHideFrom = 250;
+//      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+
+//      if (winScroll > heightToHideFrom) {
+//        setVisible(true);
+//      } else {
+//        visible && setVisible(false);
+//      }
+//    };
+
+//    window.addEventListener('scroll', listenToScroll);
+//    return () => window.removeEventListener('scroll', listenToScroll);
+//  }, [visible]);
+
+//  const colors = mode === 'dark' ? presetDarkPalettes : presetPalettes;
+//  const { blue } = colors;
+//  const colorOptions = [
+//    {
+//      id: 'theme3',
+//      primary: mode === 'dark' ? '#0eba9b' : '#068e44'
+//    },
+//    {
+//      id: 'default',
+//      primary: blue[5]
+//    },
+//    {
+//      id: 'theme8',
+//      primary: mode === 'dark' ? '#058478' : '#009688'
+//    }
+//  ];
+
+//  const handlePresetColorChange = (event) => {
+//    onChangePresetColor(event.target.value);
+//  };
+
+  {/* <FeatureBlock />
       <DemoBlock />
       <CallToAction />
       <NumberBlock />
@@ -182,9 +178,4 @@ const Landing = () => {
             </Stack>
           </RadioGroup>
         </MainCard>
-      </Slide>
-    </>
-  );
-};
-
-export default Landing;
+      </Slide> */}

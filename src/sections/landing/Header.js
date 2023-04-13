@@ -1,15 +1,15 @@
 import { Link as RouterLink } from 'react-router-dom';
-
+import logo from '../../assets/images/brand/OneGig-Logo-White-Gradient.png';
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, Button, Container, Grid, Link, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Typography, CardMedia } from '@mui/material';
 
 // third party
 import { motion } from 'framer-motion';
 
 // assets
-import { EyeOutlined } from '@ant-design/icons';
-import headertechimg from 'assets/images/landing/img-headertech.svg';
+// import { EyeOutlined } from '@ant-design/icons';
+// import headertechimg from 'assets/images/landing/img-headertech.svg';
 // import headerbg from 'assets/images/landing/bg-mokeup.svg';
 // import headeravtar from 'assets/images/landing/img-headeravtar.png';
 // import headerwidget1 from 'assets/images/landing/img-headerwidget1.png';
@@ -23,10 +23,20 @@ const HeaderPage = () => {
   const theme = useTheme();
 
   return (
-    <Container sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
-      <Grid container alignItems="center" justifyContent="space-between" spacing={2} sx={{ pt: { md: 0, xs: 8 }, pb: { md: 0, xs: 5 } }}>
-        <Grid item xs={12} lg={5} md={6}>
-          <Grid container spacing={2} sx={{ pr: 10, [theme.breakpoints.down('md')]: { pr: 0, textAlign: 'center' } }}>
+    <Container sx={{ height: '100vh', display: 'flex', alignItems: 'center'}}> 
+      <Grid container alignItems="center" flexDirection="column" justifyContent="center" spacing={1} sx={{ pt: { md: 0, xs: 8 }, pb: { md: 0, xs: 5 } }}>
+        <CardMedia
+            component="img"
+            image={logo}
+              
+            sx={{
+                width: { md: '78%', lg: '70%', xl: '60%' },
+                right: { md: '-14%', lg: '-4%', xl: '-2%' },
+                top: { md: '16%', lg: '12%', xl: '20%' },
+            }}
+        />
+        <Grid item xs={12} lg={6} md={6}>
+          <Grid container spacing={2} sx={{textAlign: 'center',  [theme.breakpoints.down('md')]: { pr: 0, textAlign: 'center' } }}>
             <Grid item xs={12}>
               <motion.div
                 initial={{ opacity: 0, translateY: 550 }}
@@ -46,9 +56,13 @@ const HeaderPage = () => {
                     lineHeight: { xs: 1.3, sm: 1.3, md: 1.3 }
                   }}
                 >
-                  <span>Carefully Crafted for your </span>
+                  <span>The </span>
                   <Box component="span" sx={{ color: theme.palette.primary.main }}>
-                    <span>Caring React </span>
+                   <span> ONE </span>
+                   </Box>
+                   <span> app for all your  </span>
+                  <Box component="span" sx={{ color: theme.palette.primary.main }}>
+                    <span>Freelancing GIGs </span>
                   </Box>
                   <span>Project</span>
                 </Typography>
@@ -75,7 +89,7 @@ const HeaderPage = () => {
                     lineHeight: { xs: 1.4, md: 1.4 }
                   }}
                 >
-                  Mantis React is a blazing-fast dashboard template built using the MUI React library.
+                  The all-in-one platform that brings clients, projects, and tools together in one place.
                 </Typography>
               </motion.div>
             </Grid>
@@ -90,15 +104,45 @@ const HeaderPage = () => {
                   delay: 0.4
                 }}
               >
-                <Grid container spacing={2} sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                <Grid container spacing={1} sx={{ justifyContent: { xs: 'center', md: 'center' } }}>
                   <Grid item>
                     <AnimateButton>
-                      <Button component={RouterLink} to="/components-overview/buttons" size="large" color="primary" variant="outlined">
-                        Explore Components
+                      <Button component={RouterLink} 
+                        to="/login"
+                        size="large" 
+                        color="primary" 
+                        variant="outlined"
+                        
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: theme.palette.primary.main,
+                            color: theme.palette.primary.contrastText,
+                            transition: '0.3s',
+                          }
+                        }}
+                      >
+                        Join Now!
                       </Button>
                     </AnimateButton>
                   </Grid>
-                  <Grid item>
+                </Grid>
+              </motion.div>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12} lg={7} md={6} sx={{ display: { xs: 'none', md: 'flex' } }}>
+        </Grid>
+      </Grid>
+    </Container>
+  );
+};
+
+export default HeaderPage;
+
+
+
+// buttons
+ {/* <Grid item>
                     <AnimateButton>
                       <Button
                         component={Link}
@@ -112,11 +156,12 @@ const HeaderPage = () => {
                         Live Preview
                       </Button>
                     </AnimateButton>
-                  </Grid>
-                </Grid>
-              </motion.div>
-            </Grid>
-            <Grid item xs={12}>
+                  </Grid> */
+  }
+
+
+// icons
+  {/* <Grid item xs={12}>
               <motion.div
                 initial={{ opacity: 0, translateY: 550 }}
                 animate={{ opacity: 1, translateY: 0 }}
@@ -129,11 +174,10 @@ const HeaderPage = () => {
               >
                 <img src={headertechimg} alt="Mantis" />
               </motion.div>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} lg={7} md={6} sx={{ display: { xs: 'none', md: 'flex' } }}>
-          {/* <Box sx={{ position: 'relative', mt: 8.75 }}>
+            </Grid> */
+  }
+
+ {/* <Box sx={{ position: 'relative', mt: 8.75 }}>
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -217,10 +261,3 @@ const HeaderPage = () => {
                             </Grid>
                         </Grid>
                     </Box> */}
-        </Grid>
-      </Grid>
-    </Container>
-  );
-};
-
-export default HeaderPage;
