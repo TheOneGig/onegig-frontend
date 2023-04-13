@@ -18,7 +18,7 @@ import ProfileTab from './ProfileTab';
 import avatar1 from 'assets/images/users/avatar-1.png';
 import { LogoutOutlined } from '@ant-design/icons';
 import { getUser } from 'hooks/users';
-import { useNavigate } from 'react-router';
+
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -39,7 +39,7 @@ TabPanel.propTypes = {
 
 const Profile = () => {
   const theme = useTheme();
-  const history = useNavigate();
+  // const history = useNavigate();
 
   const { logout, user } = useAuth();
   const userId = user.id;
@@ -47,7 +47,7 @@ const Profile = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      history(`/`);
+      window.location.href = 'https://www.joinonegig.com';
     } catch (err) {
       console.error(err);
     }
