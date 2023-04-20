@@ -24,7 +24,7 @@ const UserTabSettings = Loadable(lazy(() => import('pages/profile/TabSettings'))
 
 const Skills = Loadable(lazy(() => import('pages/skills')));
 const Finances = Loadable(lazy(() => import('pages/finances')));
-
+const Contracts = Loadable(lazy(() => import('pages/contracts')));
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
 const WidgetData = Loadable(lazy(() => import('pages/widget/data')));
@@ -162,6 +162,10 @@ const MainRoutes = {
         {
           path: 'finances',
           element: <Finances />
+        },
+        {
+          path: 'contracts',
+          element: <Contracts />
         },
         {
           path: 'skills',
