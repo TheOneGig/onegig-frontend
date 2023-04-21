@@ -46,6 +46,7 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
   const [deliverables, setDeliverables] = useState([]);
   const [newDeliverable, setNewDeliverable] = useState('');
   const [openNewDeliverable, setOpenNewDeliverable] = useState(false);
+  const [newFile, setNewFile] = useState(false);
   const [file, setFile] = useState();
   const [fileError, setFileError] = useState(false);
   const [openedNewReq, setOpenNewReq] = useState(false);
@@ -116,12 +117,15 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
 
   const handleUpload = async (file) => {
     uploadFile(file[0], config)
-      .then((data) => setFile(data.location))
+      .then((data) => {
+        setFile(data.location);
+        setNewFile(true);
+      })
       .catch((err) => console.error(err));
   };
 
   function handleSubmit(values) {
-    if (file) {
+    if (newFile) {
       setFileError(false);
       const price = parseInt(values.price * 100);
       const variables = {
