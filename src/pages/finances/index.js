@@ -14,8 +14,9 @@ import useAuth from 'hooks/useAuth';
 import { formatUSD } from 'utils/formatUSD';
 import ReactTable from './table';
 import dayjs from 'dayjs';
-
-// ==============================|| REACT TABLE - BASIC ||============================== //
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { MobileDateTimePicker } from '@mui/x-date-pickers';
 
 const TransactionsTable = ({ striped, title }) => {
   const theme = useMantineTheme();
@@ -23,6 +24,7 @@ const TransactionsTable = ({ striped, title }) => {
   const userId = user.id;
   const [transaction, setTransaction] = useState();
   const [transactionType, setTransactionType] = useState('REVENUE');
+  const [date, setDate] = useState(new Date());
   const [openedDelete, setOpenedDelete] = useState(false);
   const [openedEdit, setOpenedEdit] = useState(false);
   const [openedNew, setOpenedNew] = useState(false);
@@ -75,13 +77,14 @@ const TransactionsTable = ({ striped, title }) => {
       transactionId: transaction.transactionId,
       amount: values.amount * 100,
       description: values.description,
-      type: transactionType
+      type: transactionType,
+      date
     };
     return transactionEdit({ variables });
   }
 
   function handleNew(values) {
-    const variables = { userId, amount: values.amount * 100, description: values.description, type: transactionType };
+    const variables = { userId, amount: values.amount * 100, description: values.description, date, type: transactionType };
     return transactionNew({ variables });
   }
 
@@ -109,7 +112,7 @@ const TransactionsTable = ({ striped, title }) => {
     () => [
       {
         Header: 'Transaction Date',
-        accessor: 'createdAt',
+        accessor: 'date',
         Cell: ({ value }) => {
           return dayjs(value).format('MMMM DD');
         }
@@ -209,6 +212,9 @@ const TransactionsTable = ({ striped, title }) => {
                 <Grid.Col span={12}>
                   <Title order={1}>Edit Transaction</Title>
 
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <MobileDateTimePicker defaultValue={dayjs('2022-04-17T15:30')} onChange={(value) => setDate(value)} />
+                  </LocalizationProvider>
                   <TextInput label="Description" placeholder="Short description" withAsterisk {...form.getInputProps('description')} />
                   <NumberInput
                     label="Amount"
@@ -265,6 +271,9 @@ const TransactionsTable = ({ striped, title }) => {
                 <Grid.Col span={12}>
                   <Title order={1}>New Transaction</Title>
 
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <MobileDateTimePicker defaultValue={dayjs('2022-04-17T15:30')} onChange={(value) => setDate(value)} />
+                  </LocalizationProvider>
                   <TextInput label="Description" placeholder="Short description" withAsterisk {...form.getInputProps('description')} />
                   <NumberInput
                     label="Amount"
