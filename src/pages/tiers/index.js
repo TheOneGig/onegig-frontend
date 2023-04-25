@@ -41,10 +41,12 @@ const plans = [
     description:
       'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
     monthly: 25,
-    monthlyId: 'price_1MaANmEyxV4PorziCfkDUCDO',
+    monthlyId: 'price_1MtrcaEyxV4PorziB0YtgAxt',
+    // monthlyId: 'price_1MaANmEyxV4PorziCfkDUCDO',
     tierMonthly: 'ADVANCED',
     yearly: 250,
-    yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
+    yearlyId: 'price_1MtrcaEyxV4PorzijSUPUsox',
+    // yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
     tierYearly: 'ADVANCEDYEARLY',
     permission: [0, 1, 2, 3, 4, 5, 6]
   }
@@ -101,7 +103,7 @@ const Pricing = () => {
   function handleOrder(plan) {
     const priceId = timePeriod ? plan.monthlyId : plan.yearlyId;
     const tier = timePeriod ? plan.tierMonthly : plan.tierYearly;
-    const variables = { userId, priceId, email: user.email, debug: true, tier, returnBaseUrl: window.location.origin };
+    const variables = { userId, priceId, email: user.email, debug: false, tier, returnBaseUrl: window.location.origin };
     return mutate({ variables });
   }
 
