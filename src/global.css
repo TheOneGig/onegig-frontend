@@ -220,3 +220,21 @@ textarea:focus,
 textarea:focus-within {
   border-color: #1dbeea !important;
 }
+
+.file-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 35px 15px 20px;
+  margin: 10px;
+  border: 1px solid #c3c3c3;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.file-image {
+  width: 70%;
+  margin-top: 10px;
+}

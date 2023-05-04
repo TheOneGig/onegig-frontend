@@ -24,6 +24,7 @@ const UserTabSettings = Loadable(lazy(() => import('pages/profile/TabSettings'))
 
 const Skills = Loadable(lazy(() => import('pages/skills')));
 const Finances = Loadable(lazy(() => import('pages/finances')));
+const Resources = Loadable(lazy(() => import('pages/resources')));
 
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
@@ -142,6 +143,10 @@ const MainRoutes = {
         {
           path: 'tasks/:projectId',
           element: <Tasks />
+        },
+        {
+          path: 'resources/:projectId',
+          element: <Resources />
         },
         {
           path: 'chat/:projectId',
