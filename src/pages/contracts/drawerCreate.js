@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { ActionIcon, Box, Button, Drawer, Grid, Group, Input, Select, Text, Textarea, TextInput, Title, Tooltip } from '@mantine/core';
 import { Dropzone, PDF_MIME_TYPE } from '@mantine/dropzone';
-import { useForm, hasLength } from '@mantine/form';
+import { useForm, hasLength, isEmail } from '@mantine/form';
 import { uploadFile } from 'react-s3';
 import PropTypes from 'prop-types';
 import { DeleteOutlined, SendOutlined, UserOutlined } from '@ant-design/icons';
@@ -22,7 +22,6 @@ const config = {
 
 const ContractCreate = ({ opened, setOpened, userId, refetch, gigOptions }) => {
   const [selectedGig, setSelectedGig] = useState(null);
-  const [recieverEmail, setRecieverEmail] = useState('');
   const [fileType, setFileType] = useState('template');
   const [file, setFile] = useState();
   const [fileError, setFileError] = useState(false);
@@ -51,12 +50,14 @@ const ContractCreate = ({ opened, setOpened, userId, refetch, gigOptions }) => {
     initialValues: {
       name: '',
       description: '',
+      recieverEmail: '',
       status: 'Pending'
     },
 
     validate: {
       name: hasLength({ min: 2, max: 20 }, 'Title must be 2-20 characters long'),
-      description: hasLength({ min: 5, max: 600 }, 'Description must be 5-600 characters long')
+      description: hasLength({ min: 5, max: 600 }, 'Description must be 5-600 characters long'),
+      recieverEmail: isEmail('Please enter a valid email')
     }
   });
 
@@ -67,29 +68,27 @@ const ContractCreate = ({ opened, setOpened, userId, refetch, gigOptions }) => {
   };
 
   function handleSubmit(values) {
-    if (file) {
-      setFileError(false);
-
-      const variables = {
-        name: values.name,
-        description: values.description,
-        gig: selectedGig,
-        start: start,
-        status: values.status,
-        expiration: expiration,
-        reciever: recieverEmail,
-        userId,
-        fileUrl: file
-      };
-      //console.log(variables)
-      return mutate({ variables });
-    } else {
-      setFileError(true);
-    }
+    // if (file) {
+    //   setFileError(false);
+    // } else {
+    //   setFileError(true);
+    // }
+    const variables = {
+      name: values.name,
+      description: values.description,
+      gig: selectedGig,
+      status: values.status,
+      reciever: values.recieverEmail,
+      userId,
+      fileUrl: file && file,
+      start,
+      expiration
+    };
+    return mutate({ variables });
   }
 
   return (
-    <Drawer opened={opened} onClose={() => setOpened(false)} padding="xl" size="100%" position="right" sx={{ zIndex: 9999 }}>
+    <Drawer opened={opened} onClose={() => setOpened(false)} padding="xl" size="100%" position="right" sx={{ zIndex: 9999999 }}>
       <Box component="form" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Title order={1}>Create Contract</Title>
         <Grid>
@@ -102,7 +101,7 @@ const ContractCreate = ({ opened, setOpened, userId, refetch, gigOptions }) => {
               mt="md"
               {...form.getInputProps('description')}
             />
-            <Grid>
+            {/* <Grid>
               <Grid.Col span={6}>
                 <DatePicker label="Start Date" value={start} withAsterisk onChange={(date) => setStart(date)} />
               </Grid.Col>
@@ -110,7 +109,7 @@ const ContractCreate = ({ opened, setOpened, userId, refetch, gigOptions }) => {
               <Grid.Col span={6}>
                 <DatePicker label="End Date" value={expiration} withAsterisk onChange={(date) => setExpiration(date)} />
               </Grid.Col>
-            </Grid>
+            </Grid> */}
             <Select
               label="Gig"
               placeholder="Pick a Gig"
@@ -125,8 +124,7 @@ const ContractCreate = ({ opened, setOpened, userId, refetch, gigOptions }) => {
                 label="Reciever"
                 withAsterisk
                 placeholder="Enter Reciever's Email"
-                value={recieverEmail}
-                onChange={(e) => setRecieverEmail(e.target.value)}
+                {...form.getInputProps('recieverEmail')}
                 rightSection={<UserOutlined />}
               />
             </Tooltip>
