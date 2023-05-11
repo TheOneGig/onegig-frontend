@@ -5,6 +5,7 @@ import MainCard from 'components/MainCard';
 import ScrollX from 'components/ScrollX';
 import { useMutation } from 'react-query';
 import { formatDate } from 'utils/formatDate';
+import PropTypes from 'prop-types';
 
 const ContractTabs = ({ contractData, striped, refetch }) => {
   const [activeTab, setActiveTab] = useState('Pending');

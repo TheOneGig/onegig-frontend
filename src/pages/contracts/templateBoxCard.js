@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Card, Image, Text } from '@mantine/core';
 
 const SingleTemplateCard = ({ template }) => {
