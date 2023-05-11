@@ -63,7 +63,7 @@ const dashboard = {
         </Tooltip>
       ),
       type: 'item',
-      url: '/conttacts',
+      url: '/contracts',
       icon: EditOutlined
     },
     {

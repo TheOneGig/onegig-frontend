@@ -183,6 +183,10 @@ const MainRoutes = {
           element: <Finances />
         },
         {
+          path: 'contracts',
+          element: <Contracts />
+        },
+        {
           path: 'skills',
           element: <Skills />
         },
