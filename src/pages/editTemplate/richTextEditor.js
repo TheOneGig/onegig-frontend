@@ -1,45 +1,42 @@
-import React, { useState, useRef } from "react";
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
-import { Button, Container } from "@mantine/core";
-import { textToSignature } from "./textToSignature";
-import { exportToPdf } from "./exportPdf";
-import DraggableSignature from "./draggableSignature";
-import DroppableEditor from "./droppableEditor";
-import PropTypes from "prop-types";
-import SignatureModal from "./signatureModal";
-import { insertSignature } from "./insertSignature";
+import React, { useState } from 'react';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
+import { Button, Container } from '@mantine/core';
+import { textToSignature } from './textToSignature';
+import { exportToPdf } from './exportPdf';
+import DraggableSignature from './draggableSignature';
+import DroppableEditor from './droppableEditor';
+import PropTypes from 'prop-types';
+import SignatureModal from './signatureModal';
+import { insertSignature } from './insertSignature';
 
 const wrapperStyle = {
-  border: "1px solid #ccc",
-  backgroundColor: "white",
-  borderRadius: "4px",
-  color: "black",
-  width: "8.5in",
-  minHeight: "8.5in",
-  padding: "10px",
-  margin: "20px auto",
-  boxShadow: "0px 2px 8px rgba(60, 64, 67, 0.3)",
-  position: "relative",
+  border: '1px solid #ccc',
+  backgroundColor: 'white',
+  borderRadius: '4px',
+  color: 'black',
+  width: '8.5in',
+  minHeight: '8.5in',
+  padding: '10px',
+  margin: '20px auto',
+  boxShadow: '0px 2px 8px rgba(60, 64, 67, 0.3)',
+  position: 'relative'
 };
 
-const RichTextEditor = ({ title, description, content, setContent}) => {
+const RichTextEditor = ({ title, description, content, setContent }) => {
   const [editorState, setEditorState] = useState(() =>
-    content
-      ? EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
-      : EditorState.createEmpty()
+    content ? EditorState.createWithContent(convertFromRaw(JSON.parse(content))) : EditorState.createEmpty()
   );
   const [opened, setOpened] = useState(false);
-  const [signatureText, setSignatureText] = useState("");
+  // const [signatureText, setSignatureText] = useState('');
+  const signatureText = 'John Doe';
   const [signatureImage, setSignatureImage] = useState(null);
   // const [initialX, setInitialX] = useState(0);
   // const [initialY, setInitialY] = useState(0);
-  const sigCanvas = useRef();
 
   const handleEditorChange = (state) => {
     setEditorState(state);
     setContent(JSON.stringify(convertToRaw(state.getCurrentContent())));
   };
-
 
   const insertTextSignature = () => {
     const imageURL = textToSignature(signatureText);
@@ -53,7 +50,6 @@ const RichTextEditor = ({ title, description, content, setContent}) => {
     // setInitialX(x);
     // setInitialY(y);
     setOpened(false);
-
   };
 
   const handleSave = () => {
@@ -61,7 +57,7 @@ const RichTextEditor = ({ title, description, content, setContent}) => {
       title: title,
       description: description,
       content: content,
-      templateId,
+      templateId
     };
 
     if (templateId) {
@@ -69,17 +65,13 @@ const RichTextEditor = ({ title, description, content, setContent}) => {
     } else {
       createTemplateMutation({ variables });
     }
-  }
+  };
 
   return (
     <>
       <Container>
         <div style={wrapperStyle}>
-          <DroppableEditor
-            editorState={editorState}
-            onChange={handleEditorChange}
-            onDrop={insertImage}
-          />
+          <DroppableEditor editorState={editorState} onChange={handleEditorChange} onDrop={insertImage} />
           {signatureImage && (
             <DraggableSignature
               url={signatureImage}
@@ -100,27 +92,15 @@ const RichTextEditor = ({ title, description, content, setContent}) => {
           )}
         </div>
       </Container>
-      <Button
-        variant="outline"
-        onClick={() => setOpened(true)}
-        style={{ marginTop: 20 }}
-      >
+      <Button variant="outline" onClick={() => setOpened(true)} style={{ marginTop: 20 }}>
         Add Signature
       </Button>
-      <Button
-        variant="outline"
-        onClick={exportToPdf}
-        style={{ marginLeft: 20 }}
-      >
+      <Button variant="outline" onClick={exportToPdf} style={{ marginLeft: 20 }}>
         Export to PDF
       </Button>
-      <Button
-       color= 'teal'
-       onClick={handleSave}
-       style={{ marginLeft: 20 }}
-       >
+      <Button color="teal" onClick={handleSave} style={{ marginLeft: 20 }}>
         Save Template
-       </Button>
+      </Button>
       <SignatureModal
         opened={opened}
         setOpened={setOpened}
@@ -134,8 +114,9 @@ const RichTextEditor = ({ title, description, content, setContent}) => {
 export default RichTextEditor;
 
 RichTextEditor.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
   content: PropTypes.string,
   setContent: PropTypes.func.isRequired,
-  handleSave: PropTypes.func.isRequired,
+  handleSave: PropTypes.func.isRequired
 };
-

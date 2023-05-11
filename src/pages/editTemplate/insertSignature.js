@@ -1,8 +1,8 @@
-import { Modifier, SelectionState, EditorState, AtomicBlockUtils } from "draft-js";
+import { Modifier, SelectionState, EditorState, AtomicBlockUtils } from 'draft-js';
 
 const insertSignature = (editorState, imageUrl) => {
   const contentState = editorState.getCurrentContent();
-  const contentStateWithEntity = contentState.createEntity("IMAGE", "IMMUTABLE", { src: imageUrl });
+  const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: imageUrl });
   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
   const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
 
@@ -21,7 +21,7 @@ const insertSignature = (editorState, imageUrl) => {
     anchorKey: dateBlockKey,
     anchorOffset: currentBlockLength,
     focusKey: dateBlockKey,
-    focusOffset: currentBlockLength,
+    focusOffset: currentBlockLength
   });
 
   // Insert the date and apply the new content state
@@ -31,5 +31,4 @@ const insertSignature = (editorState, imageUrl) => {
   return newStateWithSignatureAndDate;
 };
 
-
-export { insertSignature }
+export { insertSignature };

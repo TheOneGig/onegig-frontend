@@ -1,30 +1,37 @@
-import React from "react";
-import Draggable from "react-draggable";
-import { FaCheck, FaTimes } from "react-icons/fa";
-
+import React from 'react';
+import Draggable from 'react-draggable';
+import { FaCheck, FaTimes } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 const styles = {
   container: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 100000,
-    border: `2px solid teal`,
+    border: `2px solid teal`
   },
   controls: {
-    position: "absolute",
+    position: 'absolute',
     right: 0,
-    display: "inline-block",
-    backgroundColor: "teal",
+    display: 'inline-block',
+    backgroundColor: 'teal'
   },
   smallButton: {
-    display: "inline-block",
-    cursor: "pointer",
-    padding: 4,
-  },
+    display: 'inline-block',
+    cursor: 'pointer',
+    padding: 4
+  }
 };
 
-export default function DraggableSignature({ url, onSet, onCancel, onInsertSignature}) {
+DraggableSignature.propTypes = {
+  url: PropTypes.string,
+  onSet: PropTypes.func,
+  onCancel: PropTypes.func,
+  onInsertSignature: PropTypes.func
+};
+
+export default function DraggableSignature({ url, onSet, onCancel, onInsertSignature }) {
   const handleKeyDown = (event, callback) => {
-    if (event.key === "Enter" || event.key === " ") {
+    if (event.key === 'Enter' || event.key === ' ') {
       callback();
     }
   };
@@ -35,10 +42,9 @@ export default function DraggableSignature({ url, onSet, onCancel, onInsertSigna
     }
     onSet();
   };
-  
 
   return (
-    <Draggable  >
+    <Draggable>
       <div style={styles.container}>
         <div style={styles.controls}>
           <div
@@ -60,13 +66,7 @@ export default function DraggableSignature({ url, onSet, onCancel, onInsertSigna
             <FaTimes />
           </div>
         </div>
-        <img
-          src={url}
-          alt="Signature"
-          width={200}
-          style={styles.img}
-          draggable={false}
-        />
+        <img src={url} alt="Signature" width={200} style={styles.img} draggable={false} />
       </div>
     </Draggable>
   );

@@ -1,30 +1,38 @@
-import React, { useState, useEffect } from "react";
-import { Container, Button, TextInput, Textarea, Flex, Title } from "@mantine/core";
-import RichTextEditor from "./richTextEditor";
-import { useParams } from "react-router-dom";
-import { useMutation, useQuery } from 'react-query';
-import { createTemplate, updateTemplate, getTemplate, } from "../../hooks/templates";
+import React, { useState, useEffect } from 'react';
+import { Container, TextInput, Textarea, Flex, Title } from '@mantine/core';
+import RichTextEditor from './richTextEditor';
+import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getTemplate } from '../../hooks/templates';
 import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const EditTemplatePage = () => {
-  const [content, setContent] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [content, setContent] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const { templateId } = useParams();
-  const { data: template, isLoading, refetch } = useQuery(['getTemplate'], () => getTemplate({ templateId }));
+  const { data: template, isLoading } = useQuery(['getTemplate'], () => getTemplate({ templateId }));
 
-  const { mutate: createTemplateMutation, isLoading: loadingCreate } = useMutation(['createTemplate'], (variables) => createTemplate(variables), {
-    onSuccess: () => {
-      refetch();
-    }
-  });
-  const { mutate: updateTemplateMutation, isLoading: loadingUpdate } = useMutation(['updateTemplate'], (variables) => updateTemplate(variables), {
-    onSuccess: () => {
-      refetch();
-    }
-  });
- // const { data: template, isLoading } = useQuery(['getTemplate'], (variables) => getTemplate(variables)) 
+  // const { mutate: createTemplateMutation, isLoading: loadingCreate } = useMutation(
+  //   ['createTemplate'],
+  //   (variables) => createTemplate(variables),
+  //   {
+  //     onSuccess: () => {
+  //       refetch();
+  //     }
+  //   }
+  // );
+  // const { mutate: updateTemplateMutation, isLoading: loadingUpdate } = useMutation(
+  //   ['updateTemplate'],
+  //   (variables) => updateTemplate(variables),
+  //   {
+  //     onSuccess: () => {
+  //       refetch();
+  //     }
+  //   }
+  // );
+  // const { data: template, isLoading } = useQuery(['getTemplate'], (variables) => getTemplate(variables))
 
   useEffect(() => {
     if (template) {
@@ -32,9 +40,9 @@ const EditTemplatePage = () => {
       setTitle(template.title);
       setDescription(template.description);
     } else {
-      setContent("");
-      setTitle("");
-      setDescription("");
+      setContent('');
+      setTitle('');
+      setDescription('');
     }
   }, [template]);
 
@@ -53,7 +61,7 @@ const EditTemplatePage = () => {
           placeholder="Ingrese el título"
           value={title}
           onChange={(event) => setTitle(event.currentTarget.value)}
-          style={{ maxWidth: "50%", marginTop: 10 }}
+          style={{ maxWidth: '50%', marginTop: 10 }}
         />
         <DndProvider backend={HTML5Backend} style={{ marginTop: 20 }}>
           <RichTextEditor content={content} title={title} description={description} setContent={setContent} />
