@@ -34,3 +34,13 @@ export const createMessage = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/newmessage', data.variables);
   return response;
 };
+
+export const addFile = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/addFile', data.variables);
+  return response;
+};
+
+export const deleteFile = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/deleteFile', data.variables);
+  return response;
+};

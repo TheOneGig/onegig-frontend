@@ -26,7 +26,8 @@ const Skills = Loadable(lazy(() => import('pages/skills')));
 const Finances = Loadable(lazy(() => import('pages/finances')));
 const Contracts = Loadable(lazy(() => import('pages/contracts')));
 const Templates = Loadable(lazy(() => import('pages/templates')));
-const EditTemplates = Loadable(lazy(() => import('pages/editTemplate')))
+const EditTemplates = Loadable(lazy(() => import('pages/editTemplate')));
+const Resources = Loadable(lazy(() => import('pages/resources')));
 
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
@@ -118,19 +119,19 @@ const MainRoutes = {
         },
         {
           path: 'contracts',
-          element: <Contracts />,
+          element: <Contracts />
         },
         {
           path: 'templates',
-          element: <Templates />,
+          element: <Templates />
         },
         {
           path: 'edittemplates',
-          element: <EditTemplates />,
+          element: <EditTemplates />
         },
         {
           path: 'edittemplate/:templateId',
-          element: <EditTemplates />,
+          element: <EditTemplates />
         },
         {
           path: 'profile',
@@ -161,6 +162,10 @@ const MainRoutes = {
         {
           path: 'tasks/:projectId',
           element: <Tasks />
+        },
+        {
+          path: 'resources/:projectId',
+          element: <Resources />
         },
         {
           path: 'chat/:projectId',

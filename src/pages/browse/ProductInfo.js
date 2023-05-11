@@ -44,7 +44,7 @@ const ProductInfo = ({ gig }) => {
       email: values.email,
       fullName: values.name,
       phone: values.phone,
-      debug: true,
+      debug: false,
       returnBaseUrl: window.location.origin
     };
     return mutate({ variables });
