@@ -10,6 +10,7 @@ import { DeleteOutlined, SendOutlined, UserOutlined, EditOutlined } from '@ant-d
 import { createContract } from 'hooks/contracts';
 import SingleTemplateCard from './templateBoxCard';
 import PdfSign from 'pages/pdfSign'
+import { margin, width } from '@mui/system';
 
 const config = {
   bucketName: 'onegig-uploads',
@@ -27,7 +28,6 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
   const [fileType, setFileType] = useState('template')
   const [file, setFile] = useState();
   const [fileError, setFileError] = useState(false);
-  console.log(PDF)
   const navigate = useNavigate();
   const { mutate, isLoading } = useMutation(['createContract'], (variables) => createContract(variables), {
     onSuccess: () => {
@@ -36,7 +36,6 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
     },
   }
   );
-
 
   const form = useForm({
     initialValues: {
@@ -144,7 +143,7 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                 <Grid
                   sx={{
                     marginTop: "10px",
-                    height: '300px',
+                    height: '320px',
                     overflowY: 'scroll',
                     overflowX: 'hidden',
                   }}
@@ -152,13 +151,14 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                   {
                     templates.map((template, index) => (
                       <Box key={index} 
-                      sx={{ cursor: 'pointer', 
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      display: 'flex'
-                      }}
-                       w={'100%'} mx="auto" mb={20}
-                        >
+                        sx={{ cursor: 'pointer', 
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            display: 'flex',
+                            width: '100%',
+                            marginBottom: '20'
+                        }}
+                      >
                        <SingleTemplateCard
                         template={template}
                         onTemplateSelect={(fileUrl) => setFile(fileUrl)}
@@ -220,8 +220,8 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                         </Group>
                       </Dropzone>
                     )}
-                    {fileError && <p style={{ color: 'red' }}>Featured file is required.</p>}
-                </>
+                  {fileError && <p style={{ color: 'red' }}>Featured file is required.</p>}
+              </>
                 <Button color="gray" mt={20} onClick={() => setFileType('template')} >
                   Or choose a Template
                 </Button>

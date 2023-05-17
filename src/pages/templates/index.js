@@ -41,6 +41,8 @@ const TemplatesPage = () => {
     return <div>Loading Templates...</div>;
   }
 
+  
+
   return (
     <>
       <Flex

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
-import { Button, Container } from "@mantine/core";
+import { Button, Container, Modal, Text } from "@mantine/core";
 import { useNavigate } from "react-router";
 import { exportToPdf } from "./exportPdf";
 import TextEditor from "./editor"
@@ -21,7 +21,7 @@ const wrapperStyle = {
   backgroundColor: "white",
   borderRadius: "4px",
   color: "black",
-  width: "70vw",
+  width: "50vw",
   minHeight: "8.5in",
   padding: "26px",
   margin: "20px auto",
@@ -50,6 +50,7 @@ const RichTextEditor = ({ title, description, template, userId, refetch, templat
   });
   const [pdfUrl, setPdfUrl] = useState(null);
   const navigate = useNavigate();
+  const [isModalOpened, setIsModalOpened] = useState(false)
 
   const handleEditorChange = (state) => {
     setEditorState(state);
@@ -92,17 +93,6 @@ const RichTextEditor = ({ title, description, template, userId, refetch, templat
     }).catch((error) => {
       console.error("Error during upload: ", error);
     });
-};
-
-  const handleUploadAndClose = async () => {
-    const pdfFile = await exportToPdf();
-    alert('Saving contract')
-    handleUpload([pdfFile]).then(() => {
-      alert('Contract Saved');
-      navigate('/templates');
-    }).catch((error) => {
-      console.error("Error during upload: ", error);
-    });
   };
 
   const handleExport = async () => {
@@ -111,11 +101,23 @@ const RichTextEditor = ({ title, description, template, userId, refetch, templat
     window.open(pdf)
   };
 
+  const handleClose = async () => {
+  
+    if(!pdfUrl){
+      setIsModalOpened(true)
+    } 
+    else {
+      navigate('/templates');
+    }
+  };
+
   useEffect(() => {
     if (pdfUrl) {
       handleSave();
     }
   }, [pdfUrl]);
+
+
 
   return (
     <>
@@ -135,22 +137,55 @@ const RichTextEditor = ({ title, description, template, userId, refetch, templat
         Export to PDF
       </Button>
       <Button
-        variant="outline"
        onClick={ handleExportAndUpload  }
        style={{ marginLeft: 20 }}
        loading={isLoading}
        >
         Save
-       </Button>
-       <Button
+      </Button>
+      <Button
        color= 'teal'
-       onClick={ handleUploadAndClose  }
+       onClick={ handleClose  }
        style={{ marginLeft: 20 }}
-    
        >
-       Save & Close
+        Close
        </Button>
+       <Modal
+        h={400}
+        mt={120}
+        align={"center"}
+        opened={isModalOpened}
+        onClose={handleClose}
+        title={'Are you sure you want to leave without saving?'}
+      >
+        <Button
+          fullWidth
+          mt={20}
+          variant="outline"
+          onClick={() => {
+            setIsModalOpened(false)
+            navigate('/templates');
+          }}
+        >
+          Yes
+        </Button>
+        <Button
+          fullWidth
+          mt={20}
+          variant="outline"
+          color="red"
+          onClick={() => {
+            setIsModalOpened(false)
+          }}
+        >
+          NO
+        </Button>
+        <Text size="xs" style={{ marginTop: "1.5rem", textAlign: "center" }}>
+          WARNING: If you select Yes, your template will be deleted permanently, and there is no way to recover it.
+        </Text>
+      </Modal>
     </>
+
   );
 };
 
