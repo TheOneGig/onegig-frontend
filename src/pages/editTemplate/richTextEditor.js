@@ -1,132 +1,155 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 import { Button, Container } from "@mantine/core";
-import { textToSignature } from "./textToSignature";
+import { useNavigate } from "react-router";
 import { exportToPdf } from "./exportPdf";
-import DraggableSignature from "./draggableSignature";
-import DroppableEditor from "./droppableEditor";
+import TextEditor from "./editor"
+import { useMutation } from 'react-query';
+import { uploadFile } from 'react-s3';
 import PropTypes from "prop-types";
-import SignatureModal from "./signatureModal";
-import { insertSignature } from "./insertSignature";
+import { createTemplate, updateTemplate } from 'hooks/templates'
+
+const config = {
+  bucketName: 'onegig-uploads',
+  region: 'us-east-1',
+  accessKeyId: process.env.REACT_APP_AWS_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_AWS_S3_SECRET_ACCESS_KEY
+};
 
 const wrapperStyle = {
   border: "1px solid #ccc",
   backgroundColor: "white",
   borderRadius: "4px",
   color: "black",
-  width: "8.5in",
+  width: "70vw",
   minHeight: "8.5in",
-  padding: "10px",
+  padding: "26px",
   margin: "20px auto",
   boxShadow: "0px 2px 8px rgba(60, 64, 67, 0.3)",
   position: "relative",
+  overflow: "auto",
 };
 
-const RichTextEditor = ({ title, description, content, setContent}) => {
-  const [editorState, setEditorState] = useState(() =>
-    content
-      ? EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
-      : EditorState.createEmpty()
-  );
-  const [opened, setOpened] = useState(false);
-  const [signatureText, setSignatureText] = useState("");
-  const [signatureImage, setSignatureImage] = useState(null);
-  // const [initialX, setInitialX] = useState(0);
-  // const [initialY, setInitialY] = useState(0);
-  const sigCanvas = useRef();
+const RichTextEditor = ({ title, description, template, userId, refetch, templateId, content, setContent}) => {
+  const [editorState, setEditorState] = useState(() => {
+    if (content) {
+      return EditorState.createWithContent(convertFromRaw(JSON.parse(content)));
+    } else {
+      return EditorState.createEmpty();
+    }
+  });
+  const { mutate: createTemplateMutation, isLoading } = useMutation(['createTemplate'], (variables) => createTemplate(variables), {
+    onSuccess: () => {
+      refetch();
+    }
+  });
+  const { mutate: updateTemplateMutation, isLoading: loadingUpdate } = useMutation(['updateTemplate'], (variables) => updateTemplate(variables), {
+    onSuccess: () => {
+      refetch();
+    }
+  });
+  const [pdfUrl, setPdfUrl] = useState(null);
+  const navigate = useNavigate();
 
   const handleEditorChange = (state) => {
     setEditorState(state);
-    setContent(JSON.stringify(convertToRaw(state.getCurrentContent())));
   };
 
-
-  const insertTextSignature = () => {
-    const imageURL = textToSignature(signatureText);
-    setOpened(false);
-    setSignatureImage(imageURL);
+  const handleUpload = (file) => {
+    return new Promise((resolve, reject) => {
+      uploadFile(file[0], config)
+        .then((data) => {
+          setPdfUrl(data.location);
+          resolve(data.location);
+        })
+        .catch((err) => {
+          console.error(err);
+          reject(err);
+        });
+    });
   };
-
-  const insertImage = (item) => {
-    setSignatureImage(item.url);
-    // const { x, y } = item;
-    // setInitialX(x);
-    // setInitialY(y);
-    setOpened(false);
-
-  };
-
   const handleSave = () => {
     const variables = {
+      templateId,
       title: title,
       description: description,
-      content: content,
-      templateId,
+      content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+      fileUrl: pdfUrl,
+      userId
     };
-
-    if (templateId) {
-      updateTemplateMutation({ variables });
-    } else {
-      createTemplateMutation({ variables });
+    if (template.templateId) {
+       updateTemplateMutation({ variables });
+     } else {
+       createTemplateMutation({ variables });
     }
   }
+  
+  const handleExportAndUpload = async () => {
+    const pdfFile = await exportToPdf();
+    alert('Saving contract')
+    handleUpload([pdfFile]).then(() => {
+      alert('Contract Saved');
+    }).catch((error) => {
+      console.error("Error during upload: ", error);
+    });
+};
+
+  const handleUploadAndClose = async () => {
+    const pdfFile = await exportToPdf();
+    alert('Saving contract')
+    handleUpload([pdfFile]).then(() => {
+      alert('Contract Saved');
+      navigate('/templates');
+    }).catch((error) => {
+      console.error("Error during upload: ", error);
+    });
+  };
+
+  const handleExport = async () => {
+    const pdfFile = await exportToPdf();
+    const pdf = URL.createObjectURL(pdfFile);
+    window.open(pdf)
+  };
+
+  useEffect(() => {
+    if (pdfUrl) {
+      handleSave();
+    }
+  }, [pdfUrl]);
 
   return (
     <>
       <Container>
         <div style={wrapperStyle}>
-          <DroppableEditor
+          <TextEditor
             editorState={editorState}
             onChange={handleEditorChange}
-            onDrop={insertImage}
           />
-          {signatureImage && (
-            <DraggableSignature
-              url={signatureImage}
-              onEnd={() => {
-                setSignatureImage(null);
-              }}
-              onSet={() => {
-                setSignatureImage(null);
-              }}
-              onCancel={() => {
-                setSignatureImage(null);
-              }}
-              onInsertSignature={(imageUrl) => {
-                const newEditorState = insertSignature(editorState, imageUrl);
-                handleEditorChange(newEditorState);
-              }}
-            />
-          )}
         </div>
       </Container>
       <Button
         variant="outline"
-        onClick={() => setOpened(true)}
-        style={{ marginTop: 20 }}
-      >
-        Add Signature
-      </Button>
-      <Button
-        variant="outline"
-        onClick={exportToPdf}
+        onClick={handleExport}
         style={{ marginLeft: 20 }}
       >
         Export to PDF
       </Button>
       <Button
-       color= 'teal'
-       onClick={handleSave}
+        variant="outline"
+       onClick={ handleExportAndUpload  }
        style={{ marginLeft: 20 }}
+       loading={isLoading}
        >
-        Save Template
+        Save
        </Button>
-      <SignatureModal
-        opened={opened}
-        setOpened={setOpened}
-        onClose={() => setOpened(false)}
-        onInsertSignature={insertImage || insertTextSignature}
-      />
+       <Button
+       color= 'teal'
+       onClick={ handleUploadAndClose  }
+       style={{ marginLeft: 20 }}
+    
+       >
+       Save & Close
+       </Button>
     </>
   );
 };
@@ -136,6 +159,5 @@ export default RichTextEditor;
 RichTextEditor.propTypes = {
   content: PropTypes.string,
   setContent: PropTypes.func.isRequired,
-  handleSave: PropTypes.func.isRequired,
 };
 

@@ -4,11 +4,16 @@ import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { useMutation } from "react-query";
 import { deleteTemplate } from "hooks/templates";
+import templateImg from "../../assets/images/icons/document-icon.png";
 
 const StyledCard = styled(Card)`
     border-radius: 10px;
     margin-bottom: 1rem;
     padding: 1rem;
+    width: 300px;
+    border: 1px solid black;
+    height: 300px;
+    background-color: #1e1e1e !important;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 
@@ -18,10 +23,12 @@ const StyledCard = styled(Card)`
 
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
   `;
+
+
 const SingleTemplateCard = ({ template, refetch, isLoading }) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const navigate = useNavigate();
-  const { mutate: deleteTemplate, isLoading: loadingDelete } = useMutation(
+  const { mutate: mutationDeleteTemplate, isLoading: loadingDelete } = useMutation(
     ["deleteTemplate"],
     (variables) => deleteTemplate(variables),
     {
@@ -31,24 +38,15 @@ const SingleTemplateCard = ({ template, refetch, isLoading }) => {
     }
   );
 
-  function handleDeleteClick(templateId) {
+  function handleDeleteClick() {
+    const templateId = template.templateId
     const variables = { templateId };
-    return mutate({ variables });
+    return mutationDeleteTemplate({ variables });
   }
 
-  const templateData = template || { title: "Unnamed", description: "" };
-
   const handleEditClick = () => {
-    navigate(`/edittemplate/${templateData.id}`);
+    navigate(`/edittemplate/${template.templateId}`);
   };
-
-  const handleDownloadClick = async () => {
-    await generatePdf(templateData.content);
-    if (pdfUrl) {
-      window.open(pdfUrl);
-    }
-  };
-
   const handleCardClick = () => {
     setIsModalOpened(true);
   };
@@ -57,43 +55,44 @@ const SingleTemplateCard = ({ template, refetch, isLoading }) => {
     setIsModalOpened(false);
   };
 
-  
 
   return (
-    <>
-      <StyledCard onClick={handleCardClick}>
-        <Image src={templateData.preview} alt={templateData.name} fit="cover" />
+    <StyledCard onClick={handleCardClick}>
+        <Image style={{
+          width: "150px",
+          height: "150px",
+          margin: "0 auto",
+      
+      
+        }} src={templateImg} alt={template.title} fit="cover" />
         <Text size="lg" weight={700} style={{ marginTop: "1rem", textAlign: "center" }}>
-          {templateData.title}
+          {template.title}
         </Text>
         <Text size="sm" style={{ margin: "10px 0px 10px 10px" }}>
-          {templateData.description}
+          {template.description}
         </Text>
-      </StyledCard>
       <Modal
         h={400}
-        mt={250}
+        mt={120}
         align={"center"}
         opened={isModalOpened}
         onClose={handleModalClose}
-        title={templateData.title}
+        title={template.title}
       >
         <Button
           fullWidth
           mt={20}
           variant="outline"
-          color="blue"
-          onClick={() => {
-            handleDownloadClick();
-          }}
+
         >
-          Download File
+         <a href={template.fileUrl}  style={{ textDecoration: 'none', color: 'inherit' }} target="_blank" rel="noopener noreferrer">
+            View PDF
+        </a>
         </Button>
         <Button
           fullWidth
           mt={20}
           variant="outline"
-          color="blue"
           onClick={() => {
             handleEditClick();
             handleModalClose();
@@ -117,7 +116,7 @@ const SingleTemplateCard = ({ template, refetch, isLoading }) => {
           WARNING: If you select delete, your template will be deleted permanently, and there is no way to recover it.
         </Text>
       </Modal>
-    </>
+    </StyledCard>
   );
 };
 

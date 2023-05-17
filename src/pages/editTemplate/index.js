@@ -1,43 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button, TextInput, Textarea, Flex, Title } from "@mantine/core";
+import { Container, TextInput, Textarea, Flex, Title } from "@mantine/core";
 import RichTextEditor from "./richTextEditor";
 import { useParams } from "react-router-dom";
-import { useMutation, useQuery } from 'react-query';
-import { createTemplate, updateTemplate, getTemplate, } from "../../hooks/templates";
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { useQuery } from 'react-query';
+import {  getTemplate, } from "../../hooks/templates";
+import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
+import useAuth from 'hooks/useAuth';
 
 const EditTemplatePage = () => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const { user } = useAuth();
+  const userId = user.id;
   const { templateId } = useParams();
   const { data: template, isLoading, refetch } = useQuery(['getTemplate'], () => getTemplate({ templateId }));
 
-  const { mutate: createTemplateMutation, isLoading: loadingCreate } = useMutation(['createTemplate'], (variables) => createTemplate(variables), {
-    onSuccess: () => {
-      refetch();
-    }
-  });
-  const { mutate: updateTemplateMutation, isLoading: loadingUpdate } = useMutation(['updateTemplate'], (variables) => updateTemplate(variables), {
-    onSuccess: () => {
-      refetch();
-    }
-  });
- // const { data: template, isLoading } = useQuery(['getTemplate'], (variables) => getTemplate(variables)) 
 
   useEffect(() => {
-    if (template) {
-      setContent(template.content);
+    let editorState;
+
+    if (template && template.content) {
+      const contentState = convertFromRaw(JSON.parse(template.content));
+      editorState = EditorState.createWithContent(contentState);
       setTitle(template.title);
       setDescription(template.description);
     } else {
-      setContent("");
+      editorState = EditorState.createEmpty();
       setTitle("");
       setDescription("");
     }
+
+    const jsonContent = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
+    setContent(jsonContent);
   }, [template]);
 
+  
   if (isLoading) {
     return <div>Loading Editor...</div>;
   }
@@ -50,16 +48,20 @@ const EditTemplatePage = () => {
       <Container>
         <TextInput
           id="title-input"
-          placeholder="Ingrese el título"
+          label="Title"
+          placeholder="Enter title"
           value={title}
+          withAsterisk
           onChange={(event) => setTitle(event.currentTarget.value)}
           style={{ maxWidth: "50%", marginTop: 10 }}
         />
-        <DndProvider backend={HTML5Backend} style={{ marginTop: 20 }}>
-          <RichTextEditor content={content} title={title} description={description} setContent={setContent} />
-        </DndProvider>
+        <div style={{ marginTop: '20px' }}>
+          <RichTextEditor content={content} template={template} refetch={refetch} userId={userId} templateId={templateId} title={title} description={description} setContent={setContent} />
+        </div>
         <Textarea
           placeholder="Brief description of this contract..."
+          label="Description"
+          withAsterisk
           value={description}
           onChange={(event) => setDescription(event.currentTarget.value)}
           mt="md"

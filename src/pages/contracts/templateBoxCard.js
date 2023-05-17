@@ -1,25 +1,28 @@
 import React, { useState } from "react";
 import { Card, Image, Text } from "@mantine/core";
+import templateImg from "../../assets/images/icons/document-icon.png";
 
-const SingleTemplateCard = ({ template, onEdit }) => {
+const SingleTemplateCard = ({ template, onTemplateSelect }) => {
   const [selected, setSelected] = useState(false);
-  const templateData = template || { name: 'Unnamed', preview: '' };
 
   const handleClick = () => {
     setSelected(!selected);
+    if (onTemplateSelect) {
+      onTemplateSelect(template.fileUrl);
+    }
   };
 
-  const cardStyle = selected ? { border: '3px solid teal', borderRadius: '10px', marginBottom: '1rem' } : { borderRadius: '10px', marginBottom: '1rem' };
+  const cardStyle = selected ? { border: '3px solid teal', borderRadius: '10px', width: "250px", marginBottom: '1rem' } : { borderRadius: '10px', width: "250px", marginBottom: '1rem' };
 
   return (
     <Card style={cardStyle} onClick={handleClick}>
       <Image
-        src={templateData.preview}
-        alt={templateData.name}
+        src={templateImg}
+        alt={template.title}
         fit="cover"
       />
       <Text size="lg" weight={500} style={{ marginTop: "1rem", textAlign: 'center' }}>
-        {templateData.name}
+        {template.title}
       </Text>
     </Card>
   );

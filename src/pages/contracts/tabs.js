@@ -5,8 +5,6 @@ import MainCard from 'components/MainCard';
 import ScrollX from 'components/ScrollX';
 import { deleteContract, updateContractStatus } from 'hooks/contracts';
 import { useMutation } from 'react-query'
-import { formatDate } from 'utils/formatDate';
-
 
 const ContractTabs = ({ contractData, striped, refetch }) => {
   const [activeTab, setActiveTab] = useState("Pending");
@@ -14,9 +12,8 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
   const pendingContracts =  contractData.filter(contract => contract.status === 'Pending');
   const signedContracts = contractData.filter(contract => contract.status === 'Signed');
   const completedContracts = contractData.filter(contract => contract.status === 'Completed');
-  const expiredContracts = contractData.filter(contract => contract.status === 'Expired');
 
-  const { mutate: updateContractStatus, isLoading: loadingUpdate} = useMutation(
+  const { mutate: mutateUpdateContractStatus, isLoading: loadingUpdate} = useMutation(
     ['updateContractStatus'],
     (variables) => updateContractStatus(variables),
     {
@@ -25,7 +22,7 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
       }
     } 
   );
-  const { mutate: deleteContract, isLoading: loadingDelete } = useMutation(
+  const { mutate: mutateDeleteContract, isLoading: loadingDelete } = useMutation(
     ['deleteContract'],
     (variables) => deleteContract(variables),
     {
@@ -37,17 +34,17 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
   
   const handleDelete = (contractId) => {
     const variables = { contractId };
-    return mutate({ variables });
+    return mutateDeleteContract({ variables });
   }
 
   const handleMarkAsCompleted = (contractId) => {
     const variables = { contractId, status: 'Completed' };
-    return mutate({variables})
+    return mutateUpdateContractStatus({variables})
   };
 
   const handleMarkAsSigned = (contractId) => {
     const variables = { contractId, status: 'Signed' };
-    return mutate({variables})
+    return mutateUpdateContractStatus({variables})
   };
 
   const handleTabChange = (index) => {
@@ -61,7 +58,7 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
   }
 
   const tabStyle = {
-    flexBasis: isMobile ? '100%' : '25%',
+    flexBasis: isMobile ? '100%' : '33%',
     textAlign: 'center',
     transition: 'all 0.3s ease',
   };
@@ -102,24 +99,14 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
         accessor: 'gig',
       },
       {
+        Header: 'Description',
+        accessor: 'description',
+      },
+      {
         Header: 'File',
         accessor: 'fileUrl',
         Cell: ({ row }) => {
           return <a href={row.original.fileUrl} target="_blank" rel="noopener noreferrer">Download File</a>;
-        },
-      },
-      {
-        Header: 'Start Date',
-        accessor: 'start',
-        Cell: ({ value }) => {
-          return formatDate(value);
-        },
-      },
-      {
-        Header: 'End Date',
-        accessor: 'expiration',
-        Cell: ({ value }) => {
-          return formatDate(value);
         },
       },
       {
@@ -131,8 +118,9 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
             case 'Pending':
               return <span className="text-yellow">Pending</span>;
             case 'Signed':
-              return <span className="text-green">Signed</span>;
-
+              return <span className="text-green">Signed</span>;  
+            case 'Completed':
+              return <span className="text-green">Completed</span>;
           }
         }
       },
@@ -141,112 +129,64 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
         Header: 'Actions',
         accessor: 'actions',
         Cell: ({ row }) => {
-          return (
-               <>
-                <Button 
-                  className="blue-btn"
-                  mt="md"
-                  radius="md"
-                  fullWidth                
-                  onClick={() => handleMarkAsCompleted(row.original.contractId)}>
-                  Mark as Completed
-                </Button>
-                <Button 
-                  className="blue-btn"
-                  mt="md"
-                  radius="md"
-                  fullWidth
-                  onClick={() => handleMarkAsSigned(row.original.contractId)}>
-                  Mark as Signed
-                </Button>
-                <Button 
-                  className="red-btn"
-                  mt="md"
-                  radius="md"
-                  fullWidth
-                  onClick={() => handleDelete(row.original.contractId)}>
-                  Delete
-                </Button>
-              </>
-          );
-        },
-      },
-    ],
-    []
-  );
-
-  const columnsXP = useMemo(
-    () => [
-      {
-        Header: 'Contract Name',
-        accessor: 'name',
-      },
-      {
-        Header: 'Gig',
-        accessor: 'gig',
-      },
-      {
-        Header: 'File',
-        accessor: 'file',
-        Cell: ({ row }) => {
-          return <a href={row.original.fileUrl} target="_blank" rel="noopener noreferrer">Download File</a>;
-        },
-      },
-      {
-        Header: 'Start Date',
-        accessor: 'start',
-        Cell: ({ value }) => {
-          return formatDate(value);
-        },
-      },
-      {
-        Header: 'End Date',
-        accessor: 'expiration',
-        Cell: ({ value }) => {
-          return formatDate(value);
-        },
-      },
-      {
-        Header: 'Status',
-        accessor: 'status',
-        Cell: ({ row }) => {
           const status = row.original.status;
           switch (status) {
+            case 'Pending':
+              return (
+                <>
+                 <Button 
+                   className="blue-btn"
+                   mt="md"
+                   radius="md"
+                   fullWidth
+                   onClick={() => handleMarkAsSigned(row.original.contractId)}>
+                   Mark as Signed
+                 </Button>
+                 <Button 
+                   className="red-btn"
+                   mt="md"
+                   radius="md"
+                   fullWidth
+                   onClick={() => handleDelete(row.original.contractId)}>
+                   Delete
+                 </Button>
+               </>
+           );
+            case 'Signed':
+              return (
+                <>
+                 <Button 
+                   className="blue-btn"
+                   mt="md"
+                   radius="md"
+                   fullWidth                
+                   onClick={() => handleMarkAsCompleted(row.original.contractId)}>
+                   Mark as Completed
+                 </Button>
+               </>
+           );
             case 'Completed':
-              return <span className="text-green">Completed</span>;
-            case 'Expired':
-              return <span className="text-red">Expired</span>;
+              return (
+                <>
+                  <Button 
+                    className="blue-btn"
+                    mt="md"
+                    radius="md"
+                    fullWidth                
+                    onClick={() => handleMarkAsSigned(row.original.contractId)}>
+                    Reopen Contract
+                  </Button>
+               </>
+            );
           }
-        },
-      },
-    
-      {
-        Header: 'Actions',
-        accessor: 'actions',
-        Cell: ({ row }) => {
-          return (
-           <>
-                <Button
-                  className="blue-btn"
-                  mt="md"
-                  radius="md"
-                  fullWidth
-                  onClick={() => {
-                    handleMarkAsCompleted(row.original.contractId)
-                  }}
-                >
-                  Mark as Completed
-                </Button>
-            </>
-          );
+
         },
       },
     ],
     []
   );
-
   return (
-    <MainCard mt={20} >
+    <MainCard >
         <ScrollX>
       <Tabs color="teal" onTabChange={handleTabChange} value={activeTab} style={mainTabStyle}>
         <Tabs.List style={tabListStyle}>
@@ -256,11 +196,8 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
           <Tabs.Tab value="Signed" style={tabStyle}>
             Signed
           </Tabs.Tab>
-          <Tabs.Tab value="Achived" style={tabStyle}>
-            Achived
-          </Tabs.Tab>
-          <Tabs.Tab value="Expired" style={tabStyle}>
-            Expired
+          <Tabs.Tab value="Completed" style={tabStyle}>
+            Completed
           </Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="Pending" pt="xs">
@@ -269,11 +206,8 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
         <Tabs.Panel value="Signed" pt="xs">
           <ReactTable columns={columns} data={signedContracts} striped={striped} />
         </Tabs.Panel>
-        <Tabs.Panel value="Achived" pt="xs">
-          <ReactTable columns={columnsXP} data={completedContracts} striped={striped} />
-        </Tabs.Panel>
-        <Tabs.Panel value="Expired" pt="xs">
-          <ReactTable columns={columnsXP} data={expiredContracts} striped={striped} />
+        <Tabs.Panel value="Completed" pt="xs">
+          <ReactTable columns={columns} data={completedContracts} striped={striped} />
         </Tabs.Panel>
       </Tabs>
         </ScrollX>

@@ -5,6 +5,7 @@ import { Button, Text, Tooltip, Title, Flex, } from '@mantine/core';
 import ContractCreate from './drawerCreate';
 import useAuth from 'hooks/useAuth';
 import { getGigs } from 'hooks/gigs';
+import { getTemplates } from 'hooks/templates';
 import { getContracts } from 'hooks/contracts';
 import ContractTabs from './tabs'
 
@@ -16,21 +17,22 @@ const ContractsTable = ({ striped }) => {
     ['contracts'],
     () => getContracts({ userId }), 
   ) ;  
+  const { data: templates, isLoading:loadingTemplates, refetch: refetchTemplates } = useQuery(['templates'], () => getTemplates({ userId })) ; 
   const { data: gigs, isLoading: loadingGigs, refetch: refetchGigs } = useQuery(['gigs'], () => getGigs({ userId }));
-  if (isLoading || loadingGigs) {
+  if (isLoading || loadingGigs || loadingTemplates) {
     return <div>Loading Contracts...</div>;
   }
-  
-  const contractData = contracts ? contracts.map((contract) => contract) : [];
+ 
+  const contractData = contracts.map((contract) => contract);
 
- //console.log(gigs)
   const gigOptions = gigs
   .filter((gig) => gig.published == true)
-  .map((gig) => ({ value: gig.gigId, label: gig.name }));
+  .map((gig) => ({ value: gig.name, label: gig.name }));
+
 
   return (
     <>
-      <Flex mih={100} gap="md" justify="center" align="flex-start" direction="column" wrap="wrap">
+      <Flex mih={100} mb={20} gap="md" justify="center" align="flex-start" direction="column" wrap="wrap">
         <Title h={40}>Welcome to the Contracts Hub!</Title>
         <Tooltip label="Create a new contract "
           position="right"
@@ -53,7 +55,7 @@ const ContractsTable = ({ striped }) => {
         </Text>
       </Flex>
       <ContractTabs contractData={contractData} refetch={refetch} striped={striped}  />
-      <ContractCreate opened={opened} refetch={refetch} setOpened={setOpened} userId={userId} gigOptions={gigOptions} />
+      <ContractCreate opened={opened} refetch={refetch} templates={templates} setOpened={setOpened} userId={userId} gigOptions={gigOptions} />
    </>
   );
 };
