@@ -12,7 +12,7 @@ const SingleTemplateCard = ({ template, onTemplateSelect }) => {
     }
   };
 
-  const cardStyle = selected ? { border: '3px solid teal', borderRadius: '10px', width: "250px", marginBottom: '1rem' } : { borderRadius: '10px', width: "250px", marginBottom: '1rem' };
+  const cardStyle = selected ? { border: '3px solid teal', borderRadius: '10px', width: "260px",  marginBottom: '1rem' } : { borderRadius: '10px', width: "260px",  marginBottom: '1rem' };
 
   return (
     <Card style={cardStyle} onClick={handleClick}>

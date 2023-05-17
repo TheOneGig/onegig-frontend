@@ -87,13 +87,13 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
         userId,
         fileUrl: file
       };
-      console.log(variables)
+    
       return mutate({ variables })
     } else {
       setFileError(true);
     }
   }
-  console.log(selectedGig)
+
 
   return (
    <>
@@ -151,8 +151,15 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                 >
                   {
                     templates.map((template, index) => (
-                      <Box key={index} sx={{ cursor: 'pointer' }} maw={250} mx="auto" mb={20} >
-                      <SingleTemplateCard
+                      <Box key={index} 
+                      sx={{ cursor: 'pointer', 
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      display: 'flex'
+                      }}
+                       w={'100%'} mx="auto" mb={20}
+                        >
+                       <SingleTemplateCard
                         template={template}
                         onTemplateSelect={(fileUrl) => setFile(fileUrl)}
                         selected={file === template.fileUrl}
