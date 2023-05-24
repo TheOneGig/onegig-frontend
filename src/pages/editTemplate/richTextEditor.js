@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
+import { convertToRaw } from "draft-js";
 import { Button, Container, Modal, Text } from "@mantine/core";
 import { useNavigate } from "react-router";
 import { exportToPdf } from "./exportPdf";
@@ -21,7 +21,7 @@ const wrapperStyle = {
   backgroundColor: "white",
   borderRadius: "4px",
   color: "black",
-  width: "50vw",
+  width: "60vw",
   minHeight: "8.5in",
   padding: "26px",
   margin: "20px auto",
@@ -30,14 +30,7 @@ const wrapperStyle = {
   overflow: "auto",
 };
 
-const RichTextEditor = ({ title, description, template, userId, refetch, templateId, content, setContent}) => {
-  const [editorState, setEditorState] = useState(() => {
-    if (content) {
-      return EditorState.createWithContent(convertFromRaw(JSON.parse(content)));
-    } else {
-      return EditorState.createEmpty();
-    }
-  });
+const RichTextEditor = ({ title, description, template, userId, editorState, setEditorState, refetch, templateId }) => {
   const { mutate: createTemplateMutation, isLoading } = useMutation(['createTemplate'], (variables) => createTemplate(variables), {
     onSuccess: () => {
       refetch();
@@ -146,6 +139,7 @@ const RichTextEditor = ({ title, description, template, userId, refetch, templat
       <Button
        color= 'teal'
        onClick={ handleClose  }
+       
        style={{ marginLeft: 20 }}
        >
         Close

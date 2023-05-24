@@ -36,6 +36,7 @@
     "@svgr/webpack": "^6.4.0",
     "@tabler/icons-react": "^2.1.2",
     "amazon-cognito-identity-js": "^5.2.10",
+    "annotpdf": "^1.0.15",
     "apexcharts": "^3.36.0",
     "axios": "^1.1.2",
     "axios-mock-adapter": "^1.21.2",

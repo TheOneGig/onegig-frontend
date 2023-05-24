@@ -1,19 +1,16 @@
 import React from 'react';
-import {primary45} from 'utils/colors';
 
 export function Modal({onClose, children, isVisible, style, positionTop}) {
 
   const styles = {
     container: {
       position: 'absolute',
-      backgroundColor: '#FFF',
-      border: `1px solid ${primary45}`,
+      backgroundColor: '#1e1e1e',
       borderRadius: 4,
       top: positionTop ? positionTop :  150,
       left: '50%',
       transform: 'translateX(-50%)',
-      width: '94%',
-      fontFamily: 'Open Sans',
+      width: '50%',
       zIndex: 10000,
       boxShadow: '0 0px 14px hsla(0, 0%, 0%, 0.2)',
     },
@@ -23,7 +20,6 @@ export function Modal({onClose, children, isVisible, style, positionTop}) {
       height: '100%',
       top: 0,
       left: 0,
-      backgroundColor: '#00000033',
       zIndex: 5000,
     },
   };

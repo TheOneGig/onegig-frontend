@@ -8,6 +8,7 @@ import { getGigs } from 'hooks/gigs';
 import { getTemplates } from 'hooks/templates';
 import { getContracts } from 'hooks/contracts';
 import ContractTabs from './tabs'
+import PdfSign from 'pages/pdfSign';
 
 const ContractsTable = ({ striped }) => {
   const [opened, setOpened] = useState(false);

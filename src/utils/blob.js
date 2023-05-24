@@ -8,6 +8,17 @@ export function blobToURL(blob) {
       };
     });
   }
+
+export function urlToBlob(file){
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function () {
+          const base64data = reader.result;
+          resolve(base64data);
+        };
+      }); 
+}
   
   export async function fileToBlob(file, handleUpdate) {
     const { content, size } = file;
@@ -26,3 +37,9 @@ export function blobToURL(blob) {
     return new Blob(chunks);
   }
   
+
+  export const blobToFile = async (blobUrl) => {
+    const response = await fetch(blobUrl);
+    const blob = await response.blob();
+    return new File([blob], 'filename.pdf', {type: 'application/pdf'});
+};

@@ -18,8 +18,8 @@ const StyledPlusCircleOutlined = styled(PlusCircleOutlined)`
   right: 50px;
 
   &:hover {
-    transform: scale(1.3);
-    transition: all 0.5s ease-in-out;
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
   }
 `;
 

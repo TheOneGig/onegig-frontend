@@ -4,7 +4,6 @@ import React from "react";
 export function ConfirmOrCancel({
   onCancel,
   onConfirm,
-  confirmTitle = "Confirm",
   leftBlock,
   hideCancel,
   disabled
@@ -16,6 +15,7 @@ export function ConfirmOrCancel({
     },
     cancel: {
       marginRight: 8,
+      marginTop: 8,
     },
   };
 
@@ -25,12 +25,16 @@ export function ConfirmOrCancel({
       <div>
         {!hideCancel ? (
           <Button
-            title={"Cancel"}
             style={styles.cancel}
             onClick={onCancel}
-          />
-        ) : null}
-        <Button title={confirmTitle} inverted={true} onClick={onConfirm} disabled={disabled}/>
+          >
+            Cancel 
+          </Button>
+        ) : null
+        }
+        <Button  onClick={onConfirm} disabled={disabled}> 
+            Confirm
+        </Button>
       </div>
     </div>
   );

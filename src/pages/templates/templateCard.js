@@ -13,12 +13,12 @@ const StyledCard = styled(Card)`
     width: 300px;
     border: 1px solid black;
     height: 300px;
-    background-color: #1e1e1e !important;
+    background-color: #1e1e1e
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
 
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);

@@ -4,7 +4,7 @@ import RichTextEditor from "./richTextEditor";
 import { useParams } from "react-router-dom";
 import { useQuery } from 'react-query';
 import {  getTemplate, } from "../../hooks/templates";
-import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
+import { EditorState, convertFromRaw, } from 'draft-js';
 import useAuth from 'hooks/useAuth';
 
 const EditTemplatePage = () => {
@@ -15,26 +15,19 @@ const EditTemplatePage = () => {
   const userId = user.id;
   const { templateId } = useParams();
   const { data: template, isLoading, refetch } = useQuery(['getTemplate'], () => getTemplate({ templateId }));
-
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   useEffect(() => {
-    let editorState;
-
     if (template && template.content) {
       const contentState = convertFromRaw(JSON.parse(template.content));
-      editorState = EditorState.createWithContent(contentState);
+      setEditorState(EditorState.createWithContent(contentState));
       setTitle(template.title);
       setDescription(template.description);
     } else {
-      editorState = EditorState.createEmpty();
       setTitle("");
       setDescription("");
     }
-
-    const jsonContent = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
-    setContent(jsonContent);
   }, [template]);
-
   
   if (isLoading) {
     return <div>Loading Editor...</div>;
@@ -56,7 +49,7 @@ const EditTemplatePage = () => {
           style={{ maxWidth: "50%", marginTop: 10 }}
         />
         <div style={{ marginTop: '20px' }}>
-          <RichTextEditor content={content} template={template} refetch={refetch} userId={userId} templateId={templateId} title={title} description={description} setContent={setContent} />
+          <RichTextEditor template={template} refetch={refetch} editorState={editorState} setEditorState={setEditorState} userId={userId} templateId={templateId} title={title} description={description} setContent={setContent} />
         </div>
         <Textarea
           placeholder="Brief description of this contract..."

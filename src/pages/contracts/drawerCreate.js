@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
-import { ActionIcon, Box, Button, Drawer, Grid, Group, Input, Select, Text, Textarea, TextInput, Title, Tooltip } from '@mantine/core';
+import { ActionIcon, Box, Button, Drawer, Flex, Grid, Group, Input, Select, Text, Textarea, TextInput, Title, Tooltip } from '@mantine/core';
 import { Dropzone, PDF_MIME_TYPE } from '@mantine/dropzone';
 import { useForm, hasLength } from '@mantine/form';
 import { uploadFile } from 'react-s3';
+import { blobToFile } from "utils/blob";
 import PropTypes from 'prop-types';
-import { DeleteOutlined, SendOutlined, UserOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, SendOutlined, UserOutlined } from '@ant-design/icons';
 import { createContract } from 'hooks/contracts';
 import SingleTemplateCard from './templateBoxCard';
 import PdfSign from 'pages/pdfSign'
-import { margin, width } from '@mui/system';
 
 const config = {
   bucketName: 'onegig-uploads',
@@ -24,15 +24,25 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
   const [selectedGig, setSelectedGig] = useState(null);
   const [signingPdf, setSigningPdf] = useState(false);
   const [recieverEmail, setRecieverEmail] = useState('');
-  const [PDF, setPDF] = useState()
+  const [signedPdf, setSignedPdf] = useState(false)
   const [fileType, setFileType] = useState('template')
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
   const [fileError, setFileError] = useState(false);
+ 
   const navigate = useNavigate();
   const { mutate, isLoading } = useMutation(['createContract'], (variables) => createContract(variables), {
     onSuccess: () => {
       refetch();
       setOpened(false);
+      setSelectedGig(null);
+      setSigningPdf(false);
+      setRecieverEmail('');
+      setSignedPdf(false);
+      setFileType('template');
+      setFile(null);
+      setFileError(false);
+
+      form.reset();
     },
   }
   );
@@ -45,11 +55,11 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
     },
 
     validate: {
-      name: hasLength({ min: 2, max: 20 }, 'Title must be 2-20 characters long'),
+      name: hasLength({ min: 2, max: 25 }, 'Title must be 2-20 characters long'),
       description: hasLength({ min: 5, max: 600 }, 'Description must be 5-600 characters long'),
-
+      }
     },
-  });
+  );
 
   const handleUpload = async (file) => {
     uploadFile(file[0], config)
@@ -57,25 +67,16 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
       .catch((err) => console.error(err));
   };
 
-  const handleSignDocument = () => {
-    setSigningPdf(true);
-  };
-
-  const handlePDF = (file) => {
-  
-    setPDF(file);
-  };
-  
-
-  const handlePdfSignComplete = (signedFile) => {
-    setFile(signedFile);
-    setSigningPdf(false);
-  };
-
+  const handlePdfSignComplete = async (file) => {
+    const signedFile = await blobToFile(file);
+    handleUpload([signedFile])
+    setSignedPdf(true)
+}
 
   function handleSubmit(values) {
     if (file) {
       setFileError(false);
+
 
       const variables = {
         name: values.name,
@@ -85,13 +86,13 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
         reciever: recieverEmail,
         userId,
         fileUrl: file
-      };
-    
+      }
       return mutate({ variables })
     } else {
       setFileError(true);
     }
   }
+
 
 
   return (
@@ -145,30 +146,35 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                     marginTop: "10px",
                     height: '320px',
                     overflowY: 'scroll',
-                    overflowX: 'hidden',
                   }}
                 >
                   {
                     templates.map((template, index) => (
                       <Box key={index} 
-                        sx={{ cursor: 'pointer', 
+                        sx={{ 
                             justifyContent: 'center',
                             alignItems: 'center',
                             display: 'flex',
                             width: '100%',
-                            marginBottom: '20'
+                            marginBottom: '20',
+                            flexDirection: 'column'
+
                         }}
                       >
                        <SingleTemplateCard
                         template={template}
+                        signedPdf={signedPdf}
                         onTemplateSelect={(fileUrl) => setFile(fileUrl)}
-                        selected={file === template.fileUrl}
                       />
                     </Box>
                     ))
                   }
                 </Grid>
-                <Button color="gray" mt={20} onClick={() => setFileType('file')} >
+                <Button color="gray" mt={20} 
+                  onClick={() => {
+                    setFile(null)
+                    setFileType('file')
+                 }}>
                   Upload your own Contract
                 </Button>
                {
@@ -205,7 +211,6 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
 
                       <Dropzone
                         onDrop={(files) => {
-                          handlePDF(files)
                           handleUpload(files)}}
                         onReject={() => alert('File rejected')}
                         maxSize={3 * 1024 ** 2}
@@ -222,7 +227,12 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                     )}
                   {fileError && <p style={{ color: 'red' }}>Featured file is required.</p>}
               </>
-                <Button color="gray" mt={20} onClick={() => setFileType('template')} >
+                <Button color="gray" mt={20} 
+                 onClick={() => {
+                  setFile(null)
+                  setFileType('template')
+                 }}
+                >
                   Or choose a Template
                 </Button>
                 {
@@ -259,7 +269,7 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
               justifyContent: 'center',
               }}
             >
-            <PdfSign file={file} setFile={handlePdfSignComplete} />
+            <PdfSign file={file} setFile={handlePdfSignComplete} setSigningPdf={setSigningPdf} />
         </Grid>
         </div>
       )}

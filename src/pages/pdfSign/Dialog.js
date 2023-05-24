@@ -1,5 +1,4 @@
 import React from 'react';
-import {primary45} from 'utils/colors';
 import {FaTimes} from 'react-icons/fa';
 import {Modal} from './Modal';
 
@@ -19,7 +18,6 @@ export function Dialog({
 
   const styles = {
     header: {
-      backgroundColor: primary45,
       color: '#FFF',
       padding: 8,
       fontSize: 14,
@@ -28,8 +26,8 @@ export function Dialog({
       alignItems: 'center',
     },
     body: {
-      padding: noPadding ? 0 : 14,
-      backgroundColor: backgroundColor ? backgroundColor : '#FFF',
+      padding: 14,
+      backgroundColor: '#1e1e1e',
     },
     xIcon: {
       cursor: 'pointer',

@@ -1,6 +1,5 @@
 import Draggable from "react-draggable";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { cleanBorder, errorColor, goodColor, primary45 } from "utils/colors";
 import { useState, useEffect, useRef } from "react";
 
 export default function DraggableText({ onEnd, onSet, onCancel, initialText }) {
@@ -27,24 +26,26 @@ export default function DraggableText({ onEnd, onSet, onCancel, initialText }) {
     container: {
       position: "absolute",
       zIndex: 100000,
-      border: `2px solid ${primary45}`,
+      border: '2px solid #1e1e1e',
+      borderRadius: 5,
     },
     controls: {
       position: "absolute",
       right: 0,
       display: "inline-block",
-      backgroundColor: primary45,
+      backgroundColor: '#1e1e1e',
     },
     smallButton: {
       display: "inline-block",
       cursor: "pointer",
-      padding: 4,
+      padding: 1,
+      marginRight: 3,
+      borderRadius: 5
     },
     input: {
       border: 0,
-      fontSize: 20,
+      fontSize: 16,
       padding: 3,
-      backgroundColor: 'rgba(0,0,0,0)',
       cursor: 'move'
     }
   };
@@ -59,7 +60,7 @@ export default function DraggableText({ onEnd, onSet, onCancel, initialText }) {
             onClick={()=>onSet(text)} 
             onKeyPress={handleKeyPress(()=>onSet(text))}
           >
-            <FaCheck color={goodColor} />
+            <FaCheck color={'green'} />
           </div>
           <div 
             role="button" 
@@ -68,7 +69,7 @@ export default function DraggableText({ onEnd, onSet, onCancel, initialText }) {
             onClick={onCancel} 
             onKeyPress={handleKeyPress(onCancel)}
           >
-            <FaTimes color={errorColor} />
+            <FaTimes color={'red'} />
           </div>
         </div>
         <input
