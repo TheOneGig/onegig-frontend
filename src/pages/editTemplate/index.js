@@ -8,7 +8,6 @@ import { EditorState, convertFromRaw, } from 'draft-js';
 import useAuth from 'hooks/useAuth';
 
 const EditTemplatePage = () => {
-  const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const { user } = useAuth();
@@ -49,7 +48,7 @@ const EditTemplatePage = () => {
           style={{ maxWidth: "50%", marginTop: 10 }}
         />
         <div style={{ marginTop: '20px' }}>
-          <RichTextEditor template={template} refetch={refetch} editorState={editorState} setEditorState={setEditorState} userId={userId} templateId={templateId} title={title} description={description} setContent={setContent} />
+          <RichTextEditor template={template} refetch={refetch} editorState={editorState} setEditorState={setEditorState} userId={userId} templateId={templateId} title={title} description={description} />
         </div>
         <Textarea
           placeholder="Brief description of this contract..."

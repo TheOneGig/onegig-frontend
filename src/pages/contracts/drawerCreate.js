@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
-import { ActionIcon, Box, Button, Drawer, Flex, Grid, Group, Input, Select, Text, Textarea, TextInput, Title, Tooltip } from '@mantine/core';
+import { ActionIcon, Box, Button, Drawer, Grid, Group, Input, Select, Text, Textarea, TextInput, Title, Tooltip } from '@mantine/core';
 import { Dropzone, PDF_MIME_TYPE } from '@mantine/dropzone';
 import { useForm, hasLength } from '@mantine/form';
 import { uploadFile } from 'react-s3';
@@ -24,10 +24,11 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
   const [selectedGig, setSelectedGig] = useState(null);
   const [signingPdf, setSigningPdf] = useState(false);
   const [recieverEmail, setRecieverEmail] = useState('');
-  const [signedPdf, setSignedPdf] = useState(false)
+  const [signedPdf, setSignedPdf] = useState(null)
   const [fileType, setFileType] = useState('template')
   const [file, setFile] = useState(null);
   const [fileError, setFileError] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
  
   const navigate = useNavigate();
   const { mutate, isLoading } = useMutation(['createContract'], (variables) => createContract(variables), {
@@ -70,14 +71,12 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
   const handlePdfSignComplete = async (file) => {
     const signedFile = await blobToFile(file);
     handleUpload([signedFile])
-    setSignedPdf(true)
+    setSignedPdf(selectedTemplate.templateId)
 }
 
   function handleSubmit(values) {
     if (file) {
       setFileError(false);
-
-
       const variables = {
         name: values.name,
         description: values.description,
@@ -92,8 +91,6 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
       setFileError(true);
     }
   }
-
-
 
   return (
    <>
@@ -158,13 +155,16 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                             width: '100%',
                             marginBottom: '20',
                             flexDirection: 'column'
-
                         }}
                       >
                        <SingleTemplateCard
-                        template={template}
-                        signedPdf={signedPdf}
-                        onTemplateSelect={(fileUrl) => setFile(fileUrl)}
+                          template={template}
+                          signedPdf={signedPdf}
+                          selected={selectedTemplate === template}
+                          onTemplateSelect={(template) => {
+                            setSelectedTemplate(template);
+                            setFile(template.fileUrl);
+                        }}
                       />
                     </Box>
                     ))
@@ -278,7 +278,6 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
  );
 }
 
-
 ContractCreate.propTypes = {
   userId: PropTypes.string,
   opened: PropTypes.bool,
@@ -286,7 +285,6 @@ ContractCreate.propTypes = {
   setLoading: PropTypes.func,
   refetch: PropTypes.func
 };
-
 
 export default ContractCreate;
 

@@ -38,6 +38,8 @@ const SingleTemplateCard = ({ template, refetch, isLoading }) => {
     }
   );
 
+  
+
   function handleDeleteClick() {
     const templateId = template.templateId
     const variables = { templateId };

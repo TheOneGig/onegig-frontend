@@ -209,6 +209,7 @@ useEffect(() => {
               {!signatureURL ? (
                 <Button
                   mr={8}
+                  className="blue-btn"
                   onClick={() => setSignatureDialogVisible(true)}
                 >
                   Add Signature
@@ -217,12 +218,14 @@ useEffect(() => {
 
               <Button
                 mr={8}
+                className="blue-btn"
                 onClick={() => setTextInputVisible("date")}
               >
                 Add Date
               </Button>
               <Button
                 mr={8}
+                className="blue-btn"
                 onClick={() => setTextInputVisible(true)}
               >
                 Add Text
@@ -231,7 +234,7 @@ useEffect(() => {
               </div>
               <Button
                 mr={8}
-                color="teal"
+               className="green-btn"
                 onClick={() => {
                   setFile(pdf)
                   setSigningPdf(false)
@@ -242,7 +245,7 @@ useEffect(() => {
               </Button>
               <Button
                 mr={8}
-                color="teal"
+                className="green-btn"
                 onClick={() => {
                   setTextInputVisible(false);
                   setSignatureDialogVisible(false);
@@ -260,7 +263,7 @@ useEffect(() => {
               {pdf ? (
                 <Button
                   mr={8}
-                  color="teal"
+                  className="green-btn"
                   onClick={() => {
                     downloadURI(pdf, "file.pdf");
                   }}

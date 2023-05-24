@@ -8,7 +8,6 @@ import { getGigs } from 'hooks/gigs';
 import { getTemplates } from 'hooks/templates';
 import { getContracts } from 'hooks/contracts';
 import ContractTabs from './tabs'
-import PdfSign from 'pages/pdfSign';
 
 const ContractsTable = ({ striped }) => {
   const [opened, setOpened] = useState(false);
@@ -24,12 +23,9 @@ const ContractsTable = ({ striped }) => {
     return <div>Loading Contracts...</div>;
   }
  
-  const contractData = contracts.map((contract) => contract);
-
   const gigOptions = gigs
   .filter((gig) => gig.published == true)
   .map((gig) => ({ value: gig.name, label: gig.name }));
-
 
   return (
     <>
@@ -55,7 +51,7 @@ const ContractsTable = ({ striped }) => {
            Create, review, and track the progress of all your contracts with ease. 
         </Text>
       </Flex>
-      <ContractTabs contractData={contractData} refetch={refetch} striped={striped}  />
+      <ContractTabs contractData={contracts} refetch={refetch} striped={striped}  />
       <ContractCreate opened={opened} refetch={refetch} templates={templates} setOpened={setOpened} userId={userId} gigOptions={gigOptions} />
    </>
   );

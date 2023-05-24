@@ -1,5 +1,6 @@
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
+import dayjs from "dayjs";
 
 export const exportToPdf = async () => {
     
@@ -16,6 +17,6 @@ export const exportToPdf = async () => {
     pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
     const pdfOutput = pdf.output('blob');
 
-    const file = new File([pdfOutput], 'document.pdf', {type: 'application/pdf'});
+    const file = new File([pdfOutput], `document${dayjs().format("M_d_YYYY")}.pdf`, {type: 'application/pdf'});
     return file;
 };
