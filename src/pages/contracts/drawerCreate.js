@@ -6,10 +6,12 @@ import { Dropzone, PDF_MIME_TYPE } from '@mantine/dropzone';
 import { useForm, hasLength } from '@mantine/form';
 import { uploadFile } from 'react-s3';
 import { blobToFile } from "utils/blob";
+import { showNotification } from '@mantine/notifications';
 import PropTypes from 'prop-types';
 import { DeleteOutlined, SendOutlined, UserOutlined } from '@ant-design/icons';
 import { createContract } from 'hooks/contracts';
 import SingleTemplateCard from './templateBoxCard';
+import { IconCheck } from '@tabler/icons-react';
 import PdfSign from 'pages/pdfSign'
 
 const config = {
@@ -42,8 +44,16 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
       setFileType('template');
       setFile(null);
       setFileError(false);
-
+      showNotification({
+        id: 'load-data',
+        color: 'teal',
+        title: 'Contract Saved!',
+        message: 'Congratulations! your contract was saved succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 2000,
+      });
       form.reset();
+      
     },
   }
   );

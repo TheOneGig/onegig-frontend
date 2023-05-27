@@ -5,6 +5,8 @@ import { useNavigate } from "react-router";
 import { exportToPdf } from "./exportPdf";
 import TextEditor from "./editor"
 import { useMutation } from 'react-query';
+import { showNotification, updateNotification } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
 import { uploadFile } from 'react-s3';
 import PropTypes from "prop-types";
 import { createTemplate, updateTemplate } from 'hooks/templates'
@@ -80,9 +82,23 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
   
   const handleExportAndUpload = async () => {
     const pdfFile = await exportToPdf();
-    alert('Saving contract')
+      showNotification({
+        id: 'load-data',
+        loading: true,
+        title: 'Saving your Template',
+        message: 'Template will be saved in a few seconds, please wait...',
+        autoClose: false,
+        withCloseButton: false,
+      });
     handleUpload([pdfFile]).then(() => {
-      alert('Contract Saved');
+      updateNotification({
+        id: 'load-data',
+        color: 'teal',
+        title: 'Template Saved!',
+        message: 'Congratulations! your template was saved succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 2000,
+      });
     }).catch((error) => {
       console.error("Error during upload: ", error);
     });
@@ -139,7 +155,6 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
       <Button
        color= 'teal'
        onClick={ handleClose  }
-       
        style={{ marginLeft: 20 }}
        >
         Close

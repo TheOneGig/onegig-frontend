@@ -25,11 +25,12 @@ const styles = {
     container: {
       maxWidth: 900,
       margin: "0 auto",
-
+      overflow: 'hidden'
     },
     sigBlock: {
       display: "inline-block",
       border: "1px solid #000",
+
     },
     documentBlock: {
       maxWidth: 800,
@@ -190,7 +191,7 @@ useEffect(() => {
 }, [file]);
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div style={styles.container}>
         {signatureDialogVisible ? (
           <AddSigDialog
@@ -311,15 +312,16 @@ useEffect(() => {
                 />
               </Document>
             </div>
-            <PagingControl
+            
+          </div>
+        ) : null}
+      </div>
+      <PagingControl
               pageNum={pageNum}
               setPageNum={setPageNum}
               totalPages={totalPages}
             />
-          </div>
-        ) : null}
-      </div>
-    </>
+    </div>
   );
 }
 

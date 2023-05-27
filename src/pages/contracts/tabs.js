@@ -4,6 +4,8 @@ import ReactTable from './table';
 import MainCard from 'components/MainCard';
 import ScrollX from 'components/ScrollX';
 import { deleteContract, updateContractStatus } from 'hooks/contracts';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
 import { useMutation } from 'react-query'
 
 const ContractTabs = ({ contractData, striped, refetch }) => {
@@ -28,6 +30,14 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
     {
       onSuccess: () => {
         refetch();
+        showNotification({
+          id: 'load-data',
+          color: 'red',
+          title: 'Contract Deleted!',
+          message: 'Your contract was deleted succesfully, you can close this notification',
+          icon: <IconCheck size="1rem"  />,
+          autoClose: 2000,
+        });
       }
     }
   );

@@ -27,6 +27,7 @@ const StyledCard = styled(Card)`
 
 const SingleTemplateCard = ({ template, refetch, isLoading }) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const [deleteSelected, setDeleteSelected] = useState(false)
   const navigate = useNavigate();
   const { mutate: mutationDeleteTemplate, isLoading: loadingDelete } = useMutation(
     ["deleteTemplate"],
@@ -73,50 +74,77 @@ const SingleTemplateCard = ({ template, refetch, isLoading }) => {
         <Text size="sm" style={{ margin: "10px 0px 10px 10px" }}>
           {template.description}
         </Text>
-      <Modal
+        <Modal
         h={400}
         mt={120}
         align={"center"}
         opened={isModalOpened}
         onClose={handleModalClose}
         title={template.title}
-      >
-        <Button
-          fullWidth
-          mt={20}
-          variant="outline"
-
         >
-         <a href={template.fileUrl}  style={{ textDecoration: 'none', color: 'inherit' }} target="_blank" rel="noopener noreferrer">
-            View PDF
-        </a>
-        </Button>
-        <Button
-          fullWidth
-          mt={20}
-          variant="outline"
-          onClick={() => {
-            handleEditClick();
-            handleModalClose();
-          }}
-        >
-          Edit
-        </Button>
-        <Button
-          fullWidth
-          mt={20}
-          variant="outline"
-          color="red"
-          onClick={() => {
-            handleDeleteClick();
-            handleModalClose();
-          }}
-        >
-          Delete
-        </Button>
-        <Text size="xs" style={{ marginTop: "1.5rem", textAlign: "center" }}>
-          WARNING: If you select delete, your template will be deleted permanently, and there is no way to recover it.
-        </Text>
+      { deleteSelected ? (
+          <>
+            <Button
+              fullWidth
+              mt={20}
+              variant="outline"
+              color="red"
+              onClick={() => {
+                handleDeleteClick();
+                handleModalClose();
+              }}
+            >
+                Yes
+            </Button>
+            <Button
+              fullWidth
+              mt={20}
+              variant="outline"
+              onClick={() => {
+                setDeleteSelected(false);
+              }}
+            >
+                No
+            </Button>
+            <Text size="xs" style={{ marginTop: "1.5rem", textAlign: "center" }}>
+              WARNING: If you select Yes your template will be deleted permanently, and there is no way to recover it.
+            </Text>
+        </>
+      ) :  (
+          <>
+            <Button
+              fullWidth
+              mt={20}
+              variant="outline"
+            >
+            <a href={template.fileUrl}  style={{ textDecoration: 'none', color: 'inherit' }} target="_blank" rel="noopener noreferrer">
+                View PDF
+            </a>
+            </Button>
+            <Button
+              fullWidth
+              mt={20}
+              variant="outline"
+              onClick={() => {
+                handleEditClick();
+                handleModalClose();
+              }}
+            >
+              Edit
+            </Button>
+            <Button
+              fullWidth
+              mt={20}
+              variant="outline"
+              color="red"
+              onClick={() => {
+                setDeleteSelected(true)
+              }}
+            >
+              Delete
+            </Button>
+          </>
+      )}  
       </Modal>
     </StyledCard>
   );
