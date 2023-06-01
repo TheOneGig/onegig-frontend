@@ -44,3 +44,18 @@ export const deleteFile = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/deleteFile', data.variables);
   return response;
 };
+
+export const getTimes = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/userTimes', data.variables);
+  return response;
+};
+
+export const addTime = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/addTime', data.variables);
+  return response;
+};
+
+export const updateTime = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/updateTime', data.variables);
+  return response;
+};

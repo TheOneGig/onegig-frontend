@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 // assets
 import {
+  ClockCircleOutlined,
   DashboardOutlined,
   EditOutlined,
   FolderViewOutlined,
@@ -39,6 +40,13 @@ const dashboard = {
       type: 'item',
       url: '/projects',
       icon: PicLeftOutlined
+    },
+    {
+      id: 'Time Sheets',
+      title: <FormattedMessage id="Times" />,
+      type: 'item',
+      url: '/times',
+      icon: ClockCircleOutlined
     },
     {
       id: 'Finances',
