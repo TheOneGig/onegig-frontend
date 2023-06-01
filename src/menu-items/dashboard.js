@@ -8,7 +8,8 @@ import {
   FolderViewOutlined,
   FundOutlined,
   PicLeftOutlined,
-  UnorderedListOutlined
+  UnorderedListOutlined,
+  DiffOutlined
 } from '@ant-design/icons';
 import { Tooltip } from '@mantine/core';
 
@@ -57,12 +58,23 @@ const dashboard = {
       id: 'Contracts',
       title: (
         <Tooltip label="Coming Soon" color="#1dbeea">
-          <FormattedMessage id="contracts" />
+          <FormattedMessage id="Contracts" />
         </Tooltip>
       ),
       type: 'item',
-      url: '#',
+      url: '/contracts',
       icon: EditOutlined
+    },
+    {
+      id: 'Templates',
+      title: (
+        <Tooltip label="Coming Soon" color="#1dbeea">
+          <FormattedMessage id="Templates" />
+        </Tooltip>
+      ),
+      type: 'item',
+      url: '/templates',
+      icon: DiffOutlined
     }
   ]
 };

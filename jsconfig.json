@@ -4,6 +4,6 @@
     "module": "commonjs",
     "baseUrl": "src"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../onegig-backend/src/utils/saveToPdf.js"],
   "exclude": ["node_modules"]
 }
