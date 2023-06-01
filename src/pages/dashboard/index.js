@@ -57,7 +57,7 @@ const DashboardDefault = () => {
       totalExpenses = totalExpenses + transaction.amount;
     }
   });
-  
+
   const profit = parseFloat(totalRevenue - totalExpenses).toFixed(2);
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -90,7 +90,7 @@ const DashboardDefault = () => {
         />
       </Grid>
       <Grid item xs={8} lg={8} sm={8}>
-        <Chart expenses={expenses} revenue={revenues}  dates={dates} />
+        <Chart expenses={expenses} revenue={revenues} dates={dates} />
       </Grid>
       <Grid item xs={4} lg={4} sm={4}>
         <ToDoList userId={user.id} />

@@ -1,4 +1,4 @@
-import React, {  useEffect } from 'react';
+import React from 'react';
 import { Grid, Text, Tooltip, Title, Box, Flex } from '@mantine/core';
 import SingleTemplateCard from './templateCard';
 import { PlusCircleOutlined } from '@ant-design/icons';
@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import useAuth from 'hooks/useAuth';
 import { useQuery } from 'react-query';
-import { getTemplates } from 'hooks/templates';  
+import { getTemplates } from 'hooks/templates';
 
 const StyledPlusCircleOutlined = styled(PlusCircleOutlined)`
   font-size: 3.5rem;
@@ -27,11 +27,8 @@ const TemplatesPage = () => {
   const { user } = useAuth();
   const userId = user.id;
   const navigate = useNavigate();
-  const { data: templates, isLoading, refetch } = useQuery(
-    ['templates'],
-    () => getTemplates({ userId }), 
-  ) ;  
- 
+  const { data: templates, isLoading, refetch } = useQuery(['templates'], () => getTemplates({ userId }));
+
   const handleCreateNewTemplate = () => {
     const newId = uuid();
     navigate(`/edittemplate/${newId}`);
@@ -41,23 +38,13 @@ const TemplatesPage = () => {
     return <div>Loading Templates...</div>;
   }
 
-  
-
   return (
     <>
-      <Flex
-        mih={100}
-        gap="md"
-        justify="center"
-        align="flex-start"
-        direction="column"
-        wrap="wrap"
-      >
+      <Flex mih={100} gap="md" justify="center" align="flex-start" direction="column" wrap="wrap">
         <Title h={40}>Welcome to the Templates!</Title>
         <Text weight={500}>
-          Manage your professional agreements effortlessly in one centralized
-          location. Create, review, and track the progress of all your contracts templates
-          with ease.
+          Manage your professional agreements effortlessly in one centralized location. Create, review, and track the progress of all your
+          contracts templates with ease.
         </Text>
       </Flex>
       <Grid mt={20}>
@@ -76,7 +63,7 @@ const TemplatesPage = () => {
             padding: '12px 16px',
             color: '#fff',
             fontSize: 12,
-            transition: 0.3,
+            transition: 0.3
           }}
         >
           <StyledPlusCircleOutlined onClick={handleCreateNewTemplate} />
@@ -85,6 +72,5 @@ const TemplatesPage = () => {
     </>
   );
 };
-
 
 export default TemplatesPage;

@@ -19,7 +19,6 @@ import avatar1 from 'assets/images/users/avatar-1.png';
 import { LogoutOutlined } from '@ant-design/icons';
 import { getUser } from 'hooks/users';
 
-
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
   return (
