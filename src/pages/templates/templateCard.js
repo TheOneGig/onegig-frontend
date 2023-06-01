@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { useMutation } from 'react-query';
 import { deleteTemplate } from 'hooks/templates';
 import templateImg from '../../assets/images/icons/document-icon.png';
+import PropTypes from 'prop-types';
 
 const StyledCard = styled(Card)`
     border-radius: 10px;

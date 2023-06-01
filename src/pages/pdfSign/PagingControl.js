@@ -1,10 +1,5 @@
+import PropTypes from 'prop-types';
 import { Button } from '@mantine/core';
-
-PagingControl.propTypes = {
-  totalPages: PropTypes.number,
-  pageNum: PropTypes.number,
-  setPageNum: PropTypes.func
-};
 
 export default function PagingControl({ totalPages, pageNum, setPageNum }) {
   const styles = {
@@ -40,3 +35,9 @@ export default function PagingControl({ totalPages, pageNum, setPageNum }) {
     </div>
   );
 }
+
+PagingControl.propTypes = {
+  totalPages: PropTypes.number,
+  pageNum: PropTypes.number,
+  setPageNum: PropTypes.func
+};

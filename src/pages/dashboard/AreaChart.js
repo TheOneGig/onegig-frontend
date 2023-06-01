@@ -1,40 +1,7 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-
-CustomTooltip.propTypes = {
-  active: PropTypes.bool,
-  payload: PropTypes.array,
-  label: PropTypes.string
-};
-
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div
-        style={{
-          backgroundColor: 'hsl(240, 1%, 26%)',
-          color: '#fff',
-          borderRadius: '5px',
-          padding: '8px',
-          minWidth: '150px',
-          fontSize: '14px',
-          opacity: '0.9'
-        }}
-      >
-        <p style={{ margin: 0, lineHeight: 2, textTransform: 'uppercase', fontWeight: 600 }}>{label}</p>
-        {payload.map((item, index) => (
-          <p
-            style={{ margin: 0, lineHeight: 1.5, color: item.name === 'revenue' ? '#54b79c' : '#e36161' }}
-            key={index}
-          >{`${item.name}: $${item.value}`}</p>
-        ))}
-      </div>
-    );
-  }
-
-  return null;
-};
+import CustomTooltip from './CustomTooltip';
 
 const Chart = ({ expenses, revenue, dates }) => {
   const months = [
@@ -49,6 +16,7 @@ const Chart = ({ expenses, revenue, dates }) => {
   ];
 
   const data = months.map((month) => ({ month }));
+  console.log('data:', data);
 
   dates.forEach((date, i) => {
     const month = dayjs(date).format('MMMM');

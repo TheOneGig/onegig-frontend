@@ -1,12 +1,5 @@
 import React from 'react';
-
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-  isVisible: PropTypes.bool.isRequired,
-  style: PropTypes.object,
-  positionTop: PropTypes.number
-};
+import PropTypes from 'prop-types';
 
 export function Modal({ onClose, children, isVisible, style, positionTop }) {
   const styles = {
@@ -48,3 +41,11 @@ export function Modal({ onClose, children, isVisible, style, positionTop }) {
     </div>
   );
 }
+
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+  style: PropTypes.object,
+  positionTop: PropTypes.number
+};

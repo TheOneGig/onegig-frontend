@@ -7,6 +7,7 @@ import { deleteContract, updateContractStatus } from 'hooks/contracts';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { useMutation } from 'react-query';
+import PropTypes from 'prop-types';
 
 const ContractTabs = ({ contractData, striped, refetch }) => {
   const [activeTab, setActiveTab] = useState('Pending');

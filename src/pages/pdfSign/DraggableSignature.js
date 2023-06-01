@@ -1,5 +1,6 @@
 import Draggable from 'react-draggable';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 DraggableSignature.propTypes = {
   onEnd: PropTypes.func.isRequired,

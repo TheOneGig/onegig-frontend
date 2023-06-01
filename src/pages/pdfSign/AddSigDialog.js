@@ -2,6 +2,7 @@ import { Dialog } from './Dialog';
 import SignatureCanvas from 'react-signature-canvas';
 import { ConfirmOrCancel } from './ConfirmOrCancel';
 import { fabric } from 'fabric';
+import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
 
 const styles = {

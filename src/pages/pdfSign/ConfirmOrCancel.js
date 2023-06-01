@@ -1,5 +1,6 @@
 import { Button } from '@mantine/core';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 ConfirmOrCancel.propTypes = {
   onCancel: PropTypes.func,

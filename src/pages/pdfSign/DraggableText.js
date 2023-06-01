@@ -1,6 +1,7 @@
 import Draggable from 'react-draggable';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 
 DraggableText.propTypes = {
   onEnd: PropTypes.func.isRequired,

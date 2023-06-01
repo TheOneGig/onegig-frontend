@@ -8,6 +8,7 @@ import { Button } from '@mantine/core';
 import DraggableSignature from './DraggableSignature';
 import DraggableText from './DraggableText';
 import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 //pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.js';
