@@ -61,9 +61,11 @@ h1 {
 }
 
 .grid-area {
-  border: 1px solid #c8c8c8;
+  border: 1px solid rgb(42,42,42);
+  /* border: 1px solid #c8c8c8; */
   border-radius: 10px;
   margin: 0px;
+  height: 470px; 
   background-color: #1e1e1e;
 }
 

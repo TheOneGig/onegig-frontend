@@ -4,7 +4,7 @@ import HoverSocialCard from 'components/cards/statistics/HoverSocialCard';
 import { useTheme } from '@mui/material/styles';
 import { Grid } from '@mui/material';
 import { ContainerOutlined, RiseOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import AreaChart from './AreaChart';
+import Chart from './AreaChart';
 
 import useAuth from 'hooks/useAuth';
 import { getUser } from 'hooks/users';
@@ -48,7 +48,7 @@ const DashboardDefault = () => {
   let expenses = [];
   let totalExpenses = 0;
   transactions.map((transaction) => {
-    dates.push(transaction.createdAt);
+    dates.push(transaction.date);
     if (transaction.type === 'REVENUE') {
       revenues.push(transaction.amount / 100);
       totalRevenue = totalRevenue + transaction.amount;
@@ -57,6 +57,7 @@ const DashboardDefault = () => {
       totalExpenses = totalExpenses + transaction.amount;
     }
   });
+
   const profit = parseFloat(totalRevenue - totalExpenses).toFixed(2);
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -89,7 +90,7 @@ const DashboardDefault = () => {
         />
       </Grid>
       <Grid item xs={8} lg={8} sm={8}>
-        <AreaChart expenses={expenses} revenues={revenues} />
+        <Chart expenses={expenses} revenue={revenues} dates={dates} />
       </Grid>
       <Grid item xs={4} lg={4} sm={4}>
         <ToDoList userId={user.id} />
