@@ -24,8 +24,7 @@ const TabSettings = () => {
 
   const { mutate: createStripeConnect } = useMutation(['createConnect'], (variables) => createConnectAccount(variables), {
     onSuccess: (e) => {
-      const stripeConnect = e.id;
-      window.open(`https://connect.stripe.com/setup/s/${stripeConnect}`, '_blank');
+      window.open(e.url, '_blank');
       refetch();
     }
   });
