@@ -27,7 +27,6 @@ import IconButton from 'components/@extended/IconButton';
 import { CheckCircleOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { showNotification } from '@mantine/notifications';
 
-
 const config = {
   bucketName: 'onegig-uploads',
   region: 'us-east-1',
@@ -54,7 +53,7 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
         title: 'Gig Created!',
         message: 'Congratulations! your gig was created succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 3000,
+        autoClose: 3000
       });
       form.reset();
     }

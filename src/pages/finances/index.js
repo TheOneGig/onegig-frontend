@@ -49,9 +49,8 @@ const TransactionsTable = ({ striped, title }) => {
           title: 'Transaction Deleted!',
           message: 'Your transaction was saved succesfully, you can close this notification',
           icon: <IconCheck size="1rem" />,
-          autoClose: 3000,
+          autoClose: 3000
         });
-        
       }
     }
   );
@@ -69,7 +68,7 @@ const TransactionsTable = ({ striped, title }) => {
           title: 'Transaction Updated!',
           message: 'Your transaction was updated succesfully, you can close this notification',
           icon: <IconCheck size="1rem" />,
-          autoClose: 3000,
+          autoClose: 3000
         });
         form.reset();
       }
@@ -89,7 +88,7 @@ const TransactionsTable = ({ striped, title }) => {
           title: 'Transaction Saved!',
           message: 'Congratulations! your transaction was saved succesfully, you can close this notification',
           icon: <IconCheck size="1rem" />,
-          autoClose: 3000,
+          autoClose: 3000
         });
         form.reset();
       }
@@ -133,7 +132,7 @@ const TransactionsTable = ({ striped, title }) => {
     if (transaction) {
       form.setValues({
         amount: transaction.amount / 100,
-        description: transaction.description,
+        description: transaction.description
       });
       setTransactionType(transaction.type);
       setDate(new Date(transaction.date));
@@ -146,7 +145,6 @@ const TransactionsTable = ({ striped, title }) => {
       setDate(new Date());
     }
   }, [transaction, form]);
-  
 
   const columns = useMemo(
     () => [
@@ -250,7 +248,9 @@ const TransactionsTable = ({ striped, title }) => {
             <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleEdit(values))}>
               <Grid>
                 <Grid.Col span={12}>
-                  <Title mb={5} order={1}>Edit Transaction</Title>
+                  <Title mb={5} order={1}>
+                    Edit Transaction
+                  </Title>
 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <MobileDateTimePicker defaultValue={dayjs(date)} onChange={(value) => setDate(value)} />
@@ -266,11 +266,12 @@ const TransactionsTable = ({ striped, title }) => {
                     label="Type"
                     placeholder="Transaction type"
                     data={
-                        transactionType == 'REVENUE' ? [
-                          { value: 'REVENUE', label: 'Revenue' },
-                          { value: 'EXPENSE', label: 'Expense' }
-                        ] :
-                          [
+                      transactionType == 'REVENUE'
+                        ? [
+                            { value: 'REVENUE', label: 'Revenue' },
+                            { value: 'EXPENSE', label: 'Expense' }
+                          ]
+                        : [
                             { value: 'EXPENSE', label: 'Expense' },
                             { value: 'REVENUE', label: 'Revenue' }
                           ]
@@ -315,7 +316,9 @@ const TransactionsTable = ({ striped, title }) => {
             <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleNew(values))}>
               <Grid>
                 <Grid.Col span={12}>
-                  <Title mb={5} order={1}>New Transaction</Title>
+                  <Title mb={5} order={1}>
+                    New Transaction
+                  </Title>
 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <MobileDateTimePicker defaultValue={dayjs()} onChange={(value) => setDate(value)} />

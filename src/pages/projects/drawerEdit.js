@@ -7,7 +7,6 @@ import { updateProject } from 'hooks/projects';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 
-
 // ==============================|| PROJECTS ||============================== //
 
 const ProjectEdit = ({ opened, setOpened, refetch, project }) => {
@@ -21,7 +20,7 @@ const ProjectEdit = ({ opened, setOpened, refetch, project }) => {
         title: 'Project Updated!',
         message: 'Your project was updated succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 3000,
+        autoClose: 3000
       });
       form.reset();
     }

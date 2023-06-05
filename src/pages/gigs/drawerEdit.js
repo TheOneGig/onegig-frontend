@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation } from 'react-query';
 import {
   ActionIcon,
@@ -24,12 +24,12 @@ import { useForm, hasLength, isInRange } from '@mantine/form';
 import { updateGig } from 'hooks/gigs';
 import { uploadFile } from 'react-s3';
 import PropTypes from 'prop-types';
-import { IconEdit, IconCheck  } from '@tabler/icons-react';
+import { IconEdit, IconCheck } from '@tabler/icons-react';
 import { DeleteOutlined, EditOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import IconButton from 'components/@extended/IconButton';
 import { createRequirement, deleteRequirement, updateRequirement } from 'hooks/requirements';
 import { showNotification } from '@mantine/notifications';
-
+import { useForceUpdate } from 'framer-motion';
 
 const config = {
   bucketName: 'onegig-uploads',
@@ -43,7 +43,7 @@ const config = {
 const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
   const theme = useMantineTheme();
   const gig = gigs.find((gig) => gig.gigId === gigId);
-  const [_, forceUpdate] = useReducer((x) => x + 1, 0);
+  const forceUpdate = useForceUpdate();
   const [category, setCategory] = useState(null);
   const [deliverables, setDeliverables] = useState([]);
   const [newDeliverable, setNewDeliverable] = useState('');
@@ -67,7 +67,7 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
         title: 'Gig Updated!',
         message: 'Your gig was updated succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 3000,
+        autoClose: 3000
       });
       form.reset();
     }

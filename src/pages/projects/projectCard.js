@@ -9,7 +9,6 @@ import DrawerRequirements from './drawerRequirements';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 
-
 const statusRender = (status) => {
   switch (status) {
     case 'LEAD':
@@ -44,7 +43,7 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
         title: 'Project Achived!',
         message: 'Your project was achived succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 3000,
+        autoClose: 3000
       });
     }
   });
@@ -57,7 +56,7 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
   return (
     <>
       <Grid.Col key={project.projectId} xs={12} lg={4} sm={6}>
-        <Card  shadow="sm" p="lg" radius="md" withBorder>
+        <Card shadow="sm" p="lg" radius="md" withBorder>
           <Group position="apart" mt="md" mb="xs">
             <Group>
               <Text weight={500}>Status:</Text>

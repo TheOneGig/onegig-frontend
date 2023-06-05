@@ -7,7 +7,6 @@ import { useMutation } from 'react-query';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 
-
 // ==============================|| GIGS ||============================== //
 
 const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
@@ -22,7 +21,7 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
         title: 'Project Created!',
         message: 'Congratulations! your project was created succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 3000,
+        autoClose: 3000
       });
       form.reset();
     }

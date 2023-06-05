@@ -19,7 +19,7 @@ const LeadCard = ({ lead, refetch }) => {
         title: 'Lead Deleted!',
         message: 'Lead deleted succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 3000,
+        autoClose: 3000
       });
       form.reset();
     }

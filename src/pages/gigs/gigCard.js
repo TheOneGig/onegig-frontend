@@ -9,8 +9,6 @@ import { truncate } from 'utils/truncate';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 
-
-
 const GigCard = ({ gig, refetch, handleEdit, share }) => {
   const [openedDelete, setOpenedDelete] = useState(false);
   const { mutate: gigDelete, isLoading: loadingDelete } = useMutation(['deleteGig'], (variables) => deleteGig(variables), {
@@ -22,7 +20,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
         title: 'Gig Deleted!',
         message: 'Your gig was deleted succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 3000,
+        autoClose: 3000
       });
     }
   });
@@ -39,25 +37,24 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
 
   function handlePublish(gigId, published) {
     const variables = { gigId, published };
-    
-    if(published){
+
+    if (published) {
       showNotification({
         id: 'load-data',
         color: 'teal',
         title: 'Gig Published!',
         message: 'Congratulation!, your gig was published succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 3000,
+        autoClose: 3000
       });
-    }
-    else{
+    } else {
       showNotification({
         id: 'load-data',
         color: 'blue',
         title: 'Gig Unpublished!',
         message: 'Your gig was unpublished succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 3000,
+        autoClose: 3000
       });
     }
     return mutate({ variables });
