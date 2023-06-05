@@ -32,7 +32,6 @@ const statusRender = (status) => {
 };
 
 const ProjectCard = ({ project, refetch, handleEdit }) => {
-  console.log('project:', project);
   const history = useNavigate();
   const [opened, setOpened] = useState(false);
   const [openedDelete, setOpenedDelete] = useState(false);
@@ -95,6 +94,11 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
               </Button>
             </Grid.Col>
             <Grid.Col span={4}>
+              <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => history(`/resources/${project.projectId}`)}>
+                Resources
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={4}>
               <Button
                 className="green-btn"
                 mt="md"
@@ -108,7 +112,7 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
                 Email
               </Button>
             </Grid.Col>
-            <Grid.Col span={4}>
+            <Grid.Col span={6}>
               <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => setOpened(true)}>
                 Requirements
               </Button>

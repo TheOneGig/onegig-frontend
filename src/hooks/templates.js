@@ -6,7 +6,7 @@ export const getTemplate = async (data) => {
 };
 
 export const getAllTemplates = async (data) => {
-  const { data: response } = await axios.get('https://one-gig.herokuapp.com/api/templates/all', data); 
+  const { data: response } = await axios.get('https://one-gig.herokuapp.com/api/templates/all', data);
   return response;
 };
 
@@ -28,7 +28,4 @@ export const deleteTemplate = async (data) => {
 export const updateTemplate = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/templates/updateTemplate', data.variables);
   return response;
-}
-
-
-
+};

@@ -1,22 +1,25 @@
-import { Button } from "@mantine/core";
-import React from "react";
+import { Button } from '@mantine/core';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export function ConfirmOrCancel({
-  onCancel,
-  onConfirm,
-  leftBlock,
-  hideCancel,
-  disabled
-}) {
+ConfirmOrCancel.propTypes = {
+  onCancel: PropTypes.func,
+  onConfirm: PropTypes.func,
+  leftBlock: PropTypes.node,
+  hideCancel: PropTypes.bool,
+  disabled: PropTypes.bool
+};
+
+export function ConfirmOrCancel({ onCancel, onConfirm, leftBlock, hideCancel, disabled }) {
   const styles = {
     actions: {
-      display: "flex",
-      justifyContent: "space-between",
+      display: 'flex',
+      justifyContent: 'space-between'
     },
     cancel: {
       marginRight: 8,
-      marginTop: 8,
-    },
+      marginTop: 8
+    }
   };
 
   return (
@@ -24,16 +27,12 @@ export function ConfirmOrCancel({
       <div>{leftBlock}</div>
       <div>
         {!hideCancel ? (
-          <Button
-            style={styles.cancel}
-            onClick={onCancel}
-          >
-            Cancel 
+          <Button style={styles.cancel} onClick={onCancel}>
+            Cancel
           </Button>
-        ) : null
-        }
-        <Button  onClick={onConfirm} disabled={disabled}> 
-            Confirm
+        ) : null}
+        <Button onClick={onConfirm} disabled={disabled}>
+          Confirm
         </Button>
       </div>
     </div>

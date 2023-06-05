@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { Card, Image, Text, Button, Modal } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
-import styled from "@emotion/styled";
-import { useMutation } from "react-query";
-import { deleteTemplate } from "hooks/templates";
-import templateImg from "../../assets/images/icons/document-icon.png";
+import React, { useState } from 'react';
+import { Card, Image, Text, Button, Modal } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
+import { useMutation } from 'react-query';
+import { deleteTemplate } from 'hooks/templates';
+import templateImg from '../../assets/images/icons/document-icon.png';
+import PropTypes from 'prop-types';
 
 const StyledCard = styled(Card)`
     border-radius: 10px;
@@ -24,25 +25,18 @@ const StyledCard = styled(Card)`
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
   `;
 
-
-const SingleTemplateCard = ({ template, refetch, isLoading }) => {
+const SingleTemplateCard = ({ template, refetch }) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
-  const [deleteSelected, setDeleteSelected] = useState(false)
+  const [deleteSelected, setDeleteSelected] = useState(false);
   const navigate = useNavigate();
-  const { mutate: mutationDeleteTemplate, isLoading: loadingDelete } = useMutation(
-    ["deleteTemplate"],
-    (variables) => deleteTemplate(variables),
-    {
-      onSuccess: () => {
-        refetch();
-      },
+  const { mutate: mutationDeleteTemplate } = useMutation(['deleteTemplate'], (variables) => deleteTemplate(variables), {
+    onSuccess: () => {
+      refetch();
     }
-  );
-
-  
+  });
 
   function handleDeleteClick() {
-    const templateId = template.templateId
+    const templateId = template.templateId;
     const variables = { templateId };
     return mutationDeleteTemplate({ variables });
   }
@@ -58,31 +52,26 @@ const SingleTemplateCard = ({ template, refetch, isLoading }) => {
     setIsModalOpened(false);
   };
 
-
   return (
     <StyledCard onClick={handleCardClick}>
-        <Image style={{
-          width: "150px",
-          height: "150px",
-          margin: "0 auto",
-      
-      
-        }} src={templateImg} alt={template.title} fit="cover" />
-        <Text size="lg" weight={700} style={{ marginTop: "1rem", textAlign: "center" }}>
-          {template.title}
-        </Text>
-        <Text size="sm" style={{ margin: "10px 0px 10px 10px" }}>
-          {template.description}
-        </Text>
-        <Modal
-        h={400}
-        mt={120}
-        align={"center"}
-        opened={isModalOpened}
-        onClose={handleModalClose}
-        title={template.title}
-        >
-      { deleteSelected ? (
+      <Image
+        style={{
+          width: '150px',
+          height: '150px',
+          margin: '0 auto'
+        }}
+        src={templateImg}
+        alt={template.title}
+        fit="cover"
+      />
+      <Text size="lg" weight={700} style={{ marginTop: '1rem', textAlign: 'center' }}>
+        {template.title}
+      </Text>
+      <Text size="sm" style={{ margin: '10px 0px 10px 10px' }}>
+        {template.description}
+      </Text>
+      <Modal h={400} mt={120} align={'center'} opened={isModalOpened} onClose={handleModalClose} title={template.title}>
+        {deleteSelected ? (
           <>
             <Button
               fullWidth
@@ -94,7 +83,7 @@ const SingleTemplateCard = ({ template, refetch, isLoading }) => {
                 handleModalClose();
               }}
             >
-                Yes
+              Yes
             </Button>
             <Button
               fullWidth
@@ -104,22 +93,18 @@ const SingleTemplateCard = ({ template, refetch, isLoading }) => {
                 setDeleteSelected(false);
               }}
             >
-                No
+              No
             </Button>
-            <Text size="xs" style={{ marginTop: "1.5rem", textAlign: "center" }}>
+            <Text size="xs" style={{ marginTop: '1.5rem', textAlign: 'center' }}>
               WARNING: If you select Yes your template will be deleted permanently, and there is no way to recover it.
             </Text>
-        </>
-      ) :  (
+          </>
+        ) : (
           <>
-            <Button
-              fullWidth
-              mt={20}
-              variant="outline"
-            >
-            <a href={template.fileUrl}  style={{ textDecoration: 'none', color: 'inherit' }} target="_blank" rel="noopener noreferrer">
+            <Button fullWidth mt={20} variant="outline">
+              <a href={template.fileUrl} style={{ textDecoration: 'none', color: 'inherit' }} target="_blank" rel="noopener noreferrer">
                 View PDF
-            </a>
+              </a>
             </Button>
             <Button
               fullWidth
@@ -138,16 +123,21 @@ const SingleTemplateCard = ({ template, refetch, isLoading }) => {
               variant="outline"
               color="red"
               onClick={() => {
-                setDeleteSelected(true)
+                setDeleteSelected(true);
               }}
             >
               Delete
             </Button>
           </>
-      )}  
+        )}
       </Modal>
     </StyledCard>
   );
+};
+
+SingleTemplateCard.propTypes = {
+  template: PropTypes.object,
+  refetch: PropTypes.func
 };
 
 export default SingleTemplateCard;

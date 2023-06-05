@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Container, TextInput, Textarea, Flex, Title } from "@mantine/core";
-import RichTextEditor from "./richTextEditor";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Container, TextInput, Textarea, Flex, Title } from '@mantine/core';
+import RichTextEditor from './richTextEditor';
+import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import {  getTemplate, } from "../../hooks/templates";
-import { EditorState, convertFromRaw, } from 'draft-js';
+import { getTemplate } from '../../hooks/templates';
+import { EditorState, convertFromRaw } from 'draft-js';
 import useAuth from 'hooks/useAuth';
 
 const EditTemplatePage = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const { user } = useAuth();
   const userId = user.id;
   const { templateId } = useParams();
@@ -23,11 +23,11 @@ const EditTemplatePage = () => {
       setTitle(template.title);
       setDescription(template.description);
     } else {
-      setTitle("");
-      setDescription("");
+      setTitle('');
+      setDescription('');
     }
   }, [template]);
-  
+
   if (isLoading) {
     return <div>Loading Editor...</div>;
   }
@@ -45,10 +45,19 @@ const EditTemplatePage = () => {
           value={title}
           withAsterisk
           onChange={(event) => setTitle(event.currentTarget.value)}
-          style={{ maxWidth: "50%", marginTop: 10 }}
+          style={{ maxWidth: '50%', marginTop: 10 }}
         />
         <div style={{ marginTop: '20px' }}>
-          <RichTextEditor template={template} refetch={refetch} editorState={editorState} setEditorState={setEditorState} userId={userId} templateId={templateId} title={title} description={description} />
+          <RichTextEditor
+            template={template}
+            refetch={refetch}
+            editorState={editorState}
+            setEditorState={setEditorState}
+            userId={userId}
+            templateId={templateId}
+            title={title}
+            description={description}
+          />
         </div>
         <Textarea
           placeholder="Brief description of this contract..."

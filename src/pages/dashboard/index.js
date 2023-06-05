@@ -46,20 +46,20 @@ const DashboardDefault = () => {
   let revenue = new Array(12).fill(0);
   let totalRevenue = 0;
   let totalExpenses = 0;
-  
+
   transactions.forEach((transaction) => {
     let date = dayjs(transaction.date);
     let monthIndex = date.month();
-  
-    if (transaction.type === "EXPENSE") {
+
+    if (transaction.type === 'EXPENSE') {
       expenses[monthIndex] += transaction.amount / 100;
       totalExpenses += transaction.amount;
-    } else if (transaction.type === "REVENUE") {
+    } else if (transaction.type === 'REVENUE') {
       revenue[monthIndex] += transaction.amount / 100;
       totalRevenue += transaction.amount;
     }
   });
-  
+
   const profit = parseFloat(totalRevenue - totalExpenses).toFixed(2);
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>

@@ -64,8 +64,7 @@ const dashboard = {
       type: 'item',
       url: '/contracts',
       icon: EditOutlined
-    }
-    ,
+    },
     {
       id: 'Templates',
       title: (
