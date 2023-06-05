@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { Button, Stack } from '@mui/material';
 import MainCard from 'components/MainCard';
-import { ActionIcon, Grid, TextInput } from '@mantine/core';
+import { Grid, TextInput } from '@mantine/core';
 import useAuth from 'hooks/useAuth';
-import StripeLogo from 'assets/images/stripe-logo.png';
 import { getUser, updateSettings } from 'hooks/users';
 import { createConnectAccount } from 'hooks/stripe';
 
@@ -42,22 +41,28 @@ const TabSettings = () => {
   }
 
   function createConnect() {
-    if (stripeConnect) {
-      window.open(`https://connect.stripe.com/setup/s/${stripeConnect}`, '_blank');
-    } else {
-      const variables = { email };
-      return createStripeConnect({ variables });
-    }
+    const variables = { email };
+    return createStripeConnect({ variables });
   }
 
   return (
     <MainCard title="Settings">
       <Grid>
         <Grid.Col span={12}>
-          <p>Stripe Connect Account</p>
-          <ActionIcon sx={{ height: '60px', width: '300px', marginLeft: '0px', borderRadius: '10px' }} onClick={() => createConnect()}>
-            <img src={StripeLogo} alt="stripe" style={{ width: '100%', height: '100%', borderRadius: '10px' }} />
-          </ActionIcon>
+          <p>Banking Information</p>
+          {stripeConnect ? (
+            <Button
+              onClick={() => window.open(`https://connect.stripe.com/express_login`, '_blank')}
+              className="create-btn blue-btn"
+              variant="light"
+            >
+              Login
+            </Button>
+          ) : (
+            <Button onClick={() => createConnect()} className="create-btn blue-btn" variant="light">
+              Setup
+            </Button>
+          )}
         </Grid.Col>
         <Grid.Col span={12}>
           <TextInput label="Cal URL" defaultValue={calUrl} onChange={(e) => setCalUrl(e.target.value)} />
