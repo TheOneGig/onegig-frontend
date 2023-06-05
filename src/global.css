@@ -99,7 +99,7 @@ h1 {
   white-space: nowrap;
   scrollbar-base-color: transparent;
   min-height: 80vh;
-  border: 1px solid #c8c8c8;
+  border: 1px solid #424242;
   border-radius: 10px;
   margin-top: 10px;
   background-color: #1e1e1e;
@@ -222,3 +222,4 @@ textarea:focus,
 textarea:focus-within {
   border-color: #1dbeea !important;
 }
+

@@ -49,7 +49,7 @@ const Projects = () => {
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
-        <Button onClick={() => setOpened(true)} className="create-btn" variant="light">
+        <Button onClick={() => setOpened(true)} className="create-btn blue-btn" variant="light">
           New Project
         </Button>
       </Flex>

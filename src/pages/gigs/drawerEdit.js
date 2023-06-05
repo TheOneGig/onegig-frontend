@@ -24,10 +24,12 @@ import { useForm, hasLength, isInRange } from '@mantine/form';
 import { updateGig } from 'hooks/gigs';
 import { uploadFile } from 'react-s3';
 import PropTypes from 'prop-types';
-import { IconEdit } from '@tabler/icons-react';
+import { IconEdit, IconCheck  } from '@tabler/icons-react';
 import { DeleteOutlined, EditOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import IconButton from 'components/@extended/IconButton';
 import { createRequirement, deleteRequirement, updateRequirement } from 'hooks/requirements';
+import { showNotification } from '@mantine/notifications';
+
 
 const config = {
   bucketName: 'onegig-uploads',
@@ -59,6 +61,15 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
     onSuccess: () => {
       refetch();
       setOpened(false);
+      showNotification({
+        id: 'load-data',
+        color: 'blue',
+        title: 'Gig Updated!',
+        message: 'Your gig was updated succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000,
+      });
+      form.reset();
     }
   });
 
@@ -125,7 +136,7 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
   };
 
   function handleSubmit(values) {
-    if (newFile) {
+    if (newFile || file) {
       setFileError(false);
       const price = parseInt(values.price * 100);
       const variables = {
@@ -173,8 +184,6 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
     setDeliverables(newDeliverables);
     forceUpdate();
   }
-
-  console.log('_:', _);
 
   return (
     <Drawer opened={opened} onClose={() => setOpened(false)} padding="xl" size="100%" position="right" sx={{ zIndex: 9999 }}>

@@ -50,7 +50,7 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
         title: 'Contract Saved!',
         message: 'Congratulations! your contract was saved succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 2000,
+        autoClose: 3000,
       });
       form.reset();
       

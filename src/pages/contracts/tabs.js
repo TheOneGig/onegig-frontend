@@ -36,7 +36,7 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
           title: 'Contract Deleted!',
           message: 'Your contract was deleted succesfully, you can close this notification',
           icon: <IconCheck size="1rem"  />,
-          autoClose: 2000,
+          autoClose: 3000,
         });
       }
     }

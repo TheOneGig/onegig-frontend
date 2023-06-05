@@ -6,12 +6,24 @@ import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
 import { formatUSD } from 'utils/formatUSD';
 import { updatePublishGig, deleteGig } from 'hooks/gigs';
 import { truncate } from 'utils/truncate';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
+
+
 
 const GigCard = ({ gig, refetch, handleEdit, share }) => {
   const [openedDelete, setOpenedDelete] = useState(false);
   const { mutate: gigDelete, isLoading: loadingDelete } = useMutation(['deleteGig'], (variables) => deleteGig(variables), {
     onSuccess: () => {
       refetch();
+      showNotification({
+        id: 'load-data',
+        color: 'red',
+        title: 'Gig Deleted!',
+        message: 'Your gig was deleted succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000,
+      });
     }
   });
   const { mutate, isLoading: loadingPublish } = useMutation(['publishGig'], (variables) => updatePublishGig(variables), {
@@ -27,6 +39,27 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
 
   function handlePublish(gigId, published) {
     const variables = { gigId, published };
+    
+    if(published){
+      showNotification({
+        id: 'load-data',
+        color: 'teal',
+        title: 'Gig Published!',
+        message: 'Congratulation!, your gig was published succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000,
+      });
+    }
+    else{
+      showNotification({
+        id: 'load-data',
+        color: 'blue',
+        title: 'Gig Unpublished!',
+        message: 'Your gig was unpublished succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000,
+      });
+    }
     return mutate({ variables });
   }
   return (

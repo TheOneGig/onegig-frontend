@@ -97,7 +97,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
         title: 'Template Saved!',
         message: 'Congratulations! your template was saved succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 2000,
+        autoClose: 3000,
       });
     }).catch((error) => {
       console.error("Error during upload: ", error);

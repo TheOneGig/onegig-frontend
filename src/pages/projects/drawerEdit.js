@@ -4,6 +4,9 @@ import { Box, Button, Drawer, Group, NumberInput, Select, Textarea, TextInput, T
 import { useForm, hasLength, isInRange } from '@mantine/form';
 import PropTypes from 'prop-types';
 import { updateProject } from 'hooks/projects';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
+
 
 // ==============================|| PROJECTS ||============================== //
 
@@ -12,6 +15,15 @@ const ProjectEdit = ({ opened, setOpened, refetch, project }) => {
     onSuccess: () => {
       refetch();
       setOpened(false);
+      showNotification({
+        id: 'load-data',
+        color: 'blue',
+        title: 'Project Updated!',
+        message: 'Your project was updated succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000,
+      });
+      form.reset();
     }
   });
 
