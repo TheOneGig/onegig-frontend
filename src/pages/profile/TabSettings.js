@@ -56,7 +56,7 @@ const TabSettings = () => {
               className="create-btn blue-btn"
               variant="light"
             >
-              Login
+              Payout Dashboard
             </Button>
           ) : (
             <Button onClick={() => createConnect()} className="create-btn blue-btn" variant="light">
