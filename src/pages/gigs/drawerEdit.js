@@ -147,7 +147,7 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
         deliverables: deliverables.join(),
         delivery: values.delivery,
         gigId: gig.gigId,
-        fileUrl: file
+        fileUrl: newFile ? newFile : null
       };
       return mutate({ variables });
     } else {
