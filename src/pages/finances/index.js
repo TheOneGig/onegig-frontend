@@ -144,7 +144,7 @@ const TransactionsTable = ({ striped, title }) => {
       setTransactionType('REVENUE');
       setDate(new Date());
     }
-  }, [transaction, form]);
+  }, [transaction]);
 
   const columns = useMemo(
     () => [

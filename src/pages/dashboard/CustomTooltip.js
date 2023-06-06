@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 const CustomTooltip = ({ active, payload, label }) => {
-  console.log(active);
   if (active && payload && payload.length) {
     return (
       <div
