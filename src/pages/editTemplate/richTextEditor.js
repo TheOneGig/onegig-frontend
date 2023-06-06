@@ -135,13 +135,13 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
           <TextEditor editorState={editorState} onChange={handleEditorChange} />
         </div>
       </Container>
-      <Button variant="outline" onClick={handleExport} style={{ marginLeft: 20 }}>
+      <Button variant="light" onClick={handleExport} style={{ marginLeft: 20 }}>
         Export to PDF
       </Button>
-      <Button onClick={handleExportAndUpload} style={{ marginLeft: 20 }} loading={isLoading}>
+      <Button variant="light" onClick={handleExportAndUpload} style={{ marginLeft: 20 }} loading={isLoading}>
         Save
       </Button>
-      <Button color="teal" onClick={handleClose} style={{ marginLeft: 20 }}>
+      <Button variant="light" color="green" onClick={handleClose} style={{ marginLeft: 20 }}>
         Close
       </Button>
       <Modal
@@ -155,7 +155,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
         <Button
           fullWidth
           mt={20}
-          variant="outline"
+          variant="light"
           onClick={() => {
             setIsModalOpened(false);
             navigate('/templates');
@@ -166,7 +166,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
         <Button
           fullWidth
           mt={20}
-          variant="outline"
+          variant="light"
           color="red"
           onClick={() => {
             setIsModalOpened(false);

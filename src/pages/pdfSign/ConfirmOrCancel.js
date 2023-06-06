@@ -18,7 +18,7 @@ export function ConfirmOrCancel({ onCancel, onConfirm, leftBlock, hideCancel, di
     },
     cancel: {
       marginRight: 8,
-      marginTop: 8
+      marginTop: 8,
     }
   };
 
@@ -27,11 +27,11 @@ export function ConfirmOrCancel({ onCancel, onConfirm, leftBlock, hideCancel, di
       <div>{leftBlock}</div>
       <div>
         {!hideCancel ? (
-          <Button style={styles.cancel} onClick={onCancel}>
+          <Button variant='light' style={styles.cancel} onClick={onCancel}>
             Cancel
           </Button>
         ) : null}
-        <Button onClick={onConfirm} disabled={disabled}>
+        <Button variant='light' onClick={onConfirm} disabled={disabled}>
           Confirm
         </Button>
       </div>

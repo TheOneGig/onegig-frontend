@@ -11,7 +11,7 @@ import { getTemplates } from 'hooks/templates';
 
 const StyledPlusCircleOutlined = styled(PlusCircleOutlined)`
   font-size: 3.5rem;
-  color: #1890ff;
+  color: #0eba9b;
   cursor: pointer;
   position: fixed;
   bottom: 50px;

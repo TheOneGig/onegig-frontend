@@ -42,7 +42,7 @@ const styles = {
     border: '1px solid black',
     borderRadius: 4,
     cursor: 'pointer',
-    padding: 5
+    padding: 8
   }
 };
 
