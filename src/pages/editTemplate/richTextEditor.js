@@ -19,17 +19,12 @@ const config = {
 };
 
 const wrapperStyle = {
-  border: '1px solid #ccc',
   backgroundColor: 'white',
-  borderRadius: '4px',
+  borderRadius: 4,
   color: 'black',
-  width: '60vw',
-  minHeight: '8.5in',
+  minHeight: '90vh',
   padding: '26px',
   margin: '20px auto',
-  boxShadow: '0px 2px 8px rgba(60, 64, 67, 0.3)',
-  position: 'relative',
-  overflow: 'auto'
 };
 
 const RichTextEditor = ({ title, description, template, userId, editorState, setEditorState, refetch, templateId }) => {

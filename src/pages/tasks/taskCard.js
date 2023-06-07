@@ -124,7 +124,7 @@ const TaskCard = ({ task, taskTable, refetch, tables }) => {
             </IconButton>
           </Tooltip>
         </Box>
-        <ActionIcon color={task.done ? 'lime' : 'gray'} radius="lg" variant="outline" size="sm" onClick={handleDone}>
+        <ActionIcon color={task.done ? 'teal' : 'gray'} radius="lg" variant="outline" size="sm" onClick={handleDone}>
           {loadingDone ? <Loader size="xs" /> : <IconCheck />}
         </ActionIcon>
         <Text weight={500} className="task-title">

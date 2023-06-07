@@ -6,6 +6,8 @@ import { useMutation } from 'react-query';
 import { deleteTemplate } from 'hooks/templates';
 import templateImg from '../../assets/images/icons/document-icon.png';
 import PropTypes from 'prop-types';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
 import { useMantineTheme } from '@mantine/core';
 
 const StyledCard = styled(Card)`
@@ -13,9 +15,9 @@ const StyledCard = styled(Card)`
     margin-bottom: 1rem;
     padding: 1rem;
     width: 300px;
-    border: 1px solid black;
+    border: 1px solid #484848;
     height: 300px;
-    background-color: #1e1e1e
+    background-color: #1e1e1e;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 
@@ -34,6 +36,14 @@ const SingleTemplateCard = ({ template, refetch }) => {
   const { mutate: mutationDeleteTemplate } = useMutation(['deleteTemplate'], (variables) => deleteTemplate(variables), {
     onSuccess: () => {
       refetch();
+      showNotification({
+        id: 'load-data',
+        color: 'red',
+        title: 'Template Deleted!',
+        message: 'Your template was deleted succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000
+      });
     }
   });
 
