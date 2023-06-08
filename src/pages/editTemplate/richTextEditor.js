@@ -19,28 +19,12 @@ const config = {
 };
 
 const wrapperStyle = {
-  border: '1px solid #ccc',
   backgroundColor: 'white',
-  borderRadius: '4px',
+  borderRadius: 4,
   color: 'black',
-  width: '60vw',
-  minHeight: '8.5in',
+  minHeight: '90vh',
   padding: '26px',
   margin: '20px auto',
-  boxShadow: '0px 2px 8px rgba(60, 64, 67, 0.3)',
-  position: 'relative',
-  overflow: 'auto'
-};
-
-RichTextEditor.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  template: PropTypes.object,
-  userId: PropTypes.string,
-  editorState: PropTypes.object,
-  setEditorState: PropTypes.func,
-  refetch: PropTypes.func,
-  templateId: PropTypes.string
 };
 
 const RichTextEditor = ({ title, description, template, userId, editorState, setEditorState, refetch, templateId }) => {
@@ -75,6 +59,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
         });
     });
   };
+
   const handleSave = () => {
     const variables = {
       templateId,
@@ -109,7 +94,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
           title: 'Template Saved!',
           message: 'Congratulations! your template was saved succesfully, you can close this notification',
           icon: <IconCheck size="1rem" />,
-          autoClose: 2000
+          autoClose: 3000
         });
       })
       .catch((error) => {
@@ -145,13 +130,13 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
           <TextEditor editorState={editorState} onChange={handleEditorChange} />
         </div>
       </Container>
-      <Button variant="outline" onClick={handleExport} style={{ marginLeft: 20 }}>
+      <Button variant="light" onClick={handleExport} style={{ marginLeft: 20 }}>
         Export to PDF
       </Button>
-      <Button onClick={handleExportAndUpload} style={{ marginLeft: 20 }} loading={isLoading}>
+      <Button variant="light" onClick={handleExportAndUpload} style={{ marginLeft: 20 }} loading={isLoading}>
         Save
       </Button>
-      <Button color="teal" onClick={handleClose} style={{ marginLeft: 20 }}>
+      <Button variant="light" color="green" onClick={handleClose} style={{ marginLeft: 20 }}>
         Close
       </Button>
       <Modal
@@ -165,7 +150,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
         <Button
           fullWidth
           mt={20}
-          variant="outline"
+          variant="light"
           onClick={() => {
             setIsModalOpened(false);
             navigate('/templates');
@@ -176,7 +161,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
         <Button
           fullWidth
           mt={20}
-          variant="outline"
+          variant="light"
           color="red"
           onClick={() => {
             setIsModalOpened(false);
@@ -192,9 +177,15 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
   );
 };
 
-export default RichTextEditor;
-
 RichTextEditor.propTypes = {
-  content: PropTypes.string,
-  setContent: PropTypes.func.isRequired
+  title: PropTypes.string,
+  description: PropTypes.string,
+  template: PropTypes.object,
+  userId: PropTypes.string,
+  editorState: PropTypes.object,
+  setEditorState: PropTypes.func,
+  refetch: PropTypes.func,
+  templateId: PropTypes.string
 };
+
+export default RichTextEditor;

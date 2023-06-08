@@ -1,5 +1,6 @@
 import { Button } from '@mantine/core';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 ConfirmOrCancel.propTypes = {
   onCancel: PropTypes.func,
@@ -26,11 +27,11 @@ export function ConfirmOrCancel({ onCancel, onConfirm, leftBlock, hideCancel, di
       <div>{leftBlock}</div>
       <div>
         {!hideCancel ? (
-          <Button style={styles.cancel} onClick={onCancel}>
+          <Button variant="light" style={styles.cancel} onClick={onCancel}>
             Cancel
           </Button>
         ) : null}
-        <Button onClick={onConfirm} disabled={disabled}>
+        <Button variant="light" onClick={onConfirm} disabled={disabled}>
           Confirm
         </Button>
       </div>

@@ -7,6 +7,7 @@ import { deleteContract, updateContractStatus } from 'hooks/contracts';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { useMutation } from 'react-query';
+import PropTypes from 'prop-types';
 
 const ContractTabs = ({ contractData, striped, refetch }) => {
   const [activeTab, setActiveTab] = useState('Pending');
@@ -20,6 +21,7 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
       refetch();
     }
   });
+
   const { mutate: mutateDeleteContract } = useMutation(['deleteContract'], (variables) => deleteContract(variables), {
     onSuccess: () => {
       refetch();
@@ -29,7 +31,7 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
         title: 'Contract Deleted!',
         message: 'Your contract was deleted succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
-        autoClose: 2000
+        autoClose: 3000
       });
     }
   });

@@ -3,7 +3,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { useMutation, useQuery } from 'react-query';
 
 // material-ui
-import { Grid, Button, Modal, useMantineTheme, TextInput, Title, Box, Flex, NumberInput, Select } from '@mantine/core';
+import { Grid, Button, Modal, useMantineTheme, TextInput, Title, Box, Flex, NumberInput, Select, Tooltip } from '@mantine/core';
 import { useForm, hasLength, isInRange } from '@mantine/form';
 
 // project import
@@ -17,6 +17,8 @@ import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDateTimePicker } from '@mui/x-date-pickers';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
 
 const TransactionsTable = ({ striped, title }) => {
   const theme = useMantineTheme();
@@ -41,6 +43,14 @@ const TransactionsTable = ({ striped, title }) => {
       onSuccess: () => {
         refetch();
         setOpenedDelete(false);
+        showNotification({
+          id: 'load-data',
+          color: 'red',
+          title: 'Transaction Deleted!',
+          message: 'Your transaction was saved succesfully, you can close this notification',
+          icon: <IconCheck size="1rem" />,
+          autoClose: 3000
+        });
       }
     }
   );
@@ -52,6 +62,15 @@ const TransactionsTable = ({ striped, title }) => {
       onSuccess: () => {
         refetch();
         setOpenedEdit(false);
+        showNotification({
+          id: 'load-data',
+          color: 'blue',
+          title: 'Transaction Updated!',
+          message: 'Your transaction was updated succesfully, you can close this notification',
+          icon: <IconCheck size="1rem" />,
+          autoClose: 3000
+        });
+        form.reset();
       }
     }
   );
@@ -63,6 +82,15 @@ const TransactionsTable = ({ striped, title }) => {
       onSuccess: () => {
         refetch();
         setOpenedNew(false);
+        showNotification({
+          id: 'load-data',
+          color: 'teal',
+          title: 'Transaction Saved!',
+          message: 'Congratulations! your transaction was saved succesfully, you can close this notification',
+          icon: <IconCheck size="1rem" />,
+          autoClose: 3000
+        });
+        form.reset();
       }
     }
   );
@@ -101,10 +129,21 @@ const TransactionsTable = ({ striped, title }) => {
   });
 
   useEffect(() => {
-    form.setValues({
-      amount: transaction ? transaction.amount / 100 : 0,
-      description: transaction ? transaction.description : ''
-    });
+    if (transaction) {
+      form.setValues({
+        amount: transaction.amount / 100,
+        description: transaction.description
+      });
+      setTransactionType(transaction.type);
+      setDate(new Date(transaction.date));
+    } else {
+      form.setValues({
+        amount: 0,
+        description: ''
+      });
+      setTransactionType('REVENUE');
+      setDate(new Date());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transaction]);
 
@@ -181,16 +220,30 @@ const TransactionsTable = ({ striped, title }) => {
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
-        <Button
-          onClick={() => {
-            setTransaction();
-            setOpenedNew(true);
+        <Tooltip
+          label="Add a new transaction "
+          position="right"
+          transition="fade"
+          style={{
+            backgroundColor: '#3333',
+            borderRadius: 6,
+            padding: '12px 16px',
+            color: '#fff',
+            fontSize: 12,
+            transition: 0.3
           }}
-          className="create-btn blue-btn"
-          variant="light"
         >
-          New Transaction
-        </Button>
+          <Button
+            onClick={() => {
+              setTransaction();
+              setOpenedNew(true);
+            }}
+            className="create-btn blue-btn"
+            variant="light"
+          >
+            New Transaction
+          </Button>
+        </Tooltip>
       </Flex>
       <MainCard content={false} title={title}>
         <ScrollX>
@@ -200,7 +253,7 @@ const TransactionsTable = ({ striped, title }) => {
         <Modal
           opened={openedEdit}
           onClose={() => setOpenedEdit(false)}
-          title="Edit Transaction"
+          title="Transactions"
           overlayColor={theme.colors.dark[9]}
           overlayOpacity={0.55}
           overlayBlur={3}
@@ -210,10 +263,12 @@ const TransactionsTable = ({ striped, title }) => {
             <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleEdit(values))}>
               <Grid>
                 <Grid.Col span={12}>
-                  <Title order={1}>Edit Transaction</Title>
+                  <Title mb={5} order={1}>
+                    Edit Transaction
+                  </Title>
 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <MobileDateTimePicker defaultValue={dayjs('2022-04-17T15:30')} onChange={(value) => setDate(value)} />
+                    <MobileDateTimePicker defaultValue={dayjs(date)} onChange={(value) => setDate(value)} />
                   </LocalizationProvider>
                   <TextInput label="Description" placeholder="Short description" withAsterisk {...form.getInputProps('description')} />
                   <NumberInput
@@ -225,10 +280,17 @@ const TransactionsTable = ({ striped, title }) => {
                   <Select
                     label="Type"
                     placeholder="Transaction type"
-                    data={[
-                      { value: 'REVENUE', label: 'Revenue' },
-                      { value: 'EXPENSE', label: 'Expense' }
-                    ]}
+                    data={
+                      transactionType == 'REVENUE'
+                        ? [
+                            { value: 'REVENUE', label: 'Revenue' },
+                            { value: 'EXPENSE', label: 'Expense' }
+                          ]
+                        : [
+                            { value: 'EXPENSE', label: 'Expense' },
+                            { value: 'REVENUE', label: 'Revenue' }
+                          ]
+                    }
                     value={transactionType}
                     onChange={setTransactionType}
                   />
@@ -259,7 +321,7 @@ const TransactionsTable = ({ striped, title }) => {
         <Modal
           opened={openedNew}
           onClose={() => setOpenedNew(false)}
-          title="New Transaction"
+          title="Transactions"
           overlayColor={theme.colors.dark[9]}
           overlayOpacity={0.55}
           overlayBlur={3}
@@ -269,10 +331,12 @@ const TransactionsTable = ({ striped, title }) => {
             <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleNew(values))}>
               <Grid>
                 <Grid.Col span={12}>
-                  <Title order={1}>New Transaction</Title>
+                  <Title mb={5} order={1}>
+                    New Transaction
+                  </Title>
 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <MobileDateTimePicker defaultValue={dayjs('2022-04-17T15:30')} onChange={(value) => setDate(value)} />
+                    <MobileDateTimePicker defaultValue={dayjs()} onChange={(value) => setDate(value)} />
                   </LocalizationProvider>
                   <TextInput label="Description" placeholder="Short description" withAsterisk {...form.getInputProps('description')} />
                   <NumberInput

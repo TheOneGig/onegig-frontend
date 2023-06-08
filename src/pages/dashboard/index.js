@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import { Grid } from '@mui/material';
 import { ContainerOutlined, RiseOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import Chart from './AreaChart';
-
+import dayjs from 'dayjs';
 import useAuth from 'hooks/useAuth';
 import { getUser } from 'hooks/users';
 import { formatUSD } from 'utils/formatUSD';
@@ -42,19 +42,21 @@ const DashboardDefault = () => {
 
   const activeProjects = ownedProjects?.filter((p) => p.status !== 'ARCHIVED' && p.status !== 'LEAD');
 
-  let dates = [];
-  let revenues = [];
+  let expenses = new Array(12).fill(0);
+  let revenue = new Array(12).fill(0);
   let totalRevenue = 0;
-  let expenses = [];
   let totalExpenses = 0;
-  transactions.map((transaction) => {
-    dates.push(transaction.date);
-    if (transaction.type === 'REVENUE') {
-      revenues.push(transaction.amount / 100);
-      totalRevenue = totalRevenue + transaction.amount;
-    } else {
-      expenses.push(transaction.amount / 100);
-      totalExpenses = totalExpenses + transaction.amount;
+
+  transactions.forEach((transaction) => {
+    let date = dayjs(transaction.date);
+    let monthIndex = date.month();
+
+    if (transaction.type === 'EXPENSE') {
+      expenses[monthIndex] += transaction.amount / 100;
+      totalExpenses += transaction.amount;
+    } else if (transaction.type === 'REVENUE') {
+      revenue[monthIndex] += transaction.amount / 100;
+      totalRevenue += transaction.amount;
     }
   });
 
@@ -90,7 +92,7 @@ const DashboardDefault = () => {
         />
       </Grid>
       <Grid item xs={8} lg={8} sm={8}>
-        <Chart expenses={expenses} revenue={revenues} dates={dates} />
+        <Chart expenses={expenses} revenue={revenue} />
       </Grid>
       <Grid item xs={4} lg={4} sm={4}>
         <ToDoList userId={user.id} />

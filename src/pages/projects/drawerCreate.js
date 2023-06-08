@@ -4,6 +4,8 @@ import { createProject } from 'hooks/projects';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
 
 // ==============================|| GIGS ||============================== //
 
@@ -13,6 +15,15 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
     onSuccess: () => {
       refetch();
       setOpened(false);
+      showNotification({
+        id: 'load-data',
+        color: 'teal',
+        title: 'Project Created!',
+        message: 'Congratulations! your project was created succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000
+      });
+      form.reset();
     }
   });
   const form = useForm({

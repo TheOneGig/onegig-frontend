@@ -2,24 +2,28 @@ import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { Button, Stack } from '@mui/material';
 import MainCard from 'components/MainCard';
-import { Grid, NumberInput, TextInput } from '@mantine/core';
+import { Grid, TextInput } from '@mantine/core';
 import useAuth from 'hooks/useAuth';
 import { getUser, updateSettings } from 'hooks/users';
+import { createConnectAccount } from 'hooks/stripe';
 
 // ==============================|| TAB - SETTINGS ||============================== //
 
 const TabSettings = () => {
-  const [newPayoutAccount, setNewPayoutAccount] = useState();
-  const [newPayoutRoute, setNewPayoutRoute] = useState();
   const [newCalUrl, setCalUrl] = useState();
   const { user } = useAuth();
   const userId = user.id;
   const { data: userInfo, isLoading, refetch } = useQuery(['user'], () => getUser({ userId }));
   const { mutate } = useMutation(['updateSettings'], (variables) => updateSettings(variables), {
     onSuccess: () => {
-      setNewPayoutAccount();
-      setNewPayoutRoute();
       setCalUrl();
+      refetch();
+    }
+  });
+
+  const { mutate: createStripeConnect } = useMutation(['createConnect'], (variables) => createConnectAccount(variables), {
+    onSuccess: (e) => {
+      window.open(e.url, '_blank');
       refetch();
     }
   });
@@ -28,24 +32,37 @@ const TabSettings = () => {
     return <div>Loading profile...</div>;
   }
 
-  const { payoutAccount, payoutRoute, calUrl } = userInfo;
+  const { calUrl, email, stripeConnect } = userInfo;
 
   function handleSubmit() {
-    const thepayoutAccount = newPayoutAccount ? newPayoutAccount.toString() : payoutAccount;
-    const thepayoutRoute = newPayoutRoute ? newPayoutRoute.toString() : payoutRoute;
     const thecalUrl = newCalUrl ? (newCalUrl?.startsWith('https://cal.com/') ? newCalUrl.slice(16) : newCalUrl) : calUrl;
-    const variables = { userId, payoutAccount: thepayoutAccount, payoutRoute: thepayoutRoute, calUrl: thecalUrl };
+    const variables = { userId, calUrl: thecalUrl };
     return mutate({ variables });
+  }
+
+  function createConnect() {
+    const variables = { email };
+    return createStripeConnect({ variables });
   }
 
   return (
     <MainCard title="Settings">
       <Grid>
-        <Grid.Col span={6}>
-          <NumberInput label="Account Number" defaultValue={Number(payoutAccount)} onChange={(value) => setNewPayoutAccount(value)} />
-        </Grid.Col>
-        <Grid.Col span={6}>
-          <NumberInput label="Route Number" defaultValue={Number(payoutRoute)} onChange={(value) => setNewPayoutRoute(value)} />
+        <Grid.Col span={12}>
+          <p>Banking Information</p>
+          {stripeConnect ? (
+            <Button
+              onClick={() => window.open(`https://connect.stripe.com/express_login`, '_blank')}
+              className="create-btn blue-btn"
+              variant="light"
+            >
+              Payout Dashboard
+            </Button>
+          ) : (
+            <Button onClick={() => createConnect()} className="create-btn blue-btn" variant="light">
+              Setup
+            </Button>
+          )}
         </Grid.Col>
         <Grid.Col span={12}>
           <TextInput label="Cal URL" defaultValue={calUrl} onChange={(e) => setCalUrl(e.target.value)} />

@@ -4,6 +4,8 @@ import { Card, Text, Badge, Button, Group, Grid, Modal } from '@mantine/core';
 import PropTypes from 'prop-types';
 import { formatUSD } from 'utils/formatUSD';
 import { deleteLead } from 'hooks/gigs';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
 
 const LeadCard = ({ lead, refetch }) => {
   const [openedDelete, setOpenedDelete] = useState(false);
@@ -11,6 +13,15 @@ const LeadCard = ({ lead, refetch }) => {
     onSuccess: () => {
       refetch();
       setOpenedDelete(false);
+      showNotification({
+        id: 'load-data',
+        color: 'red',
+        title: 'Lead Deleted!',
+        message: 'Lead deleted succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000
+      });
+      form.reset();
     }
   });
 

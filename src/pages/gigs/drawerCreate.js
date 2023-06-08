@@ -22,9 +22,10 @@ import { useForm, hasLength, isInRange } from '@mantine/form';
 import { createGig } from 'hooks/gigs';
 import { uploadFile } from 'react-s3';
 import PropTypes from 'prop-types';
-import { IconEdit } from '@tabler/icons-react';
+import { IconEdit, IconCheck } from '@tabler/icons-react';
 import IconButton from 'components/@extended/IconButton';
 import { CheckCircleOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { showNotification } from '@mantine/notifications';
 
 const config = {
   bucketName: 'onegig-uploads',
@@ -46,6 +47,15 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
     onSuccess: () => {
       refetch();
       setOpened(false);
+      showNotification({
+        id: 'load-data',
+        color: 'teal',
+        title: 'Gig Created!',
+        message: 'Congratulations! your gig was created succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000
+      });
+      form.reset();
     }
   });
   const form = useForm({

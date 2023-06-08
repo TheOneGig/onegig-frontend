@@ -61,11 +61,11 @@ h1 {
 }
 
 .grid-area {
-  border: 1px solid rgb(42,42,42);
+  border: 1px solid rgb(42, 42, 42);
   /* border: 1px solid #c8c8c8; */
   border-radius: 10px;
   margin: 0px;
-  height: 470px; 
+  height: 470px;
   background-color: #1e1e1e;
 }
 
@@ -99,10 +99,11 @@ h1 {
   white-space: nowrap;
   scrollbar-base-color: transparent;
   min-height: 80vh;
-  border: 1px solid #c8c8c8;
+  /* border: 1px solid #424242; */
   border-radius: 10px;
   margin-top: 10px;
-  background-color: #1e1e1e;
+  margin-left: -15px;
+  /* background-color: #1e1e1e; */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -132,10 +133,10 @@ h1 {
 .task-card {
   position: relative;
   display: flex;
-  background-color: #424244;
+  background-color: rgb(48, 48, 48);
   padding: 10px;
   margin: 10px 0px;
-  border: 1px solid #c3c3c3;
+  border: 1px solid rgb(42, 42, 42);
   border-radius: 7px;
   min-height: 100px;
   cursor: pointer;
@@ -159,10 +160,10 @@ h1 {
 }
 
 .new-task-card {
-  background-color: #424244;
+  background-color: rgb(48, 48, 48);
   padding: 10px;
   margin: 10px 0px;
-  border: 1px solid #c3c3c3;
+  border: 1px solid rgb(42, 42, 42);
   border-radius: 7px;
 }
 

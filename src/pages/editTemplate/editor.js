@@ -21,15 +21,10 @@ const toolbarOptions = {
   ]
 };
 
-const editorStyle = {
-  height: 'calc(297mm - 40px)',
-  overflowY: 'auto'
-};
-
 const TextEditor = ({ editorState, onChange }) => {
   return (
     <>
-      <Editor editorStyle={editorStyle} toolbar={toolbarOptions} editorState={editorState} onEditorStateChange={onChange} />
+      <Editor toolbar={toolbarOptions} editorState={editorState} onEditorStateChange={onChange} />
     </>
   );
 };

@@ -1,14 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, Image, Text } from '@mantine/core';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import templateImg from '../../assets/images/icons/document-icon.png';
-
-SingleTemplateCard.propTypes = {
-  template: PropTypes.object,
-  signedPdf: PropTypes.string,
-  selected: PropTypes.bool,
-  onTemplateSelect: PropTypes.func
-};
 
 const SingleTemplateCard = ({ template, signedPdf, selected, onTemplateSelect }) => {
   const handleClick = () => {
@@ -38,6 +32,13 @@ const SingleTemplateCard = ({ template, signedPdf, selected, onTemplateSelect })
       </Card>
     </>
   );
+};
+
+SingleTemplateCard.propTypes = {
+  template: PropTypes.object,
+  signedPdf: PropTypes.string,
+  selected: PropTypes.bool,
+  onTemplateSelect: PropTypes.func
 };
 
 export default SingleTemplateCard;

@@ -137,7 +137,7 @@ const Tasks = () => {
               {newTaskTableId === table.taskTableId && (
                 <NewTask taskTableId={table.taskTableId} setNewTaskTableId={setNewTaskTableId} refetch={refetch} />
               )}
-              <Button leftIcon={<IconPlus />} onClick={() => setNewTaskTableId(table.taskTableId)} variant="outline" color="gray" fullWidth>
+              <Button leftIcon={<IconPlus />} onClick={() => setNewTaskTableId(table.taskTableId)} variant="outline" style={{ color: '#f1f1f1', borderColor:'#f1f1f1'}} fullWidth>
                 Add Task
               </Button>
             </div>

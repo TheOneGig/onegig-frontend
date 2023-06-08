@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import { formatUSD } from 'utils/formatUSD';
 import { archiveProject } from 'hooks/projects';
 import DrawerRequirements from './drawerRequirements';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
 
 const statusRender = (status) => {
   switch (status) {
@@ -35,6 +37,14 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
   const { mutate, isLoading: loadingDelete } = useMutation(['archiveProject'], (variables) => archiveProject(variables), {
     onSuccess: () => {
       refetch();
+      showNotification({
+        id: 'load-data',
+        color: 'red',
+        title: 'Project Achived!',
+        message: 'Your project was achived succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000
+      });
     }
   });
 

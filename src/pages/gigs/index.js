@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 // material-ui
-import { Flex, Button, Grid, Title } from '@mantine/core';
+import { Flex, Button, Grid, Title, Tooltip } from '@mantine/core';
 
 import useAuth from 'hooks/useAuth';
 import { getGigs } from 'hooks/gigs';
@@ -34,9 +34,23 @@ const Gigs = () => {
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
-        <Button onClick={() => setOpened(true)} className="create-btn blue-btn" variant="light">
-          New Gig
-        </Button>
+      <Tooltip
+          label="Create a new gig "
+          position="right"
+          transition="fade"
+          style={{
+            backgroundColor: '#3333',
+            borderRadius: 6,
+            padding: '12px 16px',
+            color: '#fff',
+            fontSize: 12,
+            transition: 0.3
+          }}
+        >
+          <Button onClick={() => setOpened(true)} className="create-btn blue-btn" variant="light">
+            New Gig
+          </Button>
+        </Tooltip>
       </Flex>
       <Title sx={{ marginBottom: '15px' }}>Published Gigs</Title>
       <Grid className="grid-area">
