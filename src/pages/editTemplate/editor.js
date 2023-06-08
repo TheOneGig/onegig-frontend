@@ -21,7 +21,6 @@ const toolbarOptions = {
   ]
 };
 
-
 const TextEditor = ({ editorState, onChange }) => {
   return (
     <>
