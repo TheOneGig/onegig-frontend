@@ -11,22 +11,22 @@ import { IconCheck } from '@tabler/icons-react';
 import { useMantineTheme } from '@mantine/core';
 
 const StyledCard = styled(Card)`
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    width: 300px;
-    border: 1px solid #484848;
-    height: 300px;
-    background-color: #1e1e1e;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  width: 300px;
+  border: 1px solid #484848;
+  height: 300px;
+  background-color: #1e1e1e;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 
-    &:hover {
-      transform: scale(1.02);
-    }
+  &:hover {
+    transform: scale(1.02);
+  }
 
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
-  `;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+`;
 
 const SingleTemplateCard = ({ template, refetch }) => {
   const theme = useMantineTheme();
@@ -82,14 +82,15 @@ const SingleTemplateCard = ({ template, refetch }) => {
       <Text size="sm" style={{ margin: '10px 0px 10px 10px' }}>
         {template.description}
       </Text>
-      <Modal  
-          opened={isModalOpened}
-          onClose={handleModalClose}
-          title={deleteSelected ? ("Delete Template?") : (`${template.title} Actions`)}
-          overlayColor={theme.colors.dark[9]}
-          overlayOpacity={0.55}
-          overlayBlur={3}
-          centered >
+      <Modal
+        opened={isModalOpened}
+        onClose={handleModalClose}
+        title={deleteSelected ? 'Delete Template?' : `${template.title} Actions`}
+        overlayColor={theme.colors.dark[9]}
+        overlayOpacity={0.55}
+        overlayBlur={3}
+        centered
+      >
         {deleteSelected ? (
           <>
             <Button

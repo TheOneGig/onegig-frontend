@@ -24,7 +24,7 @@ const wrapperStyle = {
   color: 'black',
   minHeight: '90vh',
   padding: '26px',
-  margin: '20px auto',
+  margin: '20px auto'
 };
 
 const RichTextEditor = ({ title, description, template, userId, editorState, setEditorState, refetch, templateId }) => {

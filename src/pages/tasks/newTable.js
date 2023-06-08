@@ -45,7 +45,13 @@ const NewTable = ({ projectId, refetch }) => {
           />
         </form>
       ) : (
-        <Button leftIcon={<IconPlus />} onClick={() => setNewTable(true)} variant="outline" style={{ color: '#f1f1f1', borderColor:'#f1f1f1'}} fullWidth>
+        <Button
+          leftIcon={<IconPlus />}
+          onClick={() => setNewTable(true)}
+          variant="outline"
+          style={{ color: '#f1f1f1', borderColor: '#f1f1f1' }}
+          fullWidth
+        >
           Add Column
         </Button>
       )}

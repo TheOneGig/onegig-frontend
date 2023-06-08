@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { Button, Text, Tooltip, Title, Flex } from '@mantine/core';
+import { Button, Tooltip, Flex } from '@mantine/core';
 import ContractCreate from './drawerCreate';
 import useAuth from 'hooks/useAuth';
 import { getGigs } from 'hooks/gigs';
