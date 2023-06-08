@@ -119,7 +119,7 @@ const TimesTable = () => {
       <tr key={projectId}>
         <td>{project.name}</td>
         {getWeekDates(date).map((date) => {
-          const value = times[projectId][date.toISOString()] ? times[projectId][date.toISOString()].hours : 0;
+          const value = times[projectId] && times[projectId][date.toISOString()] ? times[projectId][date.toISOString()].hours : 0;
           return (
             <td key={`${moment(date)}-${projectId}`}>
               <NumberInput value={value} onChange={(e) => handleTime(projectId, date, e)} />
