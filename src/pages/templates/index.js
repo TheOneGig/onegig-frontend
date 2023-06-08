@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Text, Tooltip, Title, Box, Flex, Button } from '@mantine/core';
+import { Grid, Tooltip, Title, Box, Flex, Button } from '@mantine/core';
 import SingleTemplateCard from './templateCard';
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from 'react-router-dom';
@@ -24,8 +24,7 @@ const TemplatesPage = () => {
 
   return (
     <>
-      <Flex  gap="md" justify="center" align="flex-start" direction="column" wrap="wrap">
-      
+      <Flex gap="md" justify="center" align="flex-start" direction="column" wrap="wrap">
         <Tooltip
           label="Create a new Template"
           position="right"
@@ -40,15 +39,14 @@ const TemplatesPage = () => {
           }}
         >
           <Button onClick={handleCreateNewTemplate} className="create-btn blue-btn" variant="light">
-              New Template
+            New Template
           </Button>
         </Tooltip>
-       
       </Flex>
-      <Title >Templates Created</Title>
-      <Grid justify='start' ml={1}  >
+      <Title>Templates Created</Title>
+      <Grid justify="start" ml={1}>
         {templates.map((template, index) => (
-          <Box key={index} mt={20} mr={40} >
+          <Box key={index} mt={20} mr={40}>
             <SingleTemplateCard key={template.templateId} refetch={refetch} isLoading={isLoading} template={template} />
           </Box>
         ))}
