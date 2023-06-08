@@ -144,6 +144,7 @@ const TransactionsTable = ({ striped, title }) => {
       setTransactionType('REVENUE');
       setDate(new Date());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transaction]);
 
   const columns = useMemo(
