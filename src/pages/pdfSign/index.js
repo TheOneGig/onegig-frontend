@@ -175,21 +175,22 @@ function PdfSign({ file, setFile, setSigningPdf }) {
           <div>
             <div style={styles.controls}>
               {!signatureURL ? (
-                <Button mr={8} className="blue-btn" onClick={() => setSignatureDialogVisible(true)}>
+                <Button mr={8} variant="light" onClick={() => setSignatureDialogVisible(true)}>
                   Add Signature
                 </Button>
               ) : null}
 
-              <Button mr={8} className="blue-btn" onClick={() => setTextInputVisible('date')}>
+              <Button mr={8} variant="light" onClick={() => setTextInputVisible('date')}>
                 Add Date
               </Button>
-              <Button mr={8} className="blue-btn" onClick={() => setTextInputVisible(true)}>
+              <Button mr={8} variant="light" onClick={() => setTextInputVisible(true)}>
                 Add Text
               </Button>
               <div style={styles.spacer}></div>
               <Button
                 mr={8}
-                className="green-btn"
+                variant="light"
+                color="green"
                 onClick={() => {
                   setFile(pdf);
                   setSigningPdf(false);
@@ -200,7 +201,8 @@ function PdfSign({ file, setFile, setSigningPdf }) {
               </Button>
               <Button
                 mr={8}
-                className="green-btn"
+                variant="light"
+                color="green"
                 onClick={() => {
                   setTextInputVisible(false);
                   setSignatureDialogVisible(false);
@@ -218,7 +220,8 @@ function PdfSign({ file, setFile, setSigningPdf }) {
               {pdf ? (
                 <Button
                   mr={8}
-                  className="green-btn"
+                  variant="light"
+                  color="green"
                   onClick={() => {
                     downloadURI(pdf, 'file.pdf');
                   }}

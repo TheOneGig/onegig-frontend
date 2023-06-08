@@ -24,8 +24,7 @@ const ContractsTable = ({ striped }) => {
 
   return (
     <>
-      <Flex mih={100} mb={20} gap="md" justify="center" align="flex-start" direction="column" wrap="wrap">
-        <Title h={40}>Welcome to the Contracts Hub!</Title>
+      <Flex mb={20} gap="md" justify="center" align="flex-start" direction="column" wrap="wrap">
         <Tooltip
           label="Create a new contract "
           position="right"
@@ -43,10 +42,6 @@ const ContractsTable = ({ striped }) => {
             New Contract
           </Button>
         </Tooltip>
-        <Text weight={500}>
-          Manage your professional agreements effortlessly in one centralized location. Create, review, and track the progress of all your
-          contracts with ease.
-        </Text>
       </Flex>
       <ContractTabs contractData={contracts} refetch={refetch} striped={striped} />
       <ContractCreate

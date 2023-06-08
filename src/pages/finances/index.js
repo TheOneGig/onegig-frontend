@@ -3,7 +3,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { useMutation, useQuery } from 'react-query';
 
 // material-ui
-import { Grid, Button, Modal, useMantineTheme, TextInput, Title, Box, Flex, NumberInput, Select } from '@mantine/core';
+import { Grid, Button, Modal, useMantineTheme, TextInput, Title, Box, Flex, NumberInput, Select, Tooltip } from '@mantine/core';
 import { useForm, hasLength, isInRange } from '@mantine/form';
 
 // project import
@@ -220,16 +220,30 @@ const TransactionsTable = ({ striped, title }) => {
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
-        <Button
-          onClick={() => {
-            setTransaction();
-            setOpenedNew(true);
-          }}
-          className="create-btn blue-btn"
-          variant="light"
-        >
-          New Transaction
-        </Button>
+        <Tooltip
+            label="Add a new transaction "
+            position="right"
+            transition="fade"
+            style={{
+              backgroundColor: '#3333',
+              borderRadius: 6,
+              padding: '12px 16px',
+              color: '#fff',
+              fontSize: 12,
+              transition: 0.3
+            }}
+          >
+          <Button
+            onClick={() => {
+              setTransaction();
+              setOpenedNew(true);
+            }}
+            className="create-btn blue-btn"
+            variant="light"
+          >
+            New Transaction
+          </Button>
+        </Tooltip>
       </Flex>
       <MainCard content={false} title={title}>
         <ScrollX>
