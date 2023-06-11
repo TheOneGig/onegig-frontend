@@ -54,7 +54,7 @@ const ProductDetails = () => {
             <Grid item xs={12}>
               <MainCard>
                 <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                     <ProductImages images={gig.files} />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -65,10 +65,11 @@ const ProductDetails = () => {
             </Grid>
           </Grid>
         )}
-      </Grid>
-      <Grid item xs={12} sm={12}>
+        <Grid item xs={12} sm={12}>
         <RelatedGigs user={gig?.user} />
       </Grid>
+      </Grid>
+      
     </Grid>
   );
 };

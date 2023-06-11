@@ -54,8 +54,12 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
         message: 'Congratulations! your gig was created succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
-      });
+      })
       form.reset();
+      setFile()
+      setCategory(null)
+      setOpenNewDeliverable(false)
+      setDeliverables([])
     }
   });
   const form = useForm({

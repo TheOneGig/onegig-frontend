@@ -8,11 +8,10 @@ import { useNavigate } from 'react-router';
 const GigCard = ({ gig }) => {
   const history = useNavigate();
   return (
-    <Card className="card-design" shadow="sm" p="lg" radius="md" withBorder>
+    <Card className="card-design"  shadow="sm" p="lg" radius="md" withBorder>
       <Card.Section>
         <Image src={gig.files?.length > 0 ? gig.files[0].fileUrl : OneGigLogo} alt="Gig" className="gig-card-image" />
       </Card.Section>
-
       <Group position="apart" mt="md" mb="xs">
         <Text weight={500}>{gig.name}</Text>
         <Badge className="blue-btn" variant="light">
@@ -20,7 +19,7 @@ const GigCard = ({ gig }) => {
         </Badge>
       </Group>
 
-      <div style={{ height: '112px' }}>
+      <div style={{ height: '80px' }}>
         <Text size="sm" color="dimmed" align="justify">
           {truncate(gig.description, 250)}
         </Text>

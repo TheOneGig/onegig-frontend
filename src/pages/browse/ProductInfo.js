@@ -8,14 +8,19 @@ import { Button, Stack, Typography } from '@mui/material';
 import { formatUSD } from 'utils/formatUSD';
 import ProjectLead from './drawerInterested';
 import { createGigPayment } from 'hooks/stripe';
-import { Box, Drawer, Group, TextInput, Title } from '@mantine/core';
+import { Box, Drawer, Group, TextInput, Title, Tooltip } from '@mantine/core';
 import { hasLength, isEmail, useForm } from '@mantine/form';
+import { useTheme } from '@mui/material/styles';
+import { IconShare, IconShoppingCart, IconHeartPlus, IconMessage, IconHeartFilled} from '@tabler/icons-react';
+
 
 // ==============================|| PRODUCT DETAILS - INFORMATION ||============================== //
 
 const ProductInfo = ({ gig }) => {
   const [opened, setOpened] = useState(false);
   const [emailOpened, setEmailOpened] = useState(false);
+  const [saved, setSaved] = useState(false) 
+  const theme = useTheme()
   const { mutate, isLoading } = useMutation(['createGigPayment'], (variables) => createGigPayment(variables), {
     onSuccess: (data) => {
       window.open(data.url, '_blank');
@@ -51,29 +56,68 @@ const ProductInfo = ({ gig }) => {
   }
 
   const deliverables = gig.deliverables.split(',');
-  console.log('deliverables:', deliverables);
 
   return (
-    <Stack spacing={1}>
-      <Typography variant="h3">{gig.name}</Typography>
-      <Typography style={{ textAlign: 'justify' }}>{gig.description}</Typography>
-      <Stack spacing={2.5}>
-        <Stack direction="row" alignItems="center" spacing={1}>
+    <Stack spacing={2.5}>
+      <Stack direction="row" alignItems="center" spacing={14}>
+        <Typography color="primary"  variant="h3">{gig.name}</Typography>
           <Typography variant="h3">{formatUSD(gig.price)}</Typography>
-        </Stack>
       </Stack>
-      <Typography variant="h4">Deliverables:</Typography>
-      <ul>
-        {deliverables.map((deliverable, index) => (
-          <li key={index}>{deliverable}</li>
-        ))}
-      </ul>
-      <Stack direction="row" alignItems="center" spacing={2} sx={{ mt: 4 }}>
-        <Button fullWidth color="secondary" variant="outlined" size="large" disabled={isLoading} onClick={() => setOpened(true)}>
-          {`Contact Seller`}
+      <Stack direction="column" spacing={2}>
+        <Typography variant="h4">Deliverables:</Typography>
+        <ul>
+          {deliverables.map((deliverable, index) => (
+            <li key={index}>{deliverable}</li>
+          ))}
+        </ul>
+        <Typography style={{ textAlign: 'justify' }}>{gig.description}</Typography>
+      </Stack>
+      <Stack direction="row" spacing={3.5} sx={{ mt: 4 }}>
+      <Button color="primary" sx={{
+                 borderRadius: '100%',
+                 padding: '20px 20px',
+              '&:hover': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                transition: '0.3s'
+                }
+            }} variant="outlined" size="large" disabled={isLoading} onClick={() => setOpened(true)}>
+          <IconMessage/>
         </Button>
-        <Button fullWidth color="secondary" variant="outlined" size="large" disabled={isLoading} onClick={() => setEmailOpened(true)}>
-          {`Buy Now`}
+        <Button color="primary"  variant="outlined" size="large" disabled={isLoading} onClick={() => setEmailOpened(true)} sx={{
+                 borderRadius: '100%',
+                 padding: '20px 20px',
+              '&:hover': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                transition: '0.3s'
+                }
+            }}>
+        <IconShoppingCart/>
+        </Button>
+        <Button color="primary" variant="outlined" disabled={isLoading} sx={{
+                borderRadius: '100%',
+                padding: '20px 20px',
+                
+              '&:hover': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                transition: '0.3s'
+                }
+            }} >
+          <IconShare />
+        </Button>
+        <Button color="primary" variant="outlined" disabled={isLoading} sx={{
+                borderRadius: '100%',
+                padding: '20px 20px',
+                
+              '&:hover': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                transition: '0.3s'
+                }
+            }} onClick={() => setSaved(!saved)}>
+         { saved ? (<IconHeartFilled/>) : (<IconHeartPlus />)}
         </Button>
       </Stack>
 
@@ -81,7 +125,7 @@ const ProductInfo = ({ gig }) => {
 
       <Drawer opened={emailOpened} onClose={() => setEmailOpened(false)} padding="xl" size="xl" position="right">
         <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleBuy(values))} sx={{ paddingTop: '40px' }}>
-          <Title order={1}>Your information</Title>
+          <Title order={1}>Buy Now!</Title>
 
           <p>We just need a bit information for the seller to contact you.</p>
 
