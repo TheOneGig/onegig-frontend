@@ -1,30 +1,54 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Box, CardMedia, Grid, Stack, useMediaQuery } from '@mui/material';
+//import { useTheme } from '@mui/material/styles';
+import {  CardMedia, Grid } from '@mui/material';
 
 // project import
-import MainCard from 'components/MainCard';
-import Avatar from 'components/@extended/Avatar';
-import IconButton from 'components/@extended/IconButton';
+// import MainCard from 'components/MainCard';
+// import Avatar from 'components/@extended/Avatar';
+// import IconButton from 'components/@extended/IconButton';
 
 // third-party
-import Slider from 'react-slick';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+//import Slider from 'react-slick';
+//import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 // assets
-import { ZoomInOutlined, ZoomOutOutlined, RedoOutlined, DownOutlined, UpOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons';
+//import { ZoomInOutlined, ZoomOutOutlined, RedoOutlined, DownOutlined, UpOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons';
 
 // ==============================|| PRODUCT DETAILS - IMAGES ||============================== //
 
 const ProductImages = ({ images }) => {
-  const theme = useTheme();
-
-  const matchDownLG = useMediaQuery(theme.breakpoints.up('lg'));
-  const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
   const initialImage = images[0]?.fileUrl ? images[0].fileUrl : '';
+ 
 
+  return (
+    <>   
+        <CardMedia
+          component="img"
+          image={initialImage}
+          title="productimg"
+          sx={{ borderRadius: `4px`, position: 'relative', maxHeight: 400 }}
+        />
+    </>
+  );
+};
+
+ProductImages.propTypes = {
+  images: PropTypes.array
+};
+
+export default ProductImages;
+
+
+
+/**
+ * 
+ * 
+ * 
+ * const matchDownLG = useMediaQuery(theme.breakpoints.up('lg'));
+  const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
+  
   const [selected, setSelected] = useState(initialImage);
   const [modal, setModal] = useState(false);
 
@@ -92,58 +116,7 @@ const ProductImages = ({ images }) => {
     slidesToShow: images.length > 3 ? lgNo : images.length,
     prevArrow: <ArrowUp />,
     nextArrow: <ArrowDown />
-  };
-
-  return (
-    <>
-      <Grid container spacing={0.5}>
-        <Grid item xs={12} md={10} lg={9}>
-          <MainCard
-            content={false}
-            border={false}
-            boxShadow={false}
-            shadow="0"
-            sx={{
-              m: '0 auto',
-              height: '100%',
-              maxHeight: '400px',
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              bgcolor: theme.palette.mode === 'dark' ? 'grey.50' : 'secondary.lighter',
-              '& .react-transform-wrapper': { cursor: 'crosshair', height: '100%', maxHeight: '400px', width: '100%' },
-              '& .react-transform-component': { height: '100%', maxHeight: '400px', width: '100%' }
-            }}
-          >
-            <TransformWrapper initialScale={1}>
-              {({ zoomIn, zoomOut, resetTransform }) => (
-                <>
-                  <TransformComponent>
-                    <CardMedia
-                      onClick={() => setModal(!modal)}
-                      component="img"
-                      image={selected}
-                      title="Scroll Zoom"
-                      sx={{ borderRadius: `4px`, position: 'relative' }}
-                    />
-                  </TransformComponent>
-                  <Stack direction="row" className="tools" sx={{ position: 'absolute', bottom: 10, right: 10, zIndex: 1 }}>
-                    <IconButton color="secondary" onClick={() => zoomIn()}>
-                      <ZoomInOutlined style={{ fontSize: '1.15rem' }} />
-                    </IconButton>
-                    <IconButton color="secondary" onClick={() => zoomOut()}>
-                      <ZoomOutOutlined style={{ fontSize: '1.15rem' }} />
-                    </IconButton>
-                    <IconButton color="secondary" onClick={() => resetTransform()}>
-                      <RedoOutlined style={{ fontSize: '1.15rem' }} />
-                    </IconButton>
-                  </Stack>
-                </>
-              )}
-            </TransformWrapper>
-          </MainCard>
-        </Grid>
-        <Grid item xs={12} md={2} lg={3} sx={{ height: '100%' }}>
+  }; <Grid item xs={12} md={2} lg={3} sx={{ height: '100%' }}>
           <Box
             sx={{
               '& .slick-slider': {
@@ -176,6 +149,49 @@ const ProductImages = ({ images }) => {
               })
             }}
           >
+        <Grid item xs={12} md={10} lg={9}>
+          <MainCard
+            content={false}
+            border={false}
+            boxShadow={false}
+            shadow="0"
+            sx={{
+              m: '0 auto',
+              height: '100%',
+              maxHeight: '400px',
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              bgcolor: theme.palette.mode === 'dark' ? 'grey.50' : 'secondary.lighter',
+              '& .react-transform-wrapper': { cursor: 'crosshair', height: '100%', maxHeight: '400px', width: '100%' },
+              '& .react-transform-component': { height: '100%', maxHeight: '400px', width: '100%' }
+            }}
+          >
+            <TransformWrapper initialScale={1}>
+              {({ zoomIn, zoomOut, resetTransform }) => (
+                <>
+                  <TransformComponent>
+                   
+                  </TransformComponent>
+                  <Stack direction="row" className="tools" sx={{ position: 'absolute', bottom: 10, right: 10, zIndex: 1 }}>
+                    <IconButton color="secondary" onClick={() => zoomIn()}>
+                      <ZoomInOutlined style={{ fontSize: '1.15rem' }} />
+                    </IconButton>
+                    <IconButton color="secondary" onClick={() => zoomOut()}>
+                      <ZoomOutOutlined style={{ fontSize: '1.15rem' }} />
+                    </IconButton>
+                    <IconButton color="secondary" onClick={() => resetTransform()}>
+                      <RedoOutlined style={{ fontSize: '1.15rem' }} />
+                    </IconButton>
+                  </Stack>
+                </>
+              )}
+            </TransformWrapper>
+          </MainCard>
+        </Grid>
+
+
+
             <Slider {...settings}>
               {images.map((item, index) => (
                 <Box key={index} onClick={() => setSelected(item.fileUrl)} sx={{ p: 1 }}>
@@ -195,13 +211,4 @@ const ProductImages = ({ images }) => {
             </Slider>
           </Box>
         </Grid>
-      </Grid>
-    </>
-  );
-};
-
-ProductImages.propTypes = {
-  images: PropTypes.array
-};
-
-export default ProductImages;
+ */

@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import { Box, Grid } from '@mui/material';
 
 // project imports
-import ProductImages from 'sections/apps/e-commerce/product-details/ProductImages';
 import ProductInfo from './ProductInfo';
 import MainCard from 'components/MainCard';
 import { getGig } from 'hooks/gigs';
@@ -44,21 +43,20 @@ const ProductDetails = () => {
   }
 
   return (
-    <Grid container spacing={3} sx={{ padding: '15px' }}>
-      <Grid item xs={12} md={3}>
+    <Grid container spacing={3} sx={{ padding: '15px', backgroundColor: '#ffffff', color: '#111'}}>
+      <Grid item  xs={12} md={3}>
         <ProfileTabs user={gig?.user} />
       </Grid>
       <Grid item xs={12} md={9}>
         {gig && (
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <MainCard>
+              <MainCard sx={{backgroundColor: '#fff', color: '#111'}}> 
                 <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
-                    <ProductImages images={gig.files} />
+                <Grid item xs={12} sm={1}>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <ProductInfo gig={gig} />
+                  <Grid item xs={12} sm={10}>
+                    <ProductInfo user={gig?.user} gig={gig} />
                   </Grid>
                 </Grid>
               </MainCard>
