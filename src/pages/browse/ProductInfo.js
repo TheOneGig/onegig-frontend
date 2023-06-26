@@ -22,7 +22,6 @@ import { showNotification } from '@mantine/notifications';
 const ProductInfo = ({ gig, user }) => {
  const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
   const [opened, setOpened] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const [emailOpened, setEmailOpened] = useState(false);
 
   const theme = useTheme()
@@ -110,7 +109,6 @@ const ProductInfo = ({ gig, user }) => {
               :
               (<></>)
           }
-        
         </Stack>
         {/* <Stack spacing={2.5}>
           {
