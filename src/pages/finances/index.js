@@ -144,6 +144,7 @@ const TransactionsTable = ({ striped, title }) => {
       setTransactionType('REVENUE');
       setDate(new Date());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transaction]);
 
   const columns = useMemo(
@@ -220,18 +221,18 @@ const TransactionsTable = ({ striped, title }) => {
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
         <Tooltip
-            label="Add a new transaction "
-            position="right"
-            transition="fade"
-            style={{
-              backgroundColor: '#3333',
-              borderRadius: 6,
-              padding: '12px 16px',
-              color: '#fff',
-              fontSize: 12,
-              transition: 0.3
-            }}
-          >
+          label="Add a new transaction "
+          position="right"
+          transition="fade"
+          style={{
+            backgroundColor: '#3333',
+            borderRadius: 6,
+            padding: '12px 16px',
+            color: '#fff',
+            fontSize: 12,
+            transition: 0.3
+          }}
+        >
           <Button
             onClick={() => {
               setTransaction();

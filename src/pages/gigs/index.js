@@ -34,7 +34,7 @@ const Gigs = () => {
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
-      <Tooltip
+        <Tooltip
           label="Create a new gig "
           position="right"
           transition="fade"
