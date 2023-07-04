@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
-import { Box, Button, Drawer, Group, NumberInput, Textarea, TextInput, Title } from '@mantine/core';
-import { useForm, hasLength, isInRange, isEmail } from '@mantine/form';
+import { Box, Button, Drawer, Group, Textarea, TextInput, Title } from '@mantine/core';
+import { useForm, hasLength, isEmail } from '@mantine/form';
 import { createLead } from 'hooks/gigs';
 import PropTypes from 'prop-types';
 import { openSnackbar } from 'store/reducers/snackbar';
