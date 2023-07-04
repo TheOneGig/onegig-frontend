@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
-import { Divider, Grid, TextField, Stack, Typography, Chip, CardHeader } from '@mui/material';
+import { useState } from 'react';
+import { Divider, Grid, TextField, Stack, Typography, Chip, CardHeader, Button } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { IconSend } from '@tabler/icons-react';
 
 // project import
 import MainCard from 'components/MainCard';
 import Avatar from 'components/@extended/Avatar';
+import ContactSeller from './contactSeller';
 
 // assets
 import avatar1 from 'assets/images/users/avatar-1.png';
@@ -13,6 +17,8 @@ import avatar1 from 'assets/images/users/avatar-1.png';
 const ProfileTabs = ({ user }) => {
   const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
   const activeProjects = ownedProjects.filter((project) => project.status !== 'ARCHIVED' && project.status !== 'LEAD');
+  const [opened, setOpened] = useState(false);
+  const theme = useTheme();
 
   return (
     <MainCard>
@@ -37,6 +43,27 @@ const ProfileTabs = ({ user }) => {
               <Typography color="secondary">+1{phone}</Typography>
             </Stack>
           </Stack>
+        </Grid>
+        <Grid item sm={12}>
+          <Button
+            fullWidth
+            color="primary"
+            variant="outlined"
+            size="large"
+            sx={{
+              borderRadius: '50px',
+              padding: '10px 30px',
+              '&:hover': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                transition: '0.3s'
+              }
+            }}
+            onClick={() => setOpened(true)}
+          >
+            <IconSend style={{ marginRight: 5 }} /> Contact Seller
+          </Button>
+          <ContactSeller opened={opened} setOpened={setOpened} />
         </Grid>
         <Grid item sm={3} sx={{ display: { sm: 'block', md: 'none' } }} />
         <Grid item xs={12} sm={6} md={12}>

@@ -65,9 +65,9 @@ const ProductDetails = () => {
             </Grid>
           </Grid>
         )}
-      </Grid>
-      <Grid item xs={12} sm={12}>
-        <RelatedGigs user={gig?.user} />
+        <Grid item xs={12} sm={12}>
+          <RelatedGigs user={gig?.user} />
+        </Grid>
       </Grid>
     </Grid>
   );
