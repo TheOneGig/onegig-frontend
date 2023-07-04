@@ -1,8 +1,8 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 import PropTypes from 'prop-types';
 // material-ui
 //import { useTheme } from '@mui/material/styles';
-import {  CardMedia, Grid } from '@mui/material';
+import { CardMedia } from '@mui/material';
 
 // project import
 // import MainCard from 'components/MainCard';
@@ -20,16 +20,15 @@ import {  CardMedia, Grid } from '@mui/material';
 
 const ProductImages = ({ images }) => {
   const initialImage = images[0]?.fileUrl ? images[0].fileUrl : '';
- 
 
   return (
-    <>   
-        <CardMedia
-          component="img"
-          image={initialImage}
-          title="productimg"
-          sx={{ borderRadius: `4px`, position: 'relative', maxHeight: 400 }}
-        />
+    <>
+      <CardMedia
+        component="img"
+        image={initialImage}
+        title="productimg"
+        sx={{ borderRadius: `4px`, position: 'relative', maxHeight: 400 }}
+      />
     </>
   );
 };
@@ -39,8 +38,6 @@ ProductImages.propTypes = {
 };
 
 export default ProductImages;
-
-
 
 /**
  * 

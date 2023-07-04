@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
-import { Box, Button, Drawer, Group, NumberInput, Textarea, TextInput, Title } from '@mantine/core';
-import { useForm, hasLength, isInRange, isEmail } from '@mantine/form';
+import { Box, Button, Drawer, Group, Textarea, TextInput, Title } from '@mantine/core';
+import { useForm, hasLength, isEmail } from '@mantine/form';
 import { createLead } from 'hooks/gigs';
 import PropTypes from 'prop-types';
 import { openSnackbar } from 'store/reducers/snackbar';
@@ -28,18 +28,18 @@ const ContactSeller = ({ opened, setOpened }) => {
     initialValues: {
       name: '',
       email: '',
-      message: '',
+      message: ''
     },
 
     validate: {
       name: hasLength({ min: 2, max: 20 }, 'Name must be 2-20 characters long'),
       email: isEmail('Invalid email'),
-      message: hasLength({ min: 5, max: 140 }, 'Name must be 5-140 characters long'),
+      message: hasLength({ min: 5, max: 140 }, 'Name must be 5-140 characters long')
     }
   });
 
   function handleSubmit(values) {
-    const variables = {name: values.name, email: values.email, message: values.message};
+    const variables = { name: values.name, email: values.email, message: values.message };
     return mutate({ variables });
   }
 
@@ -48,7 +48,11 @@ const ContactSeller = ({ opened, setOpened }) => {
       <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))} sx={{ paddingTop: '40px' }}>
         <Title order={1}>{`Contact the Seller`}</Title>
 
-        <p> Do you have any questions? Send a message to the seller. This is in no way a commitment. We will contact you as soon as possible so we can start a conversation about what you need.</p>
+        <p>
+          {' '}
+          Do you have any questions? Send a message to the seller. This is in no way a commitment. We will contact you as soon as possible
+          so we can start a conversation about what you need.
+        </p>
 
         <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
 

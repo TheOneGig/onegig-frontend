@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 
 import { Button, Stack, Typography } from '@mui/material';
 
-
 // assets
 import { formatUSD } from 'utils/formatUSD';
 import ProjectLead from './drawerInterested';
 import { createGigPayment } from 'hooks/stripe';
-import { Box, Drawer, Group, TextInput, Title, Divider, List, Popover, Text } from '@mantine/core';
-import ProductImages from 'sections/apps/e-commerce/product-details/ProductImages'
+import { Box, Drawer, Group, TextInput, Title, Divider, List } from '@mantine/core';
+import ProductImages from 'sections/apps/e-commerce/product-details/ProductImages';
 import { hasLength, isEmail, useForm } from '@mantine/form';
 import { useTheme } from '@mui/material/styles';
 import { IconShare, IconCheck } from '@tabler/icons-react';
@@ -19,13 +18,13 @@ import { showNotification } from '@mantine/notifications';
 
 // ==============================|| PRODUCT DETAILS - INFORMATION ||============================== //
 
-const ProductInfo = ({ gig, user }) => {
- const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
+const ProductInfo = ({ gig }) => {
+  // const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
   const [opened, setOpened] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  //const [isOpen, setIsOpen] = useState(false);
   const [emailOpened, setEmailOpened] = useState(false);
 
-  const theme = useTheme()
+  const theme = useTheme();
   const { mutate, isLoading } = useMutation(['createGigPayment'], (variables) => createGigPayment(variables), {
     onSuccess: (data) => {
       window.open(data.url, '_blank');
@@ -64,7 +63,7 @@ const ProductInfo = ({ gig, user }) => {
   //const requirements = gig.requirements.split(',')
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href)
+    navigator.clipboard.writeText(window.location.href);
     showNotification({
       id: 'copy-url',
       color: 'teal',
@@ -73,44 +72,44 @@ const ProductInfo = ({ gig, user }) => {
       icon: <IconCheck size="1rem" />,
       autoClose: 2000
     });
-  } 
+  };
 
   return (
-    <Stack spacing={2.5} >
-      <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{  mt: 4 }} >
-         <Typography variant="h2" sx={{fontSize: '2.5rem'}} >{gig.name}</Typography>
-         <IconShare style={{color: theme.palette.primary.light, cursor: 'pointer'}} onClick={copyToClipboard} />
+    <Stack spacing={2.5}>
+      <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{ mt: 4 }}>
+        <Typography variant="h2" sx={{ fontSize: '2.5rem' }}>
+          {gig.name}
+        </Typography>
+        <IconShare style={{ color: theme.palette.primary.light, cursor: 'pointer' }} onClick={copyToClipboard} />
       </Stack>
       <Stack spacing={2.5}>
-      <Divider sx={{ marginBottom: 2 }} />
-      <Stack direction="row" alignItems="center" spacing={2}>
-       <Typography sx={{ color: theme.palette.primary.light, }} variant="h4" >{` Starting Price: ${formatUSD(gig.price)}`}</Typography>
+        <Divider sx={{ marginBottom: 2 }} />
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Typography sx={{ color: theme.palette.primary.light }} variant="h4">{` Starting Price: ${formatUSD(gig.price)}`}</Typography>
+        </Stack>
+        <Divider sx={{ marginBottom: 2 }} />
       </Stack>
-      <Divider sx={{ marginBottom: 2 }} />
-      </Stack>
-      <Stack spacing={4} >
+      <Stack spacing={4}>
         <Stack spacing={2.5}>
-          <Typography variant="h4" sx={{ mt: 2 }}>Description:</Typography>
-          <Typography variant='h5'>{gig.description}</Typography>
+          <Typography variant="h4" sx={{ mt: 2 }}>
+            Description:
+          </Typography>
+          <Typography variant="h5">{gig.description}</Typography>
         </Stack>
         <ProductImages images={gig.files} />
         <Stack spacing={2.5}>
-          {
-            deliverables ? 
-              ( 
-                <>
-                  <Typography variant="h4" >Deliverables:</Typography>
-                    <List  sx={{ color: '#111', fontWeight: 600 }} >
-                      { deliverables.map((deliverable, index) => (
-                    <List.Item key={index}>{deliverable}</List.Item>
-                    ))}
-                  </List>
-                </>
-              ) 
-              :
-              (<></>)
-          }
-        
+          {deliverables ? (
+            <>
+              <Typography variant="h4">Deliverables:</Typography>
+              <List sx={{ color: '#111', fontWeight: 600 }}>
+                {deliverables.map((deliverable, index) => (
+                  <List.Item key={index}>{deliverable}</List.Item>
+                ))}
+              </List>
+            </>
+          ) : (
+            <></>
+          )}
         </Stack>
         {/* <Stack spacing={2.5}>
           {
@@ -130,33 +129,44 @@ const ProductInfo = ({ gig, user }) => {
           }
         
         </Stack> */}
-    
       </Stack>
-      <Stack direction="row" padding={4} spacing={2.5} >
-        <Button fullWidth sx={{
-                  backgroundColor: theme.palette.primary.light,
-                  color: '#f1f1f1',
-                  padding: '10px 30px', 
-                '&:hover': {
-                  backgroundColor: theme.palette.primary.main,
-                  color: theme.palette.primary.contrastText,
-                  transition: '0.3s'
-                  }
-              }}  size="medium" disabled={isLoading} onClick={() => setOpened(true)}>
-            {`I'm Interested`}
-          </Button>
-          <Button fullWidth size="medium" disabled={isLoading} onClick={() => setEmailOpened(true)} sx={{
-                  backgroundColor: theme.palette.primary.light,
-                  color: '#f1f1f1',
-                  padding: '10px 30px', 
-                '&:hover': {
-                  backgroundColor: theme.palette.primary.main,
-                  color: theme.palette.primary.contrastText,
-                  transition: '0.3s'
-                  }
-              }}>
-            {`Request Services`}
-         </Button>
+      <Stack direction="row" padding={4} spacing={2.5}>
+        <Button
+          fullWidth
+          sx={{
+            backgroundColor: theme.palette.primary.light,
+            color: '#f1f1f1',
+            padding: '10px 30px',
+            '&:hover': {
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
+              transition: '0.3s'
+            }
+          }}
+          size="medium"
+          disabled={isLoading}
+          onClick={() => setOpened(true)}
+        >
+          {`I'm Interested`}
+        </Button>
+        <Button
+          fullWidth
+          size="medium"
+          disabled={isLoading}
+          onClick={() => setEmailOpened(true)}
+          sx={{
+            backgroundColor: theme.palette.primary.light,
+            color: '#f1f1f1',
+            padding: '10px 30px',
+            '&:hover': {
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
+              transition: '0.3s'
+            }
+          }}
+        >
+          {`Request Services`}
+        </Button>
       </Stack>
 
       <ProjectLead opened={opened} setOpened={setOpened} gig={gig} />
@@ -186,7 +196,6 @@ const ProductInfo = ({ gig, user }) => {
     </Stack>
   );
 };
-
 
 ProductInfo.propTypes = {
   gig: PropTypes.object
