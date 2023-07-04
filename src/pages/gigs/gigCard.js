@@ -61,7 +61,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
   }
   return (
     <>
-      <Grid.Col key={gig.gigId} xs={12} lg={4} sm={6}>
+      <Grid.Col key={gig.gigId} xs={12} lg={4} sm={6} mb={10}>
         <Card className="card-design" shadow="sm" p="lg" radius="md" withBorder>
           <Card.Section>
             <Image src={gig.files?.length > 0 ? gig.files[0].fileUrl : OneGigLogo} alt="Gig" className="gig-card-image" />

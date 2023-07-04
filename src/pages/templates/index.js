@@ -47,7 +47,7 @@ const TemplatesPage = () => {
       <Grid justify="start" ml={1}>
         {templates.map((template, index) => (
           <Box key={index} mt={20} mr={40}>
-            <SingleTemplateCard key={template.templateId} refetch={refetch} isLoading={isLoading} template={template} />
+            <SingleTemplateCard refetch={refetch} template={template} />
           </Box>
         ))}
       </Grid>

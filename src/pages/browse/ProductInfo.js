@@ -22,7 +22,6 @@ const ProductInfo = ({ gig }) => {
   // const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
   const [opened, setOpened] = useState(false);
   const [emailOpened, setEmailOpened] = useState(false);
-
   const theme = useTheme();
   const { mutate, isLoading } = useMutation(['createGigPayment'], (variables) => createGigPayment(variables), {
     onSuccess: (data) => {

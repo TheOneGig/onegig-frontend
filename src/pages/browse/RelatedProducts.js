@@ -19,7 +19,7 @@ const RelatedGigs = ({ user, gigId }) => {
   }
 
   const gigOptions = gigs.filter((gig) => gig.published == true && gig.gigId !== gigId);
-
+  
   const ArrowLeft = (props) => (
     <Box
       {...props}
