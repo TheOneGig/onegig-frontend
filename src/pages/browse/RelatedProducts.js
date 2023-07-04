@@ -17,9 +17,8 @@ const RelatedGigs = ({ user, gigId }) => {
   if (isLoading) {
     return <div>Loading related gigs...</div>;
   }
-
   const gigOptions = gigs.filter((gig) => gig.published == true && gig.gigId !== gigId);
-  
+
   const ArrowLeft = (props) => (
     <Box
       {...props}
@@ -81,7 +80,8 @@ const RelatedGigs = ({ user, gigId }) => {
 };
 
 RelatedGigs.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  gigId: PropTypes.number.isRequired
 };
 
 export default RelatedGigs;
