@@ -40,7 +40,7 @@ const ProductDetails = () => {
   const { data: gig, isLoading } = useQuery(['gig'], () => getGig({ gigId: id }));
 
   if (isLoading) {
-    return <div>Loading gig...</div>
+    return <div>Loading gig...</div>;
   }
 
   return (
@@ -54,7 +54,7 @@ const ProductDetails = () => {
             <Grid item xs={12}>
               <MainCard>
                 <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={6}>
                     <ProductImages images={gig.files} />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -66,11 +66,11 @@ const ProductDetails = () => {
           </Grid>
         )}
         <Grid item xs={12} sm={12}>
-        <RelatedGigs user={gig?.user} />
-      </Grid>
+          <RelatedGigs user={gig?.user} />
+        </Grid>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
 export default ProductDetails;

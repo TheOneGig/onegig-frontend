@@ -12,7 +12,6 @@ import ContactSeller from './contactSeller';
 // assets
 import avatar1 from 'assets/images/users/avatar-1.png';
 
-
 // ==============================|| USER PROFILE - TAB CONTENT ||============================== //
 
 const ProfileTabs = ({ user }) => {
@@ -20,7 +19,6 @@ const ProfileTabs = ({ user }) => {
   const activeProjects = ownedProjects.filter((project) => project.status !== 'ARCHIVED' && project.status !== 'LEAD');
   const [opened, setOpened] = useState(false);
   const theme = useTheme();
-  
 
   return (
     <MainCard>
@@ -46,24 +44,29 @@ const ProfileTabs = ({ user }) => {
             </Stack>
           </Stack>
         </Grid>
-        <Grid item sm={12}  >
-          <Button fullWidth color="primary" variant="outlined" size="large" 
+        <Grid item sm={12}>
+          <Button
+            fullWidth
+            color="primary"
+            variant="outlined"
+            size="large"
             sx={{
-                borderRadius: '50px',
-                padding: '10px 30px', 
+              borderRadius: '50px',
+              padding: '10px 30px',
               '&:hover': {
                 backgroundColor: theme.palette.primary.main,
                 color: theme.palette.primary.contrastText,
                 transition: '0.3s'
-                }
-            }} onClick={() => setOpened(true)}>
-            <IconSend style={{ marginRight: 5 }}/> Contact Seller
+              }
+            }}
+            onClick={() => setOpened(true)}
+          >
+            <IconSend style={{ marginRight: 5 }} /> Contact Seller
           </Button>
           <ContactSeller opened={opened} setOpened={setOpened} />
-        </Grid>    
+        </Grid>
         <Grid item sm={3} sx={{ display: { sm: 'block', md: 'none' } }} />
         <Grid item xs={12} sm={6} md={12}>
-       
           <Stack direction="row" justifyContent="space-around" alignItems="center">
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">{gigs.length}</Typography>

@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
 import MainCard from 'components/MainCard';
 import GigCard from './gigCard';
-import Slider from "react-slick";
+import Slider from 'react-slick';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { useQuery } from 'react-query';
 import { getGigs } from 'hooks/gigs';
 
-
 const RelatedGigs = ({ user }) => {
   const { fname, lname, userId } = user;
-  const { data: gigs, isLoading } = useQuery(['gigs'], () => getGigs({userId}));
+  const { data: gigs, isLoading } = useQuery(['gigs'], () => getGigs({ userId }));
 
   if (isLoading) {
     return <div>Loading related gigs...</div>;
@@ -58,7 +57,7 @@ const RelatedGigs = ({ user }) => {
     prevArrow: <ArrowLeft />,
     nextArrow: <ArrowRight />,
     slideMargin: 10
-  };  
+  };
   return (
     <>
       <Typography variant="h4" sx={{ margin: '20px 0px 10px 0px' }}>
@@ -66,8 +65,8 @@ const RelatedGigs = ({ user }) => {
       </Typography>
       <Slider {...settings}>
         {gigs.map((gig) => (
-          <Box key={gig.gigId} sx={{padding: '0 10px' }}>
-            <MainCard >
+          <Box key={gig.gigId} sx={{ padding: '0 10px' }}>
+            <MainCard>
               <GigCard gig={gig} />
             </MainCard>
           </Box>
@@ -78,7 +77,7 @@ const RelatedGigs = ({ user }) => {
 };
 
 RelatedGigs.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default RelatedGigs;

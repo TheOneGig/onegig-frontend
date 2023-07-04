@@ -17,8 +17,8 @@ import { useTheme } from '@mui/material/styles';
 const ProductInfo = ({ gig }) => {
   const [opened, setOpened] = useState(false);
   const [emailOpened, setEmailOpened] = useState(false);
-  const [saved, setSaved] = useState(false) 
-  const theme = useTheme()
+  const [saved, setSaved] = useState(false);
+  const theme = useTheme();
   const { mutate, isLoading } = useMutation(['createGigPayment'], (variables) => createGigPayment(variables), {
     onSuccess: (data) => {
       window.open(data.url, '_blank');
@@ -49,8 +49,8 @@ const ProductInfo = ({ gig }) => {
       phone: values.phone,
       debug: false,
       returnBaseUrl: window.location.origin
-    }
-    return mutate({ variables })
+    };
+    return mutate({ variables });
   }
 
   const deliverables = gig.deliverables.split(',');
@@ -58,8 +58,10 @@ const ProductInfo = ({ gig }) => {
   return (
     <Stack spacing={2.5}>
       <Stack direction="row" alignItems="center" spacing={14}>
-        <Typography color="primary"  variant="h3">{gig.name}</Typography>
-          <Typography variant="h3">{formatUSD(gig.price)}</Typography>
+        <Typography color="primary" variant="h3">
+          {gig.name}
+        </Typography>
+        <Typography variant="h3">{formatUSD(gig.price)}</Typography>
       </Stack>
       <Stack direction="column" spacing={2}>
         <Typography variant="h4">Deliverables:</Typography>
@@ -71,51 +73,76 @@ const ProductInfo = ({ gig }) => {
         <Typography style={{ textAlign: 'justify' }}>{gig.description}</Typography>
       </Stack>
       <Stack direction="row" spacing={3.5} sx={{ mt: 4 }}>
-      <Button color="primary" sx={{
-                 borderRadius: '100%',
-                 padding: '20px 20px',
-              '&:hover': {
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
-                transition: '0.3s'
-                }
-            }} variant="outlined" size="large" disabled={isLoading} onClick={() => setOpened(true)}>
-         button
-        </Button>
-        <Button color="primary"  variant="outlined" size="large" disabled={isLoading} onClick={() => setEmailOpened(true)} sx={{
-                 borderRadius: '100%',
-                 padding: '20px 20px',
-              '&:hover': {
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
-                transition: '0.3s'
-                }
-            }}>
-       button
-        </Button>
-        <Button color="primary" variant="outlined" disabled={isLoading} sx={{
-                borderRadius: '100%',
-                padding: '20px 20px',
-                
-              '&:hover': {
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
-                transition: '0.3s'
-                }
-            }} >
+        <Button
+          color="primary"
+          sx={{
+            borderRadius: '100%',
+            padding: '20px 20px',
+            '&:hover': {
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
+              transition: '0.3s'
+            }
+          }}
+          variant="outlined"
+          size="large"
+          disabled={isLoading}
+          onClick={() => setOpened(true)}
+        >
           button
         </Button>
-        <Button color="primary" variant="outlined" disabled={isLoading} sx={{
-                borderRadius: '100%',
-                padding: '20px 20px',
-                
-              '&:hover': {
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
-                transition: '0.3s'
-                }
-            }} onClick={() => setSaved(!saved)}>
-         { saved ? (button) : (button)}
+        <Button
+          color="primary"
+          variant="outlined"
+          size="large"
+          disabled={isLoading}
+          onClick={() => setEmailOpened(true)}
+          sx={{
+            borderRadius: '100%',
+            padding: '20px 20px',
+            '&:hover': {
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
+              transition: '0.3s'
+            }
+          }}
+        >
+          button
+        </Button>
+        <Button
+          color="primary"
+          variant="outlined"
+          disabled={isLoading}
+          sx={{
+            borderRadius: '100%',
+            padding: '20px 20px',
+
+            '&:hover': {
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
+              transition: '0.3s'
+            }
+          }}
+        >
+          button
+        </Button>
+        <Button
+          color="primary"
+          variant="outlined"
+          disabled={isLoading}
+          sx={{
+            borderRadius: '100%',
+            padding: '20px 20px',
+
+            '&:hover': {
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
+              transition: '0.3s'
+            }
+          }}
+          onClick={() => setSaved(!saved)}
+        >
+          {saved ? button : button}
         </Button>
       </Stack>
 
