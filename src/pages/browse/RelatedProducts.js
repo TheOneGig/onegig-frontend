@@ -19,7 +19,7 @@ const RelatedGigs = ({ user }) => {
   }
 
   const gigOptions = gigs.filter((gig) => gig.published == true);
-
+  
   const ArrowLeft = (props) => (
     <Box
       {...props}

@@ -56,6 +56,10 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
         autoClose: 3000
       });
       form.reset();
+      setFile();
+      setCategory(null);
+      setOpenNewDeliverable(false);
+      setDeliverables([]);
     }
   });
   const form = useForm({

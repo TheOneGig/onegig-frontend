@@ -23,7 +23,6 @@ const ProductInfo = ({ gig }) => {
   const [opened, setOpened] = useState(false);
   //const [isOpen, setIsOpen] = useState(false);
   const [emailOpened, setEmailOpened] = useState(false);
-
   const theme = useTheme();
   const { mutate, isLoading } = useMutation(['createGigPayment'], (variables) => createGigPayment(variables), {
     onSuccess: (data) => {
@@ -137,6 +136,7 @@ const ProductInfo = ({ gig }) => {
             backgroundColor: theme.palette.primary.light,
             color: '#f1f1f1',
             padding: '10px 30px',
+
             '&:hover': {
               backgroundColor: theme.palette.primary.main,
               color: theme.palette.primary.contrastText,
@@ -158,6 +158,7 @@ const ProductInfo = ({ gig }) => {
             backgroundColor: theme.palette.primary.light,
             color: '#f1f1f1',
             padding: '10px 30px',
+
             '&:hover': {
               backgroundColor: theme.palette.primary.main,
               color: theme.palette.primary.contrastText,
