@@ -40,7 +40,7 @@ const ProductDetails = () => {
   const { data: gig, isLoading } = useQuery(['gig'], () => getGig({ gigId: id }));
 
   if (isLoading) {
-    return <div>Loading gig...</div>;
+    return <div>Loading gig...</div>
   }
 
   return (
@@ -69,9 +69,8 @@ const ProductDetails = () => {
         <RelatedGigs user={gig?.user} />
       </Grid>
       </Grid>
-      
     </Grid>
-  );
-};
+  )
+}
 
 export default ProductDetails;

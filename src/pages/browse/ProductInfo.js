@@ -8,11 +8,9 @@ import { Button, Stack, Typography } from '@mui/material';
 import { formatUSD } from 'utils/formatUSD';
 import ProjectLead from './drawerInterested';
 import { createGigPayment } from 'hooks/stripe';
-import { Box, Drawer, Group, TextInput, Title, Tooltip } from '@mantine/core';
+import { Box, Drawer, Group, TextInput, Title } from '@mantine/core';
 import { hasLength, isEmail, useForm } from '@mantine/form';
 import { useTheme } from '@mui/material/styles';
-import { IconShare, IconShoppingCart, IconHeartPlus, IconMessage, IconHeartFilled} from '@tabler/icons-react';
-
 
 // ==============================|| PRODUCT DETAILS - INFORMATION ||============================== //
 
@@ -51,8 +49,8 @@ const ProductInfo = ({ gig }) => {
       phone: values.phone,
       debug: false,
       returnBaseUrl: window.location.origin
-    };
-    return mutate({ variables });
+    }
+    return mutate({ variables })
   }
 
   const deliverables = gig.deliverables.split(',');
@@ -82,7 +80,7 @@ const ProductInfo = ({ gig }) => {
                 transition: '0.3s'
                 }
             }} variant="outlined" size="large" disabled={isLoading} onClick={() => setOpened(true)}>
-          <IconMessage/>
+         button
         </Button>
         <Button color="primary"  variant="outlined" size="large" disabled={isLoading} onClick={() => setEmailOpened(true)} sx={{
                  borderRadius: '100%',
@@ -93,7 +91,7 @@ const ProductInfo = ({ gig }) => {
                 transition: '0.3s'
                 }
             }}>
-        <IconShoppingCart/>
+       button
         </Button>
         <Button color="primary" variant="outlined" disabled={isLoading} sx={{
                 borderRadius: '100%',
@@ -105,7 +103,7 @@ const ProductInfo = ({ gig }) => {
                 transition: '0.3s'
                 }
             }} >
-          <IconShare />
+          button
         </Button>
         <Button color="primary" variant="outlined" disabled={isLoading} sx={{
                 borderRadius: '100%',
@@ -117,7 +115,7 @@ const ProductInfo = ({ gig }) => {
                 transition: '0.3s'
                 }
             }} onClick={() => setSaved(!saved)}>
-         { saved ? (<IconHeartFilled/>) : (<IconHeartPlus />)}
+         { saved ? (button) : (button)}
         </Button>
       </Stack>
 
