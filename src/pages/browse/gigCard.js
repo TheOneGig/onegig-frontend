@@ -8,20 +8,23 @@ import { useTheme } from '@mui/material/styles';
 
 const GigCard = ({ gig }) => {
   const history = useNavigate();
-  const theme = useTheme()
+  const theme = useTheme();
   return (
-    <Card  shadow="sm" p="lg" radius="md" withBorder sx={{ backgroundColor: '#fff'}}> 
+    <Card shadow="sm" p="lg" radius="md" withBorder sx={{ backgroundColor: '#fff' }}>
       <Card.Section>
         <Image src={gig.files?.length > 0 ? gig.files[0].fileUrl : OneGigLogo} alt="Gig" className="gig-card-image" />
       </Card.Section>
       <Group position="apart" mt="md" mb="xs">
-        <Text sx={{
-          color: theme.palette.primary.light,
-          fontWeight: 600,
-        }} weight={600}>{gig.name}</Text>
-        <Badge className="blue-btn" >
-          {formatUSD(gig.price)}
-        </Badge>
+        <Text
+          sx={{
+            color: theme.palette.primary.light,
+            fontWeight: 600
+          }}
+          weight={600}
+        >
+          {gig.name}
+        </Text>
+        <Badge className="blue-btn">{formatUSD(gig.price)}</Badge>
       </Group>
       <div style={{ height: '80px' }}>
         <Text size="sm" color="dimmed" align="justify">
