@@ -21,7 +21,7 @@ const ProfileTabs = ({ user }) => {
   const theme = useTheme();
 
   return (
-    <MainCard>
+    <MainCard sx={{ backgroundColor: '#fff', color: '#111' }}>
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Stack spacing={2.5} alignItems="center">
@@ -38,19 +38,20 @@ const ProfileTabs = ({ user }) => {
               <Typography variant="h5">
                 {fname} {lname} ({nickname})
               </Typography>
-              <Typography color="secondary">{title}</Typography>
-              <Typography color="secondary">{email}</Typography>
-              <Typography color="secondary">+1{phone}</Typography>
+              <Typography>{title}</Typography>
+              <Typography>{email}</Typography>
+              <Typography>+1{phone}</Typography>
             </Stack>
           </Stack>
         </Grid>
-        <Grid item sm={12}>
+        <Grid item xs={12} sm={12}>
           <Button
             fullWidth
-            color="primary"
-            variant="outlined"
+            variant="outline"
             size="large"
             sx={{
+              backgroundColor: theme.palette.primary.light,
+              color: '#f1f1f1',
               borderRadius: '50px',
               padding: '10px 30px',
               '&:hover': {
@@ -70,29 +71,33 @@ const ProfileTabs = ({ user }) => {
           <Stack direction="row" justifyContent="space-around" alignItems="center">
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">{gigs.length}</Typography>
-              <Typography color="secondary">Gigs</Typography>
+              <Typography>Gigs</Typography>
             </Stack>
-            <Divider orientation="vertical" flexItem />
+            <Divider
+              orientation="vertical"
+              sx={{
+                backgroundColor: '#111'
+              }}
+              flexItem
+            />
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">{activeProjects.length}</Typography>
-              <Typography color="secondary">Active Projects</Typography>
+              <Typography>Active Projects</Typography>
             </Stack>
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          <Typography color="secondary" sx={{ textAlign: 'justify' }}>
-            {description}
-          </Typography>
+          <Typography sx={{ textAlign: 'justify' }}>{description}</Typography>
         </Grid>
         <Grid item xs={12}>
           <CardHeader title="Skills" />
-          <Divider sx={{ marginBottom: 2 }} />
+          <Divider sx={{ marginBottom: 2, backgroundColor: '#111' }} />
           {skills.map((skill) => (
             <Chip
               key={skill.skillId}
               variant="combined"
               label={skill.skill}
-              sx={{ color: 'text.primary', marginRight: 2, marginBottom: 2 }}
+              sx={{ backgroundColor: theme.palette.primary.light, color: 'text.primary', marginRight: 2, marginBottom: 2 }}
             />
           ))}
         </Grid>
@@ -106,3 +111,7 @@ ProfileTabs.propTypes = {
 };
 
 export default ProfileTabs;
+
+/* <Typography color="secondary">{title}</Typography>
+   <Typography color="secondary">{email}</Typography>
+   <Typography color="secondary">+1{phone}</Typography> */

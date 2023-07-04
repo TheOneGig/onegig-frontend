@@ -7,8 +7,10 @@ import { Box } from '@mui/system';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { useQuery } from 'react-query';
 import { getGigs } from 'hooks/gigs';
+import { useTheme } from '@mui/material/styles';
 
 const RelatedGigs = ({ user }) => {
+  const theme = useTheme();
   const { fname, lname, userId } = user;
   const { data: gigs, isLoading } = useQuery(['gigs'], () => getGigs({ userId }));
 
@@ -16,6 +18,8 @@ const RelatedGigs = ({ user }) => {
     return <div>Loading related gigs...</div>;
   }
 
+  const gigOptions = gigs.filter((gig) => gig.published == true);
+  
   const ArrowLeft = (props) => (
     <Box
       {...props}
@@ -28,7 +32,7 @@ const RelatedGigs = ({ user }) => {
         top: '50%'
       }}
     >
-      <LeftOutlined style={{ fontSize: 'medium', color: '#b3b3b3' }} />
+      <LeftOutlined style={{ fontSize: 'large', color: theme.palette.primary.light }} />
     </Box>
   );
 
@@ -44,7 +48,7 @@ const RelatedGigs = ({ user }) => {
         top: '50%'
       }}
     >
-      <RightOutlined style={{ fontSize: 'medium', color: '#b3b3b3' }} />
+      <RightOutlined style={{ fontSize: 'large', color: theme.palette.primary.light }} />
     </Box>
   );
 
@@ -53,7 +57,7 @@ const RelatedGigs = ({ user }) => {
     infinite: false,
     swipeToSlide: true,
     focusOnSelect: false,
-    slidesToShow: 3,
+    slidesToShow: 4,
     prevArrow: <ArrowLeft />,
     nextArrow: <ArrowRight />,
     slideMargin: 10
@@ -61,17 +65,17 @@ const RelatedGigs = ({ user }) => {
   return (
     <>
       <Typography variant="h4" sx={{ margin: '20px 0px 10px 0px' }}>
-        Other Gigs by {fname} {lname}
+        Other Services by {fname} {lname}
       </Typography>
-      <Slider {...settings}>
-        {gigs.map((gig) => (
-          <Box key={gig.gigId} sx={{ padding: '0 10px' }}>
-            <MainCard>
+      <MainCard sx={{ backgroundColor: '#fff', color: '#111' }}>
+        <Slider {...settings}>
+          {gigOptions.map((gig) => (
+            <Box key={gig.gigId} sx={{ padding: '0 10px' }}>
               <GigCard gig={gig} />
-            </MainCard>
-          </Box>
-        ))}
-      </Slider>
+            </Box>
+          ))}
+        </Slider>
+      </MainCard>
     </>
   );
 };

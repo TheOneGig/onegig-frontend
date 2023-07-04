@@ -8,16 +8,21 @@ import { Button, Stack, Typography } from '@mui/material';
 import { formatUSD } from 'utils/formatUSD';
 import ProjectLead from './drawerInterested';
 import { createGigPayment } from 'hooks/stripe';
-import { Box, Drawer, Group, TextInput, Title } from '@mantine/core';
+import { Box, Drawer, Group, TextInput, Title, Divider, List } from '@mantine/core';
+import ProductImages from 'sections/apps/e-commerce/product-details/ProductImages';
 import { hasLength, isEmail, useForm } from '@mantine/form';
 import { useTheme } from '@mui/material/styles';
+import { IconShare, IconCheck } from '@tabler/icons-react';
+
+import { showNotification } from '@mantine/notifications';
 
 // ==============================|| PRODUCT DETAILS - INFORMATION ||============================== //
 
 const ProductInfo = ({ gig }) => {
+  // const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
   const [opened, setOpened] = useState(false);
+  //const [isOpen, setIsOpen] = useState(false);
   const [emailOpened, setEmailOpened] = useState(false);
-  const [saved, setSaved] = useState(false);
   const theme = useTheme();
   const { mutate, isLoading } = useMutation(['createGigPayment'], (variables) => createGigPayment(variables), {
     onSuccess: (data) => {
@@ -54,68 +59,105 @@ const ProductInfo = ({ gig }) => {
   }
 
   const deliverables = gig.deliverables.split(',');
+  //const requirements = gig.requirements.split(',')
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    showNotification({
+      id: 'copy-url',
+      color: 'teal',
+      title: 'URL Copied!',
+      message: 'The URL has been copied to your clipboard.',
+      icon: <IconCheck size="1rem" />,
+      autoClose: 2000
+    });
+  };
 
   return (
     <Stack spacing={2.5}>
-      <Stack direction="row" alignItems="center" spacing={14}>
-        <Typography color="primary" variant="h3">
+      <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{ mt: 4 }}>
+        <Typography variant="h2" sx={{ fontSize: '2.5rem' }}>
           {gig.name}
         </Typography>
-        <Typography variant="h3">{formatUSD(gig.price)}</Typography>
+        <IconShare style={{ color: theme.palette.primary.light, cursor: 'pointer' }} onClick={copyToClipboard} />
       </Stack>
-      <Stack direction="column" spacing={2}>
-        <Typography variant="h4">Deliverables:</Typography>
-        <ul>
-          {deliverables.map((deliverable, index) => (
-            <li key={index}>{deliverable}</li>
-          ))}
-        </ul>
-        <Typography style={{ textAlign: 'justify' }}>{gig.description}</Typography>
+      <Stack spacing={2.5}>
+        <Divider sx={{ marginBottom: 2 }} />
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Typography sx={{ color: theme.palette.primary.light }} variant="h4">{` Starting Price: ${formatUSD(gig.price)}`}</Typography>
+        </Stack>
+        <Divider sx={{ marginBottom: 2 }} />
       </Stack>
-      <Stack direction="row" spacing={3.5} sx={{ mt: 4 }}>
+      <Stack spacing={4}>
+        <Stack spacing={2.5}>
+          <Typography variant="h4" sx={{ mt: 2 }}>
+            Description:
+          </Typography>
+          <Typography variant="h5">{gig.description}</Typography>
+        </Stack>
+        <ProductImages images={gig.files} />
+        <Stack spacing={2.5}>
+          {deliverables ? (
+            <>
+              <Typography variant="h4">Deliverables:</Typography>
+              <List sx={{ color: '#111', fontWeight: 600 }}>
+                {deliverables.map((deliverable, index) => (
+                  <List.Item key={index}>{deliverable}</List.Item>
+                ))}
+              </List>
+            </>
+          ) : (
+            <></>
+          )}
+        </Stack>
+        {/* <Stack spacing={2.5}>
+          {
+            requirements ? 
+              ( 
+                <>
+                  <Typography variant="h4" >Requirements:</Typography>
+                    <List  sx={{ color: '#111', fontWeight: 500 }} >
+                      { requirements.map((requirement, index) => (
+                    <List.Item key={index}>{requirement}</List.Item>
+                    ))}
+                  </List>
+                </>
+              ) 
+              :
+              (<></>)
+          }
+        
+        </Stack> */}
+      </Stack>
+      <Stack direction="row" padding={4} spacing={2.5}>
         <Button
-          color="primary"
+          fullWidth
           sx={{
-            borderRadius: '100%',
-            padding: '20px 20px',
+            backgroundColor: theme.palette.primary.light,
+            color: '#f1f1f1',
+            padding: '10px 30px',
+
             '&:hover': {
               backgroundColor: theme.palette.primary.main,
               color: theme.palette.primary.contrastText,
               transition: '0.3s'
             }
           }}
-          variant="outlined"
-          size="large"
+          size="medium"
           disabled={isLoading}
           onClick={() => setOpened(true)}
         >
-          button
+          {`I'm Interested`}
         </Button>
         <Button
-          color="primary"
-          variant="outlined"
-          size="large"
+          fullWidth
+          size="medium"
           disabled={isLoading}
           onClick={() => setEmailOpened(true)}
           sx={{
-            borderRadius: '100%',
-            padding: '20px 20px',
-            '&:hover': {
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.primary.contrastText,
-              transition: '0.3s'
-            }
-          }}
-        >
-          button
-        </Button>
-        <Button
-          color="primary"
-          variant="outlined"
-          disabled={isLoading}
-          sx={{
-            borderRadius: '100%',
-            padding: '20px 20px',
+            backgroundColor: theme.palette.primary.light,
+            color: '#f1f1f1',
+            padding: '10px 30px',
 
             '&:hover': {
               backgroundColor: theme.palette.primary.main,
@@ -124,25 +166,7 @@ const ProductInfo = ({ gig }) => {
             }
           }}
         >
-          button
-        </Button>
-        <Button
-          color="primary"
-          variant="outlined"
-          disabled={isLoading}
-          sx={{
-            borderRadius: '100%',
-            padding: '20px 20px',
-
-            '&:hover': {
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.primary.contrastText,
-              transition: '0.3s'
-            }
-          }}
-          onClick={() => setSaved(!saved)}
-        >
-          {saved ? button : button}
+          {`Request Services`}
         </Button>
       </Stack>
 
