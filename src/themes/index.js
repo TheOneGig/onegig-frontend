@@ -20,7 +20,7 @@ export default function ThemeCustomization({ children }) {
   const fontFamily = `'Roboto', sans-serif`;
   const themeDirection = 'ltr';
 
-  const [mode, setMode] = useState(localStorage.getItem('mode') || 'dark');
+  const [mode, setMode] = useState(localStorage.getItem('mode') || 'light');
   const presetColor = 'theme3';
 
   // Función para alternar el tema y guardar el nuevo tema en localStorage
