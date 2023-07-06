@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
+import { useTheme } from '@mui/material/styles';
 
 const CustomTooltip = ({ active, payload, label }) => {
+  const theme = useTheme();
   if (active && payload && payload.length) {
     return (
       <div
         style={{
-          backgroundColor: 'hsl(240, 1%, 26%)',
-          color: '#fff',
+          backgroundColor: theme.palette.background.default,
+          color: theme.palette.background.default.paper,
           borderRadius: '5px',
           padding: '8px',
           minWidth: '150px',
