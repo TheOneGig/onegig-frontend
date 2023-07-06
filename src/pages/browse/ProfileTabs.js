@@ -88,7 +88,7 @@ const ProfileTabs = ({ user }) => {
               key={skill.skillId}
               variant="combined"
               label={skill.skill}
-              sx={{ backgroundColor: '#13502f', color: 'text.primary', marginRight: 2, marginBottom: 2 }}
+              sx={{ backgroundColor: '#13502f', color: '#f1f1f1', marginRight: 2, marginBottom: 2 }}
             />
           ))}
         </Grid>
