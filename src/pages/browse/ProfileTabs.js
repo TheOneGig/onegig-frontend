@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Divider, Grid, TextField, Stack, Typography, Chip, CardHeader, Button } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import { IconSend } from '@tabler/icons-react';
 
 // project import
@@ -12,18 +11,15 @@ import ContactSeller from './contactSeller';
 // assets
 import avatar1 from 'assets/images/users/avatar-1.png';
 
-
 // ==============================|| USER PROFILE - TAB CONTENT ||============================== //
 
 const ProfileTabs = ({ user }) => {
   const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
   const activeProjects = ownedProjects.filter((project) => project.status !== 'ARCHIVED' && project.status !== 'LEAD');
   const [opened, setOpened] = useState(false);
-  const theme = useTheme();
-  
 
   return (
-    <MainCard sx={{backgroundColor: '#fff', color: '#111'}}>
+    <MainCard>
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Stack spacing={2.5} alignItems="center">
@@ -40,62 +36,59 @@ const ProfileTabs = ({ user }) => {
               <Typography variant="h5">
                 {fname} {lname} ({nickname})
               </Typography>
-              <Typography >{title}</Typography>
-              <Typography >{email}</Typography>
-              <Typography >+1{phone}</Typography>
+              <Typography>{title}</Typography>
+              <Typography>{email}</Typography>
+              <Typography>+1{phone}</Typography>
             </Stack>
           </Stack>
         </Grid>
-        <Grid item xs={12} sm={12}  >
-          <Button fullWidth  variant='outline' size="large" 
+        <Grid item xs={12} sm={12}>
+          <Button
+            fullWidth
+            variant="outline"
+            size="large"
             sx={{
-                backgroundColor: theme.palette.primary.light,
-                color: '#f1f1f1',
-                borderRadius: '50px',
-                padding: '10px 30px', 
+              backgroundColor: '#13502f',
+              color: '#f1f1f1',
+              borderRadius: '50px',
+              padding: '10px 30px',
               '&:hover': {
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
+                backgroundColor: '#0eba9b',
                 transition: '0.3s'
-                }
-            }} onClick={() => setOpened(true)}>
-            <IconSend style={{ marginRight: 5 }}/> Contact Seller
+              }
+            }}
+            onClick={() => setOpened(true)}
+          >
+            <IconSend style={{ marginRight: 5 }} /> Contact Seller
           </Button>
           <ContactSeller opened={opened} setOpened={setOpened} />
-        </Grid>    
+        </Grid>
         <Grid item sm={3} sx={{ display: { sm: 'block', md: 'none' } }} />
         <Grid item xs={12} sm={6} md={12}>
-       
           <Stack direction="row" justifyContent="space-around" alignItems="center">
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">{gigs.length}</Typography>
-              <Typography >Gigs</Typography>
+              <Typography>Gigs</Typography>
             </Stack>
-            <Divider orientation="vertical" sx={
-              {
-                backgroundColor: '#111'
-              }
-            } flexItem />
+            <Divider orientation="vertical" flexItem />
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">{activeProjects.length}</Typography>
-              <Typography >Active Projects</Typography>
+              <Typography>Active Projects</Typography>
             </Stack>
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          <Typography sx={{ textAlign: 'justify' }}>
-            {description}
-          </Typography>
+          <Typography sx={{ textAlign: 'justify' }}>{description}</Typography>
         </Grid>
         <Grid item xs={12}>
           <CardHeader title="Skills" />
-          <Divider sx={{ marginBottom: 2, backgroundColor: '#111' }} />
+          <Divider sx={{ marginBottom: 2 }} />
           {skills.map((skill) => (
             <Chip
               key={skill.skillId}
               variant="combined"
               label={skill.skill}
-              sx={{backgroundColor: theme.palette.primary.light, color: 'text.primary', marginRight: 2, marginBottom: 2 }}
+              sx={{ backgroundColor: '#13502f', color: 'text.primary', marginRight: 2, marginBottom: 2 }}
             />
           ))}
         </Grid>
@@ -109,7 +102,6 @@ ProfileTabs.propTypes = {
 };
 
 export default ProfileTabs;
-
 
 /* <Typography color="secondary">{title}</Typography>
    <Typography color="secondary">{email}</Typography>

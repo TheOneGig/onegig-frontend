@@ -27,7 +27,7 @@ const Header = ({ open, handleDrawerToggle }) => {
 
   // common header
   const mainHeader = (
-    <Toolbar>
+    <Toolbar sx={{ backgroundColor: theme.palette.background.default, borderBottom: `1px solid ${theme.palette.background.paper}` }}>
       <IconButton
         aria-label="open drawer"
         onClick={handleDrawerToggle}

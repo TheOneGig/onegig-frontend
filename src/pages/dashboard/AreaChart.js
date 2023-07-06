@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Button } from '@mantine/core';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import PropTypes from 'prop-types';
+import { useTheme } from '@mui/material/styles';
 import CustomTooltip from './CustomTooltip';
 
 const Chart = ({ expenses, revenue }) => {
+  const theme = useTheme();
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   const [visibleRange, setVisibleRange] = useState([0, 6]);
@@ -24,12 +26,12 @@ const Chart = ({ expenses, revenue }) => {
   };
 
   return (
-    <div style={{ width: '100%', height: 430, borderRadius: 5, backgroundColor: '#1e1e1e', paddingRight: 20 }}>
+    <div style={{ width: '100%', height: 430, borderRadius: 5, backgroundColor: theme.palette.background.paper, paddingRight: 20 }}>
       <ResponsiveContainer>
         <AreaChart data={data}>
           <CartesianGrid strokeDasharray="1 5" />
-          <XAxis stroke="#c3c3c3" dataKey="month" />
-          <YAxis stroke="#c3c3c3" tickCount={8} />
+          <XAxis stroke={theme.palette.text.primary} dataKey="month" />
+          <YAxis stroke={theme.palette.text.primary} tickCount={8} />
           <Tooltip content={<CustomTooltip />} />
           <Legend verticalAlign="top" height={36} />
           <Area type="monotone" dataKey="expenses" activeDot={{ r: 5 }} stroke="#e76161" fill="#e76161" fillOpacity={0.3} />

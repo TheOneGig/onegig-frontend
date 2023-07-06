@@ -1,3 +1,4 @@
+
 body {
   font-family: 'Montserrat', sans-serif !important;
 }
@@ -61,12 +62,12 @@ h1 {
 }
 
 .grid-area {
-  border: 1px solid rgb(42, 42, 42);
+  /* border: 1px solid rgb(42, 42, 42); */
   /* border: 1px solid #c8c8c8; */
   border-radius: 10px;
   margin: 0px;
-  height: 470px;
-  background-color: #1e1e1e;
+  min-height: 470px;
+  /* background-color: #1e1e1e; */
 }
 
 .gig-card-image {
@@ -189,7 +190,6 @@ h1 {
 }
 
 .card-design {
-  background-color: #121212;
   border: none;
 }
 
@@ -240,4 +240,54 @@ textarea:focus-within {
 .file-image {
   width: 70%;
   margin-top: 10px;
+}
+
+
+.toggle-switch {
+  position: relative;
+  width: 200px;
+}
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 32px;
+}
+
+.toggle-switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #0eba9b;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
 }

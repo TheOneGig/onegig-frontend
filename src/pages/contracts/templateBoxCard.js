@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Image, Text } from '@mantine/core';
+import { Card, Divider, Image, Text } from '@mantine/core';
 import { CheckCircleOutlined } from '@ant-design/icons';
-import templateImg from '../../assets/images/icons/document-icon.png';
 
 const SingleTemplateCard = ({ template, signedPdf, selected, onTemplateSelect }) => {
   const handleClick = () => {
@@ -10,11 +9,11 @@ const SingleTemplateCard = ({ template, signedPdf, selected, onTemplateSelect })
   };
 
   const cardStyle = {
-    borderRadius: '10px',
+    borderRadius: '6px',
     marginBottom: '1rem',
-    width: '280px',
-    border: selected ? '3px solid teal' : '1px solid black',
-    height: '300px',
+    width: '300px',
+    border: selected ? '1px solid #1dbeea' : '1px solid black',
+    height: '240px',
     backgroundColor: '#1e1e1e',
     cursor: 'pointer',
     transition: 'all 0.2s ease-in-out',
@@ -24,11 +23,29 @@ const SingleTemplateCard = ({ template, signedPdf, selected, onTemplateSelect })
   return (
     <>
       <Card style={cardStyle} onClick={handleClick}>
-        {signedPdf === template.templateId ? <CheckCircleOutlined style={{ color: 'teal', fontSize: '28px' }} /> : null}
-        <Image src={templateImg} style={{ margin: 'auto' }} width={200} alt={template.title} />
-        <Text size={'lg'} weight={500} style={{ marginTop: '1rem', textAlign: 'center' }}>
-          {template.title}
+        <Text
+          size={'lg'}
+          weight={600}
+          style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5, textTransform: 'uppercase' }}
+        >
+          {template.title}{' '}
+          {signedPdf === template.templateId ? <CheckCircleOutlined style={{ color: '#1dbeea', fontSize: '24px' }} /> : null}
         </Text>
+        <Divider style={{ marginBottom: 5 }} />
+        <div
+          style={{
+            border: '5px solid #424242',
+            borderRadius: '2px',
+            width: '270px',
+            opacity: '0.9',
+            margin: '0 auto',
+            height: '160px',
+            overflow: 'hidden'
+          }}
+        >
+          <Image src={template.thumbnail} alt={template.title} />
+        </div>
+        <Divider style={{ marginTop: 5 }} />
       </Card>
     </>
   );

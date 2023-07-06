@@ -1,23 +1,36 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useMemo, useState, createContext, useEffect } from 'react';
 
 // material-ui
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-// project import
+// project imports
 import Palette from './palette';
 import Typography from './typography';
 import CustomShadows from './shadows';
 import componentsOverride from './overrides';
+
+// create context
+export const ThemeContext = createContext();
 
 // ==============================|| DEFAULT THEME - MAIN  ||============================== //
 
 export default function ThemeCustomization({ children }) {
   const fontFamily = `'Roboto', sans-serif`;
   const themeDirection = 'ltr';
-  const mode = 'dark';
+
+  const [mode, setMode] = useState(localStorage.getItem('mode') || 'dark');
   const presetColor = 'theme3';
+
+  // Función para alternar el tema y guardar el nuevo tema en localStorage
+  const toggleTheme = () => {
+    setMode((prevMode) => {
+      const newMode = prevMode === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('mode', newMode);
+      return newMode;
+    });
+  };
 
   const theme = useMemo(() => Palette(mode, presetColor), [mode, presetColor]);
 
@@ -54,11 +67,23 @@ export default function ThemeCustomization({ children }) {
   const themes = createTheme(themeOptions);
   themes.components = componentsOverride(themes);
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setMode(localStorage.getItem('mode') === 'dark' ? 'dark' : 'light');
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={themes}>
         <CssBaseline />
-        {children}
+        <ThemeContext.Provider value={{ mode, toggleTheme }}>{children}</ThemeContext.Provider>
       </ThemeProvider>
     </StyledEngineProvider>
   );

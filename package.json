@@ -75,6 +75,7 @@
     "material-ui": "latest",
     "moment": "^2.29.4",
     "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^3.7.107",
     "process": "^0.11.10",
     "prop-types": "^15.8.1",
     "quill": "^1.3.7",

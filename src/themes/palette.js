@@ -12,7 +12,25 @@ import ThemeOption from './theme';
 const Palette = (mode, presetColor) => {
   const colors = presetDarkPalettes;
 
-  let greyPrimary = [
+  // Define colors for dark mode
+  let greyPrimaryDark = [
+    '#000000',
+    '#141414',
+    '#1e1e1e',
+    '#595959',
+    '#8c8c8c',
+    '#bfbfbf',
+    '#d9d9d9',
+    '#f0f0f0',
+    '#f5f5f5',
+    '#fafafa',
+    '#ffffff'
+  ];
+  let greyAscentDark = ['#fafafa', '#bfbfbf', '#434343', '#1f1f1f'];
+  let greyConstantDark = ['#121212', '#d3d8db'];
+
+  // Define colors for light mode
+  let greyPrimaryLight = [
     '#ffffff',
     '#fafafa',
     '#f5f5f5',
@@ -25,15 +43,21 @@ const Palette = (mode, presetColor) => {
     '#141414',
     '#000000'
   ];
-  let greyAscent = ['#fafafa', '#bfbfbf', '#434343', '#1f1f1f'];
-  let greyConstant = ['#fafafb', '#e6ebf1'];
+  let greyAscentLight = ['#121212', '#434343', '#bfbfbf', '#fafafa'];
+  let greyConstantLight = ['#f0f0f0', '#1a2332'];
 
+  // Use colors based on mode
+  let greyPrimary, greyAscent, greyConstant;
   if (mode === 'dark') {
-    greyPrimary = ['#000000', '#141414', '#1e1e1e', '#595959', '#8c8c8c', '#bfbfbf', '#d9d9d9', '#f0f0f0', '#f5f5f5', '#fafafa', '#ffffff'];
-    // greyPrimary.reverse();
-    greyAscent = ['#fafafa', '#bfbfbf', '#434343', '#1f1f1f'];
-    greyConstant = ['#121212', '#d3d8db'];
+    greyPrimary = greyPrimaryDark;
+    greyAscent = greyAscentDark;
+    greyConstant = greyConstantDark;
+  } else {
+    greyPrimary = greyPrimaryLight;
+    greyAscent = greyAscentLight;
+    greyConstant = greyConstantLight;
   }
+
   colors.grey = [...greyPrimary, ...greyAscent, ...greyConstant];
 
   const paletteColor = ThemeOption(colors, presetColor, mode);
@@ -42,7 +66,7 @@ const Palette = (mode, presetColor) => {
     palette: {
       mode,
       common: {
-        black: '#000',
+        black: '#111',
         white: '#fff'
       },
       ...paletteColor,

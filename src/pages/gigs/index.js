@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 // material-ui
 import { Flex, Button, Grid, Title, Tooltip } from '@mantine/core';
 
+import { useTheme } from '@mui/material/styles';
 import useAuth from 'hooks/useAuth';
 import { getGigs } from 'hooks/gigs';
 import GigCreate from './drawerCreate';
@@ -15,6 +16,7 @@ import GigEdit from './drawerEdit';
 const Gigs = () => {
   const [opened, setOpened] = useState(false);
   const [openedEdit, setOpenedEdit] = useState(false);
+  const theme = useTheme();
   const [selectedGig, setSelectedGig] = useState();
   const { user } = useAuth();
   const userId = user.id;
@@ -53,14 +55,14 @@ const Gigs = () => {
         </Tooltip>
       </Flex>
       <Title sx={{ marginBottom: '15px' }}>Published Gigs</Title>
-      <Grid className="grid-area">
+      <Grid className="grid-area" sx={{ backgroundColor: theme.palette.background.paper }}>
         {publishedGigs.map((gig) => {
           return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} share />;
         })}
       </Grid>
 
       <Title sx={{ marginBottom: '15px', marginTop: '15px' }}>Unpublished Gigs</Title>
-      <Grid className="grid-area">
+      <Grid className="grid-area" sx={{ backgroundColor: theme.palette.background.paper }}>
         {unpublishedGigs.map((gig) => {
           return <GigCard key={gig.gigId} gig={gig} refetch={refetch} handleEdit={handleEdit} share={false} />;
         })}

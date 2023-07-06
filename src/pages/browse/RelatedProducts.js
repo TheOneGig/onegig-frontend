@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import MainCard from 'components/MainCard';
 import GigCard from './gigCard';
-import Slider from "react-slick";
+import Slider from 'react-slick';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
@@ -9,18 +9,16 @@ import { useQuery } from 'react-query';
 import { getGigs } from 'hooks/gigs';
 import { useTheme } from '@mui/material/styles';
 
-
-
 const RelatedGigs = ({ user }) => {
-  const theme = useTheme()
+  const theme = useTheme();
   const { fname, lname, userId } = user;
-  const { data: gigs, isLoading } = useQuery(['gigs'], () => getGigs({userId}));
+  const { data: gigs, isLoading } = useQuery(['gigs'], () => getGigs({ userId }));
 
   if (isLoading) {
     return <div>Loading related gigs...</div>;
   }
-  
-  const gigOptions = gigs.filter((gig) => gig.published == true)
+
+  const gigOptions = gigs.filter((gig) => gig.published == true);
 
   const ArrowLeft = (props) => (
     <Box
@@ -34,7 +32,7 @@ const RelatedGigs = ({ user }) => {
         top: '50%'
       }}
     >
-      <LeftOutlined  style={{ fontSize: 'large', color: theme.palette.primary.light }} />
+      <LeftOutlined style={{ fontSize: 'large', color: theme.palette.primary.main }} />
     </Box>
   );
 
@@ -50,7 +48,7 @@ const RelatedGigs = ({ user }) => {
         top: '50%'
       }}
     >
-      <RightOutlined style={{ fontSize: 'large', color: theme.palette.primary.light }} />
+      <RightOutlined style={{ fontSize: 'large', color: theme.palette.primary.main }} />
     </Box>
   );
 
@@ -59,31 +57,31 @@ const RelatedGigs = ({ user }) => {
     infinite: false,
     swipeToSlide: true,
     focusOnSelect: false,
-    slidesToShow: 4, 
+    slidesToShow: 4,
     prevArrow: <ArrowLeft />,
     nextArrow: <ArrowRight />,
     slideMargin: 10
-  };  
+  };
   return (
     <>
       <Typography variant="h4" sx={{ margin: '20px 0px 10px 0px' }}>
         Other Services by {fname} {lname}
       </Typography>
-      <MainCard sx={{backgroundColor: '#fff', color: '#111'}}>
-      <Slider {...settings}>
-        {gigOptions.map((gig) => (
-          <Box key={gig.gigId} sx={{padding: '0 10px' }}>
+      <MainCard>
+        <Slider {...settings}>
+          {gigOptions.map((gig) => (
+            <Box key={gig.gigId} sx={{ padding: '0 10px' }}>
               <GigCard gig={gig} />
-          </Box>
-        ))}
-      </Slider>
+            </Box>
+          ))}
+        </Slider>
       </MainCard>
     </>
   );
 };
 
 RelatedGigs.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default RelatedGigs;
