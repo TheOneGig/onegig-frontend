@@ -43,7 +43,7 @@ const ProductDetails = () => {
   }
 
   return (
-    <Grid container spacing={3} sx={{ padding: '15px', backgroundColor: '#ffffff', color: '#111' }}>
+    <Grid container spacing={3} sx={{ padding: '15px' }}>
       <Grid item xs={12} md={3}>
         <ProfileTabs user={gig?.user} />
       </Grid>
@@ -51,7 +51,7 @@ const ProductDetails = () => {
         {gig && (
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <MainCard sx={{ backgroundColor: '#fff', color: '#111' }}>
+              <MainCard>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={1}></Grid>
                   <Grid item xs={12} sm={10}>

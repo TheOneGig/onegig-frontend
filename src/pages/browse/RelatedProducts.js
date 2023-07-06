@@ -17,6 +17,7 @@ const RelatedGigs = ({ user, gigId }) => {
   if (isLoading) {
     return <div>Loading related gigs...</div>;
   }
+
   const gigOptions = gigs.filter((gig) => gig.published == true && gig.gigId !== gigId);
 
   const ArrowLeft = (props) => (
@@ -31,7 +32,7 @@ const RelatedGigs = ({ user, gigId }) => {
         top: '50%'
       }}
     >
-      <LeftOutlined style={{ fontSize: 'large', color: theme.palette.primary.light }} />
+      <LeftOutlined style={{ fontSize: 'large', color: theme.palette.primary.main }} />
     </Box>
   );
 
@@ -47,7 +48,7 @@ const RelatedGigs = ({ user, gigId }) => {
         top: '50%'
       }}
     >
-      <RightOutlined style={{ fontSize: 'large', color: theme.palette.primary.light }} />
+      <RightOutlined style={{ fontSize: 'large', color: theme.palette.primary.main }} />
     </Box>
   );
 
@@ -66,7 +67,7 @@ const RelatedGigs = ({ user, gigId }) => {
       <Typography variant="h4" sx={{ margin: '20px 0px 10px 0px' }}>
         Other Services by {fname} {lname}
       </Typography>
-      <MainCard sx={{ backgroundColor: '#fff', color: '#111' }}>
+      <MainCard>
         <Slider {...settings}>
           {gigOptions.map((gig) => (
             <Box key={gig.gigId} sx={{ padding: '0 10px' }}>

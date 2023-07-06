@@ -30,7 +30,6 @@ const TemplatesPage = () => {
           position="right"
           transition="fade"
           style={{
-            backgroundColor: '#3333',
             borderRadius: 6,
             padding: '12px 16px',
             color: '#fff',
@@ -43,11 +42,11 @@ const TemplatesPage = () => {
           </Button>
         </Tooltip>
       </Flex>
-      <Title>Templates Created</Title>
+      <Title>Created Templates</Title>
       <Grid justify="start" ml={1}>
         {templates.map((template, index) => (
-          <Box key={index} mt={20} mr={40}>
-            <SingleTemplateCard refetch={refetch} template={template} />
+          <Box key={index} mt={20} mr={30}>
+            <SingleTemplateCard key={template.templateId} refetch={refetch} isLoading={isLoading} template={template} />
           </Box>
         ))}
       </Grid>

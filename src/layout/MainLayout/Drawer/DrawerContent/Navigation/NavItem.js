@@ -106,7 +106,8 @@ const NavItem = ({ item, level }) => {
               alignItems: 'center',
               justifyContent: 'center',
               '&:hover': {
-                bgcolor: theme.palette.mode === 'dark' ? 'secondary.light' : 'secondary.lighter'
+                bgcolor: '#0eba9b',
+                color: theme.palette.secondary.lighter
               }
             }),
             ...(drawerOpen && {

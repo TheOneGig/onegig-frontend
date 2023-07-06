@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { convertToRaw } from 'draft-js';
 import { Button, Container, Modal, Text } from '@mantine/core';
 import { useNavigate } from 'react-router';
-import { exportToPdf } from './exportPdf';
+import { exportToPdf, generateThumbnail } from './exportPdf';
 import TextEditor from './editor';
 import { useMutation } from 'react-query';
 import { showNotification, updateNotification } from '@mantine/notifications';
@@ -30,15 +30,32 @@ const wrapperStyle = {
 const RichTextEditor = ({ title, description, template, userId, editorState, setEditorState, refetch, templateId }) => {
   const { mutate: createTemplateMutation, isLoading } = useMutation(['createTemplate'], (variables) => createTemplate(variables), {
     onSuccess: () => {
+      updateNotification({
+        id: 'load-data',
+        color: 'teal',
+        title: 'Template Saved!',
+        message: 'Congratulations! your template was saved successfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000
+      });
       refetch();
     }
   });
   const { mutate: updateTemplateMutation } = useMutation(['updateTemplate'], (variables) => updateTemplate(variables), {
     onSuccess: () => {
+      updateNotification({
+        id: 'load-data',
+        color: 'teal',
+        title: 'Template Updated!',
+        message: 'Congratulations! your template was saved successfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000
+      });
       refetch();
     }
   });
   const [pdfUrl, setPdfUrl] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
   const navigate = useNavigate();
   const [isModalOpened, setIsModalOpened] = useState(false);
 
@@ -46,60 +63,36 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
     setEditorState(state);
   };
 
-  const handleUpload = (file) => {
-    return new Promise((resolve, reject) => {
-      uploadFile(file[0], config)
-        .then((data) => {
-          setPdfUrl(data.location);
-          resolve(data.location);
-        })
-        .catch((err) => {
-          console.error(err);
-          reject(err);
-        });
-    });
-  };
-
-  const handleSave = () => {
-    const variables = {
-      templateId,
-      title: title,
-      description: description,
-      content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
-      fileUrl: pdfUrl,
-      userId
-    };
-    if (template.templateId) {
-      updateTemplateMutation({ variables });
-    } else {
-      createTemplateMutation({ variables });
+  const handleUpload = useCallback(async (file) => {
+    try {
+      const data = await uploadFile(file[0], config);
+      return data.location;
+    } catch (err) {
+      console.error(err);
+      showNotification({ title: 'Upload error', message: 'Failed to upload the file.', color: 'red' });
     }
-  };
+  }, []);
 
   const handleExportAndUpload = async () => {
-    const pdfFile = await exportToPdf();
-    showNotification({
-      id: 'load-data',
-      loading: true,
-      title: 'Saving your Template',
-      message: 'Template will be saved in a few seconds, please wait...',
-      autoClose: false,
-      withCloseButton: false
-    });
-    handleUpload([pdfFile])
-      .then(() => {
-        updateNotification({
-          id: 'load-data',
-          color: 'teal',
-          title: 'Template Saved!',
-          message: 'Congratulations! your template was saved succesfully, you can close this notification',
-          icon: <IconCheck size="1rem" />,
-          autoClose: 3000
-        });
-      })
-      .catch((error) => {
-        console.error('Error during upload: ', error);
+    try {
+      const pdfFile = await exportToPdf(templateId);
+      showNotification({
+        id: 'load-data',
+        loading: true,
+        title: 'Saving your Template',
+        message: 'Template will be saved in a few seconds, please wait...',
+        autoClose: false,
+        withCloseButton: false
       });
+      const pdfUrl = await handleUpload([pdfFile]);
+      setPdfUrl(pdfUrl);
+
+      const thumbnailBlob = await generateThumbnail(templateId);
+      const thumbnailUrl = await handleUpload([thumbnailBlob]);
+      setThumbnail(thumbnailUrl);
+    } catch (error) {
+      console.error('Error during upload: ', error);
+    }
   };
 
   const handleExport = async () => {
@@ -116,12 +109,39 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
     }
   };
 
+  const handleSave = useCallback(() => {
+    const variables = {
+      templateId,
+      title: title,
+      description: description,
+      content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+      fileUrl: pdfUrl,
+      thumbnail: thumbnail,
+      userId
+    };
+    if (template.templateId) {
+      updateTemplateMutation({ variables });
+    } else {
+      createTemplateMutation({ variables });
+    }
+  }, [
+    template.templateId,
+    templateId,
+    title,
+    description,
+    editorState,
+    pdfUrl,
+    thumbnail,
+    userId,
+    createTemplateMutation,
+    updateTemplateMutation
+  ]);
+
   useEffect(() => {
-    if (pdfUrl) {
+    if (thumbnail) {
       handleSave();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pdfUrl]);
+  }, [pdfUrl, thumbnail, handleSave]);
 
   return (
     <>
@@ -133,10 +153,10 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
       <Button variant="light" onClick={handleExport} style={{ marginLeft: 20 }}>
         Export to PDF
       </Button>
-      <Button variant="light" onClick={handleExportAndUpload} style={{ marginLeft: 20 }} loading={isLoading}>
+      <Button variant="light" color="green" onClick={handleExportAndUpload} style={{ marginLeft: 20 }} loading={isLoading}>
         Save
       </Button>
-      <Button variant="light" color="green" onClick={handleClose} style={{ marginLeft: 20 }}>
+      <Button variant="light" onClick={handleClose} style={{ marginLeft: 20 }}>
         Close
       </Button>
       <Modal

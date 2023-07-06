@@ -8,8 +8,10 @@ import { updatePublishGig, deleteGig } from 'hooks/gigs';
 import { truncate } from 'utils/truncate';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
+import { useTheme } from '@mui/material/styles';
 
 const GigCard = ({ gig, refetch, handleEdit, share }) => {
+  const theme = useTheme();
   const [openedDelete, setOpenedDelete] = useState(false);
   const { mutate: gigDelete, isLoading: loadingDelete } = useMutation(['deleteGig'], (variables) => deleteGig(variables), {
     onSuccess: () => {
@@ -61,8 +63,8 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
   }
   return (
     <>
-      <Grid.Col key={gig.gigId} xs={12} lg={4} sm={6} mb={10}>
-        <Card className="card-design" shadow="sm" p="lg" radius="md" withBorder>
+      <Grid.Col key={gig.gigId} xs={12} lg={4} sm={6}>
+        <Card className="card-design" sx={{ backgroundColor: theme.palette.background.default }} shadow="sm" p="lg" radius="md" withBorder>
           <Card.Section>
             <Image src={gig.files?.length > 0 ? gig.files[0].fileUrl : OneGigLogo} alt="Gig" className="gig-card-image" />
           </Card.Section>

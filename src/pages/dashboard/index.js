@@ -70,7 +70,7 @@ const DashboardDefault = () => {
           primary="Profits"
           secondary={`${formatUSD(profit)}`}
           iconPrimary={RiseOutlined}
-          color={theme.palette.primary.main}
+          color="#0eba9b"
         />
       </Grid>
       <Grid item xs={12} lg={4} sm={6}>
@@ -88,7 +88,7 @@ const DashboardDefault = () => {
           primary="Active Projects"
           secondary={`${activeProjects?.length}`}
           iconPrimary={ContainerOutlined}
-          color="#c8c8c8"
+          color="#303030"
         />
       </Grid>
       <Grid item xs={8} lg={8} sm={8}>

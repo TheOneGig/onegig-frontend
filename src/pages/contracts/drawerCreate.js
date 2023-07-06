@@ -144,7 +144,7 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                     <Grid
                       sx={{
                         marginTop: '10px',
-                        height: '320px',
+                        height: '260px',
                         overflowY: 'scroll'
                       }}
                     >
@@ -261,13 +261,11 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
           </Box>
         ) : (
           <div>
-            <h1>PDF Sign Page</h1>
+            <h1>PDF Sign</h1>
             <Grid
               sx={{
-                overflowY: 'scroll',
+                overflow: 'auto',
                 display: 'flex',
-                height: '80vh',
-                overflowX: 'hidden',
                 justifyContent: 'center'
               }}
             >

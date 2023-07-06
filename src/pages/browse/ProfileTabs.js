@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Divider, Grid, TextField, Stack, Typography, Chip, CardHeader, Button } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import { IconSend } from '@tabler/icons-react';
 
 // project import
@@ -18,10 +17,9 @@ const ProfileTabs = ({ user }) => {
   const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
   const activeProjects = ownedProjects.filter((project) => project.status !== 'ARCHIVED' && project.status !== 'LEAD');
   const [opened, setOpened] = useState(false);
-  const theme = useTheme();
 
   return (
-    <MainCard sx={{ backgroundColor: '#fff', color: '#111' }}>
+    <MainCard>
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Stack spacing={2.5} alignItems="center">
@@ -50,13 +48,12 @@ const ProfileTabs = ({ user }) => {
             variant="outline"
             size="large"
             sx={{
-              backgroundColor: theme.palette.primary.light,
+              backgroundColor: '#13502f',
               color: '#f1f1f1',
               borderRadius: '50px',
               padding: '10px 30px',
               '&:hover': {
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
+                backgroundColor: '#0eba9b',
                 transition: '0.3s'
               }
             }}
@@ -73,13 +70,7 @@ const ProfileTabs = ({ user }) => {
               <Typography variant="h5">{gigs.length}</Typography>
               <Typography>Gigs</Typography>
             </Stack>
-            <Divider
-              orientation="vertical"
-              sx={{
-                backgroundColor: '#111'
-              }}
-              flexItem
-            />
+            <Divider orientation="vertical" flexItem />
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">{activeProjects.length}</Typography>
               <Typography>Active Projects</Typography>
@@ -91,13 +82,13 @@ const ProfileTabs = ({ user }) => {
         </Grid>
         <Grid item xs={12}>
           <CardHeader title="Skills" />
-          <Divider sx={{ marginBottom: 2, backgroundColor: '#111' }} />
+          <Divider sx={{ marginBottom: 2 }} />
           {skills.map((skill) => (
             <Chip
               key={skill.skillId}
               variant="combined"
               label={skill.skill}
-              sx={{ backgroundColor: theme.palette.primary.light, color: 'text.primary', marginRight: 2, marginBottom: 2 }}
+              sx={{ backgroundColor: '#13502f', color: 'text.primary', marginRight: 2, marginBottom: 2 }}
             />
           ))}
         </Grid>

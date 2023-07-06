@@ -11,7 +11,6 @@ import { createGigPayment } from 'hooks/stripe';
 import { Box, Drawer, Group, TextInput, Title, Divider, List } from '@mantine/core';
 import ProductImages from 'sections/apps/e-commerce/product-details/ProductImages';
 import { hasLength, isEmail, useForm } from '@mantine/form';
-import { useTheme } from '@mui/material/styles';
 import { IconShare, IconCheck } from '@tabler/icons-react';
 
 import { showNotification } from '@mantine/notifications';
@@ -19,10 +18,8 @@ import { showNotification } from '@mantine/notifications';
 // ==============================|| PRODUCT DETAILS - INFORMATION ||============================== //
 
 const ProductInfo = ({ gig }) => {
-  // const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
   const [opened, setOpened] = useState(false);
   const [emailOpened, setEmailOpened] = useState(false);
-  const theme = useTheme();
   const { mutate, isLoading } = useMutation(['createGigPayment'], (variables) => createGigPayment(variables), {
     onSuccess: (data) => {
       window.open(data.url, '_blank');
@@ -78,12 +75,31 @@ const ProductInfo = ({ gig }) => {
         <Typography variant="h2" sx={{ fontSize: '2.5rem' }}>
           {gig.name}
         </Typography>
-        <IconShare style={{ color: theme.palette.primary.light, cursor: 'pointer' }} onClick={copyToClipboard} />
+        <IconShare
+          style={{
+            color: '#13502f',
+            cursor: 'pointer',
+            '&:hover': {
+              color: '#0eba9b',
+              transition: '0.3s'
+            }
+          }}
+          onClick={copyToClipboard}
+        />
       </Stack>
       <Stack spacing={2.5}>
         <Divider sx={{ marginBottom: 2 }} />
         <Stack direction="row" alignItems="center" spacing={2}>
-          <Typography sx={{ color: theme.palette.primary.light }} variant="h4">{` Starting Price: ${formatUSD(gig.price)}`}</Typography>
+          <Typography
+            sx={{
+              color: '#13502f',
+              '&:hover': {
+                color: '#0eba9b',
+                transition: '0.3s'
+              }
+            }}
+            variant="h4"
+          >{` Starting Price: ${formatUSD(gig.price)}`}</Typography>
         </Stack>
         <Divider sx={{ marginBottom: 2 }} />
       </Stack>
@@ -132,12 +148,12 @@ const ProductInfo = ({ gig }) => {
         <Button
           fullWidth
           sx={{
-            backgroundColor: theme.palette.primary.light,
+            backgroundColor: '#13502f',
             color: '#f1f1f1',
             padding: '10px 30px',
             '&:hover': {
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.primary.contrastText,
+              backgroundColor: '#0eba9b',
+              color: '#f1f1f1',
               transition: '0.3s'
             }
           }}
@@ -153,12 +169,12 @@ const ProductInfo = ({ gig }) => {
           disabled={isLoading}
           onClick={() => setEmailOpened(true)}
           sx={{
-            backgroundColor: theme.palette.primary.light,
+            backgroundColor: '#13502f',
             color: '#f1f1f1',
             padding: '10px 30px',
             '&:hover': {
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.primary.contrastText,
+              backgroundColor: '#0eba9b',
+              color: '#f1f1f1',
               transition: '0.3s'
             }
           }}

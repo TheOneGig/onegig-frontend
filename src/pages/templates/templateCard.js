@@ -1,35 +1,31 @@
 import React, { useState } from 'react';
-import { Card, Image, Text, Button, Modal } from '@mantine/core';
+import { Card, Image, Text, Button, Modal, Divider } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useMutation } from 'react-query';
 import { deleteTemplate } from 'hooks/templates';
-import templateImg from '../../assets/images/icons/document-icon.png';
 import PropTypes from 'prop-types';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
-import { useMantineTheme } from '@mantine/core';
-
-const StyledCard = styled(Card)`
-  border-radius: 10px;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  width: 300px;
-  border: 1px solid #484848;
-  height: 300px;
-  background-color: #1e1e1e;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    transform: scale(1.02);
-  }
-
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
-`;
+import { useTheme } from '@mui/material/styles';
 
 const SingleTemplateCard = ({ template, refetch }) => {
-  const theme = useMantineTheme();
+  const theme = useTheme();
+  const StyledCard = styled(Card)`
+    margin-bottom: 1rem;
+    width: 340px;
+    height: 310px;
+    border: 1px solid #484848;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.3s ease-in-out;
+    background-color: ${theme.palette.background.paper};
+
+    &:hover {
+      border: 1px solid #0eba9b;
+    }
+  `;
+
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [deleteSelected, setDeleteSelected] = useState(false);
   const navigate = useNavigate();
@@ -64,22 +60,28 @@ const SingleTemplateCard = ({ template, refetch }) => {
     setIsModalOpened(false);
   };
 
+  console.log(template.thumbnail);
+
   return (
     <StyledCard onClick={handleCardClick}>
-      <Image
+      <Divider sx={{ marginTop: 2, marginBottom: 10 }} />
+      <div
         style={{
-          width: '150px',
-          height: '150px',
-          margin: '0 auto'
+          border: '1px solid #055043',
+          borderRadius: '6px',
+          width: '300px',
+          margin: '0 auto',
+          height: '180px',
+          overflow: 'hidden'
         }}
-        src={templateImg}
-        alt={template.title}
-        fit="cover"
-      />
-      <Text size="lg" weight={700} style={{ marginTop: '1rem', textAlign: 'center' }}>
+      >
+        <Image src={template.thumbnail} alt={template.title} />
+      </div>
+      <Divider sx={{ marginTop: 10, marginBottom: 10 }} />
+      <Text size="lg" weight={600} style={{ marginBottom: 2, textAlign: 'center' }}>
         {template.title}
       </Text>
-      <Text size="sm" style={{ margin: '10px 0px 10px 10px' }}>
+      <Text size="sm" style={{ marginBottom: 2 }}>
         {template.description}
       </Text>
       <Modal
