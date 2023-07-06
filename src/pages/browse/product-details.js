@@ -36,7 +36,7 @@ TabPanel.propTypes = {
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const { data: gig, isLoading } = useQuery(['gig'], () => getGig({ gigId: id }));
+  const { data: gig, isLoading } = useQuery(['gig', id], () => getGig({ gigId: id }));
 
   if (isLoading) {
     return <div>Loading gig...</div>;
@@ -64,7 +64,7 @@ const ProductDetails = () => {
         )}
       </Grid>
       <Grid item xs={12} sm={12}>
-        <RelatedGigs user={gig?.user} />
+        <RelatedGigs user={gig?.user} gigId={id} />
       </Grid>
     </Grid>
   );

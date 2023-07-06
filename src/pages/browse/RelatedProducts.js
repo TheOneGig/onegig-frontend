@@ -9,7 +9,7 @@ import { useQuery } from 'react-query';
 import { getGigs } from 'hooks/gigs';
 import { useTheme } from '@mui/material/styles';
 
-const RelatedGigs = ({ user }) => {
+const RelatedGigs = ({ user, gigId }) => {
   const theme = useTheme();
   const { fname, lname, userId } = user;
   const { data: gigs, isLoading } = useQuery(['gigs'], () => getGigs({ userId }));
@@ -17,8 +17,8 @@ const RelatedGigs = ({ user }) => {
   if (isLoading) {
     return <div>Loading related gigs...</div>;
   }
-
-  const gigOptions = gigs.filter((gig) => gig.published == true);
+  
+  const gigOptions = gigs.filter((gig) => gig.published == true && gig.gigId !== gigId);
 
   const ArrowLeft = (props) => (
     <Box
@@ -81,7 +81,8 @@ const RelatedGigs = ({ user }) => {
 };
 
 RelatedGigs.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  gigId: PropTypes.number.isRequired
 };
 
 export default RelatedGigs;

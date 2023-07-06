@@ -10,7 +10,7 @@ const GigCard = ({ gig }) => {
   return (
     <Card shadow="sm" p="lg" radius="md" withBorder>
       <Card.Section>
-        <Image src={gig.files?.length > 0 ? gig.files[0].fileUrl : OneGigLogo} alt="Gig" className="gig-card-image" />
+        <Image src={gig.files.length > 0 ? gig.files[0].fileUrl : OneGigLogo} alt="Gig" className="gig-card-image" />
       </Card.Section>
       <Group position="apart" mt="md" mb="xs">
         <Text weight={600}>{gig.name}</Text>
