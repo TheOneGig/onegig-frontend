@@ -79,7 +79,7 @@ const Profile = () => {
           p: 0.25,
           bgcolor: open ? iconBackColorOpen : 'transparent',
           borderRadius: 1,
-          '&:hover': { bgcolor: '#0eba9b', color: theme.palette.secondary.lighter },
+          '&:hover': { bgcolor: '#1dbeea', color: theme.palette.secondary.lighter },
           '&:focus-visible': {
             outline: `2px solid ${theme.palette.secondary.dark}`,
             outlineOffset: 2

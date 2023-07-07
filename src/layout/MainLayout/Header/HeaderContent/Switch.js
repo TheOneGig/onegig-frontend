@@ -15,10 +15,6 @@ const ThemeSwitch = () => {
     setSwitchState((prevState) => !prevState);
   };
 
-  useEffect(() => {
-    localStorage.setItem('mode', switchState ? 'dark' : 'light');
-  }, [switchState]);
-
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
       <div style={{ width: '60px', color: 'text.primary', bgcolor: 'background.default' }}>

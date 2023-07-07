@@ -4,11 +4,13 @@ import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
 import { formatUSD } from 'utils/formatUSD';
 import { truncate } from 'utils/truncate';
 import { useNavigate } from 'react-router';
+import { useTheme } from '@mui/material/styles';
 
 const GigCard = ({ gig }) => {
   const history = useNavigate();
+  const theme = useTheme();
   return (
-    <Card shadow="sm" p="lg" radius="md" withBorder>
+    <Card shadow="sm" p="lg" radius="md" withBorder sx={{ backgroundColor: theme.palette.background.default }}>
       <Card.Section>
         <Image src={gig.files.length > 0 ? gig.files[0].fileUrl : OneGigLogo} alt="Gig" className="gig-card-image" />
       </Card.Section>
