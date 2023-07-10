@@ -16,7 +16,7 @@ export const ThemeContext = createContext();
 
 // ==============================|| DEFAULT THEME - MAIN  ||============================== //
 
-export default function ThemeCustomization({ children, mode, toggleTheme }) {
+export default function ThemeCustomization({ children, mode, toggleTheme, setMode }) {
   const fontFamily = `'Roboto', sans-serif`;
   const themeDirection = 'ltr';
   const presetColor = 'theme3';
@@ -66,7 +66,7 @@ export default function ThemeCustomization({ children, mode, toggleTheme }) {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, []);
+  }, [setMode]);
 
   return (
     <StyledEngineProvider injectFirst>
@@ -82,4 +82,5 @@ ThemeCustomization.propTypes = {
   children: PropTypes.node,
   mode: PropTypes.string.isRequired,
   toggleTheme: PropTypes.func.isRequired,
+  setMode: PropTypes.func.isRequired
 };

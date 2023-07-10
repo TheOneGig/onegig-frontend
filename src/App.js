@@ -36,7 +36,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: mode }}>
         <NotificationsProvider>
-          <ThemeCustomization mode={mode} toggleTheme={toggleTheme}>
+          <ThemeCustomization mode={mode} toggleTheme={toggleTheme} setMode={setMode}>
             <RTLLayout>
               <Locales>
                 <ScrollTop>

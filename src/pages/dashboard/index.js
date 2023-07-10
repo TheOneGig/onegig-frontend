@@ -3,7 +3,7 @@ import HoverSocialCard from 'components/cards/statistics/HoverSocialCard';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Grid } from '@mui/material';
-import { ContainerOutlined, RiseOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { ContainerOutlined, RiseOutlined, UnorderedListOutlined, CreditCardOutlined } from '@ant-design/icons';
 import Chart from './AreaChart';
 import dayjs from 'dayjs';
 import useAuth from 'hooks/useAuth';
@@ -77,8 +77,8 @@ const DashboardDefault = () => {
         <HoverSocialCard
           pushUrl={'/projects'}
           primary="Account Balance"
-          secondary={`${activeProjects?.length}`}
-          iconPrimary={ContainerOutlined}
+          secondary={`${formatUSD(profit)}`}
+          iconPrimary={CreditCardOutlined}
           color="#303030"
         />
       </Grid>

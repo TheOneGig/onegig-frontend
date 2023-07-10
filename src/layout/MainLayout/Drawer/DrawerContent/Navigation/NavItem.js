@@ -57,7 +57,7 @@ const NavItem = ({ item, level }) => {
   }, [pathname]);
 
   const textColor = theme.palette.mode === 'dark' ? 'grey.400' : 'text.primary';
-  const iconSelectedColor = theme.palette.mode === 'dark' && drawerOpen ? 'text.primary' : 'primary.main';
+  const iconSelectedColor = theme.palette.mode === 'dark' && drawerOpen ? 'text.primary' : '#111';
 
   return (
     <ListItemButton
@@ -71,10 +71,11 @@ const NavItem = ({ item, level }) => {
         py: !drawerOpen && level === 1 ? 1.25 : 1,
         ...(drawerOpen && {
           '&:hover': {
-            bgcolor: theme.palette.mode === 'dark' ? 'divider' : 'primary.lighter'
+            borderRight: `2px solid #1dbeea`,
+            color: iconSelectedColor
           },
           '&.Mui-selected': {
-            borderRight: `2px solid ${theme.palette.primary.main}`,
+            borderRight: `2px solid #1dbeea`,
             color: iconSelectedColor,
             '&:hover': {
               color: iconSelectedColor
@@ -98,7 +99,7 @@ const NavItem = ({ item, level }) => {
         <ListItemIcon
           sx={{
             minWidth: 28,
-            color: isSelected ? iconSelectedColor : textColor,
+            color: textColor,
             ...(!drawerOpen && {
               borderRadius: 1.5,
               width: 36,

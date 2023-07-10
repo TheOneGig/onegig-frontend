@@ -10,6 +10,7 @@ import {
   FundOutlined,
   PicLeftOutlined,
   UnorderedListOutlined,
+  SnippetsOutlined,
   DiffOutlined
 } from '@ant-design/icons';
 import { Tooltip } from '@mantine/core';
@@ -61,6 +62,13 @@ const dashboard = {
       type: 'item',
       url: '/todo',
       icon: UnorderedListOutlined
+    },
+    {
+      id: 'Notes',
+      title: <FormattedMessage id="Notes" />,
+      type: 'item',
+      url: '/notes',
+      icon: SnippetsOutlined
     },
     {
       id: 'Contracts',

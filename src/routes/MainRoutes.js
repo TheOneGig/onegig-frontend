@@ -15,6 +15,7 @@ const Chat = Loadable(lazy(() => import('pages/chat')));
 const Tiers = Loadable(lazy(() => import('pages/tiers')));
 const Transaction = Loadable(lazy(() => import('pages/transaction')));
 const ToDo = Loadable(lazy(() => import('pages/todo')));
+const Notes = Loadable(lazy(() => import('pages/notes')));
 
 const Profile = Loadable(lazy(() => import('pages/profile')));
 const UserTabPersonal = Loadable(lazy(() => import('pages/profile/TabPersonal')));
@@ -169,6 +170,10 @@ const MainRoutes = {
           element: <Resources />
         },
         {
+          path: 'notes/:projectId',
+          element: <Notes />
+        },
+        {
           path: 'chat/:projectId',
           element: <Chat />
         },
@@ -191,6 +196,10 @@ const MainRoutes = {
         {
           path: 'times',
           element: <Times />
+        },
+        {
+          path: 'notes',
+          element: <Notes />
         },
         {
           path: 'contracts',
