@@ -21,6 +21,7 @@ import { NotificationsProvider } from '@mantine/notifications';
 const queryClient = new QueryClient();
 
 const App = () => {
+  // Estado para el tema
   const [mode, setMode] = useState(localStorage.getItem('mode') || 'light');
 
   // Función para alternar el tema y guardar el nuevo tema en localStorage

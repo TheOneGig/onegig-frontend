@@ -60,7 +60,6 @@ const SingleTemplateCard = ({ template, refetch }) => {
     setIsModalOpened(false);
   };
 
-  console.log(template.thumbnail);
 
   return (
     <StyledCard onClick={handleCardClick}>

@@ -76,9 +76,11 @@ const NavItem = ({ item, level }) => {
           },
           '&.Mui-selected': {
             borderRight: `2px solid #1dbeea`,
+            backgroundColor: '#11595f',
             color: iconSelectedColor,
             '&:hover': {
-              color: iconSelectedColor
+              color: iconSelectedColor,
+              backgroundColor: '#11595f',
             }
           }
         }),

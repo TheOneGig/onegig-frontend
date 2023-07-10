@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+                          
 export const getNote= async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/notes/byId', data);
   return response;
@@ -12,13 +12,11 @@ export const getAllNotes = async (data) => {
 
 export const getNotes = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/notes/user', data);
-  console.log('getNotes response:', response);
   return response;
 };
 
 export const createNote = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/notes/create', data.variables);
-  //  console.log("createContract response:", response)
   return response;
 };
 
