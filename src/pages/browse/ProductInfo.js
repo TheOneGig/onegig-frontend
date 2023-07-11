@@ -55,7 +55,6 @@ const ProductInfo = ({ gig }) => {
   }
 
   const deliverables = gig.deliverables.split(',');
-  //const requirements = gig.requirements.split(',')
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -78,11 +77,7 @@ const ProductInfo = ({ gig }) => {
         <IconShare
           style={{
             color: '#13502f',
-            cursor: 'pointer',
-            '&:hover': {
-              color: '#0eba9b',
-              transition: '0.3s'
-            }
+            cursor: 'pointer'
           }}
           onClick={copyToClipboard}
         />
@@ -90,16 +85,7 @@ const ProductInfo = ({ gig }) => {
       <Stack spacing={2.5}>
         <Divider sx={{ marginBottom: 2 }} />
         <Stack direction="row" alignItems="center" spacing={2}>
-          <Typography
-            sx={{
-              color: '#13502f',
-              '&:hover': {
-                color: '#0eba9b',
-                transition: '0.3s'
-              }
-            }}
-            variant="h4"
-          >{` Starting Price: ${formatUSD(gig.price)}`}</Typography>
+          <Typography variant="h4">{` Starting Price: ${formatUSD(gig.price)}`}</Typography>
         </Stack>
         <Divider sx={{ marginBottom: 2 }} />
       </Stack>
