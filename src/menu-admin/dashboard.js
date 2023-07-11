@@ -10,6 +10,7 @@ import {
   FundOutlined,
   PicLeftOutlined,
   UnorderedListOutlined,
+  SnippetsOutlined,
   UserAddOutlined,
   DiffOutlined
 } from '@ant-design/icons';
@@ -62,6 +63,24 @@ const dashboard = {
       type: 'item',
       url: '/todo',
       icon: UnorderedListOutlined
+    },
+    {
+      id: 'Notes',
+      title: <FormattedMessage id="Notes" />,
+      type: 'item',
+      url: '/notes',
+      icon: SnippetsOutlined
+    },
+    {
+      id: 'Contracts',
+      title: (
+        <Tooltip label="Coming Soon" color="#1dbeea">
+          <FormattedMessage id="Contracts" />
+        </Tooltip>
+      ),
+      type: 'item',
+      url: '/contracts',
+      icon: EditOutlined
     },
     {
       id: 'Contracts',

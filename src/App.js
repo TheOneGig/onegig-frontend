@@ -21,6 +21,7 @@ import { NotificationsProvider } from '@mantine/notifications';
 const queryClient = new QueryClient();
 
 const App = () => {
+  // Estado para el tema
   const [mode, setMode] = useState(localStorage.getItem('mode') || 'light');
 
   // Función para alternar el tema y guardar el nuevo tema en localStorage
@@ -36,7 +37,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: mode }}>
         <NotificationsProvider>
-          <ThemeCustomization mode={mode} toggleTheme={toggleTheme}>
+          <ThemeCustomization mode={mode} toggleTheme={toggleTheme} setMode={setMode}>
             <RTLLayout>
               <Locales>
                 <ScrollTop>
