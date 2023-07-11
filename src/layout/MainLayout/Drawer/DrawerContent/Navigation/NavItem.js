@@ -80,7 +80,7 @@ const NavItem = ({ item, level }) => {
             color: iconSelectedColor,
             '&:hover': {
               color: iconSelectedColor,
-              backgroundColor: '#11595f',
+              backgroundColor: '#11595f'
             }
           }
         }),
