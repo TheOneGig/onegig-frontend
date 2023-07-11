@@ -93,8 +93,8 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
               </Button>
             </Grid.Col>
             <Grid.Col span={4}>
-              <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => history(`/resources/${project.projectId}`)}>
-                Resources
+              <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => history(`/projectNotes/${project.projectId}`)}>
+                Notes
               </Button>
             </Grid.Col>
             <Grid.Col span={4}>
@@ -114,6 +114,11 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
             <Grid.Col span={6}>
               <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => setOpened(true)}>
                 Requirements
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => history(`/resources/${project.projectId}`)}>
+                Resources
               </Button>
             </Grid.Col>
             <Grid.Col span={6}>
