@@ -115,7 +115,7 @@ const ProductInfo = ({ gig }) => {
           {deliverables ? (
             <>
               <Typography variant="h4">Deliverables:</Typography>
-              <List sx={{ color: '#111', fontWeight: 600 }}>
+              <List sx={{ fontWeight: 600 }}>
                 {deliverables.map((deliverable, index) => (
                   <List.Item key={index}>{deliverable}</List.Item>
                 ))}

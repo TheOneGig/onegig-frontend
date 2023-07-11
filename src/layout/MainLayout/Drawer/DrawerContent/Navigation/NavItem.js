@@ -106,7 +106,7 @@ const NavItem = ({ item, level }) => {
               alignItems: 'center',
               justifyContent: 'center',
               '&:hover': {
-                bgcolor: '#0eba9b',
+                bgcolor: '#1dbeea',
                 color: theme.palette.secondary.lighter
               }
             }),

@@ -64,7 +64,7 @@ const DashboardDefault = () => {
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 1 */}
-      <Grid item xs={12} lg={4} sm={6}>
+      <Grid item xs={12} lg={3} sm={6}>
         <HoverSocialCard
           pushUrl={'/finances'}
           primary="Profits"
@@ -73,16 +73,25 @@ const DashboardDefault = () => {
           color="#0eba9b"
         />
       </Grid>
-      <Grid item xs={12} lg={4} sm={6}>
+      <Grid item xs={12} lg={3} sm={6}>
+        <HoverSocialCard
+          pushUrl={'/projects'}
+          primary="Account Balance"
+          secondary={`${activeProjects?.length}`}
+          iconPrimary={ContainerOutlined}
+          color="#303030"
+        />
+      </Grid>
+      <Grid item xs={12} lg={3} sm={6}>
         <HoverSocialCard
           pushUrl={'/todo'}
           primary="Pending Tasks"
           secondary={`${pendingTasks?.length}`}
           iconPrimary={UnorderedListOutlined}
-          color={theme.palette.info.main}
+          color='#1dbeea'
         />
       </Grid>
-      <Grid item xs={12} lg={4} sm={6}>
+      <Grid item xs={12} lg={3} sm={6}>
         <HoverSocialCard
           pushUrl={'/projects'}
           primary="Active Projects"
