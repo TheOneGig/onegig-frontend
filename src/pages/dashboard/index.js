@@ -88,7 +88,7 @@ const DashboardDefault = () => {
           primary="Pending Tasks"
           secondary={`${pendingTasks?.length}`}
           iconPrimary={UnorderedListOutlined}
-          color='#1dbeea'
+          color="#1dbeea"
         />
       </Grid>
       <Grid item xs={12} lg={3} sm={6}>
