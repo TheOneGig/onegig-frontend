@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useParams } from 'react-router';
 
-import { Box, Button, Grid, Group, Modal, Textarea, Title, Select, Badge, Card, Text } from '@mantine/core';
+import { Box, Button, Grid, Group, Modal, Textarea, Title, Badge, Card, Text } from '@mantine/core';
 import { getProject } from 'hooks/projects';
 import useAuth from 'hooks/useAuth';
 import { showNotification } from '@mantine/notifications';
@@ -22,8 +22,8 @@ const Notes = () => {
   const { projectId } = useParams();
   const { user } = useAuth();
   const userId = user.id;
-  const { data: notes, isLoading: loadingNotes, refetch } = useQuery(['notes'], () => getNotes({ userId }));
-  const { data: project, isLoading: loadingProject, refetch: refetchProject } = useQuery(['project'], () => getProject({ projectId }));
+  const { data: notes, refetch } = useQuery(['notes'], () => getNotes({ userId }));
+  const { data: project, isLoading: loadingProject } = useQuery(['project'], () => getProject({ projectId }));
 
   const { mutate, isLoading } = useMutation(['createNote'], (variables) => createNote(variables), {
     onSuccess: () => {
@@ -56,7 +56,7 @@ const Notes = () => {
     }
   });
 
-  const { mutate: noteUpdate, isLoading: loadingUpdate } = useMutation(['updateNote'], (variables) => updateNote(variables), {
+  const { mutate: noteUpdate } = useMutation(['updateNote'], (variables) => updateNote(variables), {
     onSuccess: () => {
       refetch();
       setEditOpened(false);

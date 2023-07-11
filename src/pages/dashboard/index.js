@@ -1,7 +1,6 @@
 import { useQuery } from 'react-query';
 import HoverSocialCard from 'components/cards/statistics/HoverSocialCard';
 // material-ui
-import { useTheme } from '@mui/material/styles';
 import { Grid } from '@mui/material';
 import { ContainerOutlined, RiseOutlined, UnorderedListOutlined, CreditCardOutlined } from '@ant-design/icons';
 import Chart from './AreaChart';
@@ -14,7 +13,6 @@ import ToDoList from 'components/ToDoList';
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
-  const theme = useTheme();
   const { user } = useAuth();
   const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId: user.id }));
   if (isLoading) {

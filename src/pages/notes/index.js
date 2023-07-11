@@ -21,8 +21,8 @@ const Notes = () => {
   const [noteId, setNoteId] = useState(null);
   const { user } = useAuth();
   const userId = user.id;
-  const { data: notes, isLoading: loadingNotes, refetch } = useQuery(['notes'], () => getNotes({ userId }));
-  const { data: projects, isLoading: loadingProjects, refetch: refetchProjects } = useQuery(['projects'], () => getProjects({ userId }));
+  const { data: notes, refetch } = useQuery(['notes'], () => getNotes({ userId }));
+  const { data: projects, isLoading: loadingProjects } = useQuery(['projects'], () => getProjects({ userId }));
 
   const { mutate, isLoading } = useMutation(['createNote'], (variables) => createNote(variables), {
     onSuccess: () => {
@@ -56,7 +56,7 @@ const Notes = () => {
     }
   });
 
-  const { mutate: noteUpdate, isLoading: loadingUpdate } = useMutation(['updateNote'], (variables) => updateNote(variables), {
+  const { mutate: noteUpdate } = useMutation(['updateNote'], (variables) => updateNote(variables), {
     onSuccess: () => {
       refetch();
       setEditOpened(false);

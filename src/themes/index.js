@@ -81,10 +81,6 @@ export default function ThemeCustomization({ children, mode, toggleTheme, setMod
 ThemeCustomization.propTypes = {
   children: PropTypes.node,
   mode: PropTypes.string.isRequired,
-<<<<<<< HEAD
-  toggleTheme: PropTypes.func.isRequired
-=======
   toggleTheme: PropTypes.func.isRequired,
   setMode: PropTypes.func.isRequired
->>>>>>> a9086c5cc3c8584583b60fdd782b278193d02789
 };
