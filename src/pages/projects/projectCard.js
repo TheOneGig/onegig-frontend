@@ -87,20 +87,32 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
             {project.description}
           </Text>
           <Grid>
-            <Grid.Col span={4}>
-              <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => history(`/tasks/${project.projectId}`)}>
+            <Grid.Col span={4} xs={12} md={4} lg={4}>
+              <Button
+                className="green-btn"
+                mt={{ xs: 'md', md: 0 }}
+                radius="md"
+                fullWidth
+                onClick={() => history(`/tasks/${project.projectId}`)}
+              >
                 Tasks
               </Button>
             </Grid.Col>
-            <Grid.Col span={4}>
-              <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => history(`/resources/${project.projectId}`)}>
+            <Grid.Col span={4} xs={12} md={4} lg={4}>
+              <Button
+                className="green-btn"
+                mt={{ xs: 'md', md: 0 }}
+                radius="md"
+                fullWidth
+                onClick={() => history(`/resources/${project.projectId}`)}
+              >
                 Resources
               </Button>
             </Grid.Col>
-            <Grid.Col span={4}>
+            <Grid.Col span={4} xs={12} md={4} lg={4}>
               <Button
                 className="green-btn"
-                mt="md"
+                mt={{ xs: 'md', md: 0 }}
                 radius="md"
                 fullWidth
                 component="a"
@@ -111,17 +123,17 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
                 Email
               </Button>
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={6} xs={12} md={6} lg={6}>
               <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => setOpened(true)}>
                 Requirements
               </Button>
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={6} xs={12} md={6} lg={6}>
               <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleEdit(project)}>
                 Edit
               </Button>
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={6} xs={12} md={6} lg={6}>
               <Button className="red-btn" mt="md" radius="md" fullWidth onClick={() => setOpenedDelete(true)}>
                 Archive
               </Button>

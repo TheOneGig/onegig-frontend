@@ -200,7 +200,7 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
                   <ActionIcon onClick={() => setFile()} className="actions-icon">
                     <IconEdit color="white" />
                   </ActionIcon>
-                  <Image src={file} alt="featured" />
+                  <Image src={file} alt="featured" style={{ width: '300px', height: 'auto', margin: '0 auto' }} />
                 </div>
               ) : (
                 <Dropzone
