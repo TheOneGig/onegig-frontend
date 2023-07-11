@@ -143,7 +143,7 @@ const TimesTable = () => {
       </Flex>
       <Box sx={{ marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
         <Box>
-          <Button variant="outline" color="cyan" onClick={() => changeWeek(-1)}>
+          <Button variant="outline" mr={10} color="cyan" onClick={() => changeWeek(-1)}>
             <span>{'<'}</span>
           </Button>
           <Button variant="outline" color="cyan" onClick={() => changeWeek(1)}>

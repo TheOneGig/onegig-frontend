@@ -10,6 +10,7 @@ import AuthGuard from 'utils/route-guard/AuthGuard';
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 const Gigs = Loadable(lazy(() => import('pages/gigs')));
 const Projects = Loadable(lazy(() => import('pages/projects')));
+const ProjectNotes = Loadable(lazy(() => import('pages/notes/projectNotes')));
 const Tasks = Loadable(lazy(() => import('pages/tasks')));
 const Chat = Loadable(lazy(() => import('pages/chat')));
 const Tiers = Loadable(lazy(() => import('pages/tiers')));
@@ -128,10 +129,6 @@ const MainRoutes = {
           element: <Templates />
         },
         {
-          path: 'edittemplates',
-          element: <EditTemplates />
-        },
-        {
           path: 'edittemplate/:templateId',
           element: <EditTemplates />
         },
@@ -170,8 +167,8 @@ const MainRoutes = {
           element: <Resources />
         },
         {
-          path: 'notes/:projectId',
-          element: <Notes />
+          path: 'projectNotes/:projectId',
+          element: <ProjectNotes />
         },
         {
           path: 'chat/:projectId',

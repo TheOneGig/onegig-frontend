@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
+import { useParams } from 'react-router';
 
 import { Box, Button, Grid, Group, Modal, Textarea, Title, Select, Badge, Card, Text } from '@mantine/core';
-import { getProjects } from 'hooks/projects';
+import { getProject } from 'hooks/projects';
 import useAuth from 'hooks/useAuth';
 import { showNotification } from '@mantine/notifications';
 
@@ -13,17 +14,17 @@ import { getNotes, createNote, deleteNote, updateNote } from 'hooks/notes';
 const Notes = () => {
   const theme = useTheme();
   const [newNote, setNewNote] = useState('');
-  const [selectedProject, setSelectedProject] = useState(null);
   const [opened, setOpened] = useState(false);
   const [actionOpened, setActionOpened] = useState(false)
   const [editOpened, setEditOpened] = useState(false)
   const [editNote, setEditNote] = useState('')
   const [noteId, setNoteId] = useState(null)
+  const { projectId } = useParams();
   const { user } = useAuth();
   const userId = user.id;
   const { data: notes, isLoading: loadingNotes, refetch } = useQuery(['notes'], () => getNotes({ userId }));
-  const { data: projects, isLoading: loadingProjects, refetch: refetchProjects } = useQuery(['projects'], () => getProjects({ userId }));
-
+  const { data: project, isLoading: loadingProject, refetch:refetchProject } = useQuery(['project'], () => getProject({ projectId }));
+ 
   const { mutate, isLoading } = useMutation(['createNote'], (variables) => createNote(variables), {
     onSuccess: () => {
       refetch();
@@ -37,7 +38,6 @@ const Notes = () => {
         autoClose: 3000
       });
       setNewNote('')
-      setSelectedProject(null)
     }
   });
 
@@ -69,11 +69,10 @@ const Notes = () => {
         autoClose: 3000
       });
       setNewNote('')
-      setSelectedProject(null)
     }
   });
 
-    if (isLoading || loadingProjects ) {
+  if (isLoading || loadingProject ) {
     return <div>Loading Notes...</div>;
   }
 
@@ -90,7 +89,7 @@ const Notes = () => {
   function handleSubmit() {
     const variables = {
       noteContent: newNote,
-      project: selectedProject,
+      project: project.name,
       userId
     };
     return mutate({variables});
@@ -100,7 +99,7 @@ const Notes = () => {
     const variables = { 
       noteId: noteId,
       noteContent: newNote,
-      project: selectedProject,
+      project: project.name 
     };
     return noteUpdate({ variables });
   }
@@ -111,16 +110,17 @@ const Notes = () => {
   }
 
   function handleEditOpen() {
-    setEditOpened(true)
     setActionOpened(false)
+    setEditOpened(true)
     setNewNote(editNote.noteContent)
-    setSelectedProject(editNote.project)
     setNoteId(editNote.noteId)
   }
 
+  const noteData = notes.filter(note => note.project === project.name);
+
   return (
     <>
-      <Title>Notes </Title>
+      <Title>Notes for {project.name}</Title>
         <Group mt={4} position="center"  style={{ minHeight: 100}}>
           <Button sx={{fontSize: '20px', width: 300, height: 40 }} onClick={() => setOpened(true)} className="create-btn blue-btn" variant="light">
               Add a new Note
@@ -128,18 +128,17 @@ const Notes = () => {
         </Group>
       <div className="task-tables-container">
         <Grid>
-          {notes && notes.map((note) => (
+          {notes && noteData.map((note) => (
             <Grid.Col key={note.noteId} xs={12} lg={3} sm={6}>
               <Card onClick={() => handleNoteClicked(note)} p="lg" radius="md" shadow="sm" withBorder>
-              <Group position="apart" mb="md">
-                <Text> </Text>
-                <Badge  color="#1dbeea" variant="light">{note.project ? note.project : 'Unselected'  }</Badge>
-              </Group>
-              <div style={{ minHeight: '112px' }}>
-                <Text>{note.noteContent}</Text>
-              </div>
+                <Group position="apart" mb="md">
+                  <Text> </Text>
+                  <Badge  color="#1dbeea" variant="light">{note.project}</Badge>
+                </Group>
+                <div style={{ minHeight: '112px' }}>
+                  <Text>{note.noteContent}</Text>
+                </div>
               </Card>
-            
             </Grid.Col>
           ))}
         </Grid>
@@ -152,13 +151,6 @@ const Notes = () => {
          <Box component="form" mx="auto">
           <Grid>
             <Grid.Col span={12}>
-              <Select
-                label="Add to a Project"
-                placeholder="Select Project"
-                value={selectedProject}
-                onChange={(selectedOption) => setSelectedProject(selectedOption)}
-                data={projects && projects.length > 0 ? projects.map(project => ({ value: project.name, label: project.name })) : [{ value: 'no-projects', label: 'No Projects Found' }]}
-              />
               <Textarea minRows={5} autosize placeholder="Note" value={newNote} onChange={(e) => setNewNote(e.target.value)} />
             </Grid.Col>
             <Grid.Col span={12}>
@@ -191,14 +183,7 @@ const Notes = () => {
          <Box component="form" mx="auto">
           <Grid>
             <Grid.Col span={12}>
-              <Select
-                label="Add to a Project"
-                placeholder="Select Project"
-                value={selectedProject}
-                onChange={(selectedOption) => setSelectedProject(selectedOption)}
-                data={projects && projects.length > 0 ? projects.map(project => ({ value: project.name, label: project.name })) : [{ value: 'no-projects', label: 'No Projects Found' }]}
-              />
-              <Textarea minRows={5} autosize sx={{ height: 200}} placeholder="Note" value={newNote} onChange={(e) => setNewNote(e.target.value)} />
+              <Textarea minRows={5} autosize placeholder="Note" value={newNote} onChange={(e) => setNewNote(e.target.value)} />
             </Grid.Col>
             <Grid.Col span={12}>
               <Button onClick={handleEdit}>Edit Note</Button>

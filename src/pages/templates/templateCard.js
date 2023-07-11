@@ -15,14 +15,11 @@ const SingleTemplateCard = ({ template, refetch }) => {
     margin-bottom: 1rem;
     width: 340px;
     height: 310px;
-    border: 1px solid #484848;
     cursor: pointer;
-    opacity: 0.8;
     transition: all 0.3s ease-in-out;
-    background-color: ${theme.palette.background.paper};
 
     &:hover {
-      border: 1px solid #0eba9b;
+      border: 1px solid #1dbeea;
     }
   `;
 
@@ -62,12 +59,12 @@ const SingleTemplateCard = ({ template, refetch }) => {
 
 
   return (
-    <StyledCard onClick={handleCardClick}>
+    <StyledCard style={{ }}onClick={handleCardClick}>
       <Divider sx={{ marginTop: 2, marginBottom: 10 }} />
       <div
         style={{
-          border: '1px solid #055043',
-          borderRadius: '6px',
+          border: '2px solid #484848',
+          borderRadius: '8px',
           width: '300px',
           margin: '0 auto',
           height: '180px',
