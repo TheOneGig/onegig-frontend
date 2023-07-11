@@ -57,8 +57,8 @@ const NavItem = ({ item, level }) => {
   }, [pathname]);
 
   const textColor = theme.palette.mode === 'dark' ? 'grey.400' : 'text.primary';
-  const iconSelectedColor = theme.palette.mode === 'dark' && drawerOpen ? 'text.primary' : "#FFF";
-  const iconSelectedBg = theme.palette.mode === 'dark' && drawerOpen ? "#11595f" : "#1dbeea";
+  const iconSelectedColor = theme.palette.mode === 'dark' && drawerOpen ? 'text.primary' : '#FFF';
+  const iconSelectedBg = theme.palette.mode === 'dark' && drawerOpen ? '#11595f' : '#1dbeea';
   return (
     <ListItemButton
       {...listItemProps}
@@ -78,7 +78,7 @@ const NavItem = ({ item, level }) => {
             borderRight: `2px solid #1dbeea`,
             backgroundColor: iconSelectedBg,
             '&:hover': {
-              backgroundColor: iconSelectedBg,
+              backgroundColor: iconSelectedBg
             }
           }
         }),
@@ -109,8 +109,7 @@ const NavItem = ({ item, level }) => {
               '&:hover': {
                 bgcolor: '#1dbeea',
                 color: theme.palette.secondary.lighter
-              },
-
+              }
             }),
             ...(drawerOpen && {
               marginLeft: '12px'

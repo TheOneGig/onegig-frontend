@@ -57,9 +57,8 @@ const SingleTemplateCard = ({ template, refetch }) => {
     setIsModalOpened(false);
   };
 
-
   return (
-    <StyledCard style={{ }}onClick={handleCardClick}>
+    <StyledCard style={{}} onClick={handleCardClick}>
       <Divider sx={{ marginTop: 2, marginBottom: 10 }} />
       <div
         style={{

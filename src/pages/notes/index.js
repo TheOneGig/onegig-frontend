@@ -15,10 +15,10 @@ const Notes = () => {
   const [newNote, setNewNote] = useState('');
   const [selectedProject, setSelectedProject] = useState(null);
   const [opened, setOpened] = useState(false);
-  const [actionOpened, setActionOpened] = useState(false)
-  const [editOpened, setEditOpened] = useState(false)
-  const [editNote, setEditNote] = useState('')
-  const [noteId, setNoteId] = useState(null)
+  const [actionOpened, setActionOpened] = useState(false);
+  const [editOpened, setEditOpened] = useState(false);
+  const [editNote, setEditNote] = useState('');
+  const [noteId, setNoteId] = useState(null);
   const { user } = useAuth();
   const userId = user.id;
   const { data: notes, isLoading: loadingNotes, refetch } = useQuery(['notes'], () => getNotes({ userId }));
@@ -36,8 +36,8 @@ const Notes = () => {
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
       });
-      setNewNote('')
-      setSelectedProject(null)
+      setNewNote('');
+      setSelectedProject(null);
     }
   });
 
@@ -68,18 +68,18 @@ const Notes = () => {
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
       });
-      setNewNote('')
-      setSelectedProject(null)
+      setNewNote('');
+      setSelectedProject(null);
     }
   });
 
-    if (isLoading || loadingProjects ) {
+  if (isLoading || loadingProjects) {
     return <div>Loading Notes...</div>;
   }
 
   function handleDelete() {
-    if (editNote) { 
-      const noteId = editNote.noteId
+    if (editNote) {
+      const noteId = editNote.noteId;
       const variables = { noteId };
       return noteDelete({ variables });
     } else {
@@ -93,63 +93,74 @@ const Notes = () => {
       project: selectedProject,
       userId
     };
-    return mutate({variables});
+    return mutate({ variables });
   }
 
   function handleEdit() {
-    const variables = { 
+    const variables = {
       noteId: noteId,
       noteContent: newNote,
-      project: selectedProject,
+      project: selectedProject
     };
     return noteUpdate({ variables });
   }
 
-  function handleNoteClicked(note){
-    setActionOpened(true)
-    setEditNote(note)
+  function handleNoteClicked(note) {
+    setActionOpened(true);
+    setEditNote(note);
   }
 
   function handleEditOpen() {
-    setEditOpened(true)
-    setActionOpened(false)
-    setNewNote(editNote.noteContent)
-    setSelectedProject(editNote.project)
-    setNoteId(editNote.noteId)
+    setEditOpened(true);
+    setActionOpened(false);
+    setNewNote(editNote.noteContent);
+    setSelectedProject(editNote.project);
+    setNoteId(editNote.noteId);
   }
 
   return (
     <>
       <Title>Notes </Title>
-        <Group mt={4} position="center"  style={{ minHeight: 100}}>
-          <Button sx={{fontSize: '20px', width: 300, height: 40 }} onClick={() => setOpened(true)} className="create-btn blue-btn" variant="light">
-              Add a new Note
-          </Button>
-        </Group>
+      <Group mt={4} position="center" style={{ minHeight: 100 }}>
+        <Button
+          sx={{ fontSize: '20px', width: 300, height: 40 }}
+          onClick={() => setOpened(true)}
+          className="create-btn blue-btn"
+          variant="light"
+        >
+          Add a new Note
+        </Button>
+      </Group>
       <div className="task-tables-container">
         <Grid>
-          {notes && notes.map((note) => (
-            <Grid.Col key={note.noteId} xs={12} lg={3} sm={6}>
-              <Card onClick={() => handleNoteClicked(note)} p="lg" radius="md" shadow="sm" withBorder>
-              <Group position="apart" mb="md">
-                <Text> </Text>
-                <Badge  color="#1dbeea" variant="light">{note.project ? note.project : 'Unselected'  }</Badge>
-              </Group>
-              <div style={{ minHeight: '112px' }}>
-                <Text>{note.noteContent}</Text>
-              </div>
-              </Card>
-            
-            </Grid.Col>
-          ))}
+          {notes &&
+            notes.map((note) => (
+              <Grid.Col key={note.noteId} xs={12} lg={3} sm={6}>
+                <Card onClick={() => handleNoteClicked(note)} p="lg" radius="md" shadow="sm" withBorder>
+                  <Group position="apart" mb="md">
+                    <Text> </Text>
+                    <Badge color="#1dbeea" variant="light">
+                      {note.project ? note.project : 'Unselected'}
+                    </Badge>
+                  </Group>
+                  <div style={{ minHeight: '112px' }}>
+                    <Text>{note.noteContent}</Text>
+                  </div>
+                </Card>
+              </Grid.Col>
+            ))}
         </Grid>
       </div>
-      <Modal opened={opened} onClose={() => setOpened(false)} title="New note" 
-          overlayColor={theme.colors.dark[9]}
-          overlayOpacity={0.55}
-          overlayBlur={3}
-          centered>
-         <Box component="form" mx="auto">
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="New note"
+        overlayColor={theme.colors.dark[9]}
+        overlayOpacity={0.55}
+        overlayBlur={3}
+        centered
+      >
+        <Box component="form" mx="auto">
           <Grid>
             <Grid.Col span={12}>
               <Select
@@ -157,7 +168,11 @@ const Notes = () => {
                 placeholder="Select Project"
                 value={selectedProject}
                 onChange={(selectedOption) => setSelectedProject(selectedOption)}
-                data={projects && projects.length > 0 ? projects.map(project => ({ value: project.name, label: project.name })) : [{ value: 'no-projects', label: 'No Projects Found' }]}
+                data={
+                  projects && projects.length > 0
+                    ? projects.map((project) => ({ value: project.name, label: project.name }))
+                    : [{ value: 'no-projects', label: 'No Projects Found' }]
+                }
               />
               <Textarea minRows={5} autosize placeholder="Note" value={newNote} onChange={(e) => setNewNote(e.target.value)} />
             </Grid.Col>
@@ -167,28 +182,40 @@ const Notes = () => {
           </Grid>
         </Box>
       </Modal>
-      <Modal opened={actionOpened} onClose={() => setActionOpened(false)} title="Note Action" 
+      <Modal
+        opened={actionOpened}
+        onClose={() => setActionOpened(false)}
+        title="Note Action"
         overlayColor={theme.colors.dark[9]}
         overlayOpacity={0.55}
         overlayBlur={3}
-        centered>
-         <Box mx="auto">
+        centered
+      >
+        <Box mx="auto">
           <Grid>
             <Grid.Col span={6}>
-              <Button fullWidth className='blue-btn' onClick={handleEditOpen}>Edit</Button>
+              <Button fullWidth className="blue-btn" onClick={handleEditOpen}>
+                Edit
+              </Button>
             </Grid.Col>
             <Grid.Col span={6}>
-              <Button fullWidth className='red-btn' onClick={handleDelete}>Delete</Button>
+              <Button fullWidth className="red-btn" onClick={handleDelete}>
+                Delete
+              </Button>
             </Grid.Col>
           </Grid>
         </Box>
       </Modal>
-      <Modal opened={editOpened} onClose={() => setEditOpened(false)} title="Edit note" 
-          overlayColor={theme.colors.dark[9]}
-          overlayOpacity={0.55}
-          overlayBlur={3}
-          centered>
-         <Box component="form" mx="auto">
+      <Modal
+        opened={editOpened}
+        onClose={() => setEditOpened(false)}
+        title="Edit note"
+        overlayColor={theme.colors.dark[9]}
+        overlayOpacity={0.55}
+        overlayBlur={3}
+        centered
+      >
+        <Box component="form" mx="auto">
           <Grid>
             <Grid.Col span={12}>
               <Select
@@ -196,9 +223,20 @@ const Notes = () => {
                 placeholder="Select Project"
                 value={selectedProject}
                 onChange={(selectedOption) => setSelectedProject(selectedOption)}
-                data={projects && projects.length > 0 ? projects.map(project => ({ value: project.name, label: project.name })) : [{ value: 'no-projects', label: 'No Projects Found' }]}
+                data={
+                  projects && projects.length > 0
+                    ? projects.map((project) => ({ value: project.name, label: project.name }))
+                    : [{ value: 'no-projects', label: 'No Projects Found' }]
+                }
               />
-              <Textarea minRows={5} autosize sx={{ height: 200}} placeholder="Note" value={newNote} onChange={(e) => setNewNote(e.target.value)} />
+              <Textarea
+                minRows={5}
+                autosize
+                sx={{ height: 200 }}
+                placeholder="Note"
+                value={newNote}
+                onChange={(e) => setNewNote(e.target.value)}
+              />
             </Grid.Col>
             <Grid.Col span={12}>
               <Button onClick={handleEdit}>Edit Note</Button>
@@ -211,5 +249,3 @@ const Notes = () => {
 };
 
 export default Notes;
-
-
