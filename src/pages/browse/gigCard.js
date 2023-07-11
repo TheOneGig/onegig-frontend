@@ -16,7 +16,7 @@ const GigCard = ({ gig }) => {
       </Card.Section>
       <Group position="apart" mt="md" mb="xs">
         <Text weight={600}>{gig.name}</Text>
-        <Badge className="blue-btn">{formatUSD(gig.price)}</Badge>
+        <Badge>{formatUSD(gig.price)}</Badge>
       </Group>
       <div style={{ height: '80px' }}>
         <Text size="sm" color="dimmed" align="justify">
