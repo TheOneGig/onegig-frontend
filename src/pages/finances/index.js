@@ -47,7 +47,7 @@ const TransactionsTable = ({ striped, title }) => {
           id: 'load-data',
           color: 'red',
           title: 'Transaction Deleted!',
-          message: 'Your transaction was saved succesfully, you can close this notification',
+          message: 'Your transaction was deleted succesfully, you can close this notification',
           icon: <IconCheck size="1rem" />,
           autoClose: 3000
         });
