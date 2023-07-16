@@ -122,7 +122,7 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
           const status = row.original.status;
           switch (status) {
             case 'Pending':
-              return <span className="text-yellow">Pending</span>;
+              return <span className="text-red">Pending</span>;
             case 'Signed':
               return <span className="text-green">Signed</span>;
             case 'Completed':

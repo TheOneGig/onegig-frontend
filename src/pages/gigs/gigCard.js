@@ -71,9 +71,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
 
           <Group position="apart" mt="md" mb="xs">
             <Text weight={500}>{gig.name}</Text>
-            <Badge className="blue-btn" variant="light">
-              {formatUSD(gig.price)}
-            </Badge>
+            <Badge>{formatUSD(gig.price)}</Badge>
           </Group>
 
           <div style={{ height: '112px' }}>
@@ -101,7 +99,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
               {share ? (
                 <CopyButton value={`${window.location.origin}/browse/gig/${gig.gigId}`}>
                   {({ copied, copy }) => (
-                    <Button className="blue-btn" variant="light" mt="md" radius="md" fullWidth onClick={copy}>
+                    <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={copy}>
                       {copied ? 'Copied URL' : 'Share URL'}
                     </Button>
                   )}

@@ -1,9 +1,8 @@
 import { useQuery } from 'react-query';
 import HoverSocialCard from 'components/cards/statistics/HoverSocialCard';
 // material-ui
-import { useTheme } from '@mui/material/styles';
 import { Grid } from '@mui/material';
-import { ContainerOutlined, RiseOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { ContainerOutlined, RiseOutlined, UnorderedListOutlined, CreditCardOutlined } from '@ant-design/icons';
 import Chart from './AreaChart';
 import dayjs from 'dayjs';
 import useAuth from 'hooks/useAuth';
@@ -14,7 +13,6 @@ import ToDoList from 'components/ToDoList';
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
-  const theme = useTheme();
   const { user } = useAuth();
   const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId: user.id }));
   if (isLoading) {
@@ -64,7 +62,7 @@ const DashboardDefault = () => {
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 1 */}
-      <Grid item xs={12} lg={4} sm={6}>
+      <Grid item xs={12} lg={3} sm={6}>
         <HoverSocialCard
           pushUrl={'/finances'}
           primary="Profits"
@@ -73,16 +71,25 @@ const DashboardDefault = () => {
           color="#0eba9b"
         />
       </Grid>
-      <Grid item xs={12} lg={4} sm={6}>
+      <Grid item xs={12} lg={3} sm={6}>
+        <HoverSocialCard
+          pushUrl={'/projects'}
+          primary="Account Balance"
+          secondary={`${formatUSD(profit)}`}
+          iconPrimary={CreditCardOutlined}
+          color="#303030"
+        />
+      </Grid>
+      <Grid item xs={12} lg={3} sm={6}>
         <HoverSocialCard
           pushUrl={'/todo'}
           primary="Pending Tasks"
           secondary={`${pendingTasks?.length}`}
           iconPrimary={UnorderedListOutlined}
-          color={theme.palette.info.main}
+          color="#1dbeea"
         />
       </Grid>
-      <Grid item xs={12} lg={4} sm={6}>
+      <Grid item xs={12} lg={3} sm={6}>
         <HoverSocialCard
           pushUrl={'/projects'}
           primary="Active Projects"

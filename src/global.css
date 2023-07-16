@@ -9,10 +9,10 @@ h1 {
 
 .create-btn {
   margin-bottom: 15px;
+  color: #f2f2f2;
 }
 
 .green-btn {
-  color: #0eba9b;
   background-color: #06483c;
 }
 
@@ -21,7 +21,6 @@ h1 {
 }
 
 .blue-btn {
-  color: #1dbeea;
   background-color: #083642;
 }
 
@@ -30,7 +29,6 @@ h1 {
 }
 
 .red-btn {
-  color: #e76161;
   background-color: #441d1d;
 }
 

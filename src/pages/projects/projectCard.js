@@ -129,6 +129,11 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
               </Button>
             </Grid.Col>
             <Grid.Col span={6} xs={12} md={6} lg={6}>
+              <Button className="green-btn" mt="md" radius="md" fullWidth onClick={() => history(`/resources/${project.projectId}`)}>
+                Resources
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={6}>
               <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleEdit(project)}>
                 Edit
               </Button>

@@ -10,11 +10,13 @@ import AuthGuard from 'utils/route-guard/AuthGuard';
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 const Gigs = Loadable(lazy(() => import('pages/gigs')));
 const Projects = Loadable(lazy(() => import('pages/projects')));
+const ProjectNotes = Loadable(lazy(() => import('pages/notes/projectNotes')));
 const Tasks = Loadable(lazy(() => import('pages/tasks')));
 const Chat = Loadable(lazy(() => import('pages/chat')));
 const Tiers = Loadable(lazy(() => import('pages/tiers')));
 const Transaction = Loadable(lazy(() => import('pages/transaction')));
 const ToDo = Loadable(lazy(() => import('pages/todo')));
+const Notes = Loadable(lazy(() => import('pages/notes')));
 
 const Profile = Loadable(lazy(() => import('pages/profile')));
 const UserTabPersonal = Loadable(lazy(() => import('pages/profile/TabPersonal')));
@@ -127,10 +129,6 @@ const MainRoutes = {
           element: <Templates />
         },
         {
-          path: 'edittemplates',
-          element: <EditTemplates />
-        },
-        {
           path: 'edittemplate/:templateId',
           element: <EditTemplates />
         },
@@ -169,6 +167,10 @@ const MainRoutes = {
           element: <Resources />
         },
         {
+          path: 'projectNotes/:projectId',
+          element: <ProjectNotes />
+        },
+        {
           path: 'chat/:projectId',
           element: <Chat />
         },
@@ -191,6 +193,10 @@ const MainRoutes = {
         {
           path: 'times',
           element: <Times />
+        },
+        {
+          path: 'notes',
+          element: <Notes />
         },
         {
           path: 'contracts',

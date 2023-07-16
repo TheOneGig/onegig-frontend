@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo, useState, createContext, useEffect } from 'react';
+import { useMemo, createContext, useEffect } from 'react';
 
 // material-ui
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
@@ -16,21 +16,10 @@ export const ThemeContext = createContext();
 
 // ==============================|| DEFAULT THEME - MAIN  ||============================== //
 
-export default function ThemeCustomization({ children }) {
+export default function ThemeCustomization({ children, mode, toggleTheme, setMode }) {
   const fontFamily = `'Roboto', sans-serif`;
   const themeDirection = 'ltr';
-
-  const [mode, setMode] = useState(localStorage.getItem('mode') || 'light');
   const presetColor = 'theme3';
-
-  // Función para alternar el tema y guardar el nuevo tema en localStorage
-  const toggleTheme = () => {
-    setMode((prevMode) => {
-      const newMode = prevMode === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('mode', newMode);
-      return newMode;
-    });
-  };
 
   const theme = useMemo(() => Palette(mode, presetColor), [mode, presetColor]);
 
@@ -77,7 +66,7 @@ export default function ThemeCustomization({ children }) {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, []);
+  }, [setMode]);
 
   return (
     <StyledEngineProvider injectFirst>
@@ -90,5 +79,8 @@ export default function ThemeCustomization({ children }) {
 }
 
 ThemeCustomization.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  mode: PropTypes.string.isRequired,
+  toggleTheme: PropTypes.func.isRequired,
+  setMode: PropTypes.func.isRequired
 };

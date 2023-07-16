@@ -4,17 +4,19 @@ import OneGigLogo from 'assets/images/brand/OneGig-Logo-Gradient.png';
 import { formatUSD } from 'utils/formatUSD';
 import { truncate } from 'utils/truncate';
 import { useNavigate } from 'react-router';
+import { useTheme } from '@mui/material/styles';
 
 const GigCard = ({ gig }) => {
   const history = useNavigate();
+  const theme = useTheme();
   return (
-    <Card shadow="sm" p="lg" radius="md" withBorder>
+    <Card shadow="sm" p="lg" radius="md" withBorder sx={{ backgroundColor: theme.palette.background.default }}>
       <Card.Section>
         <Image src={gig.files.length > 0 ? gig.files[0].fileUrl : OneGigLogo} alt="Gig" className="gig-card-image" />
       </Card.Section>
       <Group position="apart" mt="md" mb="xs">
         <Text weight={600}>{gig.name}</Text>
-        <Badge className="blue-btn">{formatUSD(gig.price)}</Badge>
+        <Badge>{formatUSD(gig.price)}</Badge>
       </Group>
       <div style={{ height: '80px' }}>
         <Text size="sm" color="dimmed" align="justify">

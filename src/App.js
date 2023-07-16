@@ -1,5 +1,5 @@
 // project import
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Routes from 'routes';
 import ThemeCustomization from 'themes';
 import Locales from 'components/Locales';
@@ -21,24 +21,23 @@ import { NotificationsProvider } from '@mantine/notifications';
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [theme, setTheme] = useState(localStorage.getItem('mode') === 'dark' ? 'dark' : 'light');
+  // Estado para el tema
+  const [mode, setMode] = useState(localStorage.getItem('mode') || 'light');
 
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setTheme(localStorage.getItem('mode') === 'dark' ? 'dark' : 'light');
-    };
+  // Función para alternar el tema y guardar el nuevo tema en localStorage
+  const toggleTheme = () => {
+    setMode((prevMode) => {
+      const newMode = prevMode === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('mode', newMode);
+      return newMode;
+    });
+  };
 
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
   return (
     <QueryClientProvider client={queryClient}>
-      <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: theme }}>
+      <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: mode }}>
         <NotificationsProvider>
-          <ThemeCustomization>
+          <ThemeCustomization mode={mode} toggleTheme={toggleTheme} setMode={setMode}>
             <RTLLayout>
               <Locales>
                 <ScrollTop>
