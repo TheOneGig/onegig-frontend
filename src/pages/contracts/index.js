@@ -30,7 +30,7 @@ const ContractsTable = ({ striped }) => {
           position="right"
           transition="fade"
           style={{
-            backgroundColor: '#3333',
+            backgroundColor:'#484848',
             borderRadius: 6,
             padding: '12px 16px',
             color: '#fff',

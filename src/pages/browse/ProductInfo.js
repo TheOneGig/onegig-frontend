@@ -76,7 +76,6 @@ const ProductInfo = ({ gig }) => {
         </Typography>
         <IconShare
           style={{
-            color: '#13502f',
             cursor: 'pointer'
           }}
           onClick={copyToClipboard}
