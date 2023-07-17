@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useMutation } from 'react-query';
 
 // material-ui
-import { Grid, Button, Modal, useMantineTheme, Box, Flex, NumberInput, Select, Table } from '@mantine/core';
+import { Grid, Button, Modal, useMantineTheme, Box, Flex, NumberInput, Select, Table, Tooltip } from '@mantine/core';
 
 // project import
 import MainCard from 'components/MainCard';
@@ -137,9 +137,23 @@ const TimesTable = () => {
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
-        <Button onClick={() => setOpenedNew(true)} className="create-btn blue-btn" variant="light">
-          New Project Row
-        </Button>
+        <Tooltip
+          label="Create a new project row"
+          position="right"
+          transition="fade"
+          style={{
+            backgroundColor: '#484848',
+            borderRadius: 6,
+            padding: '12px 16px',
+            color: '#fff',
+            fontSize: 12,
+            transition: 0.3
+          }}
+        >
+          <Button onClick={() => setOpenedNew(true)} className="create-btn blue-btn" variant="light">
+            New Project Row
+          </Button>
+        </Tooltip>
       </Flex>
       <Box sx={{ marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
         <Box>

@@ -71,7 +71,7 @@ const ProfileTabs = () => {
                 cursor: 'pointer'
               }}
             >
-              <Avatar alt="Avatar 1" src={avatar ? avatar.fileUrl : avatar1} sx={{ width: 124, height: 124, border: '1px dashed' }} />
+              <Avatar alt="Avatar 1" src={avatar ? avatar.fileUrl : avatar1} sx={{ width: 124, height: 124, border: '2px solid' }} />
               <Box
                 sx={{
                   position: 'absolute',

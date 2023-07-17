@@ -87,7 +87,7 @@ const ToDoList = ({ userId }) => {
           container
           spacing={0}
           sx={{
-            height: opened ? '280px' : '320px',
+            height: opened ? '270px' : '320px',
             paddingLeft: '10px',
             overflowY: 'scroll',
             display: 'block',
