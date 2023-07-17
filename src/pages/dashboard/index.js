@@ -98,10 +98,10 @@ const DashboardDefault = () => {
           color="#303030"
         />
       </Grid>
-      <Grid item xs={12} lg={8} sm={8} style={{marginTop:'10px'}}>
+      <Grid item xs={12} lg={8} sm={8} mb={2}>
         <Chart expenses={expenses} revenue={revenue} />
       </Grid>
-      <Grid item xs={12} lg={4} sm={4} style={{marginTop:'10px'}}>
+      <Grid item xs={12} lg={4} sm={4}>
         <ToDoList userId={user.id} />
       </Grid>
     </Grid>

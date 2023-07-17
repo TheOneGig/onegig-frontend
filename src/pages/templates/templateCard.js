@@ -9,9 +9,6 @@ import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { useTheme } from '@mui/material/styles';
 
-
-
-
 const SingleTemplateCard = ({ template, refetch }) => {
   const theme = useTheme();
   const StyledCard = styled(Card)`
