@@ -113,7 +113,7 @@ const SingleTemplateCard = ({ template, refetch }) => {
               No
             </Button>
             <Text style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-              WARNING: If you select Yes your template will be deleted permanently, and there is no way to recover it.
+              WARNING: If you select Yes your template will be deleted permanently.
             </Text>
           </>
         ) : (

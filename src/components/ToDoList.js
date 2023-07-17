@@ -106,7 +106,7 @@ const ToDoList = ({ userId }) => {
           })}
         </Grid>
         {opened && (
-          <Grid container spacing={0} sx={{ width: '100%' }}>
+          <Grid container spacing={1} sx={{ width: '100%' }}>
             <Grid item xs={12}>
               <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
                 <TextInput
