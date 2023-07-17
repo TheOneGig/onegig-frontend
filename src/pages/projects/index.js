@@ -54,7 +54,7 @@ const Projects = () => {
           position="right"
           transition="fade"
           style={{
-            backgroundColor:'#484848',
+            backgroundColor: '#484848',
             borderRadius: 6,
             padding: '12px 16px',
             color: '#fff',
