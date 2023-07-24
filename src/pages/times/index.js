@@ -122,7 +122,7 @@ const TimesTable = () => {
           const value = times[projectId] && times[projectId][date.toISOString()] ? times[projectId][date.toISOString()].hours : 0;
           return (
             <td key={`${moment(date)}-${projectId}`}>
-              <NumberInput value={value} onChange={(e) => handleTime(projectId, date, e)} />
+              <NumberInput value={value} onChange={(e) => handleTime(projectId, date, e)} min={0} max={24} />
             </td>
           );
         })}
@@ -164,7 +164,7 @@ const TimesTable = () => {
             <span>{'>'}</span>
           </Button>
         </Box>
-        <Button variant="outline" color="cyan" onClick={() => setDate(new Date())}>
+        <Button className="blue-btn" onClick={() => setDate(new Date())}>
           <span>Today</span>
         </Button>
       </Box>
@@ -190,7 +190,7 @@ const TimesTable = () => {
         </ScrollX>
       </MainCard>
       <Box sx={{ margin: '10px 0px', display: 'flex', justifyContent: 'end' }}>
-        <Button variant="outline" color="cyan" onClick={() => saveDates()}>
+        <Button className="blue-btn" onClick={() => saveDates()}>
           <span>Save</span>
         </Button>
       </Box>

@@ -104,9 +104,9 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
                 mt={{ xs: 'md', md: 0 }}
                 radius="md"
                 fullWidth
-                onClick={() => history(`/resources/${project.projectId}`)}
+                onClick={() => history(`/projectNotes/${project.projectId}`)}
               >
-                Resources
+                Notes
               </Button>
             </Grid.Col>
             <Grid.Col span={4} xs={12} md={4} lg={4}>

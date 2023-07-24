@@ -80,7 +80,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
             </Text>
           </div>
           <Grid>
-            <Grid.Col span={6}>
+            <Grid.Col span={4}>
               {share ? (
                 <Anchor href={`/browse/gig/${gig.gigId}`} target="_blank" underline={false}>
                   <Button className="green-btn" mt="md" radius="md" fullWidth loading={loadingPublish}>
@@ -95,24 +95,29 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
                 </Tooltip>
               )}
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={4}>
+              <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleEdit(gig)}>
+                Edit
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={4}>
               {share ? (
                 <CopyButton value={`${window.location.origin}/browse/gig/${gig.gigId}`}>
                   {({ copied, copy }) => (
                     <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={copy}>
-                      {copied ? 'Copied URL' : 'Share URL'}
+                      {copied ? 'Copied URL' : 'Share'}
                     </Button>
                   )}
                 </CopyButton>
               ) : (
                 <Tooltip label="In order to share, the gig needs to be published" color="red" position="top-end" withArrow>
                   <Button color={'gray'} variant="light" mt="md" radius="md" fullWidth>
-                    Share URL
+                    Share
                   </Button>
                 </Tooltip>
               )}
             </Grid.Col>
-            <Grid.Col span={4}>
+            <Grid.Col span={6}>
               <Button
                 className="red-btn"
                 mt="md"
@@ -124,12 +129,7 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
                 {gig.published ? 'Unpublish' : 'Publish'}
               </Button>
             </Grid.Col>
-            <Grid.Col span={4}>
-              <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleEdit(gig)}>
-                Edit
-              </Button>
-            </Grid.Col>
-            <Grid.Col span={4}>
+            <Grid.Col span={6}>
               <Button className="red-btn" mt="md" radius="md" fullWidth onClick={() => setOpenedDelete(true)}>
                 Delete
               </Button>
