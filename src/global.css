@@ -210,10 +210,6 @@ form .mantine-InputWrapper-label {
   color: #055043;
 }
 
-input,
-textarea {
-  background-color: #000 !important;
-}
 
 input:focus,
 input:focus-within,
