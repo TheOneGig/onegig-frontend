@@ -9,7 +9,7 @@ import { useMediaQuery, Box, Container, Toolbar } from '@mui/material';
 // project import
 import Drawer from './Drawer';
 import Header from './Header';
-import Footer from './Footer';
+//     import Footer from './Footer';
 import useConfig from 'hooks/useConfig';
 import { openDrawer } from 'store/reducers/menu';
 

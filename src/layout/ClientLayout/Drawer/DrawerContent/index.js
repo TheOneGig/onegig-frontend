@@ -1,10 +1,10 @@
 import Navigation from './Navigation';
 import SimpleBar from 'components/third-party/SimpleBar';
-import { useTheme } from '@mui/material';
+//import { useTheme } from '@mui/material';
 // ==============================|| DRAWER CONTENT ||============================== //
 
 const DrawerContent = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   return (
     <SimpleBar
       sx={{
