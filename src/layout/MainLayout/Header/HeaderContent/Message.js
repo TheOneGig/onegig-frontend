@@ -2,24 +2,13 @@ import { useRef, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import {
-  Box,
-  ClickAwayListener,
-  Divider,
-  List,
-  ListItemButton,
-  ListItemText,
-  Paper,
-  Popper,
-  Typography,
-  useMediaQuery
-} from '@mui/material';
+import { Box, ClickAwayListener, Divider, List, Paper, Popper, useMediaQuery } from '@mui/material';
 
 // project import
-import MainCard from 'components/MainCard';
 import IconButton from 'components/@extended/IconButton';
 import Transitions from 'components/@extended/Transitions';
-import { MailOutlined, CloseOutlined } from '@ant-design/icons';
+import { MailOutlined } from '@ant-design/icons';
+import NewCustomers from 'sections/widget/data/NewCustomers';
 
 // sx styles
 const avatarSX = {
@@ -104,40 +93,20 @@ const Message = () => {
               }}
             >
               <ClickAwayListener onClickAway={handleClose}>
-                <MainCard
-                  title="Messages"
-                  elevation={0}
-                  border={false}
-                  content={false}
-                  secondary={
-                    <IconButton size="small" onClick={handleToggle}>
-                      <CloseOutlined />
-                    </IconButton>
-                  }
+                <List
+                  component="nav"
+                  sx={{
+                    p: 0,
+                    '& .MuiListItemButton-root': {
+                      py: 1.5,
+                      '& .MuiAvatar-root': avatarSX,
+                      '& .MuiListItemSecondaryAction-root': { ...actionSX, position: 'relative' }
+                    }
+                  }}
                 >
-                  <List
-                    component="nav"
-                    sx={{
-                      p: 0,
-                      '& .MuiListItemButton-root': {
-                        py: 1.5,
-                        '& .MuiAvatar-root': avatarSX,
-                        '& .MuiListItemSecondaryAction-root': { ...actionSX, position: 'relative' }
-                      }
-                    }}
-                  >
-                    <Divider />
-                    <ListItemButton sx={{ textAlign: 'center' }}>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6" color="primary">
-                            Coming Soon
-                          </Typography>
-                        }
-                      />
-                    </ListItemButton>
-                  </List>
-                </MainCard>
+                  <Divider />
+                  <NewCustomers />
+                </List>
               </ClickAwayListener>
             </Paper>
           </Transitions>

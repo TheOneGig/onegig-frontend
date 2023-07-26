@@ -84,50 +84,51 @@ const Resources = () => {
       </Dropzone>
       <div className="task-tables-container">
         <Grid>
-          {files.map((file) => {
-            const fileUrl = file.fileUrl;
-            const fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
-            const fileExtension = fileName.split('.').pop();
-            const fileIsImage = isImage(fileExtension);
-            const fileIsVideo = isVideo(fileExtension);
-            const fileIsPdf = fileExtension === 'pdf';
-            return (
-              <Grid.Col key={file.fileId} span={3}>
-                <Anchor href={fileUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#fff' }}>
-                  <div className="file-container">
-                    <div className="file-name">{fileName}</div>
-                    {fileIsImage ? (
-                      <img className="file-image" src={fileUrl} alt={fileName} />
-                    ) : fileIsPdf ? (
-                      <img className="file-image" src={PDFIcon} alt={fileName} />
-                    ) : (
-                      fileIsVideo && <img className="file-image" src={VideoIcon} alt={fileName} />
-                    )}
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        right: 5,
-                        top: 5
-                      }}
-                    >
-                      <Tooltip label="Delete">
-                        <IconButton
-                          className="delete-btn"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setDeleteId(file.fileId);
-                            setOpenedDelete(true);
-                          }}
-                        >
-                          <DeleteOutlined />
-                        </IconButton>
-                      </Tooltip>
-                    </Box>
-                  </div>
-                </Anchor>
-              </Grid.Col>
-            );
-          })}
+          {files &&
+            files.map((file) => {
+              const fileUrl = file.fileUrl;
+              const fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+              const fileExtension = fileName.split('.').pop();
+              const fileIsImage = isImage(fileExtension);
+              const fileIsVideo = isVideo(fileExtension);
+              const fileIsPdf = fileExtension === 'pdf';
+              return (
+                <Grid.Col key={file.fileId} span={3}>
+                  <Anchor href={fileUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#fff' }}>
+                    <div className="file-container">
+                      <div className="file-name">{fileName}</div>
+                      {fileIsImage ? (
+                        <img className="file-image" src={fileUrl} alt={fileName} />
+                      ) : fileIsPdf ? (
+                        <img className="file-image" src={PDFIcon} alt={fileName} />
+                      ) : (
+                        fileIsVideo && <img className="file-image" src={VideoIcon} alt={fileName} />
+                      )}
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          right: 5,
+                          top: 5
+                        }}
+                      >
+                        <Tooltip label="Delete">
+                          <IconButton
+                            className="delete-btn"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setDeleteId(file.fileId);
+                              setOpenedDelete(true);
+                            }}
+                          >
+                            <DeleteOutlined />
+                          </IconButton>
+                        </Tooltip>
+                      </Box>
+                    </div>
+                  </Anchor>
+                </Grid.Col>
+              );
+            })}
         </Grid>
       </div>
 

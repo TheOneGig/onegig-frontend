@@ -6,7 +6,6 @@ import CommonLayout from 'layout/CommonLayout';
 import Loadable from 'components/Loadable';
 import LoginRoutes from './LoginRoutes';
 import MainRoutes from './MainRoutes';
-
 // render - landing page
 const PagesLanding = Loadable(lazy(() => import('pages/landing')));
 const BrowseProducts = Loadable(lazy(() => import('pages/browse')));

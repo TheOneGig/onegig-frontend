@@ -57,8 +57,8 @@ const NavItem = ({ item, level }) => {
   }, [pathname]);
 
   const textColor = theme.palette.mode === 'dark' ? 'grey.400' : 'text.primary';
-  const iconSelectedColor = theme.palette.mode === 'dark' && drawerOpen ? 'text.primary' : '#FFF';
-  const iconSelectedBg = theme.palette.mode === 'dark' && drawerOpen ? '#11595f' : '#1dbeea';
+  const iconSelectedColor = theme.palette.mode === 'dark' && drawerOpen ? 'text.primary' : 'primary.main';
+
   return (
     <ListItemButton
       {...listItemProps}
@@ -71,14 +71,13 @@ const NavItem = ({ item, level }) => {
         py: !drawerOpen && level === 1 ? 1.25 : 1,
         ...(drawerOpen && {
           '&:hover': {
-            borderRight: `2px solid #1dbeea`,
-            color: iconSelectedColor
+            bgcolor: theme.palette.mode === 'dark' ? 'divider' : 'primary.lighter'
           },
           '&.Mui-selected': {
-            borderRight: `2px solid #1dbeea`,
-            backgroundColor: iconSelectedBg,
+            borderRight: `2px solid ${theme.palette.primary.main}`,
+            color: iconSelectedColor,
             '&:hover': {
-              backgroundColor: iconSelectedBg
+              color: iconSelectedColor
             }
           }
         }),
@@ -99,7 +98,7 @@ const NavItem = ({ item, level }) => {
         <ListItemIcon
           sx={{
             minWidth: 28,
-            color: textColor,
+            color: isSelected ? iconSelectedColor : textColor,
             ...(!drawerOpen && {
               borderRadius: 1.5,
               width: 36,
@@ -107,8 +106,7 @@ const NavItem = ({ item, level }) => {
               alignItems: 'center',
               justifyContent: 'center',
               '&:hover': {
-                bgcolor: '#1dbeea',
-                color: theme.palette.secondary.lighter
+                bgcolor: theme.palette.mode === 'dark' ? 'secondary.light' : 'secondary.lighter'
               }
             }),
             ...(drawerOpen && {

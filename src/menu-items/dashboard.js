@@ -9,8 +9,11 @@ import {
   FolderViewOutlined,
   FundOutlined,
   PicLeftOutlined,
-  UnorderedListOutlined,
+  CalendarOutlined,
+  UsergroupAddOutlined,
   SnippetsOutlined,
+  ProjectOutlined,
+  CommentOutlined,
   DiffOutlined
 } from '@ant-design/icons';
 import { Tooltip } from '@mantine/core';
@@ -29,6 +32,20 @@ const dashboard = {
       icon: DashboardOutlined
     },
     {
+      id: 'Tasks',
+      title: <FormattedMessage id="Tasks" />,
+      type: 'item',
+      url: '/apps/kanban/board',
+      icon: ProjectOutlined
+    },
+    {
+      id: 'CRM',
+      title: <FormattedMessage id="CRM" />,
+      type: 'item',
+      url: '/crm',
+      icon: UsergroupAddOutlined
+    },
+    {
       id: 'Gigs',
       title: <FormattedMessage id="Gigs" />,
       type: 'item',
@@ -41,6 +58,13 @@ const dashboard = {
       type: 'item',
       url: '/projects',
       icon: PicLeftOutlined
+    },
+    {
+      id: 'Inbox',
+      title: <FormattedMessage id="Inbox" />,
+      type: 'item',
+      url: '/chat',
+      icon: CommentOutlined
     },
     {
       id: 'Time Sheets',
@@ -57,11 +81,11 @@ const dashboard = {
       icon: FundOutlined
     },
     {
-      id: 'To-Do',
-      title: <FormattedMessage id="To-Do" />,
+      id: 'Calendar',
+      title: <FormattedMessage id="Calendar" />,
       type: 'item',
-      url: '/todo',
-      icon: UnorderedListOutlined
+      url: '/calendar',
+      icon: CalendarOutlined
     },
     {
       id: 'Notes',

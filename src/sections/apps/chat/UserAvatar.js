@@ -43,7 +43,7 @@ const UserAvatar = ({ user }) => {
           '& svg': { backgroundColor: '#fff', borderRadius: '50%' }
         }}
       >
-        {user.fname.charAt(0)} {user.lname.charAt(0)}
+        {user.fname && user.fname.charAt(0)} {user.lname && user.lname.charAt(0)}
       </Badge>
     );
   }

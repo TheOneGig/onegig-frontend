@@ -2,17 +2,30 @@ import { useQuery } from 'react-query';
 import HoverSocialCard from 'components/cards/statistics/HoverSocialCard';
 // material-ui
 import { Grid } from '@mui/material';
-import { ContainerOutlined, RiseOutlined, UnorderedListOutlined, CreditCardOutlined } from '@ant-design/icons';
+import {
+  ContainerOutlined,
+  RiseOutlined,
+  UnorderedListOutlined,
+  CreditCardOutlined,
+  UsergroupAddOutlined,
+  FileTextOutlined,
+  BarChartOutlined,
+  CalendarOutlined
+} from '@ant-design/icons';
 import Chart from './AreaChart';
 import dayjs from 'dayjs';
 import useAuth from 'hooks/useAuth';
 import { getUser } from 'hooks/users';
 import { formatUSD } from 'utils/formatUSD';
+import { useTheme } from '@mui/material/styles';
 import ToDoList from 'components/ToDoList';
-
+import TeamMembers from 'sections/widget/data/TeamMembers';
+import LatestCustomers from 'sections/widget/data/LatestCustomers';
+import ReportCard from 'components/cards/statistics/ReportCard';
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
+  const theme = useTheme();
   const { user } = useAuth();
   const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId: user.id }));
   if (isLoading) {
@@ -103,6 +116,29 @@ const DashboardDefault = () => {
       </Grid>
       <Grid item xs={12} lg={4} sm={4}>
         <ToDoList userId={user.id} />
+      </Grid>
+      <Grid item xs={12} lg={3} sm={6}>
+        <ReportCard
+          primary={`${formatUSD(profit)}`}
+          secondary="Expenses"
+          color={theme.palette.secondary.main}
+          iconPrimary={BarChartOutlined}
+        />
+      </Grid>
+      <Grid item xs={12} lg={3} sm={6}>
+        <ReportCard primary="145" secondary="Events" color={theme.palette.error.main} iconPrimary={CalendarOutlined} />
+      </Grid>
+      <Grid item xs={12} lg={3} sm={6}>
+        <ReportCard primary="2+" secondary="Contracts" color={theme.palette.success.dark} iconPrimary={FileTextOutlined} />
+      </Grid>
+      <Grid item xs={12} lg={3} sm={6}>
+        <ReportCard primary="20" secondary="Clients" color={theme.palette.primary.main} iconPrimary={UsergroupAddOutlined} />
+      </Grid>
+      <Grid item xs={12} lg={4} sm={4}>
+        <TeamMembers />
+      </Grid>
+      <Grid item xs={12} lg={8} sm={8} mb={2}>
+        <LatestCustomers />
       </Grid>
     </Grid>
   );
