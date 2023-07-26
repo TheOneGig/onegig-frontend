@@ -123,7 +123,6 @@ const CMRTabs = ({ clientData, striped, refetch, userId }) => {
                 onClick={() => {
                   setClient(row.original);
                   setOpenedActions(true);
-                  console.log(client);
                 }}
               >
                 Actions
