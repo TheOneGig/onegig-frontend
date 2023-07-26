@@ -119,7 +119,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
       thumbnail: thumbnail,
       userId
     };
-  
+
     if (template.templateId) {
       updateTemplateMutation({ variables });
     } else {
