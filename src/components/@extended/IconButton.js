@@ -45,10 +45,9 @@ function getColorStyle({ variant, theme, color }) {
     case 'light':
       return {
         color: main,
-        backgroundColor: light,
+        backgroundColor: lighter,
         '&:hover': {
-          backgroundColor: '#1dbeea',
-          color: lighter
+          backgroundColor: light
         },
         ...commonShadow
       };
@@ -85,7 +84,7 @@ function getColorStyle({ variant, theme, color }) {
     default:
       return {
         '&:hover': {
-          color: '#1dbeea',
+          color: '#0eba9b',
           backgroundColor: '#055043'
         },
         ...commonShadow

@@ -58,10 +58,10 @@ const dashboard = {
       icon: FundOutlined
     },
     {
-      id: 'To-Do',
-      title: <FormattedMessage id="To-Do" />,
+      id: 'Calendar',
+      title: <FormattedMessage id="Calendar" />,
       type: 'item',
-      url: '/todo',
+      url: '/calendar',
       icon: UnorderedListOutlined
     },
     {

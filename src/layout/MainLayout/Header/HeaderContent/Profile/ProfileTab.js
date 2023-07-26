@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
 // assets
-import { LogoutOutlined, UserOutlined, WalletOutlined } from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined, WalletOutlined, ControlOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
@@ -19,6 +19,10 @@ const ProfileTab = ({ handleLogout }) => {
       history('/profile/personal');
     } else if (index === 4) {
       history('/tiers');
+    } else if (index === 3) {
+      history('/admin/insights');
+    } else if (index === 5) {
+      history('/client/home');
     }
   };
 
@@ -29,6 +33,18 @@ const ProfileTab = ({ handleLogout }) => {
           <UserOutlined />
         </ListItemIcon>
         <ListItemText primary="Profile" />
+      </ListItemButton>
+      <ListItemButton selected={selectedIndex === 3} onClick={(event) => handleListItemClick(event, 3)}>
+        <ListItemIcon>
+          <ControlOutlined />
+        </ListItemIcon>
+        <ListItemText primary="Admin Site" />
+      </ListItemButton>
+      <ListItemButton selected={selectedIndex === 5} onClick={(event) => handleListItemClick(event, 5)}>
+        <ListItemIcon>
+          <ControlOutlined />
+        </ListItemIcon>
+        <ListItemText primary="Client Site" />
       </ListItemButton>
       <ListItemButton selected={selectedIndex === 4} onClick={(event) => handleListItemClick(event, 4)}>
         <ListItemIcon>

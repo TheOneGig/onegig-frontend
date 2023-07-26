@@ -1,54 +1,14 @@
-import { useState } from 'react';
-
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, Button, Checkbox, Grid, MenuItem, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Grid, Stack, TextField, Typography } from '@mui/material';
 
 // select project-budget
-const currencies = [
-  {
-    value: '1',
-    label: 'Below $1000'
-  },
-  {
-    value: '2',
-    label: '$1000 - $5000'
-  },
-  {
-    value: '3',
-    label: 'Not specified'
-  }
-];
-
-// select company-size
-const sizes = [
-  {
-    value: '1',
-    label: '1 - 5'
-  },
-  {
-    value: '2',
-    label: '5 - 10'
-  },
-  {
-    value: '3',
-    label: '10+'
-  }
-];
 
 // ==============================|| CONTACT US - FORM ||============================== //
 
 function ContactForm() {
   const theme = useTheme();
-  const [budget, setBudget] = useState(1);
-  const handleProjectBudget = (event) => {
-    setBudget(Number(event.target?.value));
-  };
 
-  const [size, setSize] = useState(1);
-  const handleCompanySize = (event) => {
-    setSize(Number(event.target?.value));
-  };
   return (
     <Box sx={{ p: { xs: 2.5, sm: 0 } }}>
       <Grid container spacing={5} justifyContent="center">
@@ -58,7 +18,7 @@ function ContactForm() {
               Get In touch
             </Button>
             <Typography align="center" variant="h2">
-              Lorem isume dolor elits.
+              Sent a message to OneGig HQ
             </Typography>
             <Typography variant="caption" align="center" color="textSecondary" sx={{ maxWidth: '355px' }}>
               The starting point for your next project based on easy-to-customize Material-UI © helps you build apps faster and better.
@@ -78,38 +38,6 @@ function ContactForm() {
             </Grid>
             <Grid item xs={12} md={6}>
               <TextField fullWidth type="number" placeholder="Phone Number" sx={{ '& .MuiOutlinedInput-input': { opacity: 0.5 } }} />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                select
-                fullWidth
-                placeholder="Company Size"
-                sx={{ '& .MuiOutlinedInput-input': { opacity: 0.5 } }}
-                value={size}
-                onChange={handleCompanySize}
-              >
-                {sizes.map((option, index) => (
-                  <MenuItem key={index} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                select
-                fullWidth
-                placeholder="Project Budget"
-                sx={{ '& .MuiOutlinedInput-input': { opacity: 0.5 } }}
-                value={budget}
-                onChange={handleProjectBudget}
-              >
-                {currencies.map((option, index) => (
-                  <MenuItem key={index} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
             </Grid>
             <Grid item xs={12}>
               <TextField fullWidth multiline rows={4} placeholder="Message" sx={{ '& .MuiOutlinedInput-input': { opacity: 0.5 } }} />
@@ -137,7 +65,7 @@ function ContactForm() {
               </Typography>
             </Stack>
             <Button variant="contained" sx={{ ml: { xs: 0 } }}>
-              Submit Now
+              Submit
             </Button>
           </Stack>
         </Grid>

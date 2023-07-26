@@ -2,6 +2,8 @@ import { lazy } from 'react';
 
 // project import
 import MainLayout from 'layout/MainLayout';
+import AdminSiteLayout from 'layout/AdmineSiteLayout';
+import ClientLayout from 'layout/ClientLayout';
 import CommonLayout from 'layout/CommonLayout';
 import Loadable from 'components/Loadable';
 import AuthGuard from 'utils/route-guard/AuthGuard';
@@ -11,11 +13,12 @@ const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 const Gigs = Loadable(lazy(() => import('pages/gigs')));
 const Projects = Loadable(lazy(() => import('pages/projects')));
 const ProjectNotes = Loadable(lazy(() => import('pages/notes/projectNotes')));
+const CRM = Loadable(lazy(() => import('pages/cmr')));
 const Tasks = Loadable(lazy(() => import('pages/tasks')));
 const Chat = Loadable(lazy(() => import('pages/chat')));
 const Tiers = Loadable(lazy(() => import('pages/tiers')));
 const Transaction = Loadable(lazy(() => import('pages/transaction')));
-const ToDo = Loadable(lazy(() => import('pages/todo')));
+//const ToDo = Loadable(lazy(() => import('pages/todo')));
 const Notes = Loadable(lazy(() => import('pages/notes')));
 
 const Profile = Loadable(lazy(() => import('pages/profile')));
@@ -99,6 +102,13 @@ const MaintenanceComingSoon = Loadable(lazy(() => import('pages/maintenance/comi
 
 const AppContactUS = Loadable(lazy(() => import('pages/contact-us')));
 
+//AdminSiteRoutes
+const Insights = Loadable(lazy(() => import('pages/adminSite/insights')));
+
+//ClientPortalRoutes
+const ClientHome = Loadable(lazy(() => import('pages/clientPortal/home')));
+const ClientContracts = Loadable(lazy(() => import('pages/clientPortal/contracts')));
+
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -115,6 +125,14 @@ const MainRoutes = {
         {
           path: 'dashboard',
           element: <DashboardDefault />
+        },
+        {
+          path: 'chat',
+          element: <AppChat />
+        },
+        {
+          path: 'crm',
+          element: <CRM />
         },
         {
           path: 'gigs',
@@ -183,8 +201,8 @@ const MainRoutes = {
           element: <Transaction />
         },
         {
-          path: 'todo',
-          element: <ToDo />
+          path: 'calendar',
+          element: <AppCalendar />
         },
         {
           path: 'finances',
@@ -472,6 +490,90 @@ const MainRoutes = {
         {
           path: 'code-verification',
           element: <AuthCodeVerification />
+        }
+      ]
+    },
+    {
+      path: '/admin',
+      element: <AdminSiteLayout layout="simple" />,
+      children: [
+        {
+          path: 'insights',
+          element: <Insights />
+        },
+        {
+          path: 'members',
+          element: <AccountTabRole />
+        },
+        {
+          path: 'teams',
+          element: <ChartOrganization />
+        },
+        {
+          path: 'security',
+          element: <AccountTabSettings />
+        },
+        {
+          path: 'billing',
+          element: <Tiers />
+        },
+        {
+          path: 'contact-us',
+          element: <AppContactUS />
+        },
+        {
+          path: 'feedback',
+          element: <Notes />
+        },
+        {
+          path: 'app',
+          element: <AccountTabSettings />
+        },
+        {
+          path: 'resources',
+          element: <AppKanban />
+        }
+      ]
+    },
+    {
+      path: '/client',
+      element: <ClientLayout layout="simple" />,
+      children: [
+        {
+          path: 'contracts',
+          element: <ClientContracts />
+        },
+        {
+          path: 'home',
+          element: <ClientHome />
+        },
+        {
+          path: 'resources',
+          element: <Resources />
+        },
+        {
+          path: 'templates',
+          element: <Notes />
+        },
+        {
+          path: 'inbox',
+          element: <AppChat />
+        },
+        {
+          path: 'meeting',
+          element: <AppCalendar />
+        },
+        {
+          path: 'contact-us',
+          element: <AppContactUS />
+        },
+        {
+          path: 'feedback',
+          element: <Notes />
+        },
+        {
+          path: 'billing',
+          element: <UserTabPayment />
         }
       ]
     },

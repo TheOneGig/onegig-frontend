@@ -37,7 +37,39 @@ const plans = [
   {
     active: true,
     icon: <StandardPlusLogo />,
-    title: 'Advanced',
+    title: 'Freelancer',
+    description:
+      'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
+    monthly: 25,
+    monthlyId: 'price_1MtrcaEyxV4PorziB0YtgAxt',
+    // monthlyId: 'price_1MaANmEyxV4PorziCfkDUCDO',
+    tierMonthly: 'ADVANCED',
+    yearly: 250,
+    yearlyId: 'price_1MtrcaEyxV4PorzijSUPUsox',
+    // yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
+    tierYearly: 'ADVANCEDYEARLY',
+    permission: [0, 1, 2, 3, 4, 5, 6]
+  },
+  {
+    active: true,
+    icon: <StandardPlusLogo />,
+    title: 'Agency',
+    description:
+      'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
+    monthly: 25,
+    monthlyId: 'price_1MtrcaEyxV4PorziB0YtgAxt',
+    // monthlyId: 'price_1MaANmEyxV4PorziCfkDUCDO',
+    tierMonthly: 'ADVANCED',
+    yearly: 250,
+    yearlyId: 'price_1MtrcaEyxV4PorzijSUPUsox',
+    // yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
+    tierYearly: 'ADVANCEDYEARLY',
+    permission: [0, 1, 2, 3, 4, 5, 6]
+  },
+  {
+    active: true,
+    icon: <StandardPlusLogo />,
+    title: 'Enterprise',
     description:
       'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
     monthly: 25,
