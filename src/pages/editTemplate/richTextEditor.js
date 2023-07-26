@@ -41,7 +41,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
       refetch();
     }
   });
-  const { mutate: updateTemplateMutation } = useMutation(['updateTemplate'], (variables) => updateTemplate(variables), {
+  const { mutate: updateTemplateMutation } = useMutation(['updateTemplateMutation'], (variables) => updateTemplate(variables), {
     onSuccess: () => {
       updateNotification({
         id: 'load-data',
@@ -119,6 +119,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
       thumbnail: thumbnail,
       userId
     };
+
     if (template.templateId) {
       updateTemplateMutation({ variables });
     } else {

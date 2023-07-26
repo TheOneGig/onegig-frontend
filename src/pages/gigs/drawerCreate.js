@@ -134,6 +134,7 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
                   label="Price"
                   parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                   formatter={(value) => (!Number.isNaN(parseFloat(value)) ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '$ ')}
+                  min={10}
                   {...form.getInputProps('price')}
                 />
               </Grid.Col>
@@ -141,6 +142,7 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
                 <NumberInput
                   label="Average Delivery in Days"
                   parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                  min={1}
                   {...form.getInputProps('delivery')}
                 />
               </Grid.Col>
