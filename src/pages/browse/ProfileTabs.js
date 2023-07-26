@@ -84,12 +84,7 @@ const ProfileTabs = ({ user }) => {
           <CardHeader title="Skills" />
           <Divider sx={{ marginBottom: 2 }} />
           {skills.map((skill) => (
-            <Chip
-              key={skill.skillId}
-              variant="combined"
-              label={skill.skill}
-              sx={{ color: '#f1f1f1', marginRight: 2, marginBottom: 2 }}
-            />
+            <Chip key={skill.skillId} variant="combined" label={skill.skill} sx={{ color: '#f1f1f1', marginRight: 2, marginBottom: 2 }} />
           ))}
         </Grid>
       </Grid>

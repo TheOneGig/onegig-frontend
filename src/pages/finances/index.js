@@ -224,11 +224,11 @@ const TransactionsTable = ({ striped, title }) => {
           label="Add a new transaction "
           position="right"
           transition="fade"
-          style={{ 
-            backgroundColor:'#484848',
+          style={{
+            backgroundColor: '#484848',
             borderRadius: 6,
             padding: '12px 16px',
-            color: '#fff', 
+            color: '#fff',
             fontSize: 12,
             transition: 0.3
           }}
@@ -296,24 +296,12 @@ const TransactionsTable = ({ striped, title }) => {
                   />
                 </Grid.Col>
                 <Grid.Col span={6}>
-                  <Button
-                    className="blue-btn"
-                    mt="md"
-                    radius="md"
-                    fullWidth
-                    onClick={() => setOpenedEdit(false)}
-                    loading={loadingEdit}
-                  >
+                  <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => setOpenedEdit(false)} loading={loadingEdit}>
                     Cancel
                   </Button>
                 </Grid.Col>
                 <Grid.Col span={6}>
-                  <Button 
-                    className="red-btn" 
-                    mt="md" radius="md" 
-                    fullWidth 
-                    type="submit" 
-                    loading={loadingEdit}>
+                  <Button className="red-btn" mt="md" radius="md" fullWidth type="submit" loading={loadingEdit}>
                     Save
                   </Button>
                 </Grid.Col>

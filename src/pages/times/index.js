@@ -137,12 +137,12 @@ const TimesTable = () => {
   return (
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
-      <Tooltip
+        <Tooltip
           label="Create a new project row"
           position="right"
           transition="fade"
           style={{
-            backgroundColor:'#484848',
+            backgroundColor: '#484848',
             borderRadius: 6,
             padding: '12px 16px',
             color: '#fff',
@@ -150,10 +150,10 @@ const TimesTable = () => {
             transition: 0.3
           }}
         >
-        <Button onClick={() => setOpenedNew(true)} className="create-btn blue-btn" variant="light">
-          New Project Row
-        </Button>
-      </Tooltip>
+          <Button onClick={() => setOpenedNew(true)} className="create-btn blue-btn" variant="light">
+            New Project Row
+          </Button>
+        </Tooltip>
       </Flex>
       <Box sx={{ marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
         <Box>
