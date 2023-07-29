@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { Table, Button, Notification } from '@mantine/core';
 
 const TimeReport = ({ times, allProjects }) => {
@@ -7,7 +8,7 @@ const TimeReport = ({ times, allProjects }) => {
   const [reportSent, setReportSent] = useState(false);
 
   // Function to calculate total hours worked for each project
-  const calculateTotalHoursPerProject = () => {
+  const calculateTotalHoursPerProject = useCallback(() => {
     const newTotalHoursPerProject = {};
 
     Object.keys(times).forEach((projectId) => {
@@ -19,12 +20,11 @@ const TimeReport = ({ times, allProjects }) => {
     });
 
     setTotalHoursPerProject(newTotalHoursPerProject);
-  };
-
+  }, [times]);
   // Recalculate total hours when the times prop changes
   useEffect(() => {
     calculateTotalHoursPerProject();
-  }, [times]);
+  }, [times, calculateTotalHoursPerProject]);
 
   const handleSendReport = () => {
     // Replace this with your actual logic to send the report
@@ -71,6 +71,22 @@ const TimeReport = ({ times, allProjects }) => {
       )}
     </div>
   );
+};
+
+TimeReport.propTypes = {
+  times: PropTypes.objectOf(
+    PropTypes.objectOf(
+      PropTypes.shape({
+        hours: PropTypes.number.isRequired
+      })
+    )
+  ).isRequired,
+  allProjects: PropTypes.arrayOf(
+    PropTypes.shape({
+      projectId: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
+    })
+  ).isRequired
 };
 
 export default TimeReport;
