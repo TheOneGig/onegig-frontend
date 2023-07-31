@@ -104,6 +104,8 @@ const AppContactUS = Loadable(lazy(() => import('pages/contact-us')));
 
 //AdminSiteRoutes
 const Insights = Loadable(lazy(() => import('pages/adminSite/insights')));
+const CompanyProfileForm = Loadable(lazy(() => import('components/workspace/index')));
+
 
 //ClientPortalRoutes
 const ClientHome = Loadable(lazy(() => import('pages/clientPortal/home')));
@@ -527,7 +529,7 @@ const MainRoutes = {
         },
         {
           path: 'app',
-          element: <AccountTabSettings />
+          element: <CompanyProfileForm />
         },
         {
           path: 'resources',
