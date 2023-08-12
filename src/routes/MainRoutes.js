@@ -103,7 +103,7 @@ const MaintenanceComingSoon = Loadable(lazy(() => import('pages/maintenance/comi
 const AppContactUS = Loadable(lazy(() => import('pages/contact-us')));
 
 //AdminSiteRoutes
-const Insights = Loadable(lazy(() => import('pages/adminSite/insights')));
+const AdminInsights = Loadable(lazy(() => import('pages/adminSite/insights/AdminInsights')));
 const CompanyProfileForm = Loadable(lazy(() => import('components/workspace/index')));
 
 
@@ -501,7 +501,7 @@ const MainRoutes = {
       children: [
         {
           path: 'insights',
-          element: <Insights />
+          element: <AdminInsights />
         },
         {
           path: 'members',

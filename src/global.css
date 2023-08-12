@@ -284,3 +284,11 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
+
+.star-container {
+  cursor: pointer;
+}
+
+.star-container input[type="radio"] {
+  display: none;
+}

@@ -35,7 +35,7 @@ const TimeReport = ({ times, allProjects }) => {
       // Refresh the page after 2 seconds (2000 milliseconds)
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 1000);
     }, 1500);
   };
 
