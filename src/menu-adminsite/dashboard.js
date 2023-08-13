@@ -28,7 +28,7 @@ const dashboard = {
     },
     {
       id: 'Security',
-      title: <FormattedMessage id="Security" />,
+      title: <FormattedMessage id="Privacy and Security" />,
       type: 'item',
       url: 'security'
     },
