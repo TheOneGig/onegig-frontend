@@ -39,15 +39,12 @@ const ProductDetails = () => {
   const { data: gig, isLoading } = useQuery(['gig', id], () => getGig({ gigId: id }));
 
   if (isLoading) {
-    return <div>Loading gig...</div>;
+    return <div>Loading proposal...</div>;
   }
 
   return (
     <Grid container spacing={3} sx={{ padding: '15px' }}>
-      <Grid item xs={12} md={3}>
-        <ProfileTabs user={gig?.user} />
-      </Grid>
-      <Grid item xs={12} md={9}>
+      <Grid item xs={12} md={12}>
         {gig && (
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -64,7 +61,7 @@ const ProductDetails = () => {
         )}
       </Grid>
       <Grid item xs={12} sm={12}>
-        <RelatedGigs user={gig?.user} gigId={id} />
+      <ProfileTabs user={gig?.user} />
       </Grid>
     </Grid>
   );
