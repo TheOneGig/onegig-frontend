@@ -11,6 +11,8 @@ import Drawer from './Drawer';
 import Header from './Header';
 import Footer from './Footer';
 import useConfig from 'hooks/useConfig';
+import UserCard from './UserCard';
+
 import { openDrawer } from 'store/reducers/menu';
 
 // ==============================|| MAIN LAYOUT ||============================== //
@@ -57,7 +59,7 @@ const MainLayout = () => {
             maxWidth="xl"
             sx={{ px: { xs: 0, sm: 2 }, position: 'relative', minHeight: 'calc(100vh - 110px)', display: 'flex', flexDirection: 'column' }}
           >
-            <Outlet />
+            <UserCard />
             <Footer />
           </Container>
         )}
