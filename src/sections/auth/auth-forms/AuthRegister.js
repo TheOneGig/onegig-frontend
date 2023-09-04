@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-
+import { sendEmailConfirmation } from 'utils/sendEmail';
 // material-ui
 import {
   Box,
@@ -38,9 +38,10 @@ import { createUser } from 'hooks/users';
 
 const AuthRegister = () => {
   const history = useNavigate();
+
   const { mutate } = useMutation(['signup'], (variables) => createUser(variables), {
     onSuccess: () => {
-      history('/new/profile/personal');
+      history('/new/subscription');
     }
   });
   const { firebaseRegister } = useAuth();
@@ -92,6 +93,11 @@ const AuthRegister = () => {
                   password: values.password,
                   userFBId: result.user._delegate.uid
                 };
+                const emailData = {
+                  to_name: values.fname,
+                  to_email: values.email
+                };
+                sendEmailConfirmation(emailData);
                 mutate({ variables });
               },
               (err) => {

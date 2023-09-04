@@ -7,6 +7,7 @@ import ClientLayout from 'layout/ClientLayout';
 import CommonLayout from 'layout/CommonLayout';
 import Loadable from 'components/Loadable';
 import AuthGuard from 'utils/route-guard/AuthGuard';
+import ClientGuard from 'utils/route-guard/ClientGuard';
 
 // render - Real Pages
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
@@ -108,16 +109,16 @@ const Insights = Loadable(lazy(() => import('pages/adminSite/insights')));
 //ClientPortalRoutes
 const ClientHome = Loadable(lazy(() => import('pages/clientPortal/home')));
 const ClientContracts = Loadable(lazy(() => import('pages/clientPortal/contracts')));
-
+const ClientProjects = Loadable(lazy(() => import('pages/clientPortal/projects')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
   path: '/',
   children: [
     {
-      path: '/',
+      path: '/:workspaceId',
       element: (
-        <AuthGuard>
+        <AuthGuard requiredRoles={['ADMIN', 'USER']}>
           <MainLayout />
         </AuthGuard>
       ),
@@ -189,7 +190,7 @@ const MainRoutes = {
           element: <ProjectNotes />
         },
         {
-          path: 'chat/:projectId',
+          path: 'chat/:clientId',
           element: <Chat />
         },
         {
@@ -246,7 +247,7 @@ const MainRoutes = {
           children: [
             {
               path: 'chat',
-              element: <AppChat />
+              element: <Chat />
             },
             {
               path: 'calendar',
@@ -495,7 +496,11 @@ const MainRoutes = {
     },
     {
       path: '/admin',
-      element: <AdminSiteLayout layout="simple" />,
+      element: (
+        <AuthGuard requiredRoles={['ADMIN']}>
+          <AdminSiteLayout layout="simple" />,
+        </AuthGuard>
+      ),
       children: [
         {
           path: 'insights',
@@ -536,8 +541,12 @@ const MainRoutes = {
       ]
     },
     {
-      path: '/client',
-      element: <ClientLayout layout="simple" />,
+      path: '/client/:clientId',
+      element: (
+        <ClientGuard>
+          <ClientLayout layout="simple" />
+        </ClientGuard>
+      ),
       children: [
         {
           path: 'contracts',
@@ -548,8 +557,8 @@ const MainRoutes = {
           element: <ClientHome />
         },
         {
-          path: 'resources',
-          element: <Resources />
+          path: 'projects',
+          element: <ClientProjects />
         },
         {
           path: 'templates',
@@ -557,7 +566,7 @@ const MainRoutes = {
         },
         {
           path: 'inbox',
-          element: <AppChat />
+          element: <Chat />
         },
         {
           path: 'meeting',

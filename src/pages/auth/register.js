@@ -28,6 +28,15 @@ const Register = () => {
             >
               Already have an account?
             </Typography>
+            <Typography
+              component={Link}
+              to={isLoggedIn ? '/auth/user-register' : '/user-register'}
+              variant="body1"
+              sx={{ textDecoration: 'none' }}
+              color="primary"
+            >
+              Access key?
+            </Typography>
           </Stack>
         </Grid>
         <Grid item xs={12}>

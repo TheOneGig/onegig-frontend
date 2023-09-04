@@ -20,7 +20,7 @@ const HeaderContent = () => {
       {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
       <ThemeSwitch />
       <Notification />
-      <Message />
+      {/* <Message /> */}
       {!matchesXs && <Profile />}
       {matchesXs && <MobileSection />}
     </>

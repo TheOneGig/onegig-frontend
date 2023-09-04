@@ -43,11 +43,11 @@ const plans = [
     monthly: 25,
     monthlyId: 'price_1MtrcaEyxV4PorziB0YtgAxt',
     // monthlyId: 'price_1MaANmEyxV4PorziCfkDUCDO',
-    tierMonthly: 'ADVANCED',
+    tierMonthly: 'BASIC',
     yearly: 250,
     yearlyId: 'price_1MtrcaEyxV4PorzijSUPUsox',
     // yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
-    tierYearly: 'ADVANCEDYEARLY',
+    tierYearly: 'BASICYEARLY',
     permission: [0, 1, 2, 3, 4, 5, 6]
   },
   {
@@ -75,11 +75,11 @@ const plans = [
     monthly: 25,
     monthlyId: 'price_1MtrcaEyxV4PorziB0YtgAxt',
     // monthlyId: 'price_1MaANmEyxV4PorziCfkDUCDO',
-    tierMonthly: 'ADVANCED',
+    tierMonthly: 'PREMIUM',
     yearly: 250,
     yearlyId: 'price_1MtrcaEyxV4PorzijSUPUsox',
     // yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
-    tierYearly: 'ADVANCEDYEARLY',
+    tierYearly: 'PREMIUMYEARLY',
     permission: [0, 1, 2, 3, 4, 5, 6]
   }
   // {

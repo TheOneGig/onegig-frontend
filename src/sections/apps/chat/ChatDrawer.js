@@ -34,7 +34,7 @@ import SimpleBar from 'components/third-party/SimpleBar';
 import {
   CheckCircleFilled,
   ClockCircleFilled,
-  LogoutOutlined,
+  // LogoutOutlined,
   MinusCircleFilled,
   RightOutlined,
   SearchOutlined,
@@ -158,13 +158,13 @@ function ChatDrawer({ handleDrawerOpen, openChatDrawer, setUser }) {
           </SimpleBar>
           <Box sx={{ p: 3, pb: 0 }}>
             <List component="nav">
-              <ListItemButton divider>
+              {/* <ListItemButton divider>
                 <ListItemIcon>
                   <LogoutOutlined />
                 </ListItemIcon>
 
                 <ListItemText primary="LogOut" />
-              </ListItemButton>
+              </ListItemButton> */}
               <ListItemButton divider>
                 <ListItemIcon>
                   <SettingOutlined />

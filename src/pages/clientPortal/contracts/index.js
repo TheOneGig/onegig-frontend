@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useQuery } from 'react-query';
-import { Tooltip, Flex } from '@mantine/core';
-import useAuth from 'hooks/useAuth';
-import { getContracts } from 'hooks/contracts';
+import useClient from 'hooks/useClient';
+import { Flex, Title } from '@mantine/core';
+import { getClientContracts } from 'hooks/contracts';
 import ContractTabs from './tabs';
 
 const ContractsTable = ({ striped }) => {
-  const { user } = useAuth();
-  const userId = user.id;
-  const { data: contracts, isLoading, refetch } = useQuery(['contracts'], () => getContracts({ userId }));
+  const { clientId } = useClient();
+  const { data: contracts, isLoading, refetch } = useQuery(['contracts'], () => getClientContracts({ clientId }));
   if (isLoading) {
     return <div>Loading Contracts...</div>;
   }
@@ -17,21 +16,7 @@ const ContractsTable = ({ striped }) => {
   return (
     <>
       <Flex mb={20} gap="md" justify="center" align="flex-start" direction="column" wrap="wrap">
-        <Tooltip
-          label="Create a new contract "
-          position="right"
-          transition="fade"
-          style={{
-            backgroundColor: '#484848',
-            borderRadius: 6,
-            padding: '12px 16px',
-            color: '#fff',
-            fontSize: 12,
-            transition: 0.3
-          }}
-        >
-          <h1>Contracts</h1>
-        </Tooltip>
+        <Title sx={{ marginBottom: '15px' }}>Active Projects</Title>
       </Flex>
       <ContractTabs contractData={contracts} refetch={refetch} striped={striped} />
     </>

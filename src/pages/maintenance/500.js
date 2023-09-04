@@ -5,6 +5,8 @@ import config from 'config';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
+import useAuth from 'hooks/useAuth';
+import useWorkspace from 'hooks/useWorkspace';
 import { useMediaQuery, Box, Button, Grid, Stack, Typography } from '@mui/material';
 
 // assets
@@ -15,6 +17,11 @@ import error500 from 'assets/images/maintenance/Error500.png';
 function Error500() {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+  const user = useAuth()
+  console.log(user)
+  const { workspaceId } = useWorkspace();
+
+
 
   return (
     <>
@@ -32,7 +39,7 @@ function Error500() {
             <Typography color="textSecondary" variant="body2" align="center" sx={{ width: { xs: '73%', sm: '70%' }, mt: 1 }}>
               Server error 500. we fixing the problem. please try again at a later stage.
             </Typography>
-            <Button component={Link} to={config.defaultPath} variant="contained" sx={{ textTransform: 'none', mt: 4 }}>
+            <Button component={Link} to={`/${workspaceId}/dashboard`} variant="contained" sx={{ textTransform: 'none', mt: 4 }}>
               Go to homepage
             </Button>
           </Stack>

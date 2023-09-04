@@ -5,17 +5,20 @@ import { Button, Tooltip, Flex } from '@mantine/core';
 import ClientCreate from './drawerCreate';
 import useAuth from 'hooks/useAuth';
 import { getClients } from 'hooks/clients';
+import useWorkspace from 'hooks/useWorkspace';
 import CMRTabs from './tabs';
+
 
 const ClientTable = ({ striped }) => {
   const [opened, setOpened] = useState(false);
   const { user } = useAuth();
+  const { workspaceId } = useWorkspace()
   const userId = user.id;
   const { data: clients, isLoading, refetch } = useQuery(['clients'], () => getClients({ userId }));
   if (isLoading) {
     return <div>Loading Clients...</div>;
   }
-
+  console.log(clients);
   return (
     <>
       <Flex mb={20} gap="md" justify="center" align="flex-start" direction="column" wrap="wrap">
@@ -37,8 +40,8 @@ const ClientTable = ({ striped }) => {
           </Button>
         </Tooltip>
       </Flex>
-      <CMRTabs clientData={clients} refetch={refetch} striped={striped} />
-      <ClientCreate opened={opened} refetch={refetch} setOpened={setOpened} userId={userId} />
+      <CMRTabs clientData={clients} workspaceId={workspaceId} userId={userId} refetch={refetch} striped={striped} />
+      <ClientCreate opened={opened} workspaceId={workspaceId} refetch={refetch} setOpened={setOpened} userId={userId} />
     </>
   );
 };

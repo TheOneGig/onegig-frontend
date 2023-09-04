@@ -8,6 +8,7 @@ import { archiveProject } from 'hooks/projects';
 import DrawerRequirements from './drawerRequirements';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
+import { createNotification } from 'hooks/notifications';
 
 const statusRender = (status) => {
   switch (status) {
@@ -34,6 +35,7 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
   const history = useNavigate();
   const [opened, setOpened] = useState(false);
   const [openedDelete, setOpenedDelete] = useState(false);
+  const createNotificationMutation = useMutation(createNotification);
   const { mutate, isLoading: loadingDelete } = useMutation(['archiveProject'], (variables) => archiveProject(variables), {
     onSuccess: () => {
       refetch();
@@ -44,6 +46,12 @@ const ProjectCard = ({ project, refetch, handleEdit }) => {
         message: 'Your project was achived succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'A project has been achived!'
+        }
       });
     }
   });

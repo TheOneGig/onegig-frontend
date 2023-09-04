@@ -15,6 +15,11 @@ export const getNotes = async (data) => {
   return response;
 };
 
+export const getWorkspaceNotes = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/notes/byWorkspace', data);
+  return response;
+};
+
 export const createNote = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/notes/create', data.variables);
   return response;

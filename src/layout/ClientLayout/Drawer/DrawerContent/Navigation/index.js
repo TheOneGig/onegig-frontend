@@ -6,7 +6,9 @@ import { Box, Typography } from '@mui/material';
 
 // project import
 import NavGroup from './NavGroup';
-import menuItem from 'menu-client';
+import sidebarItems from 'menu-client/dashboard';
+import useClient from 'hooks/useClient';
+
 //import menuAdmin from 'menu-admin';
 // import { getUser } from 'hooks/users';
 // import useAuth from 'hooks/useAuth';
@@ -14,7 +16,7 @@ import menuItem from 'menu-client';
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
 const Navigation = () => {
-  // const { user } = useAuth();
+   const { clientId } = useClient();
   // const userId = user.id;
   // const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId }));
   const menu = useSelector((state) => state.menu);
@@ -22,8 +24,11 @@ const Navigation = () => {
   // if (isLoading) {
   //   return <div></div>;
   // }
-  const menuList = menuItem;
-  const navGroups = menuList.items.map((item) => {
+  const menuList = sidebarItems(clientId);
+  const menuListGroup = {
+    items: [menuList]
+  }
+  const navGroups = menuListGroup.items.map((item) => {
     switch (item.type) {
       case 'group':
         return <NavGroup key={item.id} item={item} />;

@@ -5,12 +5,14 @@ import { useState } from 'react';
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
 // assets
-import { LogoutOutlined, UserOutlined, WalletOutlined, BlockOutlined } from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined, BlockOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
+import useWorkspace from 'hooks/useWorkspace';
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 
 const ProfileTab = ({ handleLogout }) => {
+  const { workspaceId } = useWorkspace()
   const history = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleListItemClick = (event, index) => {
@@ -20,7 +22,7 @@ const ProfileTab = ({ handleLogout }) => {
     } else if (index === 4) {
       history('/tiers');
     } else if (index === 3) {
-      history('/dashboard');
+      history(`/${workspaceId}/dashboard`);
     }
   };
 
@@ -38,12 +40,12 @@ const ProfileTab = ({ handleLogout }) => {
         </ListItemIcon>
         <ListItemText primary="Workspace" />
       </ListItemButton>
-      <ListItemButton selected={selectedIndex === 4} onClick={(event) => handleListItemClick(event, 4)}>
+      {/* <ListItemButton selected={selectedIndex === 4} onClick={(event) => handleListItemClick(event, 4)}>
         <ListItemIcon>
           <WalletOutlined />
         </ListItemIcon>
         <ListItemText primary="Subscription" />
-      </ListItemButton>
+      </ListItemButton> */}
       <ListItemButton selected={selectedIndex === 2} onClick={handleLogout}>
         <ListItemIcon>
           <LogoutOutlined />

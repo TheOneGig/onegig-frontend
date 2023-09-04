@@ -7,7 +7,10 @@ import Loadable from 'components/Loadable';
 
 // render - login
 const AuthLogin = Loadable(lazy(() => import('pages/auth/login')));
+const AuthClientLogin = Loadable(lazy(() => import('pages/auth/clientlogin')));
+const AuthClientRegister = Loadable(lazy(() => import('pages/auth/clientregister'))); 
 const AuthRegister = Loadable(lazy(() => import('pages/auth/register')));
+const AuthUserRegister = Loadable(lazy(() => import('pages/auth/user-register')));
 const AuthForgotPassword = Loadable(lazy(() => import('pages/auth/forgot-password')));
 const AuthCheckMail = Loadable(lazy(() => import('pages/auth/check-mail')));
 const AuthResetPassword = Loadable(lazy(() => import('pages/auth/reset-password')));
@@ -29,6 +32,18 @@ const LoginRoutes = {
         {
           path: 'login',
           element: <AuthLogin />
+        },
+        {
+          path: 'client/login',
+          element: <AuthClientLogin />
+        },
+        {
+          path: 'client/register',
+          element: <AuthClientRegister />
+        },
+        {
+          path: 'user-register',
+          element: <AuthUserRegister />
         },
         {
           path: 'register',

@@ -9,10 +9,13 @@ import { truncate } from 'utils/truncate';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { useTheme } from '@mui/material/styles';
+import { createNotification } from 'hooks/notifications';
 
-const GigCard = ({ gig, refetch, handleEdit, share }) => {
+const GigCard = ({ gig, refetch, handleEdit, share, userId}) => {
   const theme = useTheme();
   const [openedDelete, setOpenedDelete] = useState(false);
+  const createNotificationMutation = useMutation(createNotification);
+
   const { mutate: gigDelete, isLoading: loadingDelete } = useMutation(['deleteGig'], (variables) => deleteGig(variables), {
     onSuccess: () => {
       refetch();
@@ -23,6 +26,12 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
         message: 'Your gig was deleted succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'A gig has been deleted!'
+        }
       });
     }
   });
@@ -48,6 +57,12 @@ const GigCard = ({ gig, refetch, handleEdit, share }) => {
         message: 'Congratulation!, your gig was published succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'Gig published!'
+        }
       });
     } else {
       showNotification({

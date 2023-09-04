@@ -15,26 +15,30 @@ import {
 import Chart from './AreaChart';
 import dayjs from 'dayjs';
 import useAuth from 'hooks/useAuth';
-import { getUser } from 'hooks/users';
+import useWorkspace from 'hooks/useWorkspace';
+import { getWorkspace } from 'hooks/workspace';
 import { formatUSD } from 'utils/formatUSD';
 import { useTheme } from '@mui/material/styles';
 import ToDoList from 'components/ToDoList';
 import TeamMembers from 'sections/widget/data/TeamMembers';
-import LatestCustomers from 'sections/widget/data/LatestCustomers';
+import LatestCustomers from 'sections/widget/data/LatestClients';
 import ReportCard from 'components/cards/statistics/ReportCard';
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
   const theme = useTheme();
   const { user } = useAuth();
-  const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId: user.id }));
+  const { workspaceId } = useWorkspace()
+  const { data: userInfo, isLoading } = useQuery(['getworkspace'], () => getWorkspace({ workspaceId }));
   if (isLoading) {
     return <div>Loading dashboard...</div>;
   }
 
-  const { ownedProjects, transactions } = userInfo;
+  const { ownedProjects = [], transactions = [], clients = [] } = userInfo;
   let openProfits = 0;
   let pendingTasks = [];
+
+  console.log(userInfo)
 
   ownedProjects
     ?.filter((p) => p.status !== 'ARCHIVED')
@@ -58,18 +62,19 @@ const DashboardDefault = () => {
   let totalRevenue = 0;
   let totalExpenses = 0;
 
-  transactions.forEach((transaction) => {
-    let date = dayjs(transaction.date);
-    let monthIndex = date.month();
+    transactions?.forEach((transaction) => {
+      let date = dayjs(transaction.date);
+      let monthIndex = date.month();
 
-    if (transaction.type === 'EXPENSE') {
-      expenses[monthIndex] += transaction.amount / 100;
-      totalExpenses += transaction.amount;
-    } else if (transaction.type === 'REVENUE') {
-      revenue[monthIndex] += transaction.amount / 100;
-      totalRevenue += transaction.amount;
-    }
-  });
+      if (transaction.type === 'EXPENSE') {
+        expenses[monthIndex] += transaction.amount / 100;
+        totalExpenses += transaction.amount;
+      } else if (transaction.type === 'REVENUE') {
+        revenue[monthIndex] += transaction.amount / 100;
+        totalRevenue += transaction.amount;
+      }
+    });
+  
 
   const profit = parseFloat(totalRevenue - totalExpenses).toFixed(2);
   return (
@@ -132,7 +137,7 @@ const DashboardDefault = () => {
         <ReportCard primary="2+" secondary="Contracts" color={theme.palette.success.dark} iconPrimary={FileTextOutlined} />
       </Grid>
       <Grid item xs={12} lg={3} sm={6}>
-        <ReportCard primary="20" secondary="Clients" color={theme.palette.primary.main} iconPrimary={UsergroupAddOutlined} />
+        <ReportCard primary={`${clients.length}`} secondary="Clients" color={theme.palette.primary.main} iconPrimary={UsergroupAddOutlined} />
       </Grid>
       <Grid item xs={12} lg={4} sm={4}>
         <TeamMembers />

@@ -26,6 +26,7 @@ import { IconEdit, IconCheck } from '@tabler/icons-react';
 import IconButton from 'components/@extended/IconButton';
 import { CheckCircleOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { showNotification } from '@mantine/notifications';
+import { createNotification } from 'hooks/notifications';
 
 const config = {
   bucketName: 'onegig-uploads',
@@ -36,7 +37,8 @@ const config = {
 
 // ==============================|| GIGS ||============================== //
 
-const GigCreate = ({ opened, setOpened, refetch, userId }) => {
+const GigCreate = ({ opened, setOpened, refetch, userId, workspaceId }) => {
+  const createNotificationMutation = useMutation(createNotification);
   const [category, setCategory] = useState(null);
   const [deliverables, setDeliverables] = useState([]);
   const [newDeliverable, setNewDeliverable] = useState('');
@@ -54,6 +56,12 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
         message: 'Congratulations! your gig was created succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'You have created a new gig!'
+        }
       });
       form.reset();
       setFile();
@@ -95,7 +103,8 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
         category,
         deliverables: deliverables.join(),
         userId,
-        fileUrl: file
+        fileUrl: file,
+        workspaceId
       };
       return mutate({ variables });
     } else {

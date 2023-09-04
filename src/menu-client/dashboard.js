@@ -5,6 +5,8 @@ import { FormattedMessage } from 'react-intl';
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
+const sidebarItems = (clientId) => {
+
 const dashboard = {
   id: 'group-dashboard',
   type: 'group',
@@ -13,37 +15,37 @@ const dashboard = {
       id: 'Home',
       title: <FormattedMessage id="Home" />,
       type: 'item',
-      url: 'home'
+      url: `/${clientId}/home`
     },
     {
       id: 'Inbox',
       title: <FormattedMessage id="Inbox" />,
       type: 'item',
-      url: 'inbox'
+      url: `/${clientId}/inbox`
     },
     {
-      id: 'Resources',
-      title: <FormattedMessage id="Resources" />,
+      id: 'Projects',
+      title: <FormattedMessage id="Projects" />,
       type: 'item',
-      url: 'resources'
+      url: `/${clientId}/projects`
     },
     {
       id: 'Contracts',
       title: <FormattedMessage id="Contracts" />,
       type: 'item',
-      url: 'contracts'
+      url: `/${clientId}/contracts`
     },
     {
       id: 'Meeting',
       title: <FormattedMessage id="Meeting" />,
       type: 'item',
-      url: 'meeting'
+      url: `/${clientId}/meeting`
     },
     {
       id: 'Billing',
       title: <FormattedMessage id="Billing" />,
       type: 'item',
-      url: 'billing'
+      url: `/${clientId}/billing`
     },
     {
       id: 'Feedback',
@@ -55,9 +57,11 @@ const dashboard = {
       id: 'contactus',
       title: <FormattedMessage id="Contact Us" />,
       type: 'item',
-      url: 'contact-us'
+      url: `/${clientId}/contact-us`
     }
   ]
 };
+  return dashboard
+}
 
-export default dashboard;
+export default sidebarItems;

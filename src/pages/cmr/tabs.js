@@ -4,14 +4,17 @@ import ReactTable from './table';
 import MainCard from 'components/MainCard';
 import ScrollX from 'components/ScrollX';
 import { deleteClient } from 'hooks/clients';
+import { createNotification } from 'hooks/notifications';
 import { showNotification } from '@mantine/notifications';
-import { useTheme } from '@mui/material/styles';
 import { IconCheck } from '@tabler/icons-react';
+import { sendClientInvite } from 'utils/sendEmail';
+import { useTheme } from '@mui/material/styles';
 import { useMutation } from 'react-query';
 import ClientEdit from './drawerEdit';
 import PropTypes from 'prop-types';
+import { createClientsite } from 'hooks/clients';
 
-const CMRTabs = ({ clientData, striped, refetch, userId }) => {
+const CMRTabs = ({ clientData, striped, refetch, userId, workspaceId}) => {
   const theme = useTheme();
   const [activeTab, setActiveTab] = useState('Active');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -22,7 +25,31 @@ const CMRTabs = ({ clientData, striped, refetch, userId }) => {
   const [deleteSelected, setDeleteSelected] = useState(false);
   const [openedEdit, setOpenedEdit] = useState(false);
   const [openedActions, setOpenedActions] = useState(false);
+
   const [client, setClient] = useState(null);
+  const createNotificationMutation = useMutation(createNotification);
+
+
+  const { mutate, isLoading } = useMutation(['createClientsite'], (variables) => createClientsite(variables), {
+    onSuccess: () => {
+      refetch();
+      showNotification({
+        id: 'load-data',
+        color: 'teal',
+        title: 'Clientsite Created!',
+        message: 'Congratulations! New clientsite created succesfully, you can close this notification',
+        icon: <IconCheck size="1rem" />,
+        autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'Clientsite created!'
+        }
+      });
+
+    }
+  });
 
   const { mutate: mutateDeleteClient } = useMutation(['deleteClient'], (variables) => deleteClient(variables), {
     onSuccess: () => {
@@ -34,6 +61,12 @@ const CMRTabs = ({ clientData, striped, refetch, userId }) => {
         message: 'Client deleted succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'Client Deleted!'
+        }
       });
     }
   });
@@ -75,6 +108,23 @@ const CMRTabs = ({ clientData, striped, refetch, userId }) => {
     setOpenedActions(false);
   };
 
+  const handleCreateClientsite = (client) => {
+    const emailData = {
+      to_name: client.firstname + ' ' + client.lastname,
+      to_email: client.email,
+      clientId: client.clientId
+    };
+    const variables = {
+      userId,
+      clientId: client.clientId,
+      workspaceId: workspaceId
+    
+    };
+    sendClientInvite( emailData );
+    return mutate({variables})
+
+  }
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -89,6 +139,10 @@ const CMRTabs = ({ clientData, striped, refetch, userId }) => {
 
   const columns = useMemo(
     () => [
+      // {
+      //   Header: 'ID',
+      //   accessor: 'clientId'
+      // },
       {
         Header: 'Last Name',
         accessor: 'lastName'
@@ -102,13 +156,13 @@ const CMRTabs = ({ clientData, striped, refetch, userId }) => {
         accessor: 'city'
       },
       {
-        Header: 'Phone Number',
-        accessor: 'phoneNumber',
-        Cell: ({ row }) => {
-          return <a href={`tel:${row.original.phoneNumber}`}>{row.original.phoneNumber}</a>;
-        }
+        Header: 'Email',
+        accessor: 'email'
       },
-
+      {
+        Header: 'Phone Number',
+        accessor: 'phoneNumber'
+      },
       {
         Header: 'Actions',
         accessor: 'actions',
@@ -218,6 +272,16 @@ const CMRTabs = ({ clientData, striped, refetch, userId }) => {
               }}
             >
               Edit
+            </Button>
+            <Button
+              fullWidth
+              mt={20}
+              variant="light"
+              onClick={() => {
+                  handleCreateClientsite(client)
+              }}
+            >
+              Client Invitation
             </Button>
             <Button
               fullWidth

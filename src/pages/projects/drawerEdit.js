@@ -6,10 +6,12 @@ import PropTypes from 'prop-types';
 import { updateProject } from 'hooks/projects';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
+import { createNotification } from 'hooks/notifications';
 
 // ==============================|| PROJECTS ||============================== //
 
 const ProjectEdit = ({ opened, setOpened, refetch, project }) => {
+  const createNotificationMutation = useMutation(createNotification);
   const { mutate, isLoading } = useMutation(['updateProject'], (variables) => updateProject(variables), {
     onSuccess: () => {
       refetch();
@@ -21,6 +23,12 @@ const ProjectEdit = ({ opened, setOpened, refetch, project }) => {
         message: 'Your project was updated succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'A project has been updated'
+        }
       });
       form.reset();
     }

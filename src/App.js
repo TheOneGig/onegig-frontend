@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 // auth provider
 import { FirebaseProvider as AuthProvider } from 'contexts/FirebaseContext';
+import { ClientProvider as AuthClientProvider } from 'contexts/FirebaseClientContext';
 import { MantineProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 // import { AWSCognitoProvider as AuthProvider } from 'contexts/AWSCognitoContext';
@@ -42,10 +43,12 @@ const App = () => {
               <Locales>
                 <ScrollTop>
                   <AuthProvider>
-                    <>
-                      <Routes />
-                      <Snackbar />
-                    </>
+                    <AuthClientProvider>
+                      <>
+                        <Routes />
+                        <Snackbar />
+                      </>
+                    </AuthClientProvider>
                   </AuthProvider>
                 </ScrollTop>
               </Locales>

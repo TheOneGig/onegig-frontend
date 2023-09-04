@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { useTheme } from '@mui/material/styles';
+import { createNotification } from 'hooks/notifications';
 
 const SingleTemplateCard = ({ template, refetch }) => {
   const theme = useTheme();
@@ -26,6 +27,7 @@ const SingleTemplateCard = ({ template, refetch }) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [deleteSelected, setDeleteSelected] = useState(false);
   const navigate = useNavigate();
+  const createNotificationMutation = useMutation(createNotification);
   const { mutate: mutationDeleteTemplate } = useMutation(['deleteTemplate'], (variables) => deleteTemplate(variables), {
     onSuccess: () => {
       refetch();
@@ -36,6 +38,12 @@ const SingleTemplateCard = ({ template, refetch }) => {
         message: 'Your template was deleted succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'A template has been deleted'
+        }
       });
     }
   });

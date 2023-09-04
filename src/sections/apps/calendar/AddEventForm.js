@@ -23,18 +23,22 @@ import {
 } from '@mui/material';
 import { LocalizationProvider, MobileDateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import useAuth from 'hooks/useAuth';
 
 // third-party
 import _ from 'lodash';
 import * as Yup from 'yup';
 import { useFormik, Form, FormikProvider } from 'formik';
+import { useMutation } from 'react-query';
 
 // project imports
 import ColorPalette from './ColorPalette';
 import IconButton from 'components/@extended/IconButton';
 import { openSnackbar } from 'store/reducers/snackbar';
 import { createEvent, deleteEvent, updateEvent } from 'store/reducers/calendar';
-
+// import { showNotification } from '@mantine/notifications';
+// import { IconCheck } from '@tabler/icons-react';
+import { createNotification } from 'hooks/notifications';
 // assets
 import { CalendarOutlined, DeleteFilled } from '@ant-design/icons';
 
@@ -60,14 +64,17 @@ const getInitialValues = (event, range) => {
 // ==============================|| CALENDAR EVENT ADD / EDIT / DELETE ||============================== //
 
 const AddEventFrom = ({ event, range, onCancel }) => {
+  const user = useAuth();
+  const userId = user.id;
+  const createNotificationMutation = useMutation(createNotification);
   const theme = useTheme();
   const dispatch = useDispatch();
   const isCreating = !event;
 
   const backgroundColor = [
     {
-      value: theme.palette.primary.main,
-      color: 'primary.main'
+      value: theme.palette.background.main,
+      color: 'background.main'
     },
     {
       value: theme.palette.error.main,
@@ -174,6 +181,12 @@ const AddEventFrom = ({ event, range, onCancel }) => {
           color: 'success'
         },
         close: false
+      }),
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'A event has been deleted'
+        }
       })
     );
   };
@@ -194,7 +207,7 @@ const AddEventFrom = ({ event, range, onCancel }) => {
         };
 
         if (event) {
-          dispatch(updateEvent(event.id, newEvent));
+          dispatch(updateEvent(event.eventId, newEvent));
           dispatch(
             openSnackbar({
               open: true,
@@ -204,10 +217,18 @@ const AddEventFrom = ({ event, range, onCancel }) => {
                 color: 'success'
               },
               close: false
+            }),
+            createNotificationMutation.mutate({
+              variables: {
+                userId: userId,
+                message: 'A event has been updated'
+              }
             })
           );
         } else {
-          dispatch(createEvent(newEvent));
+          console.log("Before dispatch", newEvent);
+          dispatch(createEvent(userId, newEvent));
+          console.log("After dispatch");
           dispatch(
             openSnackbar({
               open: true,
@@ -217,6 +238,12 @@ const AddEventFrom = ({ event, range, onCancel }) => {
                 color: 'success'
               },
               close: false
+            }),
+            createNotificationMutation.mutate({
+              variables: {
+                userId: userId,
+                message: 'A new event has been added!'
+              }
             })
           );
         }
@@ -233,7 +260,7 @@ const AddEventFrom = ({ event, range, onCancel }) => {
   return (
     <FormikProvider value={formik}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+        <Form style={{ backgroundColor: theme.palette.background.default }} autoComplete="off" noValidate onSubmit={handleSubmit}>
           <DialogTitle>{event ? 'Edit Event' : 'Add Event'}</DialogTitle>
           <Divider />
           <DialogContent sx={{ p: 2.5 }}>

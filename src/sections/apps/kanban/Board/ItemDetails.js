@@ -12,6 +12,8 @@ import { openSnackbar } from 'store/reducers/snackbar';
 import { useDispatch, useSelector } from 'store';
 import { selectItem, deleteItem } from 'store/reducers/kanban';
 
+import { useTheme } from '@mui/system';
+
 // assets
 import { CloseOutlined, DeleteFilled } from '@ant-design/icons';
 
@@ -20,6 +22,7 @@ import IconButton from 'components/@extended/IconButton';
 // ==============================|| KANBAN BOARD - ITEM DETAILS ||============================== //
 
 const ItemDetails = () => {
+  const theme = useTheme();
   let selectedData;
   let commentList = <></>;
 
@@ -97,7 +100,7 @@ const ItemDetails = () => {
         <>
           {selectedData && (
             <>
-              <Box sx={{ p: 3 }}>
+              <Box sx={{ p: 3, backgroundColor: theme.palette.background.paper }}>
                 <Grid container alignItems="center" spacing={0.5} justifyContent="space-between">
                   <Grid item sx={{ width: 'calc(100% - 64px)' }}>
                     <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between">
@@ -135,7 +138,7 @@ const ItemDetails = () => {
                 </Grid>
               </Box>
               <Divider />
-              <Box sx={{ p: 3 }}>
+              <Box sx={{ p: 3, backgroundColor: theme.palette.background.paper }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <EditItem

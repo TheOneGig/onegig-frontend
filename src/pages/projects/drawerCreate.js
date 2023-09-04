@@ -6,11 +6,14 @@ import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
+import { createNotification } from 'hooks/notifications';
 
 // ==============================|| GIGS ||============================== //
 
-const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
+const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs, clients, workspaceId }) => {
   const [gigId, setGigId] = useState('');
+  const [clientId, setClientId] = useState('');
+  const createNotificationMutation = useMutation(createNotification);
   const { mutate, isLoading } = useMutation(['createProject'], (variables) => createProject(variables), {
     onSuccess: () => {
       refetch();
@@ -22,6 +25,12 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
         message: 'Congratulations! your project was created succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'A new project has been added'
+        }
       });
       form.reset();
     }
@@ -42,7 +51,15 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
 
   function handleSubmit(values) {
     const price = parseInt(values.price * 100);
-    const variables = { name: values.name, description: values.description, price, userId, gigId: gigId && gigId };
+    const variables = {
+      name: values.name,
+      description: values.description,
+      price,
+      userId,
+      workspaceId,
+      gigId: gigId && gigId,
+      clientId: clientId && clientId
+    };
     return mutate({ variables });
   }
 
@@ -60,11 +77,17 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
     });
   }
 
+  function selectClient(id) {
+    const client = client.find((client) => id === client.clientId);
+    setClientId(client.clientId);
+  }
+
   return (
     <Drawer opened={opened} onClose={() => setOpened(false)} title="Register" padding="xl" size="xl" position="right">
       <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Title order={1}>New Project</Title>
         <Select label="Gig" placeholder="Pick a gig" data={gigsOptions} value={gigId} onChange={selectGig} />
+        <Select label="Client" placeholder="Pick a client" data={clients} value={clientId} onChange={selectClient} />
         <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
         <Textarea
           label="Description"

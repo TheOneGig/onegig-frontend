@@ -16,6 +16,7 @@ const UserTabPersonal = Loadable(lazy(() => import('pages/profile/TabPersonal'))
 const Tiers = Loadable(lazy(() => import('pages/tiers')));
 
 const Requirements = Loadable(lazy(() => import('pages/requirements')));
+const CreateWorkspace = Loadable(lazy(() => import('pages/auth/create-workspace')));
 
 // ==============================|| ROUTING RENDER ||============================== //
 
@@ -62,6 +63,10 @@ export default function ThemeRoutes() {
         {
           path: 'subscription',
           element: <Tiers />
+        }, 
+        {
+          path: 'create-workspace',
+          element: <CreateWorkspace />
         }
       ]
     },

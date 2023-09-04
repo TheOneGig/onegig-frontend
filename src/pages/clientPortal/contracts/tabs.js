@@ -143,9 +143,6 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
                   <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleMarkAsSigned(row.original.contractId)}>
                     Mark as Signed
                   </Button>
-                  <Button className="red-btn" mt="md" radius="md" fullWidth onClick={() => handleDelete(row.original.contractId)}>
-                    Delete
-                  </Button>
                 </>
               );
             case 'Signed':
