@@ -7,7 +7,7 @@ import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 // assets
 import { LogoutOutlined} from '@ant-design/icons';
 //UserOutlined, WalletOutlined, AreaChartOutlined 
-import { useNavigate } from 'react-router';
+//import { useNavigate } from 'react-router';
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 

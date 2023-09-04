@@ -75,10 +75,15 @@ export const ClientProvider = ({ children }) => {
     checkClientAuth();
   }, [dispatch]);
 
+  const logout = () => {
+    dispatch({ type: LOGOUT_CLIENT });
+  };
+
 
   const contextValue = {
     ...state,
-    EmailPasswordSignIn,  // Add the function to the context
+    EmailPasswordSignIn,
+    logout  // Add the function to the context
   };
 
   return (

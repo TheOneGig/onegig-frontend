@@ -1,6 +1,6 @@
 import { Fragment, useRef, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-import { markAllAsRead } from 'hooks/notifications'; // Asegúrate de importar tu función markAllAsRead
+import { markAllAsReadClient } from 'hooks/notifications'; // Asegúrate de importar tu función markAllAsRead
 import Dot from 'components/@extended/Dot';
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -56,13 +56,13 @@ const Notification = () => {
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
   const { clientId } = useAuth();
   const queryClient = useQueryClient();
-  const markAllNotificationsAsReadMutation = useMutation(markAllAsRead, {
+  const markAllNotificationsAsReadMutation = useMutation(markAllAsReadClient, {
     onSuccess: () => {
       queryClient.refetchQueries(['notifications']);
     }
   });
 
-  const { data: notifications, isLoading: loadingNotifications } = useQuery(['notifications'], () => getNotifications({ userId }));
+  const { data: notifications, isLoading: loadingNotifications } = useQuery(['notifications'], () => getClientNotifications({ clientId }));
 
   const anchorRef = useRef(null);
   const [read, setRead] = useState(2);
@@ -89,10 +89,9 @@ const Notification = () => {
 
   const handleMarkAsRead = async () => {
     try {
-      await markAllNotificationsAsReadMutation.mutateAsync({ userId });
+      await markAllNotificationsAsReadMutation.mutateAsync({ clientId });
     } catch (error) {
       console.error('Error marking notifications as read:', error.response?.data?.message || error.message);
-      // Aquí puedes mostrar un mensaje de error al usuario si lo deseas.
     }
   };
 
