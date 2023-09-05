@@ -38,24 +38,18 @@ import { sendWorkspaceInvite } from 'utils/sendEmail';
 // assets
 import { EllipsisOutlined } from '@ant-design/icons';
 import { updateUser } from 'hooks/users';
-import { createTeam, getTeam } from 'hooks/teams';
+import { createTeam } from 'hooks/teams';
+import { getMembers } from 'hooks/users';
 
 import { IconCheck } from '@tabler/icons-react';
 
 // table data
-function createData(name, avatar, email, role, status) {
-  return { name, avatar, email, role, status };
+function createData(name, lastName, avatar, email, role, status) {
+  return { name, lastName, avatar, email, role, status };
 }
 
 const avatarImage = require.context('assets/images/users', true);
 
-const rows = [
-  createData('Frozen Tek', 'avatar-1.png', 'owner@company.com', 1, true),
-  createData('Eclair Dues', 'avatar-3.png', 'manager@company.com', 2, true),
-  createData('Schem Lein', 'avatar-2.png', 'sl@company.com', 3, false),
-  createData('Jhon Doe', 'avatar-4.png', 'jd@company.com', 3, true),
-  createData('Tevoni Wug', 'avatar-5.png', 'tw@company.com', 0, false)
-];
 
 // ==============================|| ACCOUNT PROFILE - ROLE ||============================== //
 
@@ -71,7 +65,8 @@ const TabRole = () => {
   const [selectedRole, setSelectedRole] = useState(null);
   const [memberId, setMemberId] = useState(null);
   const createNotificationMutation = useMutation(createNotification);
-  const { data: team, isLoading, refetch } = useQuery(['team'], () => getTeam({ userId }));
+  const { data: members, isLoading, refetch } = useQuery(['members'], () => getMembers({ workspaceId }));
+  console.log(members);
   console.log(team)
   console.log("user",user,"workspace id ",workspaceId )
   const { mutate: updateRole } = useMutation(['updateUser'], (variables) => updateUser(variables), {
@@ -95,31 +90,22 @@ const TabRole = () => {
       setSelectedRole(null);
     }
   });
-  const { mutate: teamCreate } = useMutation(['createTeam'], (variables) => createTeam(variables), {
-    onSuccess: () => {
-      refetch();
-      setEditOpened(false);
-      showNotification({
-        id: 'load-data',
-        color: 'blue',
-        title: 'You created your team!',
-        message: 'Your team has been created succesfully, you can close this notification',
-        icon: <IconCheck size="1rem" />,
-        autoClose: 3000
-      });
-      createNotificationMutation.mutate({
-        variables: {
-          userId: userId,
-          message: 'Team Created!'
-        }
-      });
-      setSelectedRole(null);
-    }
-  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;  // Replace this with a proper loading component
+  }
 
 
-  const members = true
+  const rows = members.map(member => createData(
+    member.fName,
+    member.lName,
+    member.avatar,
+    member.email,
+    member.role,
+    'true'
+  ));
 
+  
   const handleModalClose = () => {
     setOpenModal(false);
   };
@@ -137,17 +123,6 @@ const TabRole = () => {
     return updateRole(variables);
   };
 
-  const handleCreate= () => {
-    const variables = {
-        userId: userId,
-        workspaceId: workspaceId,
-        teamId: workspaceId,
-        name: user.name
-    };
-    console.log(variables)
-    return teamCreate({variables});
-  };
-
   const handleSendEmail = () => {
    const variables = {
       to_email: email,
@@ -159,8 +134,6 @@ const TabRole = () => {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
-      { members ? (   
-      <>
         <MainCard title="Invite Team Members" content={false}>
           <Stack spacing={2.5} sx={{ p: 2.5 }}>
             <Typography variant="h4">
@@ -205,7 +178,7 @@ const TabRole = () => {
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
-                  <TableRow hover key={row.name}>
+                  <TableRow hover key={row.name + ' ' + row.lName}>
                     <TableCell sx={{ pl: 3 }} component="th">
                       <Stack direction="row" alignItems="center" spacing={1.25}>
                         <Avatar alt="Avatar 1" src={avatarImage(`./${row.avatar}`)} />
@@ -218,10 +191,9 @@ const TabRole = () => {
                       </Stack>
                     </TableCell>
                     <TableCell>
-                      {row.role === 1 && <Chip size="small" color="success" label="Admin" />}
-                      {row.role === 2 && <Chip size="small" color="info" label="User" />}
-                      {row.role === 3 && <Chip size="small" color="info" label="User" />}
-                      {row.role === 0 && <Chip size="small" color="info" label="User" />}
+                      {row.role === 'ADMIN' && <Chip size="small" color="success" label="Admin" />}
+                      {row.role === 'LEADER' && <Chip size="small" color="info" label="Team leader" />}
+                      {row.role === 'USER' && <Chip size="small" color="info" label="Collaborator" />}
                     </TableCell>
                     <TableCell align="right">
                       {!row.status && (
@@ -245,19 +217,6 @@ const TabRole = () => {
             </Table>
           </TableContainer>
         </MainCard>
-            </>
-            ) :
-            (
-              <>
-              <h1>You don't have a team</h1>
-              <Button variant="contained" size="large" onClick={handleCreate}>
-                Create Team
-              </Button>
-              </>
-
-            )
-            }
-        
       </Grid>
       {/* <Grid item xs={12}>
       <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={2}>

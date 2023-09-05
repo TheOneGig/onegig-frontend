@@ -1,11 +1,10 @@
-import { Link as RouterLink } from 'react-router-dom';
+//import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
 import { CardContent, Grid, Typography } from '@mui/material';
 import { useQuery } from 'react-query';
-import { getMembers } from 'hooks/teams';
-import { getWorkspace } from 'hooks/workspace';
-import useAuth from 'hooks/useAuth';
+import { getMembers } from 'hooks/users';
+//import useAuth from 'hooks/useAuth';
 import useWorkspace from 'hooks/useWorkspace';
 
 // project imports
@@ -14,17 +13,17 @@ import Avatar from 'components/@extended/Avatar';
 
 // assets
 import Avatar1 from 'assets/images/users/avatar-1.png';
-import Avatar2 from 'assets/images/users/avatar-2.png';
-import Avatar3 from 'assets/images/users/avatar-3.png';
-import Avatar4 from 'assets/images/users/avatar-4.png';
+// import Avatar2 from 'assets/images/users/avatar-2.png';
+// import Avatar3 from 'assets/images/users/avatar-3.png';
+// import Avatar4 from 'assets/images/users/avatar-4.png';
 
 // ===========================|| DATA WIDGET - TEAM MEMBERS CARD ||=========================== //
 
 const TeamMembers = () => {
-  const { user } = useAuth();
-  const userId = user.id;
+  // const { user } = useAuth();
+  // const userId = user.id;
   const {workspaceId} = useWorkspace();
-  const { data: members, isLoading, refetch } = useQuery(['members'], () => getWorkspace({ workspaceId }));
+  const { data: members, isLoading, refetch } = useQuery(['members'], () => getMembers({ workspaceId }));
   console.log(members);
   
   if (isLoading) {
@@ -61,11 +60,11 @@ const TeamMembers = () => {
                     {member.role}
                   </Typography>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
                   <Typography align="left" variant="caption">
                     5 min ago
                   </Typography>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
           ))}

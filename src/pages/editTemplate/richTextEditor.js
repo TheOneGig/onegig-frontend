@@ -28,7 +28,7 @@ const wrapperStyle = {
   margin: '20px auto'
 };
 
-const RichTextEditor = ({ title, description, template, userId, editorState, setEditorState, refetch, templateId }) => {
+const RichTextEditor = ({ title, description, template, userId, editorState, setEditorState, refetch, workspaceId,  templateId }) => {
   const createNotificationMutation = useMutation(createNotification);
   const { mutate: createTemplateMutation, isLoading } = useMutation(['createTemplate'], (variables) => createTemplate(variables), {
     onSuccess: () => {
@@ -124,18 +124,27 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
   };
 
   const handleSave = useCallback(() => {
-    const variables = {
-      templateId,
-      title: title,
-      description: description,
-      content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
-      fileUrl: pdfUrl,
-      thumbnail: thumbnail,
-      userId
-    };
     if (template.templateId) {
-      updateTemplateMutation({ variables });
+      const newVariables = {
+        templateId,
+        title: title,
+        description: description,
+        content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+        fileUrl: pdfUrl,
+        thumbnail: thumbnail,
+      };
+      updateTemplateMutation({ newVariables });
     } else {
+      const variables = {
+        templateId,
+        title: title,
+        description: description,
+        content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+        fileUrl: pdfUrl,
+        thumbnail: thumbnail,
+        userId,
+        workspaceId
+      };
       createTemplateMutation({ variables });
     }
   }, [

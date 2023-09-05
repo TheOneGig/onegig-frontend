@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useAuth from 'hooks/useClientAuth';
+import useClientAuth from 'hooks/useClientAuth';
 
 const ClientGuard = ({ children }) => {
-  const { isLoggedIn } = useAuth(); // Asumiendo que isClientLoggedIn es parte de tu estado de autenticación
+  const { isClientLoggedIn } = useClientAuth(); // Asumiendo que isClientLoggedIn es parte de tu estado de autenticación
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!isClientLoggedIn) {
       navigate('/client/login', { replace: true });
     }
-  }, [isLoggedIn, navigate]);
+  }, [isClientLoggedIn, navigate]);
 
   return children || null;
 };

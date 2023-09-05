@@ -12,6 +12,7 @@ import MainCard from 'components/MainCard';
 import Transitions from 'components/@extended/Transitions';
 import IconButton from 'components/@extended/IconButton';
 import useClientAuth from 'hooks/useClientAuth';
+import useClient from 'hooks/useClient';
 import ProfileTab from './ProfileTab';
 
 // assets
@@ -40,8 +41,9 @@ const Profile = () => {
   const theme = useTheme();
   // const history = useNavigate();
 
-  const { logout, client } = useAuth();
-  const clientId = client.id;
+  const { logout } = useClientAuth();
+  const {clientId} = useClient();
+  console.log(clientId)
   const { data: userInfo, isLoading } = useQuery(['client'], () => getClient({ clientId }));
   const handleLogout = async () => {
     try {

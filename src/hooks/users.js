@@ -7,6 +7,8 @@ export const getUser = async (data) => {
 
 export const loginUser = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/users/login', data);
+  console.log(response, "this is the response");
+  console.log(data)
   return response;
 };
 
@@ -31,5 +33,11 @@ export const avatarUser = async (data) => {
 
 export const updateSettings = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/users/settings', data.variables);
+  return response;
+};
+
+
+export const getMembers = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/users/byWorkspace', data);
   return response;
 };

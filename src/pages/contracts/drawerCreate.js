@@ -28,7 +28,6 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
   const [selectedGig, setSelectedGig] = useState(null);
   const [selectedClient, setSelectedClient] = useState(null);
   const [signingPdf, setSigningPdf] = useState(false);
-  const [recieverEmail, setRecieverEmail] = useState('');
   const [signedPdf, setSignedPdf] = useState(null);
   const [fileType, setFileType] = useState('template');
   const [file, setFile] = useState(null);
@@ -43,7 +42,6 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
       setOpened(false);
       setSelectedGig(null);
       setSigningPdf(false);
-      setRecieverEmail('');
       setSignedPdf(false);
       setFileType('template');
       setFile(null);
@@ -99,8 +97,7 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
         description: values.description,
         gig: selectedGig,
         status: values.status,
-        client: selectedClient,
-        reciever: recieverEmail,
+        clientId: selectedClient,
         userId,
         workspaceId,
         fileUrl: file
@@ -139,12 +136,12 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
 
                 <Tooltip label="Who will recieve the contract">
                   <Select
-                    label="Reciever"
-                    placeholder="Select Reciever"
+                    label="Client"
+                    placeholder="Select Client"
                     value={selectedClient}
                     withAsterisk
                     onChange={(selectedOption) => {
-                      setSelectedClient(selectedOption), setRecieverEmail(selectedOption.label);
+                      setSelectedClient(selectedOption.value)
                     }}
                     data={clients.length ? clients : [{ value: 'no-gigs', label: 'No Gigs Found' }]}
                     rightSection={<UserOutlined />}

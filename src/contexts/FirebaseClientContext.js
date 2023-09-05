@@ -22,7 +22,7 @@ export const ClientProvider = ({ children }) => {
 
   const EmailPasswordSignIn = async (email, accessKey) => {
     try {
-      const clientdb = await loginClient(email);
+      const clientdb = await loginClient({clientId: accessKey});
       console.log(clientdb);
       if (clientdb) {
         const newPayload = {
@@ -55,7 +55,7 @@ export const ClientProvider = ({ children }) => {
     // Mock API call to check client authentication
     const checkClientAuth = async () => {
       try {
-        const client = await loginClient(); // Replace this with your actual API call
+        const client = await loginClient({clientId: accessKey}); // Replace this with your actual API call
         if (client) {
           dispatch({
             type: LOGIN_CLIENT,

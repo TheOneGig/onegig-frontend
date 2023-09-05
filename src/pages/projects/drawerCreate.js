@@ -3,6 +3,7 @@ import { useForm, hasLength, isInRange } from '@mantine/form';
 import { createProject } from 'hooks/projects';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { UserOutlined } from '@ant-design/icons'
 import { useMutation } from 'react-query';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
@@ -12,7 +13,7 @@ import { createNotification } from 'hooks/notifications';
 
 const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs, clients, workspaceId }) => {
   const [gigId, setGigId] = useState('');
-  const [clientId, setClientId] = useState('');
+  const [selectedClient, setSelectedClient] = useState(null);
   const createNotificationMutation = useMutation(createNotification);
   const { mutate, isLoading } = useMutation(['createProject'], (variables) => createProject(variables), {
     onSuccess: () => {
@@ -58,7 +59,7 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs, clients, work
       userId,
       workspaceId,
       gigId: gigId && gigId,
-      clientId: clientId && clientId
+      clientId: selectedClient
     };
     return mutate({ variables });
   }
@@ -77,17 +78,22 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs, clients, work
     });
   }
 
-  function selectClient(id) {
-    const client = client.find((client) => id === client.clientId);
-    setClientId(client.clientId);
-  }
-
   return (
     <Drawer opened={opened} onClose={() => setOpened(false)} title="Register" padding="xl" size="xl" position="right">
       <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Title order={1}>New Project</Title>
         <Select label="Gig" placeholder="Pick a gig" data={gigsOptions} value={gigId} onChange={selectGig} />
-        <Select label="Client" placeholder="Pick a client" data={clients} value={clientId} onChange={selectClient} />
+        <Select
+                    label="Reciever"
+                    placeholder="Select Reciever"
+                    value={selectedClient}
+                    withAsterisk
+                    onChange={(selectedOption) => {
+                      setSelectedClient(selectedOption.value)
+                    }}
+                    data={clients.length ? clients : [{ value: 'no-gigs', label: 'No Gigs Found' }]}
+                    rightSection={<UserOutlined />}
+                  />
         <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
         <Textarea
           label="Description"

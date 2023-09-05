@@ -3,7 +3,9 @@ import useClientAuth from 'hooks/useClientAuth';
 
 const useClient = () => {
   const { client } = useClientAuth();
-  const clientId = client.id
+  console.log(client)
+  const clientId = client?.id;
+  console.log(clientId)
   const navigate = useNavigate();
 
   const goToDashboard = () => navigate(`/${clientId}/dashboard`);

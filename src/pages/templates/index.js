@@ -14,7 +14,7 @@ const TemplatesPage = () => {
 
   const handleCreateNewTemplate = () => {
     const newId = uuid();
-    navigate(`/edittemplate/${newId}`);
+    navigate(`/${workspaceId}/edittemplate/${newId}`);
   };
 
   if (isLoading) {
