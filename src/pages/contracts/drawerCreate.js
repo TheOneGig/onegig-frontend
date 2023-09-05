@@ -141,7 +141,7 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                     value={selectedClient}
                     withAsterisk
                     onChange={(selectedOption) => {
-                      setSelectedClient(selectedOption.value)
+                      setSelectedClient(selectedOption)
                     }}
                     data={clients.length ? clients : [{ value: 'no-gigs', label: 'No Gigs Found' }]}
                     rightSection={<UserOutlined />}

@@ -54,7 +54,7 @@ const TeamMembers = () => {
                 </Grid>
                 <Grid item xs zeroMinWidth>
                   <Typography align="left" variant="subtitle1">
-                    `${member.fname}${member.lname}`
+                    {member.fname + ' '+member.lname}
                   </Typography>
                   <Typography align="left" variant="caption" color="secondary">
                     {member.role}

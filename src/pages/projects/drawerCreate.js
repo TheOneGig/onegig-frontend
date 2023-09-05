@@ -61,6 +61,7 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs, clients, work
       gigId: gigId && gigId,
       clientId: selectedClient
     };
+    console.log(variables)
     return mutate({ variables });
   }
 
@@ -83,13 +84,13 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs, clients, work
       <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Title order={1}>New Project</Title>
         <Select label="Gig" placeholder="Pick a gig" data={gigsOptions} value={gigId} onChange={selectGig} />
-        <Select
-                    label="Reciever"
-                    placeholder="Select Reciever"
+              <Select
+                    label="Client"
+                    placeholder="Select Client"
                     value={selectedClient}
                     withAsterisk
                     onChange={(selectedOption) => {
-                      setSelectedClient(selectedOption.value)
+                      setSelectedClient(selectedOption)
                     }}
                     data={clients.length ? clients : [{ value: 'no-gigs', label: 'No Gigs Found' }]}
                     rightSection={<UserOutlined />}

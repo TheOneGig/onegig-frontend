@@ -23,7 +23,7 @@ const ProfileTab = ({ handleLogout }) => {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
     if (index === 1) {
-      history(`${workspaceId}/profile/personal`);
+      history(`/${workspaceId}/profile/personal`);
     } else if (index === 4) {
       history('/tiers');
     } else if (index === 3) {
