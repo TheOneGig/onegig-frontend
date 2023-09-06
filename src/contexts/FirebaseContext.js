@@ -37,7 +37,7 @@ export const FirebaseProvider = ({ children }) => {
   const setWorkspaceId = (workspaceId) => {
     dispatch({
       type: SET_WORKSPACE_ID, // Utilizando la acción importada
-      payload: { workspaceId },
+      payload: { workspaceId }
     });
   };
 
@@ -46,8 +46,8 @@ export const FirebaseProvider = ({ children }) => {
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
           const dbUser = await loginUser({ email: user.email });
-           // Asumiendo que esta función obtiene el workspace completo
-           console.log(dbUser)
+          // Asumiendo que esta función obtiene el workspace completo
+          console.log(dbUser);
           dispatch({
             type: LOGIN_USER,
             payload: {

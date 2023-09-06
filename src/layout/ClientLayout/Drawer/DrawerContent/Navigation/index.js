@@ -16,7 +16,7 @@ import useClient from 'hooks/useClient';
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
 const Navigation = () => {
-   const { clientId } = useClient();
+  const { clientId } = useClient();
   // const userId = user.id;
   // const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId }));
   const menu = useSelector((state) => state.menu);
@@ -27,7 +27,7 @@ const Navigation = () => {
   const menuList = sidebarItems(clientId);
   const menuListGroup = {
     items: [menuList]
-  }
+  };
   const navGroups = menuListGroup.items.map((item) => {
     switch (item.type) {
       case 'group':

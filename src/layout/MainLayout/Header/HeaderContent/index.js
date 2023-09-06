@@ -24,7 +24,7 @@ const HeaderContent = () => {
       <Notes />
       <ToDo />
       <Notification />
-     {/* <Message /> */}
+      {/* <Message /> */}
       {!matchesXs && <Profile />}
       {matchesXs && <MobileSection />}
     </>

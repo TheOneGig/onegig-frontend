@@ -96,13 +96,13 @@ const AuthRegister = () => {
                   userFBId: result.user._delegate.uid,
                   workspaceId: values.accesskey,
                   teamId: values.accesskey,
-                  role: 'USER',
+                  role: 'USER'
                 };
                 const emailData = {
                   to_name: values.fname,
                   to_email: values.email
                 };
-                console.log(variables)
+                console.log(variables);
                 sendEmailConfirmation(emailData);
                 mutate({ variables });
               },

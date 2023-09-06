@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+// import { useState } from 'react';
 
 // material-ui
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
 // assets
-import { LogoutOutlined} from '@ant-design/icons';
-//UserOutlined, WalletOutlined, AreaChartOutlined 
+import { LogoutOutlined } from '@ant-design/icons';
+//UserOutlined, WalletOutlined, AreaChartOutlined
 //import { useNavigate } from 'react-router';
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 
 const ProfileTab = ({ handleLogout }) => {
- // const history = useNavigate();
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  // const history = useNavigate();
+  //const [selectedIndex, setSelectedIndex] = useState(0);
   // const handleListItemClick = (event, index) => {
   //   setSelectedIndex(index);
   //   if (index === 1) {
@@ -33,7 +33,7 @@ const ProfileTab = ({ handleLogout }) => {
         </ListItemIcon>
         <ListItemText primary="Profile" />
       </ListItemButton> */}
-      <ListItemButton selected={selectedIndex === 2} onClick={handleLogout}>
+      <ListItemButton onClick={handleLogout}>
         <ListItemIcon>
           <LogoutOutlined />
         </ListItemIcon>

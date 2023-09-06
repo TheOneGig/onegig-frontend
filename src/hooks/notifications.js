@@ -54,4 +54,3 @@ export const getUnreadCountClient = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/notifications/client-unreadCount', data);
   return response.unreadCount;
 };
-

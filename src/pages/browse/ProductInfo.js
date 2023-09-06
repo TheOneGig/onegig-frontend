@@ -131,7 +131,6 @@ const ProductInfo = ({ gig }) => {
       </Stack>
       <Stack direction="row" justifyContent="center" padding={4} spacing={2.5}>
         <Button
-      
           sx={{
             backgroundColor: '#13502f',
             color: '#f1f1f1',
@@ -149,7 +148,6 @@ const ProductInfo = ({ gig }) => {
           {`I'm Interested`}
         </Button>
         <Button
-        
           size="large"
           disabled={isLoading}
           onClick={() => setEmailOpened(true)}

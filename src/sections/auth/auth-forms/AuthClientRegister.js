@@ -37,7 +37,7 @@ import { registerClient } from 'hooks/clients';
 const AuthRegister = () => {
   const history = useNavigate();
   const [capsWarning, setCapsWarning] = useState(false);
-  const [clientId, setClientId] = useState(null)
+  const [clientId, setClientId] = useState(null);
   const { mutate } = useMutation(['client-signup'], (variables) => registerClient(variables), {
     onSuccess: () => {
       history(`/client/${clientId}/personal`);
@@ -86,8 +86,8 @@ const AuthRegister = () => {
                   clientFBId: result.user._delegate.uid,
                   clientId: values.accesskey
                 };
-                console.log(variables)
-                setClientId(values.accesskey)
+                console.log(variables);
+                setClientId(values.accesskey);
                 mutate({ variables });
               },
               (err) => {

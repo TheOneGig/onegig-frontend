@@ -23,7 +23,7 @@ import {
   DialogContent,
   MenuItem,
   DialogTitle,
-  Select,
+  Select
 } from '@mui/material';
 import IconButton from 'components/@extended/IconButton';
 import { showNotification } from '@mantine/notifications';
@@ -38,7 +38,6 @@ import { sendWorkspaceInvite } from 'utils/sendEmail';
 // assets
 import { EllipsisOutlined } from '@ant-design/icons';
 import { updateUser } from 'hooks/users';
-import { createTeam } from 'hooks/teams';
 import { getMembers } from 'hooks/users';
 
 import { IconCheck } from '@tabler/icons-react';
@@ -48,17 +47,16 @@ function createData(name, lastName, avatar, email, role, status) {
   return { name, lastName, avatar, email, role, status };
 }
 
-const avatarImage = require.context('assets/images/users', true);
-
+// const avatarImage = require.context('assets/images/users', true);
 
 // ==============================|| ACCOUNT PROFILE - ROLE ||============================== //
 
 const TabRole = () => {
   const [email, setEmail] = useState('');
   const theme = useTheme();
-  const {user } = useAuth()
-  const userId = user.id
-  const { workspaceId } = useWorkspace()
+  const { user } = useAuth();
+  const userId = user.id;
+  const { workspaceId } = useWorkspace();
   const [openModal, setOpenModal] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
   const [deleteSelected, setDeleteSelected] = useState(false);
@@ -67,8 +65,7 @@ const TabRole = () => {
   const createNotificationMutation = useMutation(createNotification);
   const { data: members, isLoading, refetch } = useQuery(['members'], () => getMembers({ workspaceId }));
   console.log(members);
-  console.log(team)
-  console.log("user",user,"workspace id ",workspaceId )
+  console.log('user', user, 'workspace id ', workspaceId);
   const { mutate: updateRole } = useMutation(['updateUser'], (variables) => updateUser(variables), {
     onSuccess: () => {
       refetch();
@@ -92,20 +89,11 @@ const TabRole = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;  // Replace this with a proper loading component
+    return <div>Loading...</div>; // Replace this with a proper loading component
   }
 
+  const rows = members.map((member) => createData(member.fName, member.lName, member.avatar, member.email, member.role, 'true'));
 
-  const rows = members.map(member => createData(
-    member.fName,
-    member.lName,
-    member.avatar,
-    member.email,
-    member.role,
-    'true'
-  ));
-
-  
   const handleModalClose = () => {
     setOpenModal(false);
   };
@@ -124,7 +112,7 @@ const TabRole = () => {
   };
 
   const handleSendEmail = () => {
-   const variables = {
+    const variables = {
       to_email: email,
       workspaceId: workspaceId
     };
@@ -137,7 +125,7 @@ const TabRole = () => {
         <MainCard title="Invite Team Members" content={false}>
           <Stack spacing={2.5} sx={{ p: 2.5 }}>
             <Typography variant="h4">
-              5/10{' '}
+              {rows.length}/10{' '}
               <Typography variant="subtitle1" component="span">
                 members available in your plan.
               </Typography>
@@ -165,7 +153,7 @@ const TabRole = () => {
                 Send
               </Button>
             </Stack>
-            </Stack>
+          </Stack>
           <TableContainer>
             <Table sx={{ minWidth: 350 }} aria-label="simple table">
               <TableHead>
@@ -181,7 +169,7 @@ const TabRole = () => {
                   <TableRow hover key={row.name + ' ' + row.lName}>
                     <TableCell sx={{ pl: 3 }} component="th">
                       <Stack direction="row" alignItems="center" spacing={1.25}>
-                        <Avatar alt="Avatar 1" src={avatarImage(`./${row.avatar}`)} />
+                        <Avatar alt="Avatar 1" src={row.avatar} />
                         <Stack spacing={0}>
                           <Typography variant="subtitle1">{row.name}</Typography>
                           <Typography variant="caption" color="secondary">
@@ -224,109 +212,98 @@ const TabRole = () => {
         <Button variant="contained">Update Profile</Button>
       </Stack>
     </Grid> */}
-        <Dialog
-          open={openModal}
-          onClose={handleModalClose}
-          fullWidth
-          sx={{ backgroundColor: theme.palette.background.default}}
-          maxWidth="xs"
-        >
-          <DialogTitle>{deleteSelected ? 'Kickout User?' : 'Actions'}</DialogTitle>
-          <DialogContent>
-        {deleteSelected ? (
-          <>
-            <Button
-              fullWidth
-              mt={20}
-              variant="contained" 
-              size="large"
-              color="red"
-              onClick={() => {
-                handleModalClose();
-              }}
-            >
-              Yes
-            </Button>
-            <Button
-              fullWidth
-              mt={20}
-              variant="contained"
-              size="large"
-              onClick={() => {
-                setDeleteSelected(false);
-              }}
-            >
-              No
-            </Button>
-          </>
-        ) : (
-          <>
-            <Button
-              fullWidth
-              mt={20}
-              color='primary'
-              size='large'
-              onClick={() => {
-                handleEditClick();
-                handleModalClose();
-              }}
-            >
-              User Role
-            </Button>
-            <Button
-              fullWidth
-              mt={20}
-              color="primary"
-              size="large"
-              onClick={() => {
-                setDeleteSelected(true);
-              }}
-            >
-              Delete
-            </Button>
-          </>
-        )}
+      <Dialog open={openModal} onClose={handleModalClose} fullWidth maxWidth="xs">
+        <DialogTitle>{deleteSelected ? 'Kickout User?' : 'Actions'}</DialogTitle>
+        <DialogContent>
+          {deleteSelected ? (
+            <>
+              <Button
+                fullWidth
+                mt={20}
+                variant="contained"
+                size="large"
+                color="red"
+                onClick={() => {
+                  handleModalClose();
+                }}
+              >
+                Yes
+              </Button>
+              <Button
+                fullWidth
+                mt={20}
+                className="green-btn"
+                variant="contained"
+                size="large"
+                onClick={() => {
+                  setDeleteSelected(false);
+                }}
+              >
+                No
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                fullWidth
+                mt={20}
+                color="primary"
+                size="large"
+                onClick={() => {
+                  handleEditClick();
+                  handleModalClose();
+                }}
+              >
+                User Role
+              </Button>
+              <Button
+                fullWidth
+                mt={20}
+                color="primary"
+                size="large"
+                onClick={() => {
+                  setDeleteSelected(true);
+                }}
+              >
+                Delete
+              </Button>
+            </>
+          )}
         </DialogContent>
-      <DialogActions>
-        <Button onClick={handleModalClose} variant="contained" size="large" color="primary">
-          Close
-        </Button>
-      </DialogActions>
-    </Dialog>
-      <Dialog
-        open={editOpened}
-        onClose={() => setEditOpened(false)}
-        fullWidth
-        sx={{ backgroundColor: theme.palette.background.default}}
-        maxWidth="xs"
-      >
-      <DialogTitle>Edit note</DialogTitle>
-      <DialogContent>
+        <DialogActions>
+          <Button onClick={handleModalClose} variant="contained" size="large" className="green-btn">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={editOpened} onClose={() => setEditOpened(false)} fullWidth maxWidth="xs">
+        <DialogTitle>Edit note</DialogTitle>
+        <DialogContent>
           <Box>
-            <Stack direction="column" alignItems="center" spacing={1.25} >
-            <Select
-              label="Change User Role"
-              placeholder="Select Role"
-              size='large'
-              fullWidth
-              value={selectedRole}
-              onChange={(event) => setSelectedRole(event.target.value)}
-            >
-              <MenuItem value="LEADER">Team leader</MenuItem>
-              <MenuItem value="USER">Collaborator</MenuItem>
-            </Select>
+            <Stack direction="column" alignItems="center" spacing={1.25}>
+              <Select
+                label="Change User Role"
+                placeholder="Select Role"
+                size="large"
+                fullWidth
+                value={selectedRole}
+                onChange={(event) => setSelectedRole(event.target.value)}
+              >
+                <MenuItem value="LEADER">Team leader</MenuItem>
+                <MenuItem value="USER">Collaborator</MenuItem>
+              </Select>
             </Stack>
           </Box>
         </DialogContent>
-      <DialogActions>
-        <Button onClick={() => setEditOpened(false)} variant="contained"  color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleEdit} variant="contained"  color="primary">
-          Change Role
-        </Button>
-      </DialogActions>
-    </Dialog>
+        <DialogActions>
+          <Button onClick={() => setEditOpened(false)} className="green-btn" variant="contained">
+            Cancel
+          </Button>
+          <Button onClick={handleEdit} className="green-btn" variant="contained">
+            Change Role
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 };

@@ -3,12 +3,12 @@ import { Grid, Tooltip, Title, Box, Flex, Button } from '@mantine/core';
 import SingleTemplateCard from './templateCard';
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from 'react-router-dom';
-import useWorkspace from 'hooks/useWorkspace'
+import useWorkspace from 'hooks/useWorkspace';
 import { useQuery } from 'react-query';
 import { getWorkspaceTemplates } from 'hooks/templates';
 
 const TemplatesPage = () => {
-  const { workspaceId } = useWorkspace()
+  const { workspaceId } = useWorkspace();
   const navigate = useNavigate();
   const { data: templates, isLoading, refetch } = useQuery(['templates'], () => getWorkspaceTemplates({ workspaceId }));
 

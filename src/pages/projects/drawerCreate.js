@@ -3,7 +3,7 @@ import { useForm, hasLength, isInRange } from '@mantine/form';
 import { createProject } from 'hooks/projects';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { UserOutlined } from '@ant-design/icons'
+import { UserOutlined } from '@ant-design/icons';
 import { useMutation } from 'react-query';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
@@ -61,7 +61,7 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs, clients, work
       gigId: gigId && gigId,
       clientId: selectedClient
     };
-    console.log(variables)
+    console.log(variables);
     return mutate({ variables });
   }
 
@@ -84,17 +84,17 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs, clients, work
       <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Title order={1}>New Project</Title>
         <Select label="Gig" placeholder="Pick a gig" data={gigsOptions} value={gigId} onChange={selectGig} />
-              <Select
-                    label="Client"
-                    placeholder="Select Client"
-                    value={selectedClient}
-                    withAsterisk
-                    onChange={(selectedOption) => {
-                      setSelectedClient(selectedOption)
-                    }}
-                    data={clients.length ? clients : [{ value: 'no-gigs', label: 'No Gigs Found' }]}
-                    rightSection={<UserOutlined />}
-                  />
+        <Select
+          label="Client"
+          placeholder="Select Client"
+          value={selectedClient}
+          withAsterisk
+          onChange={(selectedOption) => {
+            setSelectedClient(selectedOption);
+          }}
+          data={clients.length ? clients : [{ value: 'no-gigs', label: 'No Gigs Found' }]}
+          rightSection={<UserOutlined />}
+        />
         <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
         <Textarea
           label="Description"

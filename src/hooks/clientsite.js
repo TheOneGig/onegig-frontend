@@ -10,7 +10,6 @@ export const getClientsites = async (data) => {
   return response;
 };
 
-
 // export const updateClientsite = async (data) => {
 //   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/clientsite/update', data.variables);
 //   return response;

@@ -15,7 +15,6 @@ export const getWorkspaceTeam = async (data) => {
   return response;
 };
 
-
 export const getAllTeams = async (data) => {
   const { data: response } = await axios.get('https://one-gig.herokuapp.com/api/teams/all', data);
   return response;

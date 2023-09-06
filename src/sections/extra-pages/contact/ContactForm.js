@@ -21,7 +21,7 @@ function ContactForm() {
               Sent a message to OneGig HQ
             </Typography>
             <Typography variant="caption" align="center" color="textSecondary" sx={{ maxWidth: '355px' }}>
-            Every message is important to us, our users feedback helps us improve and deliver higher quality products.
+              Every message is important to us, our users feedback helps us improve and deliver higher quality products.
             </Typography>
           </Stack>
         </Grid>

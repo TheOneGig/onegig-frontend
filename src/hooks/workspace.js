@@ -23,4 +23,3 @@ export const createWorkspace = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/workspace/create', data.variables);
   return response;
 };
-

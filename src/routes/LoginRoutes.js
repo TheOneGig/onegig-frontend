@@ -8,7 +8,7 @@ import Loadable from 'components/Loadable';
 // render - login
 const AuthLogin = Loadable(lazy(() => import('pages/auth/login')));
 const AuthClientLogin = Loadable(lazy(() => import('pages/auth/clientlogin')));
-const AuthClientRegister = Loadable(lazy(() => import('pages/auth/clientregister'))); 
+const AuthClientRegister = Loadable(lazy(() => import('pages/auth/clientregister')));
 const AuthRegister = Loadable(lazy(() => import('pages/auth/register')));
 const AuthUserRegister = Loadable(lazy(() => import('pages/auth/user-register')));
 const AuthForgotPassword = Loadable(lazy(() => import('pages/auth/forgot-password')));

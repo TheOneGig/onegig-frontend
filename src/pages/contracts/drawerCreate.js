@@ -15,7 +15,6 @@ import SingleTemplateCard from './templateBoxCard';
 import { IconCheck } from '@tabler/icons-react';
 import PdfSign from 'pages/pdfSign';
 
-
 const config = {
   bucketName: 'onegig-uploads',
   region: 'us-east-1',
@@ -141,7 +140,7 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                     value={selectedClient}
                     withAsterisk
                     onChange={(selectedOption) => {
-                      setSelectedClient(selectedOption)
+                      setSelectedClient(selectedOption);
                     }}
                     data={clients.length ? clients : [{ value: 'no-gigs', label: 'No Gigs Found' }]}
                     rightSection={<UserOutlined />}

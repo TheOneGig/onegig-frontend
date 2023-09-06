@@ -60,7 +60,7 @@ const ClientCreate = ({ opened, setOpened, refetch, userId, workspaceId }) => {
       userId: userId,
       workspaceId: workspaceId
     };
-    console.log(variables)
+    console.log(variables);
     return mutate({ variables });
   }
 

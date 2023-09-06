@@ -8,11 +8,10 @@ import { getClients } from 'hooks/clients';
 import useWorkspace from 'hooks/useWorkspace';
 import CMRTabs from './tabs';
 
-
 const ClientTable = ({ striped }) => {
   const [opened, setOpened] = useState(false);
   const { user } = useAuth();
-  const { workspaceId } = useWorkspace()
+  const { workspaceId } = useWorkspace();
   const userId = user.id;
   const { data: clients, isLoading, refetch } = useQuery(['clients'], () => getClients({ userId }));
   if (isLoading) {

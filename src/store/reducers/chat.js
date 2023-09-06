@@ -2,11 +2,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 // project imports
+import axios from 'utils/axios';
 import { dispatch } from '../index';
 
-import { getMessages, createMessage } from 'hooks/chats';
-import { getMembers } from 'hooks/teams';
-import { getUser as getUserAPI } from 'hooks/users';
 // ----------------------------------------------------------------------
 
 const initialState = {
@@ -50,7 +48,7 @@ export default chat.reducer;
 export function getUser(id) {
   return async () => {
     try {
-      const response = await getUserAPI({ id });
+      const response = await axios.post('/api/chat/users/id', { id });
       dispatch(chat.actions.getUserSuccess(response.data));
     } catch (error) {
       dispatch(chat.actions.hasError(error));
@@ -61,7 +59,7 @@ export function getUser(id) {
 export function getUserChats(user) {
   return async () => {
     try {
-      const response = await getMessages({ user });
+      const response = await axios.post('/api/chat/filter', { user });
       dispatch(chat.actions.getUserChatsSuccess(response.data));
     } catch (error) {
       dispatch(chat.actions.hasError(error));
@@ -72,7 +70,7 @@ export function getUserChats(user) {
 export function insertChat(chat) {
   return async () => {
     try {
-      await createMessage(chat);
+      await axios.post('/api/chat/insert', chat);
     } catch (error) {
       dispatch(chat.actions.hasError(error));
     }
@@ -82,7 +80,7 @@ export function insertChat(chat) {
 export function getUsers() {
   return async () => {
     try {
-      const response = await getMembers({ user });
+      const response = await axios.get('/api/chat/users');
       dispatch(chat.actions.getUsersSuccess(response.data.users));
     } catch (error) {
       dispatch(chat.actions.hasError(error));

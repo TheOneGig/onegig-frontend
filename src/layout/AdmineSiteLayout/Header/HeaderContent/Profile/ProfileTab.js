@@ -12,7 +12,7 @@ import useWorkspace from 'hooks/useWorkspace';
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 
 const ProfileTab = ({ handleLogout }) => {
-  const { workspaceId } = useWorkspace()
+  const { workspaceId } = useWorkspace();
   const history = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleListItemClick = (event, index) => {

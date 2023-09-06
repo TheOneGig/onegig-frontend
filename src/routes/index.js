@@ -69,7 +69,7 @@ export default function ThemeRoutes() {
         {
           path: 'subscription',
           element: <Tiers />
-        }, 
+        },
         {
           path: 'create-workspace',
           element: <CreateWorkspace />

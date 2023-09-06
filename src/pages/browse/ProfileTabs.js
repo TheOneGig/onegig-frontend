@@ -42,25 +42,25 @@ const ProfileTabs = ({ user }) => {
             </Stack>
           </Stack>
         </Grid>
-        <Grid item xs={12} sm={12} >
-         <Stack alignItems="center" justifyContent="center">
-          <Button
-            variant="outline"
-            size="large"
-            sx={{
-              backgroundColor: '#13502f',
-              color: '#f1f1f1',
-              borderRadius: '50px',
-              padding: '10px 70px',
-              '&:hover': {
-                backgroundColor: '#0eba9b',
-                transition: '0.3s'
-              }
-            }}
-            onClick={() => setOpened(true)}
-          >
-            <IconSend style={{ marginRight: 5 }} /> Contact Seller
-          </Button>
+        <Grid item xs={12} sm={12}>
+          <Stack alignItems="center" justifyContent="center">
+            <Button
+              variant="outline"
+              size="large"
+              sx={{
+                backgroundColor: '#13502f',
+                color: '#f1f1f1',
+                borderRadius: '50px',
+                padding: '10px 70px',
+                '&:hover': {
+                  backgroundColor: '#0eba9b',
+                  transition: '0.3s'
+                }
+              }}
+              onClick={() => setOpened(true)}
+            >
+              <IconSend style={{ marginRight: 5 }} /> Contact Seller
+            </Button>
           </Stack>
           <ContactSeller opened={opened} setOpened={setOpened} />
         </Grid>

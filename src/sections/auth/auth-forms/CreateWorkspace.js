@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box, FormLabel, Grid, TextField, Typography, Button, Stack } from '@mui/material';
 import { CameraOutlined } from '@ant-design/icons';
 import useAuth from 'hooks/useAuth';
@@ -16,12 +16,12 @@ const config = {
   bucketName: 'onegig-uploads',
   region: 'us-east-1',
   accessKeyId: process.env.REACT_APP_AWS_S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_AWS_S3_SECRET_ACCESS_KEY,
+  secretAccessKey: process.env.REACT_APP_AWS_S3_SECRET_ACCESS_KEY
 };
 
 const CreateWorkspaceForm = () => {
   const { user } = useAuth();
-  console.log(user)
+  console.log(user);
   const userId = user.id;
   const history = useNavigate();
   const [companyName, setCompanyName] = useState('');
@@ -65,7 +65,7 @@ const CreateWorkspaceForm = () => {
     reader.onloadend = () => {
       setIcon(reader.result);
     };
-  
+
     if (file) {
       reader.readAsDataURL(file);
       showNotification({
@@ -77,66 +77,64 @@ const CreateWorkspaceForm = () => {
         autoClose: 3000
       });
       uploadFile(file, config)
-      .then((data) =>  setIcon(data.location))
-      .catch((err) => console.error(err));
+        .then((data) => setIcon(data.location))
+        .catch((err) => console.error(err));
     }
-  
-    
   };
 
   return (
     <>
-    <form onSubmit={handleSave}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <TextField
-            label="Company Name"
-            variant='outlined'
-            sx={{ fontSize: '28px'}}
-            placeholder="Enter company name"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-            required
-            fullWidth
-          />
+      <form onSubmit={handleSave}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <TextField
+              label="Company Name"
+              variant="outlined"
+              sx={{ fontSize: '28px' }}
+              placeholder="Enter company name"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormLabel
+              htmlFor="insert-icon"
+              sx={{
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+              }}
+            >
+              <Avatar sx={{ fontSize: '20px' }} alt="Insert Icon" src={icon ? icon : 'default_image_url_here'} />
+              <Box spacing={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                <CameraOutlined />
+                <Typography>Upload Icon</Typography>
+              </Box>
+            </FormLabel>
+            <TextField
+              type="file"
+              id="insert-icon"
+              accept="image/*"
+              sx={{ display: 'none' }}
+              onChange={(
+                e // Debug line
+              ) => handleUpload(e.target.files?.[0])}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Stack justifyContent="center" alignItems="center">
+              <Button type="submit" fullWidth variant="contained" color="primary" disabled={isLoading}>
+                Create Workspace
+              </Button>
+            </Stack>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <FormLabel
-            htmlFor="insert-icon"
-            sx={{
-              cursor: 'pointer',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar sx={{fontSize: '20px'}} alt="Insert Icon" src={icon ? icon : 'default_image_url_here'} />
-            <Box spacing={2} sx={{ display: 'flex', alignItems: 'center' }}>
-              <CameraOutlined />
-              <Typography>Upload Icon</Typography>
-            </Box>
-          </FormLabel>
-          <TextField
-            type="file"
-            id="insert-icon"
-            accept="image/*"
-            sx={{ display: 'none' }}
-            onChange={(e) => // Debug line
-              handleUpload(e.target.files?.[0])
-            } /> 
-            
-        </Grid>
-        <Grid item xs={12}>
-        <Stack justifyContent="center" alignItems="center">
-          <Button  type="submit" fullWidth variant="contained" color="primary" disabled={isLoading}>
-            Create Workspace
-          </Button>
-          </Stack>
-        </Grid>
-      </Grid>
-    </form>
-  </>
-);
+      </form>
+    </>
+  );
 };
 
 export default CreateWorkspaceForm;

@@ -10,7 +10,7 @@ import ProductInfo from './ProductInfo';
 import MainCard from 'components/MainCard';
 import { getGig } from 'hooks/gigs';
 import ProfileTabs from './ProfileTabs';
-import RelatedGigs from './RelatedProducts';
+//import RelatedGigs from './RelatedProducts';
 
 function TabPanel({ children, value, index, ...other }) {
   return (
@@ -61,7 +61,7 @@ const ProductDetails = () => {
         )}
       </Grid>
       <Grid item xs={12} sm={12}>
-      <ProfileTabs user={gig?.user} />
+        <ProfileTabs user={gig?.user} />
       </Grid>
     </Grid>
   );

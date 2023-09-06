@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { Button, Tooltip, Flex } from '@mantine/core';
 import ContractCreate from './drawerCreate';
 import useAuth from 'hooks/useAuth';
-import useWorkspace from 'hooks/useWorkspace'
+import useWorkspace from 'hooks/useWorkspace';
 import { getWorkspaceGigs } from 'hooks/gigs';
 import { getWorkspaceTemplates } from 'hooks/templates';
 import { getWorkspaceClients } from 'hooks/clients';
