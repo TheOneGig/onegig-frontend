@@ -1,6 +1,6 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Card, Text, Badge, Button, Group, Grid, Modal } from '@mantine/core';
+import { Card, Text, Badge, Button, Group, Grid } from '@mantine/core';
 import PropTypes from 'prop-types';
 import { formatUSD } from 'utils/formatUSD';
 
