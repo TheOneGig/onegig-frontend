@@ -42,8 +42,8 @@ const Profile = () => {
   // const history = useNavigate();
 
   const { logout } = useClientAuth();
-  const {clientId} = useClient();
-  console.log(clientId)
+  const { clientId } = useClient();
+  console.log(clientId);
   const { data: userInfo, isLoading } = useQuery(['client'], () => getClient({ clientId }));
   const handleLogout = async () => {
     try {

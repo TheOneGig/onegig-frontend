@@ -16,7 +16,7 @@ import GigEdit from './drawerEdit';
 
 const Gigs = () => {
   const [opened, setOpened] = useState(false);
-  const { workspaceId } = useWorkspace()
+  const { workspaceId } = useWorkspace();
   const [openedEdit, setOpenedEdit] = useState(false);
   const theme = useTheme();
   const [selectedGig, setSelectedGig] = useState();

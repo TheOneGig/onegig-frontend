@@ -9,7 +9,6 @@ import Loadable from 'components/Loadable';
 import AuthGuard from 'utils/route-guard/AuthGuard';
 import ClientGuard from 'utils/route-guard/ClientGuard';
 
-
 // render - Real Pages
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 const Gigs = Loadable(lazy(() => import('pages/gigs')));
@@ -105,13 +104,10 @@ const MaintenanceComingSoon = Loadable(lazy(() => import('pages/maintenance/comi
 const AppContactUS = Loadable(lazy(() => import('pages/contact-us')));
 const AppReportIssue = Loadable(lazy(() => import('pages/report-issue')));
 
-
-
 //AdminSiteRoutes
 const AdminInsights = Loadable(lazy(() => import('pages/adminSite/insights/AdminInsights')));
 const CompanyProfileForm = Loadable(lazy(() => import('components/workspace/index')));
 const SecuritySettings = Loadable(lazy(() => import('pages/adminSite/Security')));
-
 
 //ClientPortalRoutes
 const ClientHome = Loadable(lazy(() => import('pages/clientPortal/home')));

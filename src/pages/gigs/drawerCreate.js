@@ -249,6 +249,7 @@ const GigCreate = ({ opened, setOpened, refetch, userId, workspaceId }) => {
 GigCreate.propTypes = {
   userId: PropTypes.string,
   opened: PropTypes.bool,
+  workspaceId: PropTypes.string,
   setOpened: PropTypes.func,
   refetch: PropTypes.func
 };

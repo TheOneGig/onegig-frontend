@@ -22,10 +22,10 @@ import Avatar1 from 'assets/images/users/avatar-1.png';
 const TeamMembers = () => {
   // const { user } = useAuth();
   // const userId = user.id;
-  const {workspaceId} = useWorkspace();
-  const { data: members, isLoading, refetch } = useQuery(['members'], () => getMembers({ workspaceId }));
+  const { workspaceId } = useWorkspace();
+  const { data: members, isLoading } = useQuery(['members'], () => getMembers({ workspaceId }));
   console.log(members);
-  
+
   if (isLoading) {
     return <div>Loading Members...</div>;
   }
@@ -54,7 +54,7 @@ const TeamMembers = () => {
                 </Grid>
                 <Grid item xs zeroMinWidth>
                   <Typography align="left" variant="subtitle1">
-                    {member.fname + ' '+member.lname}
+                    {member.fname + ' ' + member.lname}
                   </Typography>
                   <Typography align="left" variant="caption" color="secondary">
                     {member.role}

@@ -37,7 +37,8 @@ function ContactHeader() {
                 </Typography>
               </Typography>
               <Typography align={matchDownSM ? 'center' : 'left'} color="textSecondary">
-              Our experts in sales and tech are always ready to help our customers find fast and easy solutions to improve their experience while using our app.
+                Our experts in sales and tech are always ready to help our customers find fast and easy solutions to improve their
+                experience while using our app.
               </Typography>
             </Stack>
           </Box>

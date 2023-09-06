@@ -25,7 +25,7 @@ const Projects = () => {
   const userId = user.id;
   const { data: projects, isLoading, refetch } = useQuery(['projects'], () => getWorkspaceProjects({ workspaceId }));
   const { data: gigs, isLoading: loadingGigs, refetch: refetchGigs } = useQuery(['gigs'], () => getWorkspaceGigs({ workspaceId }));
-  const { data: clients, isLoading: loadingClients, refetch: refetchClients } = useQuery(['clients'], () => getWorkspaceClients({ workspaceId }));
+  const { data: clients, isLoading: loadingClients } = useQuery(['clients'], () => getWorkspaceClients({ workspaceId }));
   if (isLoading || loadingGigs || loadingClients) {
     return <div>Loading Projects...</div>;
   }
@@ -93,7 +93,15 @@ const Projects = () => {
         })}
       </Grid>
 
-      <ProjectCreate opened={opened} setOpened={setOpened} refetch={refetch} workspaceId={workspaceId} userId={userId} gigs={gigs} clients={clientData} />
+      <ProjectCreate
+        opened={opened}
+        setOpened={setOpened}
+        refetch={refetch}
+        workspaceId={workspaceId}
+        userId={userId}
+        gigs={gigs}
+        clients={clientData}
+      />
       {selectedProject && <ProjectEdit opened={openedEdit} setOpened={setOpenedEdit} refetch={refetch} project={selectedProject} />}
     </>
   );

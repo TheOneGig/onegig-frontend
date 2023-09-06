@@ -10,23 +10,22 @@ import sidebarItems from 'menu-admin/dashboard';
 import sidebarUserItems from 'menu-items/dashboard';
 import { getUser } from 'hooks/users';
 import useAuth from 'hooks/useAuth';
-import useWorkspace from 'hooks/useWorkspace'
-
+import useWorkspace from 'hooks/useWorkspace';
 
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
 const Navigation = () => {
   const { user } = useAuth();
   // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
-  const { workspaceId } = useWorkspace()
-  const menuAdmin = sidebarItems(workspaceId)
+  const { workspaceId } = useWorkspace();
+  const menuAdmin = sidebarItems(workspaceId);
   const menuAdminGroup = {
     items: [menuAdmin]
-  }
-  const menuUser = sidebarUserItems(workspaceId)
+  };
+  const menuUser = sidebarUserItems(workspaceId);
   const menuUserGroup = {
     items: [menuUser]
-  }
+  };
   const userId = user.id;
   const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId }));
   const menu = useSelector((state) => state.menu);

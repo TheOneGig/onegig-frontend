@@ -66,7 +66,7 @@ const Notification = () => {
   const { data: notifications, isLoading: loadingNotifications } = useQuery(['notifications'], () => getNotifications({ userId }));
 
   const anchorRef = useRef(null);
-  const [read, setRead] = useState(2);
+  //const [read, setRead] = useState(2);
   const [open, setOpen] = useState(false);
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -177,7 +177,8 @@ const Notification = () => {
                     {unread?.map((notification) => {
                       return (
                         <Fragment key={notification.notificationId}>
-                          <ListItemButton selected={read > 0}>
+                          <ListItemButton>
+                            {/* selected={read > 0} */}
                             <ListItemIcon>
                               <Dot color="success" size={12} />
                             </ListItemIcon>

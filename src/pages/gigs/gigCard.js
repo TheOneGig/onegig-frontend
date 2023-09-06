@@ -11,7 +11,7 @@ import { IconCheck } from '@tabler/icons-react';
 import { useTheme } from '@mui/material/styles';
 import { createNotification } from 'hooks/notifications';
 
-const GigCard = ({ gig, refetch, handleEdit, share, userId}) => {
+const GigCard = ({ gig, refetch, handleEdit, share, userId }) => {
   const theme = useTheme();
   const [openedDelete, setOpenedDelete] = useState(false);
   const createNotificationMutation = useMutation(createNotification);
@@ -185,6 +185,7 @@ const GigCard = ({ gig, refetch, handleEdit, share, userId}) => {
 GigCard.propTypes = {
   gig: PropTypes.object,
   refetch: PropTypes.func,
+  userId: PropTypes.string,
   handleEdit: PropTypes.func,
   share: PropTypes.bool
 };

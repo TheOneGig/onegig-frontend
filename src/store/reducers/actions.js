@@ -8,4 +8,3 @@ export const LOGIN_CLIENT = '@auth/LOGIN_CLIENT';
 export const LOGOUT_CLIENT = '@auth/LOGOUT_CLIENT';
 export const REGISTER_CLIENT = '@auth/REGISTER_CLIENT';
 export const SET_WORKSPACE_ID = '@auth/SET_WORKSPACE_ID';
-

@@ -102,6 +102,7 @@ ClientEdit.propTypes = {
     phoneNumber: PropTypes.string,
     city: PropTypes.string
   }).isRequired,
+  userId: PropTypes.string,
   opened: PropTypes.bool,
   setOpened: PropTypes.func,
   refetch: PropTypes.func

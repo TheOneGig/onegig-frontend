@@ -28,7 +28,7 @@ import { Formik } from 'formik';
 // project import
 import { openSnackbar } from 'store/reducers/snackbar';
 import MainCard from 'components/MainCard';
-
+import useWorkspace from 'hooks/useWorkspace';
 // assets
 import { CloseOutlined } from '@ant-design/icons';
 import { getUser, updateUser } from 'hooks/users';
@@ -53,6 +53,7 @@ const TabPersonal = () => {
 
   const { user } = useAuth();
   const userId = user.id;
+  const { workspaceId } = useWorkspace();
   const createNotificationMutation = useMutation(createNotification);
   const { data: userInfo, isLoading, refetch } = useQuery(['user'], () => getUser({ userId }));
   const { data: allSkills, isLoading: loadingSkills } = useQuery(['allSkills'], () => getAllSkills());
@@ -60,7 +61,7 @@ const TabPersonal = () => {
     onSuccess: () => {
       refetch();
       if (location.pathname === '/new/profile/personal') {
-        history('/new/subscription');
+        history(`/${workspaceId}/dashboard`);
       }
       createNotificationMutation.mutate({
         variables: {

@@ -6,59 +6,46 @@ import { useState } from 'react';
 //import { useDispatch } from 'react-redux';
 
 // material-ui
-import {
-  Box,
-  Button,
-  CardHeader,
-  Divider,
-  FormHelperText,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  TextField
-} from '@mui/material';
+import { Box, Button, CardHeader, Divider, FormHelperText, Grid, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project import
-import { openSnackbar } from 'store/reducers/snackbar';
+//import { openSnackbar } from 'store/reducers/snackbar';
 import MainCard from 'components/MainCard';
 
 // assets
-import { getWorkspace, updateWorkspace } from 'hooks/users';
-import { useWorkspace } from 'hooks/useWorkspace';
+import { getWorkspace, updateWorkspace } from 'hooks/workspace';
+import useWorkspace from 'hooks/useWorkspace';
 import { CardMedia } from '@mui/material';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { uploadFile } from 'react-s3';
+import useAuth from 'hooks/useAuth';
 
 function useInputRef() {
   return useOutletContext();
 }
 
-
 const config = {
   bucketName: 'onegig-uploads',
   region: 'us-east-1',
   accessKeyId: process.env.REACT_APP_AWS_S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_AWS_S3_SECRET_ACCESS_KEY,
+  secretAccessKey: process.env.REACT_APP_AWS_S3_SECRET_ACCESS_KEY
 };
 // ==============================|| TAB - PERSONAL ||============================== //
 
 const CompanyProfile = () => {
-
   //const dispatch = useDispatch();
   const inputRef = useInputRef();
 
   // Step 2: Add state to store profile picture URL
   const [companyPicture, setCompanyPicture] = useState();
-  
+  const { user } = useAuth();
 
-  const { worskpaceId } = useWorkspace()
+  const { worskpaceId } = useWorkspace();
   const { data: companyInfo, isLoading, refetch } = useQuery(['workspace'], () => getWorkspace({ worskpaceId }));
   const { mutate } = useMutation(['updateWorkspace'], (variables) => updateWorkspace(variables), {
     onSuccess: () => {
@@ -74,6 +61,8 @@ const CompanyProfile = () => {
     }
   });
 
+  const iconUrl = user?.workspaceId?.icon?.fileUrl;
+
   if (isLoading) {
     return <div>Loading Workspace...</div>;
   }
@@ -81,10 +70,8 @@ const CompanyProfile = () => {
     companyName: '',
     email: '',
     phone: '',
-    description: '',
+    description: ''
   };
-
-
 
   const handleSubmit = (values) => {
     const variables = {
@@ -102,7 +89,7 @@ const CompanyProfile = () => {
     reader.onloadend = () => {
       setIcon(reader.result);
     };
-  
+
     if (file) {
       reader.readAsDataURL(file);
       showNotification({
@@ -114,11 +101,9 @@ const CompanyProfile = () => {
         autoClose: 3000
       });
       uploadFile(file, config)
-      .then((data) =>  setCompanyPicture(data.location))
-      .catch((err) => console.error(err));
+        .then((data) => setCompanyPicture(data.location))
+        .catch((err) => console.error(err));
     }
-  
-    
   };
 
   return (
@@ -127,12 +112,7 @@ const CompanyProfile = () => {
         htmlFor="profile-picture-input"
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '175px', cursor: 'pointer' }}
       >
-        <CardMedia
-          component="img"
-          sx={{ width: '150px', height: '150px', borderRadius: '50%' }}
-          image={companyPicture}
-          alt="Company Picture"
-        />
+        <CardMedia component="img" sx={{ width: '150px', height: '150px', borderRadius: '50%' }} image={iconUrl} alt="Company Picture" />
         {/* Step 5: Add an input of type "file" to trigger file upload */}
         <input id="profile-picture-input" type="file" hidden onChange={(e) => handleUpload(e.target.files?.[0])} accept="image/*" />
       </label>
@@ -145,7 +125,7 @@ const CompanyProfile = () => {
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          companyName: Yup.string().max(255).required('First Name is required.'),
+          companyName: Yup.string().max(255).required('Company Name is required.'),
           email: Yup.string().email('Invalid email address.').max(255).required('Email is required.'),
           // dob: Yup.date().max(maxDate, 'Age should be 18+ years.').required('Date of birth is requird.'),
           phone: Yup.number()

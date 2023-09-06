@@ -28,7 +28,7 @@ import ReportCard from 'components/cards/statistics/ReportCard';
 const DashboardDefault = () => {
   const theme = useTheme();
   const { user } = useAuth();
-  const { workspaceId } = useWorkspace()
+  const { workspaceId } = useWorkspace();
   const { data: userInfo, isLoading } = useQuery(['getworkspace'], () => getWorkspace({ workspaceId }));
   if (isLoading) {
     return <div>Loading dashboard...</div>;
@@ -38,7 +38,7 @@ const DashboardDefault = () => {
   let openProfits = 0;
   let pendingTasks = [];
 
-  console.log(userInfo)
+  console.log(userInfo);
 
   ownedProjects
     ?.filter((p) => p.status !== 'ARCHIVED')
@@ -62,19 +62,18 @@ const DashboardDefault = () => {
   let totalRevenue = 0;
   let totalExpenses = 0;
 
-    transactions?.forEach((transaction) => {
-      let date = dayjs(transaction.date);
-      let monthIndex = date.month();
+  transactions?.forEach((transaction) => {
+    let date = dayjs(transaction.date);
+    let monthIndex = date.month();
 
-      if (transaction.type === 'EXPENSE') {
-        expenses[monthIndex] += transaction.amount / 100;
-        totalExpenses += transaction.amount;
-      } else if (transaction.type === 'REVENUE') {
-        revenue[monthIndex] += transaction.amount / 100;
-        totalRevenue += transaction.amount;
-      }
-    });
-  
+    if (transaction.type === 'EXPENSE') {
+      expenses[monthIndex] += transaction.amount / 100;
+      totalExpenses += transaction.amount;
+    } else if (transaction.type === 'REVENUE') {
+      revenue[monthIndex] += transaction.amount / 100;
+      totalRevenue += transaction.amount;
+    }
+  });
 
   const profit = parseFloat(totalRevenue - totalExpenses).toFixed(2);
   return (
@@ -137,7 +136,12 @@ const DashboardDefault = () => {
         <ReportCard primary="2+" secondary="Contracts" color={theme.palette.success.dark} iconPrimary={FileTextOutlined} />
       </Grid>
       <Grid item xs={12} lg={3} sm={6}>
-        <ReportCard primary={`${clients.length}`} secondary="Clients" color={theme.palette.primary.main} iconPrimary={UsergroupAddOutlined} />
+        <ReportCard
+          primary={`${clients.length}`}
+          secondary="Clients"
+          color={theme.palette.primary.main}
+          iconPrimary={UsergroupAddOutlined}
+        />
       </Grid>
       <Grid item xs={12} lg={4} sm={4}>
         <TeamMembers />

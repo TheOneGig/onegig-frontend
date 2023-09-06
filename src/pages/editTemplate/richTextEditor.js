@@ -28,7 +28,7 @@ const wrapperStyle = {
   margin: '20px auto'
 };
 
-const RichTextEditor = ({ title, description, template, userId, editorState, setEditorState, refetch, workspaceId,  templateId }) => {
+const RichTextEditor = ({ title, description, template, userId, editorState, setEditorState, refetch, workspaceId, templateId }) => {
   const createNotificationMutation = useMutation(createNotification);
   const { mutate: createTemplateMutation, isLoading } = useMutation(['createTemplate'], (variables) => createTemplate(variables), {
     onSuccess: () => {
@@ -131,7 +131,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
         description: description,
         content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
         fileUrl: pdfUrl,
-        thumbnail: thumbnail,
+        thumbnail: thumbnail
       };
       updateTemplateMutation({ newVariables });
     } else {
@@ -153,6 +153,7 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
     title,
     description,
     editorState,
+    workspaceId,
     pdfUrl,
     thumbnail,
     userId,
@@ -225,6 +226,7 @@ RichTextEditor.propTypes = {
   description: PropTypes.string,
   template: PropTypes.object,
   userId: PropTypes.string,
+  workspaceId: PropTypes.string,
   editorState: PropTypes.object,
   setEditorState: PropTypes.func,
   refetch: PropTypes.func,

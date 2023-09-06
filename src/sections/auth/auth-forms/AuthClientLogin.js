@@ -36,7 +36,7 @@ const AuthLogin = () => {
 
   const { EmailPasswordSignIn } = useAuth();
   const scriptedRef = useScriptRef();
-  const history = useNavigate()
+  const history = useNavigate();
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
@@ -75,7 +75,7 @@ const AuthLogin = () => {
                 // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
                 // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
                 // github issue: https://github.com/formium/formik/issues/2430
-                history(`/client/${values.accesskey}/home`)
+                history(`/client/${values.accesskey}/home`);
               },
               (err) => {
                 setStatus({ success: false });

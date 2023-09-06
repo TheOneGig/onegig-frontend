@@ -17,7 +17,7 @@ const LatestCustomers = () => {
   const { user } = useAuth();
   const userId = user.id;
   const { workspaceId } = useWorkspace();
-  const { data: clients, isLoading, refetch } = useQuery(['clients'], () => getClients({ userId }));
+  const { data: clients, isLoading } = useQuery(['clients'], () => getClients({ userId }));
   if (isLoading) {
     return <div>Loading Clients...</div>;
   }

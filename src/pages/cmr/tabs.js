@@ -14,7 +14,7 @@ import ClientEdit from './drawerEdit';
 import PropTypes from 'prop-types';
 import { createClientsite } from 'hooks/clients';
 
-const CMRTabs = ({ clientData, striped, refetch, userId, workspaceId}) => {
+const CMRTabs = ({ clientData, striped, refetch, userId, workspaceId }) => {
   const theme = useTheme();
   const [activeTab, setActiveTab] = useState('Active');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -29,8 +29,7 @@ const CMRTabs = ({ clientData, striped, refetch, userId, workspaceId}) => {
   const [client, setClient] = useState(null);
   const createNotificationMutation = useMutation(createNotification);
 
-
-  const { mutate, isLoading } = useMutation(['createClientsite'], (variables) => createClientsite(variables), {
+  const { mutate } = useMutation(['createClientsite'], (variables) => createClientsite(variables), {
     onSuccess: () => {
       refetch();
       showNotification({
@@ -47,7 +46,6 @@ const CMRTabs = ({ clientData, striped, refetch, userId, workspaceId}) => {
           message: 'Clientsite created!'
         }
       });
-
     }
   });
 
@@ -118,12 +116,10 @@ const CMRTabs = ({ clientData, striped, refetch, userId, workspaceId}) => {
       userId,
       clientId: client.clientId,
       workspaceId: workspaceId
-    
     };
-    sendClientInvite( emailData );
-    return mutate({variables})
-
-  }
+    sendClientInvite(emailData);
+    return mutate({ variables });
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -278,7 +274,7 @@ const CMRTabs = ({ clientData, striped, refetch, userId, workspaceId}) => {
               mt={20}
               variant="light"
               onClick={() => {
-                  handleCreateClientsite(client)
+                handleCreateClientsite(client);
               }}
             >
               Client Invitation
@@ -306,6 +302,7 @@ CMRTabs.propTypes = {
   striped: PropTypes.bool,
   refetch: PropTypes.func.isRequired,
   userId: PropTypes.string.isRequired,
+  workspaceId: PropTypes.string.isRequired,
   showNotification: PropTypes.func.isRequired,
   updateClientStatus: PropTypes.func.isRequired,
   deleteClient: PropTypes.func.isRequired,

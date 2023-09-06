@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 // project import
-import config from 'config';
+//import config from 'config';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -17,11 +17,9 @@ import error500 from 'assets/images/maintenance/Error500.png';
 function Error500() {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
-  const user = useAuth()
-  console.log(user)
+  const user = useAuth();
+  console.log(user);
   const { workspaceId } = useWorkspace();
-
-
 
   return (
     <>

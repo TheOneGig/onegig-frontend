@@ -8,21 +8,19 @@ import { loginClient } from 'hooks/clients';
 const initialState = {
   isClientLoggedIn: false,
   isInitialized: false,
-  client: null,
+  client: null
 };
 
 // Create Context
 const ClientContext = createContext(null);
 
-
 // Provider component
 export const ClientProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-
   const EmailPasswordSignIn = async (email, accessKey) => {
     try {
-      const clientdb = await loginClient({clientId: accessKey});
+      const clientdb = await loginClient({ clientId: accessKey });
       console.log(clientdb);
       if (clientdb) {
         const newPayload = {
@@ -32,37 +30,36 @@ export const ClientProvider = ({ children }) => {
             email: email,
             firstName: clientdb.firstName,
             lastName: clientdb.lastName,
-            role: 'CLIENT',
+            role: 'CLIENT'
           }
         };
         dispatch({
           type: LOGIN_CLIENT,
-          payload: newPayload,
+          payload: newPayload
         });
-        console.log("Dispatched Payload:", newPayload);
+        console.log('Dispatched Payload:', newPayload);
         return true;
       }
       return false;
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error('Login failed:', error);
       return false;
     }
   };
-  
-  
+
   // Replace the following useEffect with your actual API calls for authentication
   useEffect(() => {
     // Mock API call to check client authentication
     const checkClientAuth = async () => {
       try {
-        const client = await loginClient({clientId: accessKey}); // Replace this with your actual API call
+        const client = await loginClient({ clientId: accessKey }); // Replace this with your actual API call
         if (client) {
           dispatch({
             type: LOGIN_CLIENT,
             payload: {
               isClientLoggedIn: true,
-              client,
-            },
+              client
+            }
           });
         } else {
           dispatch({ type: LOGOUT_CLIENT });
@@ -79,22 +76,17 @@ export const ClientProvider = ({ children }) => {
     dispatch({ type: LOGOUT_CLIENT });
   };
 
-
   const contextValue = {
     ...state,
     EmailPasswordSignIn,
-    logout  // Add the function to the context
+    logout // Add the function to the context
   };
 
-  return (
-    <ClientContext.Provider value={contextValue}>
-      {children}
-    </ClientContext.Provider>
-  );
+  return <ClientContext.Provider value={contextValue}>{children}</ClientContext.Provider>;
 };
 
 ClientProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default ClientContext;

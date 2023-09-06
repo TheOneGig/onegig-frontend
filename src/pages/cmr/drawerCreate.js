@@ -60,7 +60,7 @@ const ClientCreate = ({ opened, setOpened, refetch, userId, workspaceId }) => {
       userId: userId,
       workspaceId: workspaceId
     };
-    console.log(variables)
+    console.log(variables);
     return mutate({ variables });
   }
 
@@ -102,6 +102,7 @@ const ClientCreate = ({ opened, setOpened, refetch, userId, workspaceId }) => {
 ClientCreate.propTypes = {
   userId: PropTypes.string,
   opened: PropTypes.bool,
+  workspaceId: PropTypes.string.isRequired,
   setOpened: PropTypes.func,
   refetch: PropTypes.func
 };

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Divider, Grid, TextField, Stack, Typography, Chip, CardHeader, Button } from '@mui/material';
+import { Grid, TextField, Stack, Typography, Button } from '@mui/material';
 import { IconSend } from '@tabler/icons-react';
 
 // project import
@@ -14,8 +14,8 @@ import avatar1 from 'assets/images/users/avatar-1.png';
 // ==============================|| USER PROFILE - TAB CONTENT ||============================== //
 
 const ProfileTabs = ({ user }) => {
-  const { fname, lname, email, nickname, phone, title, description, gigs, ownedProjects, avatar, skills } = user;
-  const activeProjects = ownedProjects.filter((project) => project.status !== 'ARCHIVED' && project.status !== 'LEAD');
+  const { fname, lname, email, nickname, phone, title, description, avatar } = user;
+  // const activeProjects = ownedProjects.filter((project) => project.status !== 'ARCHIVED' && project.status !== 'LEAD');
   const [opened, setOpened] = useState(false);
 
   return (
@@ -42,25 +42,25 @@ const ProfileTabs = ({ user }) => {
             </Stack>
           </Stack>
         </Grid>
-        <Grid item xs={12} sm={12} >
-         <Stack alignItems="center" justifyContent="center">
-          <Button
-            variant="outline"
-            size="large"
-            sx={{
-              backgroundColor: '#13502f',
-              color: '#f1f1f1',
-              borderRadius: '50px',
-              padding: '10px 70px',
-              '&:hover': {
-                backgroundColor: '#0eba9b',
-                transition: '0.3s'
-              }
-            }}
-            onClick={() => setOpened(true)}
-          >
-            <IconSend style={{ marginRight: 5 }} /> Contact Seller
-          </Button>
+        <Grid item xs={12} sm={12}>
+          <Stack alignItems="center" justifyContent="center">
+            <Button
+              variant="outline"
+              size="large"
+              sx={{
+                backgroundColor: '#13502f',
+                color: '#f1f1f1',
+                borderRadius: '50px',
+                padding: '10px 70px',
+                '&:hover': {
+                  backgroundColor: '#0eba9b',
+                  transition: '0.3s'
+                }
+              }}
+              onClick={() => setOpened(true)}
+            >
+              <IconSend style={{ marginRight: 5 }} /> Contact Seller
+            </Button>
           </Stack>
           <ContactSeller opened={opened} setOpened={setOpened} />
         </Grid>

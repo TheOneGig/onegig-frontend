@@ -7,7 +7,7 @@ export const initialState = {
   isInitialized: false,
   user: null,
   client: null,
-  workspaceId: null,
+  workspaceId: null
 };
 
 // ==============================|| AUTH REDUCER ||============================== //
@@ -63,7 +63,7 @@ const auth = (state = initialState, action) => {
         client: null
       };
     }
-     case SET_WORKSPACE_ID: {
+    case SET_WORKSPACE_ID: {
       const { workspaceId } = action.payload;
       return {
         ...state,

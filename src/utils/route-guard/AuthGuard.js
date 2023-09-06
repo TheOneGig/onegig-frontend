@@ -10,13 +10,14 @@ import useAuth from 'hooks/useAuth';
 const AuthGuard = ({ children, requiredRoles }) => {
   const { isLoggedIn, user } = useAuth();
   const { workspaceId } = user || {};
-  const role = user.role
+  const role = user.role;
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoggedIn) {
       navigate('/auth/login', { replace: true });
-    } else if (requiredRoles && !requiredRoles.includes(role)) { // Verificar si el rol del usuario está en los roles requeridos
+    } else if (requiredRoles && !requiredRoles.includes(role)) {
+      // Verificar si el rol del usuario está en los roles requeridos
       navigate('/maintenance/500', { replace: true });
     }
     //  else if (!workspaceId) {

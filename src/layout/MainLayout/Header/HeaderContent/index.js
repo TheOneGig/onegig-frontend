@@ -3,7 +3,7 @@ import { Box, useMediaQuery } from '@mui/material';
 
 // project import
 import Search from './Search';
-import Message from './Message';
+// import Message from './Message';
 import Profile from './Profile';
 import Notification from './Notification';
 import MobileSection from './MobileSection';
@@ -24,7 +24,7 @@ const HeaderContent = () => {
       <Notes />
       <ToDo />
       <Notification />
-     {/* <Message /> */}
+      {/* <Message /> */}
       {!matchesXs && <Profile />}
       {matchesXs && <MobileSection />}
     </>
