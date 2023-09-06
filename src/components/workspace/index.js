@@ -13,7 +13,7 @@ const App = () => {
 
   return (
     <div className="container mt-5">
-      <h1>Company Workspace Profile</h1>
+      <h1>Workspace Profile</h1>
       <CompanyProfileForm existingProfile={companyProfile} onSave={saveProfile} />
     </div>
   );
