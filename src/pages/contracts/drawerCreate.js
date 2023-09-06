@@ -294,6 +294,8 @@ ContractCreate.propTypes = {
   opened: PropTypes.bool,
   setOpened: PropTypes.func,
   setLoading: PropTypes.func,
+  workspaceId: PropTypes.string,
+  clients: PropTypes.array,
   refetch: PropTypes.func,
   gigOptions: PropTypes.array,
   templates: PropTypes.array,
