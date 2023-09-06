@@ -3,14 +3,18 @@ import { useForm, hasLength, isInRange } from '@mantine/form';
 import { createProject } from 'hooks/projects';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { UserOutlined } from '@ant-design/icons'
 import { useMutation } from 'react-query';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
+import { createNotification } from 'hooks/notifications';
 
 // ==============================|| GIGS ||============================== //
 
-const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
+const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs, clients, workspaceId }) => {
   const [gigId, setGigId] = useState('');
+  const [selectedClient, setSelectedClient] = useState(null);
+  const createNotificationMutation = useMutation(createNotification);
   const { mutate, isLoading } = useMutation(['createProject'], (variables) => createProject(variables), {
     onSuccess: () => {
       refetch();
@@ -22,6 +26,12 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
         message: 'Congratulations! your project was created succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'A new project has been added'
+        }
       });
       form.reset();
     }
@@ -42,7 +52,16 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
 
   function handleSubmit(values) {
     const price = parseInt(values.price * 100);
-    const variables = { name: values.name, description: values.description, price, userId, gigId: gigId && gigId };
+    const variables = {
+      name: values.name,
+      description: values.description,
+      price,
+      userId,
+      workspaceId,
+      gigId: gigId && gigId,
+      clientId: selectedClient
+    };
+    console.log(variables)
     return mutate({ variables });
   }
 
@@ -65,6 +84,17 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs }) => {
       <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Title order={1}>New Project</Title>
         <Select label="Gig" placeholder="Pick a gig" data={gigsOptions} value={gigId} onChange={selectGig} />
+              <Select
+                    label="Client"
+                    placeholder="Select Client"
+                    value={selectedClient}
+                    withAsterisk
+                    onChange={(selectedOption) => {
+                      setSelectedClient(selectedOption)
+                    }}
+                    data={clients.length ? clients : [{ value: 'no-gigs', label: 'No Gigs Found' }]}
+                    rightSection={<UserOutlined />}
+                  />
         <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
         <Textarea
           label="Description"

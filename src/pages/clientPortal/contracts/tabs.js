@@ -3,9 +3,7 @@ import { Tabs, Button } from '@mantine/core';
 import ReactTable from './table';
 import MainCard from 'components/MainCard';
 import ScrollX from 'components/ScrollX';
-import { deleteContract, updateContractStatus } from 'hooks/contracts';
-import { showNotification } from '@mantine/notifications';
-import { IconCheck } from '@tabler/icons-react';
+import { updateContractStatus } from 'hooks/contracts';
 import { useMutation } from 'react-query';
 import PropTypes from 'prop-types';
 
@@ -21,25 +19,6 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
       refetch();
     }
   });
-
-  const { mutate: mutateDeleteContract } = useMutation(['deleteContract'], (variables) => deleteContract(variables), {
-    onSuccess: () => {
-      refetch();
-      showNotification({
-        id: 'load-data',
-        color: 'red',
-        title: 'Contract Deleted!',
-        message: 'Your contract was deleted succesfully, you can close this notification',
-        icon: <IconCheck size="1rem" />,
-        autoClose: 3000
-      });
-    }
-  });
-
-  const handleDelete = (contractId) => {
-    const variables = { contractId };
-    return mutateDeleteContract({ variables });
-  };
 
   const handleMarkAsCompleted = (contractId) => {
     const variables = { contractId, status: 'Completed' };
@@ -110,7 +89,7 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
         Cell: ({ row }) => {
           return (
             <a href={row.original.fileUrl} target="_blank" rel="noopener noreferrer">
-              Download File
+              View File
             </a>
           );
         }
@@ -143,17 +122,15 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
                   <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleMarkAsSigned(row.original.contractId)}>
                     Mark as Signed
                   </Button>
-                  <Button className="red-btn" mt="md" radius="md" fullWidth onClick={() => handleDelete(row.original.contractId)}>
-                    Delete
+                  <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleMarkAsCompleted(row.original.contractId)}>
+                    Mark as Completed
                   </Button>
                 </>
               );
             case 'Signed':
               return (
                 <>
-                  <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleMarkAsCompleted(row.original.contractId)}>
-                    Mark as Completed
-                  </Button>
+                  <h3>Active</h3>
                 </>
               );
             case 'Completed':

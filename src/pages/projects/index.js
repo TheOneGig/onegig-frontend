@@ -4,12 +4,14 @@ import { useQuery } from 'react-query';
 import { Flex, Button, Grid, Title, Tooltip } from '@mantine/core';
 
 import useAuth from 'hooks/useAuth';
+import useWorkspace from 'hooks/useWorkspace';
 import ProjectCreate from './drawerCreate';
 
 import ProjectCard from './projectCard';
 import ProjectEdit from './drawerEdit';
-import { getProjects } from 'hooks/projects';
-import { getGigs } from 'hooks/gigs';
+import { getWorkspaceProjects } from 'hooks/projects';
+import { getWorkspaceGigs } from 'hooks/gigs';
+import { getWorkspaceClients } from 'hooks/clients';
 import LeadCard from './leadCard';
 
 // ==============================|| GIGS ||============================== //
@@ -19,10 +21,12 @@ const Projects = () => {
   const [openedEdit, setOpenedEdit] = useState(false);
   const [selectedProject, setSelectedProject] = useState();
   const { user } = useAuth();
+  const { workspaceId } = useWorkspace();
   const userId = user.id;
-  const { data: projects, isLoading, refetch } = useQuery(['projects'], () => getProjects({ userId }));
-  const { data: gigs, isLoading: loadingGigs, refetch: refetchGigs } = useQuery(['gigs'], () => getGigs({ userId }));
-  if (isLoading || loadingGigs) {
+  const { data: projects, isLoading, refetch } = useQuery(['projects'], () => getWorkspaceProjects({ workspaceId }));
+  const { data: gigs, isLoading: loadingGigs, refetch: refetchGigs } = useQuery(['gigs'], () => getWorkspaceGigs({ workspaceId }));
+  const { data: clients, isLoading: loadingClients, refetch: refetchClients } = useQuery(['clients'], () => getWorkspaceClients({ workspaceId }));
+  if (isLoading || loadingGigs || loadingClients) {
     return <div>Loading Projects...</div>;
   }
 
@@ -32,7 +36,14 @@ const Projects = () => {
   }
 
   let leads = [];
-  gigs.map((gig) => gig.leads.map((lead) => leads.push(lead)));
+  if (gigs && Array.isArray(gigs)) {
+    gigs.map((gig) => gig.leads?.map((lead) => leads.push(lead)));
+  }
+
+  let clientData;
+  if (clients && Array.isArray(clients)) {
+    clientData = clients.map((client) => ({ value: client.clientId, label: client.firstName + ' ' + client.lastName }));
+  }
 
   const filteredProjects = projects.map((project) => {
     if (project.payments?.length > 0) {
@@ -82,7 +93,7 @@ const Projects = () => {
         })}
       </Grid>
 
-      <ProjectCreate opened={opened} setOpened={setOpened} refetch={refetch} userId={userId} gigs={gigs} />
+      <ProjectCreate opened={opened} setOpened={setOpened} refetch={refetch} workspaceId={workspaceId} userId={userId} gigs={gigs} clients={clientData} />
       {selectedProject && <ProjectEdit opened={openedEdit} setOpened={setOpenedEdit} refetch={refetch} project={selectedProject} />}
     </>
   );

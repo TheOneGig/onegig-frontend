@@ -4,22 +4,27 @@ import { useQuery } from 'react-query';
 import { Button, Tooltip, Flex } from '@mantine/core';
 import ContractCreate from './drawerCreate';
 import useAuth from 'hooks/useAuth';
-import { getGigs } from 'hooks/gigs';
-import { getTemplates } from 'hooks/templates';
-import { getContracts } from 'hooks/contracts';
+import useWorkspace from 'hooks/useWorkspace'
+import { getWorkspaceGigs } from 'hooks/gigs';
+import { getWorkspaceTemplates } from 'hooks/templates';
+import { getWorkspaceClients } from 'hooks/clients';
+import { getWorkspaceContracts } from 'hooks/contracts';
 import ContractTabs from './tabs';
 
 const ContractsTable = ({ striped }) => {
   const [opened, setOpened] = useState(false);
   const { user } = useAuth();
+  const { workspaceId } = useWorkspace();
   const userId = user.id;
-  const { data: contracts, isLoading, refetch } = useQuery(['contracts'], () => getContracts({ userId }));
-  const { data: templates, isLoading: loadingTemplates } = useQuery(['templates'], () => getTemplates({ userId }));
-  const { data: gigs, isLoading: loadingGigs } = useQuery(['gigs'], () => getGigs({ userId }));
-  if (isLoading || loadingGigs || loadingTemplates) {
+  const { data: contracts, isLoading, refetch } = useQuery(['contracts'], () => getWorkspaceContracts({ workspaceId }));
+  const { data: templates, isLoading: loadingTemplates } = useQuery(['templates'], () => getWorkspaceTemplates({ workspaceId }));
+  const { data: gigs, isLoading: loadingGigs } = useQuery(['gigs'], () => getWorkspaceGigs({ workspaceId }));
+  const { data: clients, isLoading: loadingClients } = useQuery(['clients'], () => getWorkspaceClients({ workspaceId }));
+  if (isLoading || loadingGigs || loadingTemplates || loadingClients) {
     return <div>Loading Contracts...</div>;
   }
 
+  const clientData = clients.map((client) => ({ value: client.clientId, label: `${client.firstName}${client.lastName}` }));
   const gigOptions = gigs.filter((gig) => gig.published == true).map((gig) => ({ value: gig.name, label: gig.name }));
 
   return (
@@ -47,8 +52,10 @@ const ContractsTable = ({ striped }) => {
       <ContractCreate
         opened={opened}
         refetch={refetch}
+        clients={clientData}
         templates={templates}
         setOpened={setOpened}
+        workspaceId={workspaceId}
         userId={userId}
         gigOptions={gigOptions}
       />

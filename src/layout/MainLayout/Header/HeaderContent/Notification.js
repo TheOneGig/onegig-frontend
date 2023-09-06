@@ -1,6 +1,7 @@
 import { Fragment, useRef, useState } from 'react';
-import { useQuery } from 'react-query';
-
+import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { markAllAsRead } from 'hooks/notifications'; // Asegúrate de importar tu función markAllAsRead
+import Dot from 'components/@extended/Dot';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -16,7 +17,8 @@ import {
   Popper,
   Tooltip,
   Typography,
-  useMediaQuery
+  useMediaQuery,
+  ListItemIcon
 } from '@mui/material';
 
 // project import
@@ -53,7 +55,14 @@ const Notification = () => {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
   const { user } = useAuth();
+  const queryClient = useQueryClient();
   const userId = user.id;
+  const markAllNotificationsAsReadMutation = useMutation(markAllAsRead, {
+    onSuccess: () => {
+      queryClient.refetchQueries(['notifications']);
+    }
+  });
+
   const { data: notifications, isLoading: loadingNotifications } = useQuery(['notifications'], () => getNotifications({ userId }));
 
   const anchorRef = useRef(null);
@@ -78,6 +87,15 @@ const Notification = () => {
   }
 
   const unread = notifications.filter((notification) => !notification.read);
+
+  const handleMarkAsRead = async () => {
+    try {
+      await markAllNotificationsAsReadMutation.mutateAsync({ userId });
+    } catch (error) {
+      console.error('Error marking notifications as read:', error.response?.data?.message || error.message);
+      // Aquí puedes mostrar un mensaje de error al usuario si lo deseas.
+    }
+  };
 
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
@@ -134,9 +152,9 @@ const Notification = () => {
                   content={false}
                   secondary={
                     <>
-                      {read > 0 && (
+                      {unread.length > 0 && (
                         <Tooltip title="Mark as all read">
-                          <IconButton size="small" onClick={() => setRead(0)}>
+                          <IconButton size="small" onClick={handleMarkAsRead}>
                             <CheckCircleOutlined style={{ fontSize: '1.15rem' }} />
                           </IconButton>
                         </Tooltip>
@@ -156,15 +174,20 @@ const Notification = () => {
                       }
                     }}
                   >
-                    {notifications?.map((notification) => {
+                    {unread?.map((notification) => {
                       return (
                         <Fragment key={notification.notificationId}>
                           <ListItemButton selected={read > 0}>
-                            <ListItemText primary={<Typography variant="h6">{notification.message}</Typography>} />
+                            <ListItemIcon>
+                              <Dot color="success" size={12} />
+                            </ListItemIcon>
+                            <ListItemText primary={<Typography variant="h6"> {notification.message}</Typography>} />
                             <ListItemSecondaryAction>
-                              <Typography variant="caption" noWrap>
-                                {dayjs(notification.createdAt).format('MM/DD hh:mm a')}
-                              </Typography>
+                              <ListItemIcon ListItemIcon>
+                                <Typography variant="caption" noWrap>
+                                  {dayjs(notification.createdAt).format('MM/DD')}
+                                </Typography>
+                              </ListItemIcon>
                             </ListItemSecondaryAction>
                           </ListItemButton>
                           <Divider />

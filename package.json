@@ -58,6 +58,7 @@
     "draft-js-plugins-editor": "^3.0.0",
     "draft-js-resizeable-plugin": "^2.0.9",
     "draft-js-toolbar-plugin": "^1.0.5",
+    "emailjs-com": "^3.2.0",
     "emoji-picker-react": "^3.5.1",
     "fabric": "^5.3.0",
     "firebase": "^9.13.0",

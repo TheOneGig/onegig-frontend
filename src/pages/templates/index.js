@@ -3,19 +3,18 @@ import { Grid, Tooltip, Title, Box, Flex, Button } from '@mantine/core';
 import SingleTemplateCard from './templateCard';
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from 'react-router-dom';
-import useAuth from 'hooks/useAuth';
+import useWorkspace from 'hooks/useWorkspace'
 import { useQuery } from 'react-query';
-import { getTemplates } from 'hooks/templates';
+import { getWorkspaceTemplates } from 'hooks/templates';
 
 const TemplatesPage = () => {
-  const { user } = useAuth();
-  const userId = user.id;
+  const { workspaceId } = useWorkspace()
   const navigate = useNavigate();
-  const { data: templates, isLoading, refetch } = useQuery(['templates'], () => getTemplates({ userId }));
+  const { data: templates, isLoading, refetch } = useQuery(['templates'], () => getWorkspaceTemplates({ workspaceId }));
 
   const handleCreateNewTemplate = () => {
     const newId = uuid();
-    navigate(`/edittemplate/${newId}`);
+    navigate(`/${workspaceId}/edittemplate/${newId}`);
   };
 
   if (isLoading) {

@@ -14,10 +14,14 @@ import timelinePlugin from '@fullcalendar/timeline';
 
 // project import
 import CalendarStyled from 'sections/apps/calendar/CalendarStyled';
+import { useMutation } from 'react-query';
 import Toolbar from 'sections/apps/calendar/Toolbar';
 import AddEventForm from 'sections/apps/calendar/AddEventForm';
 import { getEvents, selectEvent, selectRange, toggleModal, updateCalendarView, updateEvent } from 'store/reducers/calendar';
-
+// import { showNotification } from '@mantine/notifications';
+// import { IconCheck } from '@tabler/icons-react';
+import { createNotification } from 'hooks/notifications';
+import useAuth from 'hooks/useAuth';
 // assets
 import { PlusOutlined } from '@ant-design/icons';
 
@@ -32,14 +36,17 @@ const selectedEventHandler = (state) => {
 // ==============================|| CALENDAR - MAIN ||============================== //
 
 const Calendar = () => {
+  const { user } = useAuth();
+  const userId = user.id;
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const dispatch = useDispatch();
+  const createNotificationMutation = useMutation(createNotification);
   const calendar = useSelector((state) => state.calendar);
   const { calendarView, events, isModalOpen, selectedRange } = calendar;
   const selectedEvent = useSelector(selectedEventHandler);
 
   useEffect(() => {
-    dispatch(getEvents());
+    dispatch(getEvents(userId));
   }, [dispatch]);
 
   const calendarRef = useRef(null);
@@ -115,16 +122,22 @@ const Calendar = () => {
   };
 
   const handleEventSelect = (arg) => {
-    dispatch(selectEvent(arg.event.id));
+    dispatch(selectEvent(arg.event.eventId));
   };
 
   const handleEventUpdate = async ({ event }) => {
     try {
       dispatch(
-        updateEvent(event.id, {
+        updateEvent(event.eventId, {
           allDay: event.allDay,
           start: event.start,
           end: event.end
+        }),
+        createNotificationMutation.mutate({
+          variables: {
+            userId: userId,
+            message: 'A event has been updated'
+          }
         })
       );
     } catch (error) {

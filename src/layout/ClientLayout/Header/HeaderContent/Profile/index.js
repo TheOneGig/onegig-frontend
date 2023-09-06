@@ -11,13 +11,14 @@ import Avatar from 'components/@extended/Avatar';
 import MainCard from 'components/MainCard';
 import Transitions from 'components/@extended/Transitions';
 import IconButton from 'components/@extended/IconButton';
-import useAuth from 'hooks/useAuth';
+import useClientAuth from 'hooks/useClientAuth';
+import useClient from 'hooks/useClient';
 import ProfileTab from './ProfileTab';
 
 // assets
 import avatar1 from 'assets/images/users/avatar-1.png';
 import { LogoutOutlined } from '@ant-design/icons';
-import { getUser } from 'hooks/users';
+import { getClient } from 'hooks/clients';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -40,9 +41,10 @@ const Profile = () => {
   const theme = useTheme();
   // const history = useNavigate();
 
-  const { logout, user } = useAuth();
-  const userId = user.id;
-  const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId }));
+  const { logout } = useClientAuth();
+  const {clientId} = useClient();
+  console.log(clientId)
+  const { data: userInfo, isLoading } = useQuery(['client'], () => getClient({ clientId }));
   const handleLogout = async () => {
     try {
       await logout();
@@ -69,8 +71,8 @@ const Profile = () => {
   if (isLoading) {
     return <div>Loading user info...</div>;
   }
-  const { fname, lname, nickname, email, title, avatar } = userInfo;
-  const fullName = nickname ? nickname : fname ? `${fname} ${lname}` : email;
+  const { firsName, lastName, nickname, email, avatar } = userInfo;
+  const fullName = nickname ? nickname : firsName ? `${firsName} ${lastName}` : email;
 
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
@@ -137,9 +139,6 @@ const Profile = () => {
                             <Avatar alt="profile user" src={avatar ? avatar.fileUrl : avatar1} sx={{ width: 32, height: 32 }} />
                             <Stack>
                               <Typography variant="h6">{fullName}</Typography>
-                              <Typography variant="body2" color="textSecondary">
-                                {title ? title : ''}
-                              </Typography>
                             </Stack>
                           </Stack>
                         </Grid>

@@ -10,6 +10,16 @@ export const createTransaction = async (data) => {
   return response;
 };
 
+export const getWorkspaceTransaction = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/transactions/byWorkspace', data);
+  return response;
+};
+
+export const getTransactions = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/transactions/user', data);
+  return response;
+};
+
 export const updateTransaction = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/transactions/update', data.variables);
   return response;

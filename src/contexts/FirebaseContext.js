@@ -6,7 +6,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
 // action - state management
-import { LOGIN, LOGOUT } from 'store/reducers/actions';
+import { LOGIN_USER, LOGOUT_USER, SET_WORKSPACE_ID } from 'store/reducers/actions';
 import authReducer from 'store/reducers/auth';
 
 // project import
@@ -23,7 +23,8 @@ if (!firebase.apps.length) {
 const initialState = {
   isLoggedIn: false,
   isInitialized: false,
-  user: null
+  user: null,
+  workspaceId: null
 };
 
 // ==============================|| FIREBASE CONTEXT & PROVIDER ||============================== //
@@ -33,27 +34,38 @@ const FirebaseContext = createContext(null);
 export const FirebaseProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  const setWorkspaceId = (workspaceId) => {
+    dispatch({
+      type: SET_WORKSPACE_ID, // Utilizando la acción importada
+      payload: { workspaceId },
+    });
+  };
+
   useEffect(
     () =>
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
           const dbUser = await loginUser({ email: user.email });
+           // Asumiendo que esta función obtiene el workspace completo
+           console.log(dbUser)
           dispatch({
-            type: LOGIN,
+            type: LOGIN_USER,
             payload: {
               isLoggedIn: true,
               user: {
                 id: dbUser.userId,
-                fbIf: user.uid,
+                fbId: user.uid,
                 email: user.email,
                 name: user.displayName || user.email,
-                role: 'UI/UX Designer'
-              }
+                role: dbUser.role,
+                workspaceId: dbUser.workspace
+              },
+              workspaceId: dbUser.workspace
             }
           });
         } else {
           dispatch({
-            type: LOGOUT
+            type: LOGOUT_USER
           });
         }
       }),
@@ -100,6 +112,7 @@ export const FirebaseProvider = ({ children }) => {
         login: () => {},
         firebaseGoogleSignIn,
         firebaseTwitterSignIn,
+        setWorkspaceId,
         firebaseFacebookSignIn,
         logout,
         resetPassword,

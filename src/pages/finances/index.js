@@ -11,6 +11,7 @@ import MainCard from 'components/MainCard';
 import ScrollX from 'components/ScrollX';
 import { createTransaction, deleteTransaction, getAllTransactions, updateTransaction } from 'hooks/transactions';
 import useAuth from 'hooks/useAuth';
+import useWorkspace from 'hooks/useWorkspace';
 import { formatUSD } from 'utils/formatUSD';
 import ReactTable from './table';
 import dayjs from 'dayjs';
@@ -19,11 +20,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDateTimePicker } from '@mui/x-date-pickers';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
+import { createNotification } from 'hooks/notifications';
 
 const TransactionsTable = ({ striped, title }) => {
   const theme = useMantineTheme();
   const { user } = useAuth();
+  const { workspaceId } = useWorkspace();
   const userId = user.id;
+  const createNotificationMutation = useMutation(createNotification);
   const [transaction, setTransaction] = useState();
   const [transactionType, setTransactionType] = useState('REVENUE');
   const [date, setDate] = useState(new Date());
@@ -34,7 +38,7 @@ const TransactionsTable = ({ striped, title }) => {
     data: allTransactions,
     isLoading: loadingTransactions,
     refetch
-  } = useQuery(['allTransactions'], () => getAllTransactions({ userId }));
+  } = useQuery(['allTransactions'], () => getAllTransactions({ workspaceId }));
 
   const { mutate: transactionDelete, isLoading: loadingDelete } = useMutation(
     ['deleteTransaction'],
@@ -50,6 +54,12 @@ const TransactionsTable = ({ striped, title }) => {
           message: 'Your transaction was deleted succesfully, you can close this notification',
           icon: <IconCheck size="1rem" />,
           autoClose: 3000
+        });
+        createNotificationMutation.mutate({
+          variables: {
+            userId: userId,
+            message: 'A transaction was deleted!'
+          }
         });
       }
     }
@@ -71,6 +81,12 @@ const TransactionsTable = ({ striped, title }) => {
           autoClose: 3000
         });
         form.reset();
+        createNotificationMutation.mutate({
+          variables: {
+            userId: userId,
+            message: 'Your transaction has been updated!'
+          }
+        });
       }
     }
   );
@@ -89,6 +105,12 @@ const TransactionsTable = ({ striped, title }) => {
           message: 'Congratulations! your transaction was saved succesfully, you can close this notification',
           icon: <IconCheck size="1rem" />,
           autoClose: 3000
+        });
+        createNotificationMutation.mutate({
+          variables: {
+            userId: userId,
+            message: 'You have created a new transaction!'
+          }
         });
         form.reset();
       }
@@ -112,7 +134,7 @@ const TransactionsTable = ({ striped, title }) => {
   }
 
   function handleNew(values) {
-    const variables = { userId, amount: values.amount * 100, description: values.description, date, type: transactionType };
+    const variables = { userId, amount: values.amount * 100, description: values.description, date, type: transactionType, workspaceId };
     return transactionNew({ variables });
   }
 

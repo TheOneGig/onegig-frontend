@@ -43,3 +43,5 @@ const config = {
 };
 
 export default config;
+
+// defaultPath: '/new/subscription',

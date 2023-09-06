@@ -7,12 +7,14 @@ import { useForm, hasLength } from '@mantine/form';
 import { uploadFile } from 'react-s3';
 import { blobToFile } from 'utils/blob';
 import { showNotification } from '@mantine/notifications';
+import { createNotification } from 'hooks/notifications';
 import PropTypes from 'prop-types';
 import { DeleteOutlined, SendOutlined, UserOutlined } from '@ant-design/icons';
 import { createContract } from 'hooks/contracts';
 import SingleTemplateCard from './templateBoxCard';
 import { IconCheck } from '@tabler/icons-react';
 import PdfSign from 'pages/pdfSign';
+
 
 const config = {
   bucketName: 'onegig-uploads',
@@ -22,10 +24,10 @@ const config = {
 };
 // ==============================|| Contracts ||============================== //
 
-const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOptions }) => {
+const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOptions, clients, workspaceId }) => {
   const [selectedGig, setSelectedGig] = useState(null);
+  const [selectedClient, setSelectedClient] = useState(null);
   const [signingPdf, setSigningPdf] = useState(false);
-  const [recieverEmail, setRecieverEmail] = useState('');
   const [signedPdf, setSignedPdf] = useState(null);
   const [fileType, setFileType] = useState('template');
   const [file, setFile] = useState(null);
@@ -33,13 +35,13 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
   const [selectedTemplate, setSelectedTemplate] = useState(null);
 
   const navigate = useNavigate();
+  const createNotificationMutation = useMutation(createNotification);
   const { mutate, isLoading } = useMutation(['createContract'], (variables) => createContract(variables), {
     onSuccess: () => {
       refetch();
       setOpened(false);
       setSelectedGig(null);
       setSigningPdf(false);
-      setRecieverEmail('');
       setSignedPdf(false);
       setFileType('template');
       setFile(null);
@@ -51,6 +53,12 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
         message: 'Congratulations! your contract was saved succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'You have created a new contract!'
+        }
       });
       form.reset();
     }
@@ -89,8 +97,9 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
         description: values.description,
         gig: selectedGig,
         status: values.status,
-        reciever: recieverEmail,
+        clientId: selectedClient,
         userId,
+        workspaceId,
         fileUrl: file
       };
       return mutate({ variables });
@@ -126,12 +135,15 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                 />
 
                 <Tooltip label="Who will recieve the contract">
-                  <TextInput
-                    label="Reciever"
+                  <Select
+                    label="Client"
+                    placeholder="Select Client"
+                    value={selectedClient}
                     withAsterisk
-                    placeholder="Enter Reciever's Email"
-                    value={recieverEmail}
-                    onChange={(e) => setRecieverEmail(e.target.value)}
+                    onChange={(selectedOption) => {
+                      setSelectedClient(selectedOption)
+                    }}
+                    data={clients.length ? clients : [{ value: 'no-gigs', label: 'No Gigs Found' }]}
                     rightSection={<UserOutlined />}
                   />
                 </Tooltip>

@@ -30,6 +30,7 @@ import IconButton from 'components/@extended/IconButton';
 import { createRequirement, deleteRequirement, updateRequirement } from 'hooks/requirements';
 import { showNotification } from '@mantine/notifications';
 import { useForceUpdate } from 'framer-motion';
+import { createNotification } from 'hooks/notifications';
 
 const config = {
   bucketName: 'onegig-uploads',
@@ -57,6 +58,8 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
   const [deleteId, setDeleteId] = useState('');
   const [editId, setEditId] = useState('');
   const [editName, setEditName] = useState('');
+  const createNotificationMutation = useMutation(createNotification);
+
   const { mutate, isLoading } = useMutation(['updateGig'], (variables) => updateGig(variables), {
     onSuccess: () => {
       refetch();
@@ -68,6 +71,12 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
         message: 'Your gig was updated succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'A gig has been updated!'
+        }
       });
       form.reset();
     }

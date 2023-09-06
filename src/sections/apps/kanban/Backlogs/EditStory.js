@@ -41,6 +41,7 @@ import UploadMultiFile from 'components/third-party/dropzone/MultiFile';
 import { openSnackbar } from 'store/reducers/snackbar';
 import { useDispatch, useSelector } from 'store';
 import { editStory, deleteStory } from 'store/reducers/kanban';
+import { useTheme } from '@mui/system';
 
 // assets
 import { CloseOutlined, DeleteFilled } from '@ant-design/icons';
@@ -56,6 +57,7 @@ const validationSchema = yup.object({
 // ==============================|| KANBAN BACKLOGS - EDIT STORY ||============================== //
 
 const EditStory = ({ story, open, handleDrawerOpen }) => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const kanban = useSelector((state) => state.kanban);
   const { profiles, columns, comments, userStory, userStoryOrder } = kanban;
@@ -142,7 +144,7 @@ const EditStory = ({ story, open, handleDrawerOpen }) => {
     >
       {open && (
         <>
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ p: 3, backgroundColor: theme.palette.background.paper }}>
             <Grid container alignItems="center" spacing={0.5} justifyContent="space-between">
               <Grid item sx={{ width: 'calc(100% - 64px)' }}>
                 <Stack direction="row" spacing={0.5} alignItems="center">
@@ -180,7 +182,7 @@ const EditStory = ({ story, open, handleDrawerOpen }) => {
             </Grid>
           </Box>
           <Divider />
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ p: 3, backgroundColor: theme.palette.background.paper }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <form onSubmit={formik.handleSubmit}>

@@ -5,6 +5,16 @@ export const getProjects = async (data) => {
   return response;
 };
 
+export const getClientProjects = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/byClient', data);
+  return response;
+};
+
+export const getWorkspaceProjects = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/byWorkspace', data);
+  return response;
+};
+
 export const getProject = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/projects/byId', data);
   return response;

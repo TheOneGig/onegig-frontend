@@ -3,7 +3,10 @@ import { useState } from 'react';
 
 // material-ui
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-
+import useAuth from 'hooks/useAuth';
+import { useQuery } from 'react-query';
+import { getUser } from 'hooks/users';
+import useWorkspace from 'hooks/useWorkspace';
 // assets
 import { LogoutOutlined, UserOutlined, WalletOutlined, ControlOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
@@ -11,12 +14,16 @@ import { useNavigate } from 'react-router';
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 
 const ProfileTab = ({ handleLogout }) => {
+  const { user } = useAuth()
+  const userId = user.id;
+  const { workspaceId } = useWorkspace()
+  const { data: userInfo, isLoading } = useQuery(['user'], () => getUser({ userId }));
   const history = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
     if (index === 1) {
-      history('/profile/personal');
+      history(`/${workspaceId}/profile/personal`);
     } else if (index === 4) {
       history('/tiers');
     } else if (index === 3) {
@@ -34,24 +41,28 @@ const ProfileTab = ({ handleLogout }) => {
         </ListItemIcon>
         <ListItemText primary="Profile" />
       </ListItemButton>
-      <ListItemButton selected={selectedIndex === 3} onClick={(event) => handleListItemClick(event, 3)}>
-        <ListItemIcon>
-          <ControlOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Admin Site" />
-      </ListItemButton>
-      <ListItemButton selected={selectedIndex === 5} onClick={(event) => handleListItemClick(event, 5)}>
-        <ListItemIcon>
-          <ControlOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Client Site" />
-      </ListItemButton>
-      <ListItemButton selected={selectedIndex === 4} onClick={(event) => handleListItemClick(event, 4)}>
-        <ListItemIcon>
-          <WalletOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Subscription" />
-      </ListItemButton>
+      
+      {  userInfo.role === 'ADMIN' ?
+          <>
+            <ListItemButton selected={selectedIndex === 3} onClick={(event) => handleListItemClick(event, 3)}>
+            <ListItemIcon>
+              <ControlOutlined />
+            </ListItemIcon>
+            <ListItemText primary="Admin Site" />
+          </ListItemButton>
+          <ListItemButton selected={selectedIndex === 4} onClick={(event) => handleListItemClick(event, 4)}>
+            <ListItemIcon>
+              <WalletOutlined />
+            </ListItemIcon>
+            <ListItemText primary="Subscription" />
+          </ListItemButton>
+          </> 
+        : 
+          <>
+          
+          </>
+        
+        }
       <ListItemButton selected={selectedIndex === 2} onClick={handleLogout}>
         <ListItemIcon>
           <LogoutOutlined />

@@ -6,6 +6,7 @@ import { Box, Button, Grid, Group, Modal, Textarea, Title, Badge, Card, Text } f
 import { getProject } from 'hooks/projects';
 import useAuth from 'hooks/useAuth';
 import { showNotification } from '@mantine/notifications';
+import { createNotification } from 'hooks/notifications';
 
 import { IconCheck } from '@tabler/icons-react';
 import { useTheme } from '@mui/material/styles';
@@ -22,6 +23,7 @@ const Notes = () => {
   const { projectId } = useParams();
   const { user } = useAuth();
   const userId = user.id;
+  const createNotificationMutation = useMutation(createNotification);
   const { data: notes, refetch } = useQuery(['notes'], () => getNotes({ userId }));
   const { data: project, isLoading: loadingProject } = useQuery(['project'], () => getProject({ projectId }));
 
@@ -36,6 +38,12 @@ const Notes = () => {
         message: 'Congratulations! your note was saved succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'You have created a new note!'
+        }
       });
       setNewNote('');
     }
@@ -53,6 +61,12 @@ const Notes = () => {
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
       });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'A note has been deleted'
+        }
+      });
     }
   });
 
@@ -67,6 +81,12 @@ const Notes = () => {
         message: 'Your note was updated succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'A note has been updated'
+        }
       });
       setNewNote('');
     }

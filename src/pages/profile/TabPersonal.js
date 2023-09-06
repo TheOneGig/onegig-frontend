@@ -34,6 +34,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import { getUser, updateUser } from 'hooks/users';
 import useAuth from 'hooks/useAuth';
 import { getAllSkills, addSkill, removeSkill } from 'hooks/skills';
+import { createNotification } from 'hooks/notifications';
 
 function useInputRef() {
   return useOutletContext();
@@ -52,6 +53,7 @@ const TabPersonal = () => {
 
   const { user } = useAuth();
   const userId = user.id;
+  const createNotificationMutation = useMutation(createNotification);
   const { data: userInfo, isLoading, refetch } = useQuery(['user'], () => getUser({ userId }));
   const { data: allSkills, isLoading: loadingSkills } = useQuery(['allSkills'], () => getAllSkills());
   const { mutate } = useMutation(['updateUser'], (variables) => updateUser(variables), {
@@ -60,6 +62,12 @@ const TabPersonal = () => {
       if (location.pathname === '/new/profile/personal') {
         history('/new/subscription');
       }
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'Personal profile updated successfully'
+        }
+      });
       return true;
     }
   });

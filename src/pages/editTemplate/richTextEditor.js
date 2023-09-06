@@ -6,6 +6,7 @@ import { exportToPdf, generateThumbnail } from './exportPdf';
 import TextEditor from './editor';
 import { useMutation } from 'react-query';
 import { showNotification, updateNotification } from '@mantine/notifications';
+import { createNotification } from 'hooks/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { uploadFile } from 'react-s3';
 import PropTypes from 'prop-types';
@@ -27,7 +28,8 @@ const wrapperStyle = {
   margin: '20px auto'
 };
 
-const RichTextEditor = ({ title, description, template, userId, editorState, setEditorState, refetch, templateId }) => {
+const RichTextEditor = ({ title, description, template, userId, editorState, setEditorState, refetch, workspaceId,  templateId }) => {
+  const createNotificationMutation = useMutation(createNotification);
   const { mutate: createTemplateMutation, isLoading } = useMutation(['createTemplate'], (variables) => createTemplate(variables), {
     onSuccess: () => {
       updateNotification({
@@ -37,6 +39,12 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
         message: 'Congratulations! your template was saved successfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'You have created a new template!'
+        }
       });
       refetch();
     }
@@ -50,6 +58,12 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
         message: 'Congratulations! your template was saved successfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'A template has been updated!'
+        }
       });
       refetch();
     }
@@ -110,19 +124,27 @@ const RichTextEditor = ({ title, description, template, userId, editorState, set
   };
 
   const handleSave = useCallback(() => {
-    const variables = {
-      templateId,
-      title: title,
-      description: description,
-      content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
-      fileUrl: pdfUrl,
-      thumbnail: thumbnail,
-      userId
-    };
-
     if (template.templateId) {
-      updateTemplateMutation({ variables });
+      const newVariables = {
+        templateId,
+        title: title,
+        description: description,
+        content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+        fileUrl: pdfUrl,
+        thumbnail: thumbnail,
+      };
+      updateTemplateMutation({ newVariables });
     } else {
+      const variables = {
+        templateId,
+        title: title,
+        description: description,
+        content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+        fileUrl: pdfUrl,
+        thumbnail: thumbnail,
+        userId,
+        workspaceId
+      };
       createTemplateMutation({ variables });
     }
   }, [

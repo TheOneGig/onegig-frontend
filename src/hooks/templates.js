@@ -15,6 +15,11 @@ export const getTemplates = async (data) => {
   return response;
 };
 
+export const getWorkspaceTemplates = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/templates/byWorkspace', data);
+  return response;
+};
+
 export const createTemplate = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/templates/create', data.variables);
   return response;

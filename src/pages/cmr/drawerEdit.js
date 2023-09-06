@@ -6,10 +6,12 @@ import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
+import { createNotification } from 'hooks/notifications';
 
 // ==============================|| GIGS ||============================== //
 
-const ClientEdit = ({ opened, setOpened, client, refetch }) => {
+const ClientEdit = ({ opened, setOpened, client, userId, refetch }) => {
+  const createNotificationMutation = useMutation(createNotification);
   const [selectedStatus, setSelectedStatus] = useState(client ? client.status : 'Active');
   const { mutate, isLoading } = useMutation(['updateClient'], (variables) => updateClient(variables), {
     onSuccess: () => {
@@ -23,6 +25,13 @@ const ClientEdit = ({ opened, setOpened, client, refetch }) => {
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
       });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'Edited Client Information!'
+        }
+      });
+
       form.reset();
     }
   });

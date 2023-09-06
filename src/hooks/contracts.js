@@ -12,13 +12,21 @@ export const getAllContracts = async (data) => {
 
 export const getContracts = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/contracts/user', data);
-  // console.log('getContracts response:', response);
+  return response;
+};
+
+export const getClientContracts = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/contracts/byClient', data);
+  return response;
+};
+
+export const getWorkspaceContracts = async (data) => {
+  const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/contracts/byWorkspace', data);
   return response;
 };
 
 export const createContract = async (data) => {
   const { data: response } = await axios.post('https://one-gig.herokuapp.com/api/contracts/create', data.variables);
-  //  console.log("createContract response:", response)
   return response;
 };
 

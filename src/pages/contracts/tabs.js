@@ -4,6 +4,7 @@ import ReactTable from './table';
 import MainCard from 'components/MainCard';
 import ScrollX from 'components/ScrollX';
 import { deleteContract, updateContractStatus } from 'hooks/contracts';
+import { createNotification } from 'hooks/notifications';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { useMutation } from 'react-query';
@@ -15,10 +16,17 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
   const pendingContracts = contractData.filter((contract) => contract.status === 'Pending');
   const signedContracts = contractData.filter((contract) => contract.status === 'Signed');
   const completedContracts = contractData.filter((contract) => contract.status === 'Completed');
+  const createNotificationMutation = useMutation(createNotification);
 
   const { mutate: mutateUpdateContractStatus } = useMutation(['updateContractStatus'], (variables) => updateContractStatus(variables), {
     onSuccess: () => {
       refetch();
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'Contract has been signed'
+        }
+      });
     }
   });
 
@@ -32,6 +40,12 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
         message: 'Your contract was deleted succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
+      });
+      createNotificationMutation.mutate({
+        variables: {
+          userId: userId,
+          message: 'You have deleted created a contract!'
+        }
       });
     }
   });

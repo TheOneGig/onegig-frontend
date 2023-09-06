@@ -6,11 +6,13 @@ import { useQuery } from 'react-query';
 import { getTemplate } from '../../hooks/templates';
 import { EditorState, convertFromRaw } from 'draft-js';
 import useAuth from 'hooks/useAuth';
+import useWorkspace from 'hooks/useWorkspace';
 
 const EditTemplatePage = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const { user } = useAuth();
+  const { workspaceId } = useWorkspace()
   const userId = user.id;
   const { templateId } = useParams();
   const { data: template, isLoading, refetch } = useQuery(['getTemplate'], () => getTemplate({ templateId }));
@@ -53,6 +55,7 @@ const EditTemplatePage = () => {
             refetch={refetch}
             editorState={editorState}
             setEditorState={setEditorState}
+            workspaceId={workspaceId}
             userId={userId}
             templateId={templateId}
             title={title}
