@@ -12,14 +12,14 @@ function IssueForm() {
   const theme = useTheme();
 
   // State to store the selected image file and its preview URL
-  const [selectedImage, setSelectedImage] = useState(null);
+  // const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
   // Function to handle image selection
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedImage(file);
+      // setSelectedImage(file);
       setImagePreview(URL.createObjectURL(file));
     }
   };

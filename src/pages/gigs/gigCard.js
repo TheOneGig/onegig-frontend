@@ -185,6 +185,7 @@ const GigCard = ({ gig, refetch, handleEdit, share, userId }) => {
 GigCard.propTypes = {
   gig: PropTypes.object,
   refetch: PropTypes.func,
+  userId: PropTypes.string,
   handleEdit: PropTypes.func,
   share: PropTypes.bool
 };

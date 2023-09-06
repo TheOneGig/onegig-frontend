@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 // project import
-import config from 'config';
+//import config from 'config';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';

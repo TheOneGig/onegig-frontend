@@ -94,7 +94,8 @@ const Notes = ({ userId, handleClose }) => {
 };
 
 Notes.propTypes = {
-  userId: PropTypes.string
+  userId: PropTypes.string,
+  handleClose: PropTypes.func.isRequired
 };
 
 export default Notes;

@@ -23,7 +23,7 @@ const TeamMembers = () => {
   // const { user } = useAuth();
   // const userId = user.id;
   const { workspaceId } = useWorkspace();
-  const { data: members, isLoading, refetch } = useQuery(['members'], () => getMembers({ workspaceId }));
+  const { data: members, isLoading } = useQuery(['members'], () => getMembers({ workspaceId }));
   console.log(members);
 
   if (isLoading) {

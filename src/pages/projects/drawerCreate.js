@@ -125,6 +125,13 @@ const ProjectCreate = ({ opened, setOpened, refetch, userId, gigs, clients, work
 ProjectCreate.propTypes = {
   userId: PropTypes.string,
   opened: PropTypes.bool,
+  workspaceId: PropTypes.string,
+  clients: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string
+    })
+  ),
   setOpened: PropTypes.func,
   refetch: PropTypes.func,
   gigs: PropTypes.array

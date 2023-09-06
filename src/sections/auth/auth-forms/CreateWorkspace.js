@@ -29,7 +29,7 @@ const CreateWorkspaceForm = () => {
   const createNotificationMutation = useMutation(createNotification);
 
   const { mutate, isLoading } = useMutation(['createWorkspace'], (variables) => createWorkspace(variables), {
-    onSuccess: (data) => {
+    onSuccess: () => {
       // Suponiendo que la ID del espacio de trabajo se devuelve como parte de la respuesta
       showNotification({
         id: 'load-data',

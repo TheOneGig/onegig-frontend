@@ -30,7 +30,7 @@ import { showNotification } from '@mantine/notifications';
 import { createNotification } from 'hooks/notifications';
 import useAuth from 'hooks/useAuth';
 import useWorkspace from 'hooks/useWorkspace';
-import { useTheme } from '@mui/material/styles';
+//import { useTheme } from '@mui/material/styles';
 // project import
 import MainCard from 'components/MainCard';
 import Avatar from 'components/@extended/Avatar';
@@ -53,7 +53,7 @@ function createData(name, lastName, avatar, email, role, status) {
 
 const TabRole = () => {
   const [email, setEmail] = useState('');
-  const theme = useTheme();
+  // const theme = useTheme();
   const { user } = useAuth();
   const userId = user.id;
   const { workspaceId } = useWorkspace();
@@ -61,7 +61,7 @@ const TabRole = () => {
   const [editOpened, setEditOpened] = useState(false);
   const [deleteSelected, setDeleteSelected] = useState(false);
   const [selectedRole, setSelectedRole] = useState(null);
-  const [memberId, setMemberId] = useState(null);
+  // const [memberId, setMemberId] = useState(null);
   const createNotificationMutation = useMutation(createNotification);
   const { data: members, isLoading, refetch } = useQuery(['members'], () => getMembers({ workspaceId }));
   console.log(members);
@@ -104,7 +104,7 @@ const TabRole = () => {
 
   const handleEdit = () => {
     const variables = {
-      memberId: memberId,
+      //memberId: memberId,
       role: selectedRole
     };
 

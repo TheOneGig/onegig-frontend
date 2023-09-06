@@ -29,7 +29,7 @@ const CMRTabs = ({ clientData, striped, refetch, userId, workspaceId }) => {
   const [client, setClient] = useState(null);
   const createNotificationMutation = useMutation(createNotification);
 
-  const { mutate, isLoading } = useMutation(['createClientsite'], (variables) => createClientsite(variables), {
+  const { mutate } = useMutation(['createClientsite'], (variables) => createClientsite(variables), {
     onSuccess: () => {
       refetch();
       showNotification({
@@ -302,6 +302,7 @@ CMRTabs.propTypes = {
   striped: PropTypes.bool,
   refetch: PropTypes.func.isRequired,
   userId: PropTypes.string.isRequired,
+  workspaceId: PropTypes.string.isRequired,
   showNotification: PropTypes.func.isRequired,
   updateClientStatus: PropTypes.func.isRequired,
   deleteClient: PropTypes.func.isRequired,

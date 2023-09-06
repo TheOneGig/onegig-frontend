@@ -19,7 +19,7 @@ export const sendEmailConfirmation = ({ to_name, to_email }) => {
 
   // Enviar el correo
   emailjs.send(serviceId, templateId, templateParams).then(
-    (result) => {
+    () => {
       showNotification({
         id: 'load-data',
         color: 'teal',
@@ -56,7 +56,7 @@ export const sendWorkspaceInvite = ({ to_email, workspaceId }) => {
   };
   // Enviar el correo
   emailjs.send(serviceId, templateId, templateParams).then(
-    (result) => {
+    () => {
       showNotification({
         id: 'load-data',
         color: 'teal',
@@ -94,7 +94,7 @@ export const sendClientInvite = ({ to_name, to_email, clientId }) => {
 
   // Enviar el correo
   emailjs.send(serviceId, templateId, templateParams).then(
-    (result) => {
+    () => {
       showNotification({
         id: 'load-data',
         color: 'teal',

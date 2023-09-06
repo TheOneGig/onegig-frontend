@@ -3,7 +3,7 @@ import { Container, Grid } from '@mui/material';
 
 // project imports
 import IssueForm from 'sections/extra-pages/contact/IssueForm';
-import ContactHeader from 'sections/extra-pages/contact/ContactHeader';
+//import ContactHeader from 'sections/extra-pages/contact/ContactHeader';
 
 // ==============================|| REPORT ISSUE - MAIN ||============================== //
 
