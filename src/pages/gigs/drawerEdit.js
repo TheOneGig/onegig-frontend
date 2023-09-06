@@ -195,9 +195,9 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
   }
 
   return (
-    <Drawer opened={opened} onClose={() => setOpened(false)} padding="xl" size="100%" position="right" sx={{ zIndex: 9999 }}>
-      <Box component="form" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-        <Title order={1}>Edit Gig</Title>
+    <Drawer opened={opened} onClose={() => setOpened(false)} size="100%" position="right" width="100%" sx={{ zIndex: 9999 }}>
+      <Box component="form" onSubmit={form.onSubmit((values) => handleSubmit(values))} sx={{ height: '570px', overflowY: 'auto' }}>
+        <Title order={1}>Edit Proposal</Title>
 
         <Grid>
           <Grid.Col span={6}>
@@ -246,37 +246,116 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
                 { value: 'PHOTOEDITING', label: 'Photo & Editing' }
               ]}
             />
-
-            <Title sx={{ fontSize: '14px !important', fontWeight: '500', marginTop: '10px' }}>
-              Deliverables{' '}
-              <Tooltip label="New Deliverable">
-                <IconButton onClick={() => setOpenNewDeliverable(!openNewDeliverable)}>
-                  <PlusCircleOutlined />
-                </IconButton>
-              </Tooltip>
-            </Title>
-            {deliverables.map((deliverable, index) => (
-              <div key={index}>
-                <IconButton className="delete-btn" onClick={() => handleDeleteDeliverable(index)}>
-                  <DeleteOutlined />
-                </IconButton>{' '}
-                {deliverable}
-              </div>
-            ))}
-            {openNewDeliverable && (
-              <Box>
-                <TextInput
-                  placeholder="Deliverable"
-                  value={newDeliverable}
-                  onChange={(e) => setNewDeliverable(e.target.value)}
-                  rightSection={
-                    <Button onClick={() => handleNewDeliverable()} variant="light" color="teal" className="right-section-btn">
-                      <PlusOutlined />
-                    </Button>
+            <Grid>
+              <Grid.Col span={6}>
+                <Title sx={{ fontSize: '14px !important', fontWeight: '500', marginTop: '10px' }}>
+                  Deliverables{' '}
+                  <Tooltip label="New Deliverable">
+                    <IconButton onClick={() => setOpenNewDeliverable(!openNewDeliverable)}>
+                      <PlusCircleOutlined />
+                    </IconButton>
+                  </Tooltip>
+                </Title>
+                {deliverables.map((deliverable, index) => (
+                  <div key={index}>
+                    <IconButton className="delete-btn" onClick={() => handleDeleteDeliverable(index)}>
+                      <DeleteOutlined />
+                    </IconButton>{' '}
+                    {deliverable}
+                  </div>
+                ))}
+                {openNewDeliverable && (
+                  <Box>
+                    <TextInput
+                      placeholder="Deliverable"
+                      value={newDeliverable}
+                      onChange={(e) => setNewDeliverable(e.target.value)}
+                      rightSection={
+                        <Button onClick={() => handleNewDeliverable()} variant="light" color="teal" className="right-section-btn">
+                          <PlusOutlined />
+                        </Button>
+                      }
+                    />
+                  </Box>
+                )}
+              </Grid.Col>
+              <Grid.Col span={6}>
+                <Title sx={{ fontSize: '14px !important', fontWeight: '500', mt: '3px' }}>
+                  Proposal Requirements{' '}
+                  <Tooltip title="New Requirement">
+                    <IconButton onClick={() => setOpenNewReq(!openedNewReq)}>
+                      <PlusCircleOutlined />
+                    </IconButton>
+                  </Tooltip>
+                </Title>
+                {gig.requirements?.map((requirement, index) => {
+                  if (editId && editId === requirement.requirementId) {
+                    return (
+                      <Box key={requirement.requirementId}>
+                        <p>
+                          <TextInput
+                            value={editName}
+                            onChange={(e) => setEditName(e.target.value)}
+                            placeholder="Requirement"
+                            rightSection={
+                              <Button variant="light" color="teal" className="right-section-btn" onClick={() => handleEdit()}>
+                                <PlusOutlined />
+                              </Button>
+                            }
+                          />
+                        </p>
+                      </Box>
+                    );
+                  } else {
+                    return (
+                      <Box key={requirement.requirementId}>
+                        <p>
+                          <Tooltip label="Edit">
+                            <IconButton
+                              className="edit-btn"
+                              onClick={() => {
+                                setEditId(requirement.requirementId);
+                                setEditName(requirement.requirement);
+                              }}
+                            >
+                              <EditOutlined />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip label="Delete">
+                            <IconButton
+                              className="delete-btn"
+                              onClick={() => {
+                                setDeleteId(requirement.requirementId);
+                                setOpenedDelete(true);
+                              }}
+                            >
+                              <DeleteOutlined />
+                            </IconButton>
+                          </Tooltip>
+                          {index + 1}
+                          {') '}
+                          {requirement.requirement}
+                        </p>
+                      </Box>
+                    );
                   }
-                />
-              </Box>
-            )}
+                })}
+                {openedNewReq && (
+                  <Box>
+                    <TextInput
+                      placeholder="Requirement"
+                      value={newReq}
+                      onChange={(e) => setNewReq(e.target.value)}
+                      rightSection={
+                        <Button onClick={(e) => handleNewRequirement(e)} variant="light" color="teal" className="right-section-btn">
+                          <PlusOutlined />
+                        </Button>
+                      }
+                    />
+                  </Box>
+                )}
+              </Grid.Col>
+            </Grid>
           </Grid.Col>
           <Grid.Col span={6}>
             <div style={{ marginTop: '16px' }}>
@@ -286,7 +365,7 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
                   <ActionIcon onClick={() => setFile()} className="actions-icon">
                     <IconEdit color="white" />
                   </ActionIcon>
-                  <Image src={file} alt="featured" />
+                  <Image src={file} style={{ width: '300px', height: 'auto', margin: '0 auto' }} />
                 </div>
               ) : (
                 <Dropzone
@@ -307,91 +386,22 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
               {fileError && <p style={{ color: 'red' }}>Featured file is required.</p>}
             </div>
           </Grid.Col>
-          <Grid.Col span={12}>
-            <Title sx={{ fontSize: '14px !important', fontWeight: '500', marginTop: '10px' }}>
-              Gig Requirements{' '}
-              <Tooltip title="New Requirement">
-                <IconButton onClick={() => setOpenNewReq(!openedNewReq)}>
-                  <PlusCircleOutlined />
-                </IconButton>
-              </Tooltip>
-            </Title>
-            {gig.requirements?.map((requirement, index) => {
-              if (editId && editId === requirement.requirementId) {
-                return (
-                  <Box key={requirement.requirementId}>
-                    <p>
-                      <TextInput
-                        value={editName}
-                        onChange={(e) => setEditName(e.target.value)}
-                        placeholder="Requirement"
-                        rightSection={
-                          <Button variant="light" color="teal" className="right-section-btn" onClick={() => handleEdit()}>
-                            <PlusOutlined />
-                          </Button>
-                        }
-                      />
-                    </p>
-                  </Box>
-                );
-              } else {
-                return (
-                  <Box key={requirement.requirementId}>
-                    <p>
-                      <Tooltip label="Edit">
-                        <IconButton
-                          className="edit-btn"
-                          onClick={() => {
-                            setEditId(requirement.requirementId);
-                            setEditName(requirement.requirement);
-                          }}
-                        >
-                          <EditOutlined />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip label="Delete">
-                        <IconButton
-                          className="delete-btn"
-                          onClick={() => {
-                            setDeleteId(requirement.requirementId);
-                            setOpenedDelete(true);
-                          }}
-                        >
-                          <DeleteOutlined />
-                        </IconButton>
-                      </Tooltip>
-                      {index + 1}
-                      {') '}
-                      {requirement.requirement}
-                    </p>
-                  </Box>
-                );
-              }
-            })}
-            {openedNewReq && (
-              <Box>
-                <TextInput
-                  placeholder="Requirement"
-                  value={newReq}
-                  onChange={(e) => setNewReq(e.target.value)}
-                  rightSection={
-                    <Button onClick={(e) => handleNewRequirement(e)} variant="light" color="teal" className="right-section-btn">
-                      <PlusOutlined />
-                    </Button>
-                  }
-                />
-              </Box>
-            )}
-          </Grid.Col>
+          <Grid.Col span={12}></Grid.Col>
         </Grid>
 
-        <Group position="right" mt="md">
-          <Button color="gray" onClick={() => setOpened(false)} loading={isLoading}>
-            Cancel
-          </Button>
-          <Button type="submit" loading={isLoading}>
-            Save
-          </Button>
+        <Group position="right" mt="xs" mr="md">
+          <Grid>
+            <Grid.Col span={6}>
+              <Button color="gray" onClick={() => setOpened(false)} loading={isLoading}>
+                Cancel
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Button type="submit" loading={isLoading}>
+                Save
+              </Button>
+            </Grid.Col>
+          </Grid>
         </Group>
       </Box>
 

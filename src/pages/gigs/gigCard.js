@@ -22,8 +22,8 @@ const GigCard = ({ gig, refetch, handleEdit, share, userId}) => {
       showNotification({
         id: 'load-data',
         color: 'red',
-        title: 'Gig Deleted!',
-        message: 'Your gig was deleted succesfully, you can close this notification',
+        title: 'Proposal Deleted!',
+        message: 'Your proposal was deleted succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
       });
@@ -53,8 +53,8 @@ const GigCard = ({ gig, refetch, handleEdit, share, userId}) => {
       showNotification({
         id: 'load-data',
         color: 'teal',
-        title: 'Gig Published!',
-        message: 'Congratulation!, your gig was published succesfully, you can close this notification',
+        title: 'Proposal Published!',
+        message: 'Congratulation!, your proposal was published succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
       });
@@ -68,8 +68,8 @@ const GigCard = ({ gig, refetch, handleEdit, share, userId}) => {
       showNotification({
         id: 'load-data',
         color: 'blue',
-        title: 'Gig Unpublished!',
-        message: 'Your gig was unpublished succesfully, you can close this notification',
+        title: 'Proposal Unpublished!',
+        message: 'Your proposal was unpublished succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
       });
@@ -95,7 +95,7 @@ const GigCard = ({ gig, refetch, handleEdit, share, userId}) => {
             </Text>
           </div>
           <Grid>
-            <Grid.Col span={6}>
+            <Grid.Col span={4}>
               {share ? (
                 <Anchor href={`/browse/gig/${gig.gigId}`} target="_blank" underline={false}>
                   <Button className="green-btn" mt="md" radius="md" fullWidth loading={loadingPublish}>
@@ -103,31 +103,36 @@ const GigCard = ({ gig, refetch, handleEdit, share, userId}) => {
                   </Button>
                 </Anchor>
               ) : (
-                <Tooltip label="In order to view, the gig needs to be published" color="red" position="top-start" withArrow>
+                <Tooltip label="In order to view, the proposal needs to be published" color="red" position="top-start" withArrow>
                   <Button className="green-btn" mt="md" radius="md" fullWidth>
                     View
                   </Button>
                 </Tooltip>
               )}
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={4}>
+              <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleEdit(gig)}>
+                Edit
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={4}>
               {share ? (
                 <CopyButton value={`${window.location.origin}/browse/gig/${gig.gigId}`}>
                   {({ copied, copy }) => (
                     <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={copy}>
-                      {copied ? 'Copied URL' : 'Share URL'}
+                      {copied ? 'Copied URL' : 'Share'}
                     </Button>
                   )}
                 </CopyButton>
               ) : (
-                <Tooltip label="In order to share, the gig needs to be published" color="red" position="top-end" withArrow>
+                <Tooltip label="In order to share, the proposal needs to be published" color="red" position="top-end" withArrow>
                   <Button color={'gray'} variant="light" mt="md" radius="md" fullWidth>
-                    Share URL
+                    Share
                   </Button>
                 </Tooltip>
               )}
             </Grid.Col>
-            <Grid.Col span={4}>
+            <Grid.Col span={6}>
               <Button
                 className="red-btn"
                 mt="md"
@@ -139,12 +144,7 @@ const GigCard = ({ gig, refetch, handleEdit, share, userId}) => {
                 {gig.published ? 'Unpublish' : 'Publish'}
               </Button>
             </Grid.Col>
-            <Grid.Col span={4}>
-              <Button className="blue-btn" mt="md" radius="md" fullWidth onClick={() => handleEdit(gig)}>
-                Edit
-              </Button>
-            </Grid.Col>
-            <Grid.Col span={4}>
+            <Grid.Col span={6}>
               <Button className="red-btn" mt="md" radius="md" fullWidth onClick={() => setOpenedDelete(true)}>
                 Delete
               </Button>
@@ -153,9 +153,9 @@ const GigCard = ({ gig, refetch, handleEdit, share, userId}) => {
         </Card>
       </Grid.Col>
 
-      <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete gig?" centered>
+      <Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} title="Delete proposal?" centered>
         <div>
-          <p>Are you sure you want to delete this gig? This is irreversible!</p>
+          <p>Are you sure you want to delete this proposal? This is irreversible!</p>
           <Grid>
             <Grid.Col span={6}>
               <Button

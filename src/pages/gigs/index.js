@@ -24,7 +24,7 @@ const Gigs = () => {
   const userId = user.id;
   const { data: gigs, isLoading, refetch } = useQuery(['gigs'], () => getWorkspaceGigs({ workspaceId }));
   if (isLoading) {
-    return <div>Loading Gigs...</div>;
+    return <div>Loading Proposals...</div>;
   }
 
   const publishedGigs = gigs.filter((gig) => gig.published);
@@ -39,7 +39,7 @@ const Gigs = () => {
     <>
       <Flex mih={50} gap="md" justify="flex-start" align="flex-start" direction="row" wrap="wrap">
         <Tooltip
-          label="Create a new gig "
+          label="Create a new proposal"
           position="right"
           transition="fade"
           style={{
@@ -52,18 +52,18 @@ const Gigs = () => {
           }}
         >
           <Button onClick={() => setOpened(true)} className="create-btn blue-btn" variant="light">
-            New Gig
+            New Proposal
           </Button>
         </Tooltip>
       </Flex>
-      <Title sx={{ marginBottom: '15px' }}>Published Gigs</Title>
+      <Title sx={{ marginBottom: '15px' }}>Published Proposals</Title>
       <Grid className="grid-area" sx={{ backgroundColor: theme.palette.background.paper }}>
         {publishedGigs.map((gig) => {
           return <GigCard key={gig.gigId} userId={userId} gig={gig} refetch={refetch} handleEdit={handleEdit} share />;
         })}
       </Grid>
 
-      <Title sx={{ marginBottom: '15px', marginTop: '15px' }}>Unpublished Gigs</Title>
+      <Title sx={{ marginBottom: '15px', marginTop: '15px' }}>Unpublished Proposals</Title>
       <Grid className="grid-area" sx={{ backgroundColor: theme.palette.background.paper }}>
         {unpublishedGigs.map((gig) => {
           return <GigCard key={gig.gigId} userId={userId} gig={gig} refetch={refetch} handleEdit={handleEdit} share={false} />;

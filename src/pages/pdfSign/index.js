@@ -175,22 +175,21 @@ function PdfSign({ file, setFile, setSigningPdf }) {
           <div>
             <div style={styles.controls}>
               {!signatureURL ? (
-                <Button mr={8} variant="light" onClick={() => setSignatureDialogVisible(true)}>
+                <Button mr={8} className="blue-btn" onClick={() => setSignatureDialogVisible(true)}>
                   Add Signature
                 </Button>
               ) : null}
 
-              <Button mr={8} variant="light" onClick={() => setTextInputVisible('date')}>
+              <Button mr={8} className="blue-btn" onClick={() => setTextInputVisible('date')}>
                 Add Date
               </Button>
-              <Button mr={8} variant="light" onClick={() => setTextInputVisible(true)}>
+              <Button mr={8} className="blue-btn" onClick={() => setTextInputVisible(true)}>
                 Add Text
               </Button>
               <div style={styles.spacer}></div>
               <Button
                 mr={8}
-                variant="light"
-                color="green"
+                className="green-btn"
                 onClick={() => {
                   setFile(pdf);
                   setSigningPdf(false);
@@ -201,7 +200,7 @@ function PdfSign({ file, setFile, setSigningPdf }) {
               </Button>
               <Button
                 mr={8}
-                variant="light"
+                className="green-btn"
                 color="green"
                 onClick={() => {
                   setTextInputVisible(false);
@@ -220,8 +219,7 @@ function PdfSign({ file, setFile, setSigningPdf }) {
               {pdf ? (
                 <Button
                   mr={8}
-                  variant="light"
-                  color="green"
+                  className="green-btn"
                   onClick={() => {
                     downloadURI(pdf, 'file.pdf');
                   }}

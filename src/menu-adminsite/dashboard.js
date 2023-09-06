@@ -21,14 +21,14 @@ const dashboard = {
       url: 'members'
     },
     {
-      id: 'App',
-      title: <FormattedMessage id="App" />,
+      id: 'Workspace',
+      title: <FormattedMessage id="Workspace" />,
       type: 'item',
       url: 'app'
     },
     {
       id: 'Security',
-      title: <FormattedMessage id="Security" />,
+      title: <FormattedMessage id="Privacy and Security" />,
       type: 'item',
       url: 'security'
     },
@@ -45,10 +45,10 @@ const dashboard = {
       url: 'billing'
     },
     {
-      id: 'Feedback',
+      id: 'Report-issue',
       title: <FormattedMessage id="Report Issue" />,
       type: 'item',
-      url: 'https://form.asana.com/?k=7Q_-OkfO7yubSeYa8EgONQ&d=1203786038465620'
+      url: 'report-issue'
     },
     {
       id: 'contactus',

@@ -6,6 +6,8 @@ import CommonLayout from 'layout/CommonLayout';
 import Loadable from 'components/Loadable';
 import LoginRoutes from './LoginRoutes';
 import MainRoutes from './MainRoutes';
+import CompanyProfileForm from 'components/workspace/CompanyProfileForm';
+
 // render - landing page
 const PagesLanding = Loadable(lazy(() => import('pages/landing')));
 const BrowseProducts = Loadable(lazy(() => import('pages/browse')));
@@ -57,6 +59,10 @@ export default function ThemeRoutes() {
             {
               path: 'personal',
               element: <UserTabPersonal />
+            },
+            {
+              path: 'company',
+              element: <CompanyProfileForm />
             }
           ]
         },

@@ -129,34 +129,34 @@ const ProductInfo = ({ gig }) => {
         
         </Stack> */}
       </Stack>
-      <Stack direction="row" padding={4} spacing={2.5}>
+      <Stack direction="row" justifyContent="center" padding={4} spacing={2.5}>
         <Button
-          fullWidth
+      
           sx={{
             backgroundColor: '#13502f',
             color: '#f1f1f1',
-            padding: '10px 30px',
+            padding: '10px 70px',
             '&:hover': {
               backgroundColor: '#0eba9b',
               color: '#f1f1f1',
               transition: '0.3s'
             }
           }}
-          size="medium"
+          size="large"
           disabled={isLoading}
           onClick={() => setOpened(true)}
         >
           {`I'm Interested`}
         </Button>
         <Button
-          fullWidth
-          size="medium"
+        
+          size="large"
           disabled={isLoading}
           onClick={() => setEmailOpened(true)}
           sx={{
             backgroundColor: '#13502f',
             color: '#f1f1f1',
-            padding: '10px 30px',
+            padding: '10px 70px',
             '&:hover': {
               backgroundColor: '#0eba9b',
               color: '#f1f1f1',

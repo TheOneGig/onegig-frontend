@@ -4,6 +4,7 @@ import { useMutation } from 'react-query';
 
 // material-ui
 import { Grid, Button, Modal, useMantineTheme, Box, Flex, NumberInput, Select, Table, Tooltip } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 
 // project import
 import MainCard from 'components/MainCard';
@@ -13,6 +14,7 @@ import { addTime } from 'hooks/projects';
 import { getWeekDates } from 'utils/getWeekDates';
 import moment from 'moment';
 import axios from 'axios';
+import TimeReport from './TimeReport';
 
 const TimesTable = () => {
   const theme = useMantineTheme();
@@ -35,6 +37,10 @@ const TimesTable = () => {
       // refetch();
     }
   });
+  const [showReport, setShowReport] = useState(false);
+  function handleGenerateReport() {
+    setShowReport(true);
+  }
 
   // function handleEdit({ timeId, date, hours }) {
   //   const variables = {
@@ -52,13 +58,36 @@ const TimesTable = () => {
   }
 
   function saveDates() {
+    const savePromises = [];
+
     Object.keys(times).forEach((projectId) => {
       Object.keys(times[projectId]).forEach((date) => {
         const hours = times[projectId][date].hours;
-        console.log('hours:', hours);
-        handleNew(projectId, new Date(date), hours);
+        savePromises.push(handleNew(projectId, new Date(date), hours));
       });
     });
+
+    Promise.all(savePromises)
+      .then(() => {
+        // Optional: You can add a success message or perform any other action after successful save.
+        console.log('Data saved successfully!');
+        showNotification({
+          title: 'Save Successful',
+          message: 'Time entries have been saved successfully!',
+          color: 'teal', // You can customize the color of the notification
+          autoClose: 3000 // Automatically close the notification after 3 seconds
+        });
+      })
+      .catch((error) => {
+        // Optional: You can handle errors here.
+        console.error('Error saving data:', error);
+        showNotification({
+          title: 'Save Failed',
+          message: 'An error occurred while saving data. Please try again later.',
+          color: 'red', // You can customize the color of the notification
+          autoClose: 3000 // Automatically close the notification after 3 seconds
+        });
+      });
   }
 
   function handleTime(projectId, date, hours) {
@@ -132,6 +161,7 @@ const TimesTable = () => {
 
   function changeWeek(weeks) {
     setDate(new Date(date.setDate(date.getDate() + 7 * weeks)));
+    setTimes({}); // Reset the times to an empty object when changing the week
   }
 
   return (
@@ -189,11 +219,15 @@ const TimesTable = () => {
           </Table>
         </ScrollX>
       </MainCard>
-      <Box sx={{ margin: '10px 0px', display: 'flex', justifyContent: 'end' }}>
+      <Box sx={{ gap: '10px', margin: '10px 0px', display: 'flex', justifyContent: 'end' }}>
         <Button variant="outline" color="cyan" onClick={() => saveDates()}>
           <span>Save</span>
         </Button>
+        <Button variant="outline" color="cyan" onClick={() => handleGenerateReport()}>
+          <span>Generate Report</span>
+        </Button>
       </Box>
+
       <Modal
         opened={openedNew}
         onClose={() => setOpenedNew(false)}
@@ -229,6 +263,7 @@ const TimesTable = () => {
           </Grid>
         </Box>
       </Modal>
+      {showReport && <TimeReport times={times} allProjects={allProjects} />}
     </>
   );
 };

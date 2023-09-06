@@ -126,7 +126,7 @@ const SingleTemplateCard = ({ template, refetch }) => {
           </>
         ) : (
           <>
-            <Button fullWidth mt={20} variant="light">
+            <Button fullWidth mt={20} className="blue-btn">
               <a href={template.fileUrl} style={{ textDecoration: 'none', color: 'inherit' }} target="_blank" rel="noopener noreferrer">
                 View PDF
               </a>
@@ -134,7 +134,7 @@ const SingleTemplateCard = ({ template, refetch }) => {
             <Button
               fullWidth
               mt={20}
-              variant="light"
+              className="blue-btn"
               onClick={() => {
                 handleEditClick();
                 handleModalClose();
@@ -145,8 +145,7 @@ const SingleTemplateCard = ({ template, refetch }) => {
             <Button
               fullWidth
               mt={20}
-              variant="light"
-              color="red"
+              className="red-btn"
               onClick={() => {
                 setDeleteSelected(true);
               }}

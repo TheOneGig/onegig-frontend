@@ -21,7 +21,7 @@ function ContactForm() {
               Sent a message to OneGig HQ
             </Typography>
             <Typography variant="caption" align="center" color="textSecondary" sx={{ maxWidth: '355px' }}>
-              The starting point for your next project based on easy-to-customize Material-UI © helps you build apps faster and better.
+            Every message is important to us, our users feedback helps us improve and deliver higher quality products.
             </Typography>
           </Stack>
         </Grid>

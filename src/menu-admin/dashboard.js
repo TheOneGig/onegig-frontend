@@ -49,7 +49,7 @@ const dashboard = {
     },
     {
       id: 'Gigs',
-      title: <FormattedMessage id="Gigs" />,
+      title: <FormattedMessage id="Gigs\" />,
       type: 'item',
       url: `/${workspaceId}/gigs`,
       icon: FolderViewOutlined

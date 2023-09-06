@@ -9,6 +9,7 @@ import Loadable from 'components/Loadable';
 import AuthGuard from 'utils/route-guard/AuthGuard';
 import ClientGuard from 'utils/route-guard/ClientGuard';
 
+
 // render - Real Pages
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 const Gigs = Loadable(lazy(() => import('pages/gigs')));
@@ -102,9 +103,15 @@ const MaintenanceUnderConstruction = Loadable(lazy(() => import('pages/maintenan
 const MaintenanceComingSoon = Loadable(lazy(() => import('pages/maintenance/coming-soon')));
 
 const AppContactUS = Loadable(lazy(() => import('pages/contact-us')));
+const AppReportIssue = Loadable(lazy(() => import('pages/report-issue')));
+
+
 
 //AdminSiteRoutes
-const Insights = Loadable(lazy(() => import('pages/adminSite/insights')));
+const AdminInsights = Loadable(lazy(() => import('pages/adminSite/insights/AdminInsights')));
+const CompanyProfileForm = Loadable(lazy(() => import('components/workspace/index')));
+const SecuritySettings = Loadable(lazy(() => import('pages/adminSite/Security')));
+
 
 //ClientPortalRoutes
 const ClientHome = Loadable(lazy(() => import('pages/clientPortal/home')));
@@ -504,7 +511,7 @@ const MainRoutes = {
       children: [
         {
           path: 'insights',
-          element: <Insights />
+          element: <AdminInsights />
         },
         {
           path: 'members',
@@ -516,7 +523,7 @@ const MainRoutes = {
         },
         {
           path: 'security',
-          element: <AccountTabSettings />
+          element: <SecuritySettings />
         },
         {
           path: 'billing',
@@ -527,12 +534,12 @@ const MainRoutes = {
           element: <AppContactUS />
         },
         {
-          path: 'feedback',
-          element: <Notes />
+          path: 'report-issue',
+          element: <AppReportIssue />
         },
         {
           path: 'app',
-          element: <AccountTabSettings />
+          element: <CompanyProfileForm />
         },
         {
           path: 'resources',
@@ -577,8 +584,8 @@ const MainRoutes = {
           element: <AppContactUS />
         },
         {
-          path: 'feedback',
-          element: <Notes />
+          path: 'report-issue',
+          element: <AppReportIssue />
         },
         {
           path: 'billing',
