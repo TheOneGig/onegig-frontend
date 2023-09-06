@@ -65,7 +65,7 @@ const ProfileTabs = ({ user }) => {
           <ContactSeller opened={opened} setOpened={setOpened} />
         </Grid>
         <Grid item sm={3} sx={{ display: { sm: 'block', md: 'none' } }} />
-        <Grid item xs={12} sm={6} md={12}>
+        {/* <Grid item xs={12} sm={6} md={12}>
           <Stack direction="row" justifyContent="space-around" alignItems="center">
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">{gigs.length}</Typography>
@@ -77,17 +77,17 @@ const ProfileTabs = ({ user }) => {
               <Typography>Active Projects</Typography>
             </Stack>
           </Stack>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <Typography sx={{ textAlign: 'justify' }}>{description}</Typography>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <CardHeader title="Skills" />
           <Divider sx={{ marginBottom: 2 }} />
           {skills.map((skill) => (
             <Chip key={skill.skillId} variant="combined" label={skill.skill} sx={{ color: '#f1f1f1', marginRight: 2, marginBottom: 2 }} />
           ))}
-        </Grid>
+        </Grid> */}
       </Grid>
     </MainCard>
   );
