@@ -114,20 +114,19 @@ const GigCreate = ({ opened, setOpened, refetch, userId }) => {
   return (
     <Drawer opened={opened} onClose={() => setOpened(false)} padding="xl" size="100%" position="right" sx={{ zIndex: 9999 }}>
       <Box component="form" onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-        <Title order={1}>New Gig</Title>
+        <Title order={1}>New Proposoal</Title>
 
         <Grid>
           <Grid.Col span={6}>
-            <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
+            <TextInput label="Project Title" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
 
             <Textarea
               label="Description"
-              placeholder="Brief description of this gig..."
+              placeholder="Brief description of this Proposal..."
               withAsterisk
               mt="md"
               {...form.getInputProps('description')}
             />
-
             <Grid>
               <Grid.Col span={6}>
                 <NumberInput

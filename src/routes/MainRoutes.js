@@ -8,6 +8,7 @@ import CommonLayout from 'layout/CommonLayout';
 import Loadable from 'components/Loadable';
 import AuthGuard from 'utils/route-guard/AuthGuard';
 
+
 // render - Real Pages
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 const Gigs = Loadable(lazy(() => import('pages/gigs')));
@@ -101,6 +102,9 @@ const MaintenanceUnderConstruction = Loadable(lazy(() => import('pages/maintenan
 const MaintenanceComingSoon = Loadable(lazy(() => import('pages/maintenance/coming-soon')));
 
 const AppContactUS = Loadable(lazy(() => import('pages/contact-us')));
+const AppReportIssue = Loadable(lazy(() => import('pages/report-issue')));
+
+
 
 //AdminSiteRoutes
 const AdminInsights = Loadable(lazy(() => import('pages/adminSite/insights/AdminInsights')));
@@ -525,8 +529,8 @@ const MainRoutes = {
           element: <AppContactUS />
         },
         {
-          path: 'feedback',
-          element: <Notes />
+          path: 'report-issue',
+          element: <AppReportIssue />
         },
         {
           path: 'app',
@@ -571,8 +575,8 @@ const MainRoutes = {
           element: <AppContactUS />
         },
         {
-          path: 'feedback',
-          element: <Notes />
+          path: 'report-issue',
+          element: <AppReportIssue />
         },
         {
           path: 'billing',

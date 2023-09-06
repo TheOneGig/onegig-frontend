@@ -46,10 +46,10 @@ const dashboard = {
       url: 'billing'
     },
     {
-      id: 'Feedback',
-      title: <FormattedMessage id="Report a Bug" />,
+      id: 'Report-issue',
+      title: <FormattedMessage id="Report Issue" />,
       type: 'item',
-      url: 'https://form.asana.com/?k=7Q_-OkfO7yubSeYa8EgONQ&d=1203786038465620'
+      url: 'report-issue'
     },
     {
       id: 'contactus',

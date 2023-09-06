@@ -31,7 +31,7 @@ const dashboard = {
     },
     {
       id: 'Gigs',
-      title: <FormattedMessage id="Gigs" />,
+      title: <FormattedMessage id="Gigs\" />,
       type: 'item',
       url: '/gigs',
       icon: FolderViewOutlined

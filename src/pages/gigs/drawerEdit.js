@@ -188,7 +188,7 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
   return (
     <Drawer opened={opened} onClose={() => setOpened(false)} size="100%" position="right" width="100%" sx={{ zIndex: 9999 }}>
       <Box component="form" onSubmit={form.onSubmit((values) => handleSubmit(values))} sx={{ height: '570px', overflowY: 'auto' }}>
-        <Title order={1}>Edit Gig</Title>
+        <Title order={1}>Edit Proposal</Title>
 
         <Grid>
           <Grid.Col span={6}>
@@ -272,7 +272,7 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
               </Grid.Col>
               <Grid.Col span={6}>
                 <Title sx={{ fontSize: '14px !important', fontWeight: '500', mt: '3px' }}>
-                  Gig Requirements{' '}
+                  Proposal Requirements{' '}
                   <Tooltip title="New Requirement">
                     <IconButton onClick={() => setOpenNewReq(!openedNewReq)}>
                       <PlusCircleOutlined />

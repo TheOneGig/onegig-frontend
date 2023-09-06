@@ -23,7 +23,7 @@ const ProfileTabs = ({ user }) => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Stack spacing={2.5} alignItems="center">
-            <Avatar alt="Avatar 1" src={avatar ? avatar.fileUrl : avatar1} sx={{ width: 124, height: 124, border: '1px dashed' }} />
+            <Avatar alt="Avatar 1" src={avatar ? avatar.fileUrl : avatar1} sx={{ width: 124, height: 124, border: '2px solid' }} />
             <TextField
               type="file"
               id="change-avtar"
@@ -42,16 +42,16 @@ const ProfileTabs = ({ user }) => {
             </Stack>
           </Stack>
         </Grid>
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12} sm={12} >
+         <Stack alignItems="center" justifyContent="center">
           <Button
-            fullWidth
             variant="outline"
             size="large"
             sx={{
               backgroundColor: '#13502f',
               color: '#f1f1f1',
               borderRadius: '50px',
-              padding: '10px 30px',
+              padding: '10px 70px',
               '&:hover': {
                 backgroundColor: '#0eba9b',
                 transition: '0.3s'
@@ -61,14 +61,15 @@ const ProfileTabs = ({ user }) => {
           >
             <IconSend style={{ marginRight: 5 }} /> Contact Seller
           </Button>
+          </Stack>
           <ContactSeller opened={opened} setOpened={setOpened} />
         </Grid>
         <Grid item sm={3} sx={{ display: { sm: 'block', md: 'none' } }} />
-        <Grid item xs={12} sm={6} md={12}>
+        {/* <Grid item xs={12} sm={6} md={12}>
           <Stack direction="row" justifyContent="space-around" alignItems="center">
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">{gigs.length}</Typography>
-              <Typography>Gigs</Typography>
+              <Typography>Proposals</Typography>
             </Stack>
             <Divider orientation="vertical" flexItem />
             <Stack spacing={0.5} alignItems="center">
@@ -76,17 +77,17 @@ const ProfileTabs = ({ user }) => {
               <Typography>Active Projects</Typography>
             </Stack>
           </Stack>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <Typography sx={{ textAlign: 'justify' }}>{description}</Typography>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <CardHeader title="Skills" />
           <Divider sx={{ marginBottom: 2 }} />
           {skills.map((skill) => (
             <Chip key={skill.skillId} variant="combined" label={skill.skill} sx={{ color: '#f1f1f1', marginRight: 2, marginBottom: 2 }} />
           ))}
-        </Grid>
+        </Grid> */}
       </Grid>
     </MainCard>
   );

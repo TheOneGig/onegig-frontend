@@ -46,8 +46,8 @@ const dashboard = {
       icon: UsergroupAddOutlined
     },
     {
-      id: 'Gigs',
-      title: <FormattedMessage id="Gigs" />,
+      id: 'Proposals',
+      title: <FormattedMessage id="Proposals" />,
       type: 'item',
       url: '/gigs',
       icon: FolderViewOutlined
