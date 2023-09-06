@@ -103,7 +103,9 @@ const MaintenanceComingSoon = Loadable(lazy(() => import('pages/maintenance/comi
 const AppContactUS = Loadable(lazy(() => import('pages/contact-us')));
 
 //AdminSiteRoutes
-const Insights = Loadable(lazy(() => import('pages/adminSite/insights')));
+const AdminInsights = Loadable(lazy(() => import('pages/adminSite/insights/AdminInsights')));
+const CompanyProfileForm = Loadable(lazy(() => import('components/workspace/index')));
+
 
 //ClientPortalRoutes
 const ClientHome = Loadable(lazy(() => import('pages/clientPortal/home')));
@@ -499,7 +501,7 @@ const MainRoutes = {
       children: [
         {
           path: 'insights',
-          element: <Insights />
+          element: <AdminInsights />
         },
         {
           path: 'members',
@@ -527,7 +529,7 @@ const MainRoutes = {
         },
         {
           path: 'app',
-          element: <AccountTabSettings />
+          element: <CompanyProfileForm />
         },
         {
           path: 'resources',

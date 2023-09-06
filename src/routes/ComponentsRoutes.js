@@ -4,6 +4,7 @@ import { lazy } from 'react';
 import CommonLayout from 'layout/CommonLayout';
 import Loadable from 'components/Loadable';
 
+
 // render - inputs components page
 const Autocomplete = Loadable(lazy(() => import('pages/components-overview/autocomplete')));
 const Buttons = Loadable(lazy(() => import('pages/components-overview/buttons')));

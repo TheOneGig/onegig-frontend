@@ -21,8 +21,8 @@ const dashboard = {
       url: 'members'
     },
     {
-      id: 'App',
-      title: <FormattedMessage id="App" />,
+      id: 'Workspace',
+      title: <FormattedMessage id="Workspace" />,
       type: 'item',
       url: 'app'
     },
