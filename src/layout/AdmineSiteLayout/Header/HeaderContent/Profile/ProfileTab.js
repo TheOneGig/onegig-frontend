@@ -16,6 +16,7 @@ const ProfileTab = ({ handleLogout }) => {
   const history = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleListItemClick = (event, index) => {
+    console.log(event);
     setSelectedIndex(index);
     if (index === 1) {
       history('/profile/personal');

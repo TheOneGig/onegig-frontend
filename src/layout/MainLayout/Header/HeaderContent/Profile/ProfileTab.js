@@ -9,7 +9,7 @@ import { getUser } from 'hooks/users';
 import useWorkspace from 'hooks/useWorkspace';
 // assets
 import { LogoutOutlined, UserOutlined, WalletOutlined, ControlOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 
@@ -20,7 +20,8 @@ const ProfileTab = ({ handleLogout }) => {
   const { data: userInfo } = useQuery(['user'], () => getUser({ userId }));
   const history = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const handleListItemClick = (index) => {
+  const handleListItemClick = (event, index) => {
+    console.log(event);
     setSelectedIndex(index);
     if (index === 1) {
       history(`/${workspaceId}/profile/personal`);
