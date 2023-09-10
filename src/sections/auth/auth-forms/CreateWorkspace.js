@@ -56,8 +56,12 @@ const CreateWorkspaceForm = () => {
     const variables = {
       userId: userId,
       companyName: companyName,
-      fileUrl: icon
+      fileUrl: icon,
+      primaryColor: '#0eba9b' ,
+      secondaryColor: '#1dbeea'
     };
+    localStorage.setItem('primaryColor', variables.primaryColor);
+    localStorage.setItem('secondaryColor', variables.secondaryColor);
     return mutate({ variables });
   };
   const handleUpload = async (file) => {
@@ -81,6 +85,7 @@ const CreateWorkspaceForm = () => {
         .catch((err) => console.error(err));
     }
   };
+
 
   return (
     <>
@@ -126,7 +131,7 @@ const CreateWorkspaceForm = () => {
           </Grid>
           <Grid item xs={12}>
             <Stack justifyContent="center" alignItems="center">
-              <Button type="submit" fullWidth variant="contained" color="primary" disabled={isLoading}>
+              <Button type="submit" fullWidth variant="contained" color="primary" disabled={isLoading || !icon}>
                 Create Workspace
               </Button>
             </Stack>

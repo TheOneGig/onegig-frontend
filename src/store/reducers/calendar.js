@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {
+  getEvents as getEventsAPI,
+  createEvent as createEventAPI,
+  updateEvent as updateEventAPI,
+  deleteEvent as deleteEventAPI
+} from 'hooks/calendar';
 
-// project import
-import axios from 'utils/axios';
 import { dispatch } from 'store';
 
 const initialState = {
@@ -106,7 +110,7 @@ export function getEvents() {
   return async () => {
     dispatch(calendar.actions.loading());
     try {
-      const response = await axios.get('/api/calendar/events');
+      const response = await getEventsAPI();
       dispatch(calendar.actions.setEvents(response.data.events));
     } catch (error) {
       dispatch(calendar.actions.hasError(error));
@@ -118,7 +122,7 @@ export function createEvent(newEvent) {
   return async () => {
     dispatch(calendar.actions.loading());
     try {
-      const response = await axios.post('/api/calendar/events/add', newEvent);
+      const response = await createEventAPI({ variables: newEvent });
       dispatch(calendar.actions.createEvent(response.data.event));
     } catch (error) {
       dispatch(calendar.actions.hasError(error));
@@ -130,10 +134,7 @@ export function updateEvent(eventId, updateEvent) {
   return async () => {
     dispatch(calendar.actions.loading());
     try {
-      const response = await axios.post('/api/calendar/events/update', {
-        eventId,
-        update: updateEvent
-      });
+      const response = await updateEventAPI({ variables: { eventId, updateEvent } });
       dispatch(calendar.actions.updateEvent(response.data.event));
     } catch (error) {
       dispatch(calendar.actions.hasError(error));
@@ -145,7 +146,7 @@ export function deleteEvent(eventId) {
   return async () => {
     dispatch(calendar.actions.loading());
     try {
-      await axios.post('/api/calendar/events/delete', { eventId });
+      await deleteEventAPI({ variables: { eventId } });
       dispatch(calendar.actions.deleteEvent({ eventId }));
     } catch (error) {
       dispatch(calendar.actions.hasError(error));

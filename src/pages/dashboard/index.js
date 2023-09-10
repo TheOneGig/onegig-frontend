@@ -30,6 +30,7 @@ const DashboardDefault = () => {
   const { user } = useAuth();
   const { workspaceId } = useWorkspace();
   const { data: userInfo, isLoading } = useQuery(['getworkspace'], () => getWorkspace({ workspaceId }));
+  console.log(userInfo)
   if (isLoading) {
     return <div>Loading dashboard...</div>;
   }

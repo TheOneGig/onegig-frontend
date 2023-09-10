@@ -9,7 +9,7 @@ import ThemeOption from './theme';
 
 // ==============================|| DEFAULT THEME - PALETTE  ||============================== //
 
-const Palette = (mode, presetColor) => {
+const Palette = (mode, presetColor, themeColors) => {
   const colors = presetDarkPalettes;
 
   // Define colors for dark mode
@@ -60,7 +60,7 @@ const Palette = (mode, presetColor) => {
 
   colors.grey = [...greyPrimary, ...greyAscent, ...greyConstant];
 
-  const paletteColor = ThemeOption(colors, presetColor, mode);
+  const paletteColor = ThemeOption(colors, presetColor, mode, themeColors);
 
   return createTheme({
     palette: {

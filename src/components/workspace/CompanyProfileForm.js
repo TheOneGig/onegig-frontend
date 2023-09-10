@@ -18,12 +18,15 @@ import MainCard from 'components/MainCard';
 
 // assets
 import { getWorkspace, updateWorkspace } from 'hooks/workspace';
+import { SketchPicker } from 'react-color'
 import useWorkspace from 'hooks/useWorkspace';
 import { CardMedia } from '@mui/material';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { uploadFile } from 'react-s3';
-import useAuth from 'hooks/useAuth';
+import useAuth from 'hooks/useAuth'; 
+import { useTheme } from '@mui/material/styles';
+
 
 function useInputRef() {
   return useOutletContext();
@@ -39,12 +42,14 @@ const config = {
 
 const CompanyProfile = () => {
   //const dispatch = useDispatch();
+  const theme = useTheme();
   const inputRef = useInputRef();
-
+  const [color1, setColor1] = useState(theme.palette.primary.main)
+  const [color2, setColor2] = useState(theme.palette.info.main)
   // Step 2: Add state to store profile picture URL
-  const [companyPicture, setCompanyPicture] = useState();
   const { user } = useAuth();
 
+  const [icon, setIcon] = useState(user?.workspaceId?.icon?.fileUrl);
   const { worskpaceId } = useWorkspace();
   const { data: companyInfo, isLoading, refetch } = useQuery(['workspace'], () => getWorkspace({ worskpaceId }));
   const { mutate } = useMutation(['updateWorkspace'], (variables) => updateWorkspace(variables), {
@@ -60,8 +65,8 @@ const CompanyProfile = () => {
       });
     }
   });
-
-  const iconUrl = user?.workspaceId?.icon?.fileUrl;
+  const companyName1 = user?.workspaceId?.companyName
+  const email1 = user?.email
 
   if (isLoading) {
     return <div>Loading Workspace...</div>;
@@ -73,6 +78,9 @@ const CompanyProfile = () => {
     description: ''
   };
 
+  console.log(companyName)
+  console.log(email)
+
   const handleSubmit = (values) => {
     const variables = {
       worskpaceId: worskpaceId,
@@ -80,8 +88,13 @@ const CompanyProfile = () => {
       email: values.email,
       phone: values.phone,
       description: values.description,
-      fileUrl: companyPicture
+      fileUrl: icon,
+      primaryColor: color1,
+      secondaryColor: color2
     };
+    console.log(variables)
+    localStorage.setItem('primaryColor', variables.primaryColor);
+    localStorage.setItem('secondaryColor', variables.secondaryColor);
     return mutate({ variables });
   };
   const handleUpload = async (file) => {
@@ -101,7 +114,7 @@ const CompanyProfile = () => {
         autoClose: 3000
       });
       uploadFile(file, config)
-        .then((data) => setCompanyPicture(data.location))
+        .then((data) => setIcon(data.location))
         .catch((err) => console.error(err));
     }
   };
@@ -112,14 +125,14 @@ const CompanyProfile = () => {
         htmlFor="profile-picture-input"
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '175px', cursor: 'pointer' }}
       >
-        <CardMedia component="img" sx={{ width: '150px', height: '150px', borderRadius: '50%' }} image={iconUrl} alt="Company Picture" />
+        <CardMedia component="img" sx={{ width: '150px', height: '150px', borderRadius: '50%' }} image={icon} alt="Company Picture" />
         {/* Step 5: Add an input of type "file" to trigger file upload */}
         <input id="profile-picture-input" type="file" hidden onChange={(e) => handleUpload(e.target.files?.[0])} accept="image/*" />
       </label>
       <Formik
         initialValues={{
-          companyName: companyName,
-          email: email ? email : '',
+          companyName: companyName1 ? companyName1: '',
+          email: email1 ? email1 : '',
           phone: phone ? phone : '',
           description: description ? description : '',
           submit: null
@@ -178,6 +191,7 @@ const CompanyProfile = () => {
                       type="email"
                       fullWidth
                       name="email"
+                      value={values.email}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       id="company-email"
@@ -216,6 +230,30 @@ const CompanyProfile = () => {
                 </Grid>
               </Grid>
             </Box>
+            <CardHeader title="Theme Colors" />
+            <Divider />
+            <Box sx={{ p: 1 }}>
+              <Stack direction="row" justifyContent="center" alignItems="center" spacing={6} sx={{ mt: 2.5 }}>
+                <Stack spacing={1.25}>
+                      <InputLabel htmlFor="primary">Primary Color:</InputLabel>
+                <SketchPicker
+                    width='300px'
+                    height='250px'
+                    color={color1}
+                    onChangeComplete={(color) => setColor1(color.hex)}
+                  />
+                </Stack>
+                <Stack spacing={1.25}>
+                      <InputLabel htmlFor="secondary">Secondary Color:</InputLabel>
+                  <SketchPicker
+                    width='300px'
+                    height='250px'
+                    color={color2}
+                    onChangeComplete={(color) => setColor2(color.hex)}
+                  />
+                </Stack>
+              </Stack>
+            </Box>
             <CardHeader title="Description" />
             <Divider />
             <Box sx={{ p: 2.5 }}>
@@ -236,7 +274,7 @@ const CompanyProfile = () => {
                 </FormHelperText>
               )}
               <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={2} sx={{ mt: 2.5 }}>
-                <Button disabled={isSubmitting || Object.keys(errors).length !== 0} type="submit" className="green-btn">
+                <Button disabled={isSubmitting} type="submit" className="green-btn">
                   Save
                 </Button>
               </Stack>

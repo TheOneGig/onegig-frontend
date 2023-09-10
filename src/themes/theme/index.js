@@ -13,14 +13,14 @@ import Theme8 from './theme8';
 
 // ==============================|| PRESET THEME - THEME SELECTOR ||============================== //
 
-const Theme = (colors, presetColor, mode) => {
+const Theme = (colors, presetColor, mode, themeColors) => {
   switch (presetColor) {
     case 'theme1':
       return Theme1(colors, mode);
     case 'theme2':
       return Theme2(colors, mode);
     case 'theme3':
-      return Theme3(colors, mode);
+      return Theme3(colors, mode, themeColors);
     case 'theme4':
       return Theme4(colors, mode);
     case 'theme5':

@@ -47,7 +47,7 @@ const sidebarItems = (workspaceId) => {
       },
       {
         id: 'Gigs',
-        title: <FormattedMessage id="Gigs\" />,
+        title: <FormattedMessage id="Proposals" />,
         type: 'item',
         url: `/${workspaceId}/gigs`,
         icon: FolderViewOutlined

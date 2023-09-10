@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo, createContext, useEffect } from 'react';
+import { useMemo, createContext, useEffect, useState } from 'react';
 
 // material-ui
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
@@ -21,7 +21,12 @@ export default function ThemeCustomization({ children, mode, toggleTheme, setMod
   const themeDirection = 'ltr';
   const presetColor = 'theme3';
 
-  const theme = useMemo(() => Palette(mode, presetColor), [mode, presetColor]);
+  const [themeColors, setThemeColors] = useState({
+    primary: localStorage.getItem('primaryColor') || '#0eba9b',
+    secondary: localStorage.getItem('secondaryColor') || '#1dbeea'
+  });
+  
+  const theme = useMemo(() => Palette(mode, presetColor, themeColors), [mode, presetColor, themeColors]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const themeTypography = useMemo(() => Typography(fontFamily), [fontFamily]);
@@ -67,6 +72,20 @@ export default function ThemeCustomization({ children, mode, toggleTheme, setMod
       window.removeEventListener('storage', handleStorageChange);
     };
   }, [setMode]);
+
+  useEffect(() => {
+    // Obtener colores desde localStorage al montar el componente
+    const localPrimary = localStorage.getItem('primaryColor');
+    const localSecondary = localStorage.getItem('primaryColor');
+    console.log("themeColors en useEffect:", themeColors);
+    if (localPrimary && localSecondary) {
+      setThemeColors({
+        primary: localPrimary,
+        secondary: localSecondary
+      });
+    }
+  }
+  , []);
 
   return (
     <StyledEngineProvider injectFirst>

@@ -1,6 +1,6 @@
 // ==============================|| PRESET THEME - Dark Green ||============================== //
 
-const Theme3 = (colors, mode) => {
+const Theme3 = (colors, mode, themeColors) => {
   const { grey } = colors;
   const greyColors = {
     0: grey[0],
@@ -44,7 +44,7 @@ const Theme3 = (colors, mode) => {
       200: primaryColors[2],
       light: primaryColors[3],
       400: primaryColors[4],
-      main: primaryColors[5],
+      main: themeColors.primary || primaryColors[5],
       dark: primaryColors[6],
       700: primaryColors[7],
       darker: primaryColors[8],
@@ -86,7 +86,7 @@ const Theme3 = (colors, mode) => {
     info: {
       lighter: infoColors[0],
       light: infoColors[1],
-      main: infoColors[2],
+      main: themeColors.secondary || infoColors[2],
       dark: infoColors[3],
       darker: infoColors[4],
       contrastText
@@ -94,7 +94,7 @@ const Theme3 = (colors, mode) => {
     success: {
       lighter: successColors[0],
       light: successColors[1],
-      main: successColors[2],
+      main:  successColors[2],
       dark: successColors[3],
       darker: successColors[4],
       contrastText

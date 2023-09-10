@@ -85,6 +85,7 @@
     "react-app-rewired": "^2.2.1",
     "react-beautiful-dnd": "^13.1.1",
     "react-chartjs-2": "^5.2.0",
+    "react-color": "^2.19.3",
     "react-compare-slider": "^2.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-device-detect": "^2.2.2",
