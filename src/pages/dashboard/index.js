@@ -126,7 +126,7 @@ const DashboardDefault = () => {
         <ReportCard
           primary={`${formatUSD(profit)}`}
           secondary="Expenses"
-          color={theme.palette.secondary.main}
+          color={theme.palette.info.main}
           iconPrimary={BarChartOutlined}
         />
       </Grid>

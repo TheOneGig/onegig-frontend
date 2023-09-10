@@ -20,7 +20,7 @@ const LogoMain = () => {
 
   return (
     <>
-      {iconUrl && <img src={iconUrl} alt="Workspace Icon" width="20%" style={{ marginRight: 10, borderRadius: '50%' }} />}
+      {iconUrl && <img src={iconUrl} alt="Workspace Icon" width="15%" style={{ marginRight: 5, borderRadius: '50%' }} />}
       {companyName && <h2>{companyName}</h2>}
     </>
   );
