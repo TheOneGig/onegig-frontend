@@ -86,7 +86,7 @@ const DashboardDefault = () => {
           primary="Profits"
           secondary={`${formatUSD(profit)}`}
           iconPrimary={RiseOutlined}
-          color="#0eba9b"
+          color={theme.palette.primary.main}
         />
       </Grid>
       <Grid item xs={12} lg={3} sm={6}>
@@ -104,7 +104,7 @@ const DashboardDefault = () => {
           primary="Pending Tasks"
           secondary={`${pendingTasks?.length}`}
           iconPrimary={UnorderedListOutlined}
-          color="#1dbeea"
+          color={theme.palette.info.main}
         />
       </Grid>
       <Grid item xs={12} lg={3} sm={6}>

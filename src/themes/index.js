@@ -76,7 +76,7 @@ export default function ThemeCustomization({ children, mode, toggleTheme, setMod
   useEffect(() => {
     // Obtener colores desde localStorage al montar el componente
     const localPrimary = localStorage.getItem('primaryColor');
-    const localSecondary = localStorage.getItem('primaryColor');
+    const localSecondary = localStorage.getItem('secondaryColor');
     console.log("themeColors en useEffect:", themeColors);
     if (localPrimary && localSecondary) {
       setThemeColors({
