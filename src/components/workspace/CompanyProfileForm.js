@@ -233,12 +233,12 @@ const CompanyProfile = () => {
             <CardHeader title="Theme Colors" />
             <Divider />
             <Box sx={{ p: 1 }}>
-              <Stack direction="row" justifyContent="center" alignItems="center" spacing={6} sx={{ mt: 2.5 }}>
+              <Stack direction="row" justifyContent="center" alignItems="center" spacing={8} sx={{ mt: 2.5 }}>
                 <Stack spacing={1.25}>
                       <InputLabel htmlFor="primary">Primary Color:</InputLabel>
                 <SketchPicker
                     width='300px'
-                    height='250px'
+                    height='220px'
                     color={color1}
                     onChangeComplete={(color) => setColor1(color.hex)}
                   />
@@ -274,7 +274,7 @@ const CompanyProfile = () => {
                 </FormHelperText>
               )}
               <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={2} sx={{ mt: 2.5 }}>
-                <Button disabled={isSubmitting} type="submit" className="green-btn">
+                <Button disabled={isSubmitting} type="submit" variant='contained'>
                   Save
                 </Button>
               </Stack>

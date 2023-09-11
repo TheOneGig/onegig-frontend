@@ -76,6 +76,8 @@ const DashboardDefault = () => {
     }
   });
 
+  console.log(transactions)
+
   const profit = parseFloat(totalRevenue - totalExpenses).toFixed(2);
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>

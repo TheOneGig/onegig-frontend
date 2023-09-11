@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '@mantine/core';
+import { Button } from '@mui/material';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
@@ -34,21 +34,22 @@ const Chart = ({ expenses, revenue }) => {
           <YAxis stroke={theme.palette.text.primary} tickCount={8} />
           <Tooltip content={<CustomTooltip />} />
           <Legend verticalAlign="top" height={36} />
-          <Area type="monotone" dataKey="expenses" activeDot={{ r: 5 }} stroke="#e76161" fill="#e76161" fillOpacity={0.3} />
-          <Area type="monotone" dataKey="revenue" activeDot={{ r: 5 }} stroke="#0eba9b" fill="#0eba9b" fillOpacity={0.1} />
+          <Area type="monotone" dataKey="expenses" activeDot={{ r: 5 }} stroke={theme.palette.info.main} fill={theme.palette.info.main} fillOpacity={0.3} />
+          <Area type="monotone" dataKey="revenue" activeDot={{ r: 5 }} stroke={theme.palette.primary.main} fill={theme.palette.primary.main} fillOpacity={0.1} />
         </AreaChart>
       </ResponsiveContainer>
       <div style={{ display: 'flex', marginTop: 10, justifyContent: 'center' }}>
-        <Button variant="outline" disabled={visibleRange[0] === 0} h={26} mr={30} color="teal" onClick={() => shiftData(-6)}>
+        <Button variant="contained" disabled={visibleRange[0] === 0} style={{ height: 26, marginRight: 30}}  onClick={() => shiftData(-6)}>
           {'<'}
         </Button>
-        <Button variant="outline" disabled={visibleRange[1] === 12} h={26} color="teal" onClick={() => shiftData(6)}>
+        <Button variant="contained" disabled={visibleRange[1] === 12} style={{ height: 26, marginRight: 30}}  onClick={() => shiftData(6)}>
           {'>'}
         </Button>
       </div>
     </div>
   );
 };
+
 
 Chart.propTypes = {
   expenses: PropTypes.array.isRequired,

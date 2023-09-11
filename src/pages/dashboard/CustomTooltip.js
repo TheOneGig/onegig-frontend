@@ -19,7 +19,7 @@ const CustomTooltip = ({ active, payload, label }) => {
         <p style={{ margin: 0, lineHeight: 2, textTransform: 'uppercase', fontWeight: 600 }}>{label}</p>
         {payload.map((item, index) => (
           <p
-            style={{ margin: 0, lineHeight: 1.5, color: item.name === 'revenue' ? '#54b79c' : '#e36161' }}
+            style={{ margin: 0, lineHeight: 1.5, color: item.name === 'revenue' ? theme.palette.primary.main : theme.palette.info.main }}
             key={index}
           >{`${item.name}: $${item.value}`}</p>
         ))}
