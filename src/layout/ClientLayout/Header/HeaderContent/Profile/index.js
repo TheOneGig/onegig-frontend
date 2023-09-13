@@ -18,8 +18,6 @@ import ProfileTab from './ProfileTab';
 // assets
 import avatar1 from 'assets/images/users/avatar-1.png';
 import { LogoutOutlined } from '@ant-design/icons';
-import { getClient } from 'hooks/clients';
-
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
   return (
@@ -41,10 +39,8 @@ const Profile = () => {
   const theme = useTheme();
   // const history = useNavigate();
 
-  const { logout } = useClientAuth();
-  const { clientId } = useClient();
-  console.log(clientId);
-  const { data: userInfo, isLoading } = useQuery(['client'], () => getClient({ clientId }));
+  const { client, logout } = useClientAuth();
+  console.log(client)
   const handleLogout = async () => {
     try {
       await logout();
@@ -68,11 +64,6 @@ const Profile = () => {
   };
   const iconBackColorOpen = theme.palette.mode === 'dark' ? 'grey.200' : 'grey.300';
 
-  if (isLoading) {
-    return <div>Loading user info...</div>;
-  }
-  const { firsName, lastName, nickname, email, avatar } = userInfo;
-  const fullName = nickname ? nickname : firsName ? `${firsName} ${lastName}` : email;
 
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
@@ -94,8 +85,8 @@ const Profile = () => {
         onClick={handleToggle}
       >
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
-          <Avatar alt="profile user" src={avatar ? avatar.fileUrl : avatar1} size="xs" />
-          <Typography variant="subtitle1">{fullName}</Typography>
+          <Avatar alt="profile user" src={avatar1} size="xs" />
+          <Typography variant="subtitle1">{client.firstName + " " + client.lastName}</Typography>
         </Stack>
       </ButtonBase>
       <Popper
@@ -136,9 +127,9 @@ const Profile = () => {
                       <Grid container justifyContent="space-between" alignItems="center">
                         <Grid item>
                           <Stack direction="row" spacing={1.25} alignItems="center">
-                            <Avatar alt="profile user" src={avatar ? avatar.fileUrl : avatar1} sx={{ width: 32, height: 32 }} />
+                            <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                             <Stack>
-                              <Typography variant="h6">{fullName}</Typography>
+                              <Typography variant="h6">{client.firstName + " " + client.lastName}</Typography>
                             </Stack>
                           </Stack>
                         </Grid>

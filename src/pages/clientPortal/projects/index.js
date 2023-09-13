@@ -3,13 +3,13 @@ import { useQuery } from 'react-query';
 import { Flex, Grid, Title } from '@mantine/core';
 
 import ProjectCard from './projectCard';
-import useClientAuth from 'hooks/useClientAuth';
+import useClient from 'hooks/useClient';
 import { getClientProjects } from 'hooks/projects';
 
 // ==============================|| GIGS ||============================== //
 
 const Projects = () => {
-  const { clientId } = useClientAuth();
+  const { clientId } = useClient();
   const { data: projects, isLoading, refetch } = useQuery(['projects'], () => getClientProjects({ clientId }));
   if (isLoading) {
     return <div>Loading Projects...</div>;
