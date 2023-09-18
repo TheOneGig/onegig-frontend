@@ -14,7 +14,7 @@ import NavCollapse from './NavCollapse';
 const NavGroup = ({ item }) => {
   const theme = useTheme();
   const menu = useSelector((state) => state.menu);
-  const { drawerOpen } = menu;
+  const { drawerOpen } = false;
 
   const navCollapse = item.children?.map((menuItem) => {
     switch (menuItem.type) {

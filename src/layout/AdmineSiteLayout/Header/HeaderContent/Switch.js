@@ -24,7 +24,7 @@ const ThemeSwitch = () => {
 
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
-      <div style={{ width: '60px', color: 'text.primary', bgcolor: 'background.default' }}>
+      <div style={{ width: '50px', color: 'text.primary', bgcolor: 'background.default' }}>
         <div className="toggle-switch">
           <label>
             <input type="checkbox" checked={switchState} onChange={handleThemeChange} />

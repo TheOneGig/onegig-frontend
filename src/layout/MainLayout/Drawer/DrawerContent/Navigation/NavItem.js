@@ -16,7 +16,8 @@ const NavItem = ({ item, level }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const menu = useSelector((state) => state.menu);
-  const { drawerOpen, openItem } = menu;
+  const { openItem } = menu;
+  const drawerOpen = false;
 
   let itemTarget = '_self';
   if (item.target) {

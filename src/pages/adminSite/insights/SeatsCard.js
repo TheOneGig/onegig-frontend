@@ -30,14 +30,14 @@ function SeatsCard() {
           }}
         >
           <Stack>
-            <Typography variant="h5" color="white">
+            <Typography variant="h5" color='text.primary' >
               Welcome to the Admin Site!
             </Typography>
-            <Typography variant="h6" color="white">
+            <Typography variant="h6" color='text.primary' >
               {' '}
               Here you will have all the tools to manage your workspace, your team and subscription.
             </Typography>
-            <Typography variant="h4" color="white" sx={{ pt: 8, pb: 1, zIndex: 1 }}>
+            <Typography variant="h4"color='text.primary' sx={{ pt: 8, pb: 1, zIndex: 1 }}>
               You have 100% of your team seats occupied.
             </Typography>
             <Box sx={{ maxWidth: '60%' }}>
@@ -53,8 +53,8 @@ function SeatsCard() {
             <Grid item xs={12}>
               <Stack sx={{ marginTop: '30px' }} direction="column" alignItems="center" spacing={6}>
                 <Typography variant="h1">Need to add more members for your team?</Typography>
-                <ActionIcon sx={{ width: '100%' }} color="green" variant={'contained'}>
-                  <Text>Upgrade Now</Text>
+                <ActionIcon sx={{ width: '80%' }} color="green" variant={'contained'}>
+                  <Typography  >Upgrade Now</Typography>
                 </ActionIcon>
               </Stack>
             </Grid>

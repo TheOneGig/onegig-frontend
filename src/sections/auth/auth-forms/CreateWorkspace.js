@@ -91,6 +91,11 @@ const CreateWorkspaceForm = () => {
     <>
       <form onSubmit={handleSave}>
         <Grid container spacing={3}>
+         <Grid item xs={12}>
+         <Typography variant="h5" >
+            Follow the steps below to create your company&apos;s workspace.
+          </Typography>
+          </Grid>
           <Grid item xs={12}>
             <TextField
               label="Company Name"

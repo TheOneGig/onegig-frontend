@@ -30,7 +30,8 @@ export const ClientProvider = ({ children }) => {
             email: email,
             firstName: clientdb.firstName,
             lastName: clientdb.lastName,
-            role: 'CLIENT'
+            role: 'CLIENT',
+            workspace: clientdb.workspace
           }
         };
         dispatch({

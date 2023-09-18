@@ -51,7 +51,7 @@ const NavCollapse = ({ menu, level }) => {
   const theme = useTheme();
 
   const menuState = useSelector((state) => state.menu);
-  const { drawerOpen } = menuState;
+  const { drawerOpen } = false;
 
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
@@ -132,7 +132,7 @@ const NavCollapse = ({ menu, level }) => {
           py: !drawerOpen && level === 1 ? 1.25 : 1,
           ...(drawerOpen && {
             '&:hover': {
-              bgcolor: theme.palette.mode === 'dark' ? 'divider' : 'primary.lighter'
+              bgcolor: theme.palette.mode === 'dark' ? 'divider' : 'divider'
             },
             '&.Mui-selected': {
               bgcolor: 'transparent',

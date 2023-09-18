@@ -8,6 +8,7 @@ import Profile from './Profile';
 import Notification from './Notification';
 import MobileSection from './MobileSection';
 import ThemeSwitch from './Switch';
+import News from './News'
 
 // ==============================|| HEADER - CONTENT ||============================== //
 
@@ -20,6 +21,7 @@ const HeaderContent = () => {
       {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
       <ThemeSwitch />
       <Notification />
+      <News />
       {/* <Message /> */}
       {!matchesXs && <Profile />}
       {matchesXs && <MobileSection />}

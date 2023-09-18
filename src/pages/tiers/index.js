@@ -37,34 +37,77 @@ const plans = [
   {
     active: true,
     icon: <StandardPlusLogo />,
-    title: 'Freelancer',
+    title: 'Starter',
     description:
       'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
-    monthly: 25,
+    monthly: '0',
     monthlyId: 'price_1MtrcaEyxV4PorziB0YtgAxt',
     // monthlyId: 'price_1MaANmEyxV4PorziCfkDUCDO',
-    tierMonthly: 'BASIC',
-    yearly: 250,
+    tierMonthly: 'FREE',
+    yearly: '0',
     yearlyId: 'price_1MtrcaEyxV4PorzijSUPUsox',
     // yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
-    tierYearly: 'BASICYEARLY',
-    permission: [0, 1, 2, 3, 4, 5, 6]
+    tierYearly: 'FREEYEARLY',
+    planList:[
+      'Unlimited Gigs', // 0
+      'Unlimited Projects', // 1
+      'Gig Sales Page', // 2
+      'Task Manager', // 3
+      'Requirements Management', // 4
+      'Handle Payments', // 5
+      'Meetings Manager' //6
+    ]
+   // permission: [0, 1, 2, 3, 4, 5, 6]
   },
   {
     active: true,
     icon: <StandardPlusLogo />,
-    title: 'Agency',
+    title: 'Basic',
     description:
       'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
-    monthly: 25,
+    monthly: 49,
+    monthlyId: 'price_1MtrcaEyxV4PorziB0YtgAxt',
+    // monthlyId: 'price_1MaANmEyxV4PorziCfkDUCDO',
+    tierMonthly: 'BASIC',
+    yearly: 588,
+    yearlyId: 'price_1MtrcaEyxV4PorzijSUPUsox',
+    // yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
+    tierYearly: 'BASICYEARLY',
+    planList:[
+      'Unlimited Gigs', // 0
+      'Unlimited Projects', // 1
+      'Gig Sales Page', // 2
+      'Task Manager', // 3
+      'Requirements Management', // 4
+      'Handle Payments', // 5
+      'Meetings Manager' //6
+    ]
+    //permission: [0, 1, 2, 3, 4, 5, 6]
+  },
+  {
+    active: true,
+    icon: <StandardPlusLogo />,
+    title: 'Advance',
+    description:
+      'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
+    monthly: 129,
     monthlyId: 'price_1MtrcaEyxV4PorziB0YtgAxt',
     // monthlyId: 'price_1MaANmEyxV4PorziCfkDUCDO',
     tierMonthly: 'ADVANCED',
-    yearly: 250,
+    yearly: 1548,
     yearlyId: 'price_1MtrcaEyxV4PorzijSUPUsox',
     // yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
     tierYearly: 'ADVANCEDYEARLY',
-    permission: [0, 1, 2, 3, 4, 5, 6]
+    planList:[
+      'Unlimited Gigs', // 0
+      'Unlimited Projects', // 1
+      'Gig Sales Page', // 2
+      'Task Manager', // 3
+      'Requirements Management', // 4
+      'Handle Payments', // 5
+      'Meetings Manager' //6
+    ]
+   // permission: [0, 1, 2, 3, 4, 5, 6]
   },
   {
     active: true,
@@ -72,15 +115,24 @@ const plans = [
     title: 'Enterprise',
     description:
       'Create one end product for a client, transfer that end product to your client, charge them for your services. The license is then transferred to the client.',
-    monthly: 25,
+    monthly: "1,999",
     monthlyId: 'price_1MtrcaEyxV4PorziB0YtgAxt',
     // monthlyId: 'price_1MaANmEyxV4PorziCfkDUCDO',
     tierMonthly: 'PREMIUM',
-    yearly: 250,
+    yearly: '23,988',
     yearlyId: 'price_1MtrcaEyxV4PorzijSUPUsox',
     // yearlyId: 'price_1MaANmEyxV4PorzifRvAYceV',
     tierYearly: 'PREMIUMYEARLY',
-    permission: [0, 1, 2, 3, 4, 5, 6]
+    planList:[
+      'Unlimited Gigs', // 0
+      'Unlimited Projects', // 1
+      'Gig Sales Page', // 2
+      'Task Manager', // 3
+      'Requirements Management', // 4
+      'Handle Payments', // 5
+      'Meetings Manager' //6
+    ]
+    //permission: [0, 1, 2, 3, 4, 5, 6]
   }
   // {
   //   active: false,
@@ -98,15 +150,6 @@ const plans = [
   // }
 ];
 
-const planList = [
-  'Unlimited Gigs', // 0
-  'Unlimited Projects', // 1
-  'Gig Sales Page', // 2
-  'Task Manager', // 3
-  'Requirements Management', // 4
-  'Handle Payments', // 5
-  'Meetings Manager' //6
-];
 
 const Pricing = () => {
   const theme = useTheme();
@@ -188,7 +231,7 @@ const Pricing = () => {
           </Grid>
           <Grid item container spacing={3} xs={12}>
             {plans.map((plan, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
+              <Grid item xs={12} sm={6} md={3} key={index}>
                 <MainCard sx={{ pt: 1.75 }}>
                   <Grid container spacing={3}>
                     <Grid item xs={12}>
@@ -235,9 +278,9 @@ const Pricing = () => {
                         }}
                         component="ul"
                       >
-                        {planList.map((list, i) => (
+                        {plan.planList.map((list, i) => (
                           <Fragment key={i}>
-                            <ListItem sx={!plan.permission.includes(i) ? priceListDisable : {}} divider>
+                            <ListItem divider>
                               <ListItemIcon>
                                 <CheckOutlined />
                               </ListItemIcon>

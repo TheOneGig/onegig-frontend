@@ -28,7 +28,7 @@ const Header = ({ open, handleDrawerToggle }) => {
   // common header
   const mainHeader = (
     <Toolbar sx={{ backgroundColor: theme.palette.background.default, borderBottom: `1px solid ${theme.palette.background.paper}` }}>
-      <IconButton
+      {/* <IconButton
         aria-label="open drawer"
         onClick={handleDrawerToggle}
         edge="start"
@@ -37,7 +37,7 @@ const Header = ({ open, handleDrawerToggle }) => {
         sx={{ color: 'text.primary', bgcolor: open ? iconBackColorOpen : iconBackColor, ml: { xs: 0, lg: -2 } }}
       >
         {!open ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </IconButton>
+      </IconButton> */}
       {headerContent}
     </Toolbar>
   );
