@@ -225,6 +225,14 @@ const MainRoutes = {
           element: <Contracts />
         },
         {
+          path: 'automation',
+          element: <FormsWizard />
+        },
+        // {
+        //   path: 'automation',
+        //   element: <ProfileUserList />
+        // },
+        {
           path: 'skills',
           element: <Skills />
         },

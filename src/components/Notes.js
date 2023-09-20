@@ -9,7 +9,8 @@ import MainCard from 'components/MainCard';
 import { EyeOutlined } from '@ant-design/icons';
 import IconButton from 'components/@extended/IconButton';
 
-import { Button, Textarea, Tooltip, Select } from '@mantine/core';
+import {  Textarea, Tooltip, Select } from '@mantine/core';
+import { Button } from '@mui/material'
 import { getProjects } from 'hooks/projects';
 import { showNotification } from '@mantine/notifications';
 import { useNavigate } from 'react-router';
@@ -85,7 +86,7 @@ const Notes = ({ userId, handleClose }) => {
             <Textarea minRows={5} autosize placeholder="Note" value={newNote} onChange={(e) => setNewNote(e.target.value)} />
           </Grid>
           <Grid item xs={12}>
-            <Button onClick={handleSubmit}>Add Note</Button>
+            <Button variant='contained' onClick={handleSubmit}>Add Note</Button>
           </Grid>
         </Grid>
       </CardContent>

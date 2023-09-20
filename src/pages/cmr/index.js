@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { Button, Tooltip, Flex } from '@mantine/core';
+import { Tooltip, Flex } from '@mantine/core';
+import { Button } from '@mui/material'
 import ClientCreate from './drawerCreate';
 import useAuth from 'hooks/useAuth';
 import { getClients } from 'hooks/clients';
@@ -34,7 +35,7 @@ const ClientTable = ({ striped }) => {
             transition: 0.3
           }}
         >
-          <Button onClick={() => setOpened(true)} className="create-btn blue-btn" variant="light">
+          <Button onClick={() => setOpened(true)}  variant="contained">
             New Client
           </Button>
         </Tooltip>

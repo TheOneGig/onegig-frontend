@@ -3,8 +3,9 @@ import { useMemo, useState, useEffect } from 'react';
 import { useMutation, useQuery } from 'react-query';
 
 // material-ui
-import { Grid, Button, Modal, useMantineTheme, TextInput, Title, Box, Flex, NumberInput, Select, Tooltip } from '@mantine/core';
+import { Grid, Modal, useMantineTheme, TextInput, Title, Box, Flex, NumberInput, Select, Tooltip } from '@mantine/core';
 import { useForm, hasLength, isInRange } from '@mantine/form';
+import { Button } from '@mui/material'
 
 // project import
 import MainCard from 'components/MainCard';
@@ -260,8 +261,8 @@ const TransactionsTable = ({ striped, title }) => {
               setTransaction();
               setOpenedNew(true);
             }}
-            className="create-btn blue-btn"
-            variant="light"
+            variant='contained'
+           
           >
             New Transaction
           </Button>

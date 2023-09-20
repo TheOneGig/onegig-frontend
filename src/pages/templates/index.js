@@ -1,5 +1,6 @@
 import React from 'react';
-import { Grid, Tooltip, Title, Box, Flex, Button } from '@mantine/core';
+import { Grid, Tooltip, Title, Box, Flex } from '@mantine/core';
+import { Button } from '@mui/material'
 import SingleTemplateCard from './templateCard';
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +38,7 @@ const TemplatesPage = () => {
             transition: 0.3
           }}
         >
-          <Button onClick={handleCreateNewTemplate} className="create-btn blue-btn" variant="light">
+          <Button onClick={handleCreateNewTemplate}  variant="contained">
             New Template
           </Button>
         </Tooltip>

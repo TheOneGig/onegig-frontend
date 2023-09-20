@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 // material-ui
-import { Flex, Button, Grid, Title, Tooltip } from '@mantine/core';
+import { Flex, Grid, Title, Tooltip } from '@mantine/core';
+import { Button } from '@mui/material'
 
 import { useTheme } from '@mui/material/styles';
 import useAuth from 'hooks/useAuth';
@@ -51,7 +52,7 @@ const Gigs = () => {
             transition: 0.3
           }}
         >
-          <Button onClick={() => setOpened(true)} className="create-btn blue-btn" variant="light">
+          <Button onClick={() => setOpened(true)}  variant="contained">
             New Proposal
           </Button>
         </Tooltip>

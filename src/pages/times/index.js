@@ -244,7 +244,7 @@ const TimesTable = () => {
             </Grid.Col>
             <Grid.Col span={6}>
               <Button
-                variant="light"
+              
                 color="default"
                 mt="md"
                 radius="md"
@@ -256,7 +256,7 @@ const TimesTable = () => {
               </Button>
             </Grid.Col>
             <Grid.Col span={6}>
-              <Button variant="light" color="green" mt="md" radius="md" fullWidth type="submit" onClick={(e) => handleNewProjectRow(e)}>
+              <Button  color="green" mt="md" radius="md" fullWidth type="submit" onClick={(e) => handleNewProjectRow(e)}>
                 Add
               </Button>
             </Grid.Col>

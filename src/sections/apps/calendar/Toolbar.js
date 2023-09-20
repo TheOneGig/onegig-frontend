@@ -56,7 +56,7 @@ const Toolbar = ({ date, view, onClickNext, onClickPrev, onClickToday, onChangeV
   return (
     <Grid alignItems="center" container justifyContent="space-between" spacing={matchDownSM ? 1 : 3} {...others} sx={{ pb: 3 }}>
       <Grid item>
-        <Button variant="outlined" onClick={onClickToday} size={matchDownSM ? 'small' : 'medium'}>
+        <Button variant="contained" onClick={onClickToday} size={matchDownSM ? 'small' : 'medium'}>
           Today
         </Button>
       </Grid>
