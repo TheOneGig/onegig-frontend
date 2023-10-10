@@ -52,15 +52,15 @@ const GigCreate = ({ opened, setOpened, refetch, userId, workspaceId }) => {
       showNotification({
         id: 'load-data',
         color: 'teal',
-        title: 'Gig Created!',
-        message: 'Congratulations! your gig was created succesfully, you can close this notification',
+        title: 'Proposal Created!',
+        message: 'Congratulations! your proposal was created succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
       });
       createNotificationMutation.mutate({
         variables: {
           userId: userId,
-          message: 'You have created a new gig!'
+          message: 'You have created a new proposal!'
         }
       });
       form.reset();

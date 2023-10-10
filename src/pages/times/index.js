@@ -15,6 +15,7 @@ import { getWeekDates } from 'utils/getWeekDates';
 import moment from 'moment';
 import axios from 'axios';
 import TimeReport from './TimeReport';
+import MyStopwatch from './TimeTracker';
 
 const TimesTable = () => {
   const theme = useMantineTheme();
@@ -198,6 +199,9 @@ const TimesTable = () => {
           <span>Today</span>
         </Button>
       </Box>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', /* additional styles */ }}>
+        <MyStopwatch />
+      </div>
       <MainCard content={false}>
         <ScrollX>
           <Table>
@@ -226,6 +230,7 @@ const TimesTable = () => {
         <Button variant="outline" color="cyan" onClick={() => handleGenerateReport()}>
           <span>Generate Report</span>
         </Button>
+        {showReport && <TimeReport times={times} allProjects={allProjects} />}
       </Box>
 
       <Modal
@@ -263,7 +268,6 @@ const TimesTable = () => {
           </Grid>
         </Box>
       </Modal>
-      {showReport && <TimeReport times={times} allProjects={allProjects} />}
     </>
   );
 };

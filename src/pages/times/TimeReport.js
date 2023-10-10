@@ -1,8 +1,36 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Notification } from '@mantine/core';
+import { Table, Button, Notification, Modal } from '@mantine/core';
+
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 const TimeReport = ({ times, allProjects }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const printRef = React.useRef();
+
+  const handledownloadPdf = async () => {
+    const element = printRef.current;
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL('image/png');
+
+    const pdf = new jsPDF();
+    const imgProperties = pdf.getImageProperties(data);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+    pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save('report.pdf');
+  };
+  //Open and close the modal
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   // State to store total hours per project
   const [totalHoursPerProject, setTotalHoursPerProject] = useState({});
   const [reportSent, setReportSent] = useState(false);
@@ -47,26 +75,37 @@ const TimeReport = ({ times, allProjects }) => {
         </div>
       ) : (
         <div>
-          <h2>Time Report - Total Hours Worked per Project</h2>
-          <Table>
-            <thead>
-              <tr>
-                <th>Project Name</th>
-                <th>Total Hours</th>
-              </tr>
-            </thead>
-            <tbody>
-              {allProjects.map((project) => (
-                <tr key={project.projectId}>
-                  <td>{project.name}</td>
-                  <td>{totalHoursPerProject[project.projectId] || 0}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          <Button onClick={handleSendReport} className="green-btn" style={{ marginTop: '16px' }}>
-            Send Report
+          {/* Step 4: Render the modal conditionally */}
+          <Button onClick={openModal} variant="outline" color="cyan">
+            View Report
           </Button>
+
+          {/* The Report */}
+          <Modal className="custom-modal" size="lg" opened={isModalOpen} onClose={closeModal}>
+            <p>Total Hours Worked per Project</p>
+            <Table ref={printRef} className="custom-table">
+              <thead>
+                <tr>
+                  <th>Project Name</th>
+                  <th>Total Hours</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allProjects.map((project) => (
+                  <tr key={project.projectId}>
+                    <td>{project.name}</td>
+                    <td>{totalHoursPerProject[project.projectId] || 0}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <Button sx={{ margin: '15px' }} mt="md" onClick={handleSendReport} variant="outline" color="cyan">
+              Send Report
+            </Button>
+            <Button sx={{ margin: '15px' }} mt="md" onClick={handledownloadPdf} variant="outline" color="cyan">
+              Export to PDF
+            </Button>
+          </Modal>
         </div>
       )}
     </div>

@@ -292,3 +292,30 @@ input:checked + .slider:before {
 .star-container input[type="radio"] {
   display: none;
 }
+
+/* Report CSS */
+.custom-modal  {
+  text-align: center;
+}
+
+.custom-modal p {
+  border: 1px solid #e2e2e2;
+  font-weight: bold;
+  padding: 12px;
+}
+
+.custom-table {
+  border: 1px solid #e2e2e2;
+  margin-bottom: 20px;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.custom-table th {
+  font-weight: bold;
+}
+

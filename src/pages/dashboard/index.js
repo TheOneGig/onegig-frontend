@@ -83,7 +83,7 @@ const DashboardDefault = () => {
         <HoverSocialCard
           pushUrl={'/finances'}
           primary="Profits"
-          secondary={`${formatUSD(profit)}`}
+          secondary={`${formatUSD(totalRevenue - totalExpenses)}`}
           iconPrimary={RiseOutlined}
           color="#0eba9b"
         />
@@ -123,7 +123,7 @@ const DashboardDefault = () => {
       </Grid>
       <Grid item xs={12} lg={3} sm={6}>
         <ReportCard
-          primary={`${formatUSD(profit)}`}
+          primary={`${formatUSD(totalExpenses)}`}
           secondary="Expenses"
           color={theme.palette.secondary.main}
           iconPrimary={BarChartOutlined}

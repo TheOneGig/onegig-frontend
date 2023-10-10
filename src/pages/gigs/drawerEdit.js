@@ -67,15 +67,15 @@ const GigEdit = ({ opened, setOpened, refetch, gigId, gigs }) => {
       showNotification({
         id: 'load-data',
         color: 'blue',
-        title: 'Gig Updated!',
-        message: 'Your gig was updated succesfully, you can close this notification',
+        title: 'Proposal Updated!',
+        message: 'Your proposal was updated succesfully, you can close this notification',
         icon: <IconCheck size="1rem" />,
         autoClose: 3000
       });
       createNotificationMutation.mutate({
         variables: {
           userId: userId,
-          message: 'A gig has been updated!'
+          message: 'A proposal has been updated!'
         }
       });
       form.reset();
