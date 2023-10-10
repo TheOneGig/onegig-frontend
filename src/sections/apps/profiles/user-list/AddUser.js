@@ -320,7 +320,7 @@ const AddUser = ({ user, onCancel }) => {
               </Grid>
               <Grid item>
                 <Stack direction="row" spacing={2} alignItems="center">
-                  <Button color="error" onClick={onCancel}>
+                  <Button color="error" variant="contained" onClick={onCancel}>
                     Cancel
                   </Button>
                   <Button type="submit" variant="contained" disabled={isSubmitting}>

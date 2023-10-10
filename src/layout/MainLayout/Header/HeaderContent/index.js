@@ -10,7 +10,8 @@ import MobileSection from './MobileSection';
 import ThemeSwitch from './Switch';
 import ToDo from './ToDo';
 import Notes from './Notes';
-import News from './News'
+import News from './News';
+
 // ==============================|| HEADER - CONTENT ||============================== //
 
 const HeaderContent = () => {

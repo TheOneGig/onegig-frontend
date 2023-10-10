@@ -244,7 +244,6 @@ const TimesTable = () => {
             </Grid.Col>
             <Grid.Col span={6}>
               <Button
-              
                 color="default"
                 mt="md"
                 radius="md"

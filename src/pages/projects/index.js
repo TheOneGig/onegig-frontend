@@ -34,7 +34,7 @@ const Projects = () => {
     setSelectedProject(project);
     setOpenedEdit(true);
   }
-
+console.log(projects)
   let leads = [];
   if (gigs && Array.isArray(gigs)) {
     gigs.map((gig) => gig.leads?.map((lead) => leads.push(lead)));

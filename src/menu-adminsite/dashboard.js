@@ -32,12 +32,12 @@ const dashboard = {
       type: 'item',
       url: 'security'
     },
-    // {
-    //   id: 'Resources',
-    //   title: <FormattedMessage id="Resources" />,
-    //   type: 'item',
-    //   url: 'resources'
-    // },
+    {
+      id: 'Integrations',
+      title: <FormattedMessage id="Integrations" />,
+      type: 'item',
+      url: 'integrations'
+    },
     {
       id: 'Billing',
       title: <FormattedMessage id="Billing" />,

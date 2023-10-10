@@ -13,6 +13,8 @@ const ContractsTable = ({ striped }) => {
     return <div>Loading Contracts...</div>;
   }
 
+  
+
   return (
     <>
       <Flex mb={20} gap="md" justify="center" align="flex-start" direction="column" wrap="wrap">

@@ -120,7 +120,7 @@ const CompanyProfile = () => {
   };
 
   return (
-    <MainCard content={false} title="Company Information" sx={{ '& .MuiInputLabel-root': { fontSize: '0.875rem' } }}>
+    <MainCard  content={false} title="Company Information" sx={{ '& .MuiInputLabel-root': { fontSize: '0.875rem' }, width: '90%', margin: '0 auto'}}>
       <label
         htmlFor="profile-picture-input"
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '175px', cursor: 'pointer' }}

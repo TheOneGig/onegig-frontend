@@ -8,7 +8,7 @@ import { useTheme } from '@mui/material/styles';
 import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 
 // project import
-import { activeItem } from 'store/reducers/menu';
+import { activeItem, setActiveGroup } from 'store/reducers/menu';
 
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 
@@ -17,7 +17,7 @@ const NavItem = ({ item, level }) => {
   const dispatch = useDispatch();
   const menu = useSelector((state) => state.menu);
   const { openItem } = menu;
-  const drawerOpen = true;
+  const drawerOpen = false;
 
   let itemTarget = '_self';
   if (item.target) {
@@ -65,6 +65,7 @@ const NavItem = ({ item, level }) => {
       {...listItemProps}
       disabled={item.disabled}
       selected={isSelected}
+      onMouseEnter={() => dispatch(setActiveGroup(item.id))}
       onClick={() => dispatch(activeItem({ openItem: [item.id] }))}
       sx={{
         zIndex: 1201,

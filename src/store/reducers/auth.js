@@ -5,6 +5,7 @@ export const initialState = {
   isLoggedIn: false,
   isClientLoggedIn: false,
   isInitialized: false,
+  isClientInitialized: true,
   user: null,
   client: null,
   workspaceId: null

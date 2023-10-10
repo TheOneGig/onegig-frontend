@@ -23,8 +23,8 @@ const config = {
 };
 // ==============================|| Contracts ||============================== //
 
-const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOptions, clients, workspaceId }) => {
-  const [selectedGig, setSelectedGig] = useState(null);
+const ContractCreate = ({ opened, setOpened, templates, userId, refetch, filteredProjects, clients, workspaceId }) => {
+  const [selectedProject, setSelectedProject] = useState(null);
   const [selectedClient, setSelectedClient] = useState(null);
   const [signingPdf, setSigningPdf] = useState(false);
   const [signedPdf, setSignedPdf] = useState(null);
@@ -39,7 +39,7 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
     onSuccess: () => {
       refetch();
       setOpened(false);
-      setSelectedGig(null);
+      setSelectedProject(null);
       setSigningPdf(false);
       setSignedPdf(false);
       setFileType('template');
@@ -94,7 +94,7 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
       const variables = {
         name: values.name,
         description: values.description,
-        gig: selectedGig,
+        project: selectedProject,
         status: values.status,
         clientId: selectedClient,
         userId,
@@ -125,12 +125,12 @@ const ContractCreate = ({ opened, setOpened, templates, userId, refetch, gigOpti
                 />
                 <Grid></Grid>
                 <Select
-                  label="Gig"
-                  placeholder="Pick a Gig"
-                  value={selectedGig}
+                  label="Project"
+                  placeholder="Select a Project"
+                  value={selectedProject}
                   withAsterisk
-                  onChange={(selectedOption) => setSelectedGig(selectedOption)}
-                  data={gigOptions.length ? gigOptions : [{ value: 'no-gigs', label: 'No Gigs Found' }]}
+                  onChange={(selectedOption) => setSelectedProject(selectedOption)}
+                  data={filteredProjects.length ? filteredProjects : [{ value: 'no-projects', label: 'No Project Found' }]}
                 />
 
                 <Tooltip label="Who will recieve the contract">

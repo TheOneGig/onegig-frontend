@@ -19,6 +19,7 @@ const Tasks = Loadable(lazy(() => import('pages/tasks')));
 const Chat = Loadable(lazy(() => import('pages/chat')));
 const Tiers = Loadable(lazy(() => import('pages/tiers')));
 const Transaction = Loadable(lazy(() => import('pages/transaction')));
+const Automations = Loadable(lazy(() => import('pages/automation')))
 //const ToDo = Loadable(lazy(() => import('pages/todo')));
 const Notes = Loadable(lazy(() => import('pages/notes')));
 
@@ -103,11 +104,12 @@ const MaintenanceComingSoon = Loadable(lazy(() => import('pages/maintenance/comi
 
 const AppContactUS = Loadable(lazy(() => import('pages/contact-us')));
 const AppReportIssue = Loadable(lazy(() => import('pages/report-issue')));
-
+const AppReferalClient = Loadable(lazy(() => import('pages/referal-client')))
 //AdminSiteRoutes
 const AdminInsights = Loadable(lazy(() => import('pages/adminSite/insights/AdminInsights')));
 const CompanyProfileForm = Loadable(lazy(() => import('components/workspace/index')));
 const SecuritySettings = Loadable(lazy(() => import('pages/adminSite/Security')));
+const Integrations = Loadable(lazy(() => import('pages/adminSite/integrations')));
 
 //ClientPortalRoutes
 const ClientHome = Loadable(lazy(() => import('pages/clientPortal/home')));
@@ -226,7 +228,7 @@ const MainRoutes = {
         },
         {
           path: 'automation',
-          element: <FormsWizard />
+          element: <Automations />
         },
         // {
         //   path: 'automation',
@@ -530,16 +532,24 @@ const MainRoutes = {
           element: <SecuritySettings />
         },
         {
+          path: 'report-issue',
+          element: <AppReportIssue />
+        },
+        {
           path: 'billing',
           element: <Tiers />
+        },
+        {
+          path: 'integrations',
+          element: <Integrations />
         },
         {
           path: 'contact-us',
           element: <AppContactUS />
         },
         {
-          path: 'report-issue',
-          element: <AppReportIssue />
+          path: 'referal-form',
+          element: <AppReferalClient />
         },
         {
           path: 'app',
@@ -590,6 +600,10 @@ const MainRoutes = {
         {
           path: 'report-issue',
           element: <AppReportIssue />
+        },
+        {
+          path: 'referal-form',
+          element: <AppReferalClient />
         },
         {
           path: 'billing',

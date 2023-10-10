@@ -88,7 +88,14 @@ const sidebarItems = (workspaceId) => {
         type: 'item',
         url: `/${workspaceId}/templates`,
         icon: DiffOutlined
-      }
+      },
+      {
+        id: 'Automation',
+        title: <FormattedMessage id="Automation" />,
+        type: 'item',
+        url: `/${workspaceId}/automation`,
+        icon: CommentOutlined
+      },
     ]
   };
   return dashboard;

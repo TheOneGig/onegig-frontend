@@ -111,8 +111,8 @@ const ContractTabs = ({ contractData, striped, refetch }) => {
         accessor: 'name'
       },
       {
-        Header: 'Gig',
-        accessor: 'gig'
+        Header: 'Project',
+        accessor: 'project'
       },
       {
         Header: 'Description',
